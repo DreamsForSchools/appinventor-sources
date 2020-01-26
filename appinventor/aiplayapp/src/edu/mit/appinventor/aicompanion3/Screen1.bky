@@ -65,7 +65,7 @@
             <mutation items="3"></mutation>
             <value name="ADD0">
               <block type="text" id="12">
-                <field name="TEXT">http://</field>
+                <field name="TEXT">https://</field>
               </block>
             </value>
             <value name="ADD1">
@@ -449,7 +449,7 @@
             </value>
             <value name="PIECE">
               <block type="text" id="59">
-                <field name="TEXT">http://</field>
+                <field name="TEXT">https://</field>
               </block>
             </value>
           </block>
@@ -720,7 +720,7 @@
         <field name="VAR">global rendezvousServer</field>
         <value name="VALUE">
           <block type="text" id="100">
-            <field name="TEXT">rendezvous.appinventor.mit.edu</field>
+            <field name="TEXT">rendezvous.appjam.org</field>
           </block>
         </value>
         <next>
@@ -1112,7 +1112,7 @@
     <field name="NAME">rendezvousServer</field>
     <value name="VALUE">
       <block type="text" id="165">
-        <field name="TEXT">rendezvous.appinventor.mit.edu</field>
+        <field name="TEXT">rendezvous.appjam.org</field>
       </block>
     </value>
   </block>

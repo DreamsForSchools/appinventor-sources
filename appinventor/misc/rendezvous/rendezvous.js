@@ -7,6 +7,7 @@ var exec = require('child_process').exec;
 // var sys = require('sys');
 var path = require('path');
 var requestHandler = http.IncomingMessage.prototype;
+process.EventEmitter = require('events').EventEmitter;
 var memcache = require('memcache');
 var mc = new memcache.Client();
 mc.connect();
@@ -210,4 +211,9 @@ var server = function(request, response) {
     }
 };
 
-http.createServer(server).listen(3000);
+var server = http.createServer(server).listen(3000);
+console.log("Server running on: 3000");
+server.on('error', function (e) {
+    // Handle your error here
+    console.log(e);
+});

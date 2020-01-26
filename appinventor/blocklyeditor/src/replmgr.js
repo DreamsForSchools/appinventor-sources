@@ -80,10 +80,10 @@ Blockly.ReplStateObj.prototype = {
     'count' : 0,                        // Count of number of reads from rendezvous server
     'didversioncheck' : false,
     'isUSB' : false,            // True if using a USB connection
-    'rendezvous2' : 'http://rendezvous.appinventor.mit.edu/rendezvous2/',
-    'iceservers' : { 'iceServers' : [ { 'urls' : ['turn:turn.appinventor.mit.edu:3478'],
-                                        'username' : 'oh',
-                                        'credential' : 'boy' }]}
+    'rendezvous2' : 'https://rendezvous.appjam.org/rendezvous2/',
+    'iceservers' : { 'iceServers' : [ { 'urls' : ['turn:34.94.57.90:3478'],
+                                        'username' : 'appjam',
+                                        'credential' : 'dreams4schoolspw' }]}
 };
 
 // Blockly is only loaded once now, so we can init this here.
@@ -1422,7 +1422,7 @@ Blockly.ReplMgr.getFromRendezvous = function() {
     var poller = function() {                                     // So "this" is correct when called
         context.rendPoll.call(context);                           // from setTimeout
     };
-    xmlhttp.open('GET', 'http://' + top.rendezvousServer + '/rendezvous/' + rs.rendezvouscode, true);
+    xmlhttp.open('GET', 'https://' + top.rendezvousServer + '/rendezvous/' + rs.rendezvouscode, true);
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && this.status == 200) {
             try {

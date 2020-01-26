@@ -239,9 +239,9 @@ public class WebRTCNativeMgr {
       /* Provide a default when the rendezvous server doesn't provide one */
       rendezvousResult = "{\"rendezvous2\" : \"" + YaVersion.RENDEZVOUS_SERVER + "\"," +
         "\"iceservers\" : " +
-        "[{ \"server\" : \"turn:turn.appinventor.mit.edu:3478\"," +
-        "\"username\" : \"oh\"," +
-        "\"password\" : \"boy\"}]}";
+        "[{ \"server\" : \"turn:34.94.57.90:3478\"," +
+        "\"username\" : \"appjam\"," +
+        "\"password\" : \"dreams4schoolspw\"}]}";
     }
     try {
       JSONObject resultJson = new JSONObject(rendezvousResult);
@@ -306,7 +306,7 @@ public class WebRTCNativeMgr {
         Log.d(LOG_TAG, "Poller: rendezvousServer2 = " + rendezvousServer2);
       }
       HttpClient client = new DefaultHttpClient();
-      HttpGet request = new HttpGet("http://" + rendezvousServer2 + "/rendezvous2/" + rCode + "-s");
+      HttpGet request = new HttpGet("https://" + rendezvousServer2 + "/rendezvous2/" + rCode + "-s");
       HttpResponse response = client.execute(request);
       StringBuilder sb = new StringBuilder();
 
@@ -445,7 +445,7 @@ public class WebRTCNativeMgr {
               data.put("apiversion", SdkLevel.getLevel());
             }
             HttpClient client = new DefaultHttpClient();
-            HttpPost post = new HttpPost("http://" + rendezvousServer2 + "/rendezvous2/");
+            HttpPost post = new HttpPost("https://" + rendezvousServer2 + "/rendezvous2/");
             try {
               if (DEBUG) {
                 Log.d(LOG_TAG, "About to send = " + data.toString());

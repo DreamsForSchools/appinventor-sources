@@ -45,7 +45,7 @@
 
     <!-- Set this to the IP Address or Host Name of the Rendezvous server.
          If left as the empty string, the default in YaVersion is used, which
-         should be rendezvous.appinventor.mit.edu. Note: You can specify both
+         should be rendezvous.appjam.org. Note: You can specify both
          a name and a port using a colon to separate them. For example you can
          use example.com:8888 to specify port 8888. Note: The rendezvous server
          is assumed to be a path "/rendezvous/" on the server. So specifying

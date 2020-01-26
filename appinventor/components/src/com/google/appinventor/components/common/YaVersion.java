@@ -1290,7 +1290,7 @@ public class YaVersion {
   public static final int PROXIMITYSENSOR_COMPONENT_VERSION = 1;
 
   // Rendezvous Server Location
-  public static final String RENDEZVOUS_SERVER = "rendezvous.appinventor.mit.edu";
+  public static final String RENDEZVOUS_SERVER = "rendezvous.appjam.org";
 
   // For BAROMETER_COMPONENT_VERSION 1:
   // - Initial version
