@@ -3,11 +3,11 @@ SHELL = /bin/sh
 
 init:
 	.circleci/gcloud-sdk.sh 
-	# cp sample-.gitignore .gitignore
-	# git submodule update --init
-	# cd appinventor
-	# ant MakeAuthKey
-	# ant
+	cp sample-.gitignore .gitignore
+	git submodule update --init
+	cd appinventor
+	ant MakeAuthKey
+	ant
 
 dev-mode:
 	cd appinventor
