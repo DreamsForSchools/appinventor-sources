@@ -2,7 +2,7 @@
 SHELL = /bin/sh
 
 init:
-	.circleci/gcloud-sdk.sh 
+	.circleci/install-deps.sh 
 	cp sample-.gitignore .gitignore
 	git submodule update --init
 	cd appinventor && ant MakeAuthKey && ant
