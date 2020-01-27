@@ -5,20 +5,17 @@ init:
 	.circleci/gcloud-sdk.sh 
 	cp sample-.gitignore .gitignore
 	git submodule update --init
-	cd appinventor
-	ant MakeAuthKey
-	ant
+	cd appinventor && ant MakeAuthKey && ant
+	find appinventor/appengine/build/war/ode -maxdepth 1 -iname "*.cache.js" -exec uglifyjs -o {} -- {} \;
 
 dev-mode:
-	cd appinventor
-	ant devmode
+	cd appinventor && ant devmode
 
 run-main:
 	/Users/dos/google-cloud-sdk/bin/java_dev_appserver.sh --port=8888 --address=0.0.0.0 appinventor/appengine/build/war/
 
 run-build-server:
-	cd appinventor/buildserver
-	ant RunLocalBuildServer
+	cd appinventor/buildserver && ant RunLocalBuildServer
 
 test:
 	ant tests
@@ -26,5 +23,5 @@ test:
 build-gae:
 	sudo apt-get install libc6:i386 zlib1g:i386 libstdc++6:i386
 
-test:
-	echo "Hello"
+deploy:
+	gcloud -q app deploy appinventor/appengine/build/war/WEB-INF/appengine-web.xml

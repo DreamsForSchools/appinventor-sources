@@ -6,7 +6,7 @@ GCLOUD_PROJECT=appjam-265500
 # expecting the install directly in the home directory
 GCLOUD=${HOME}/google-cloud-sdk/bin/gcloud
 
-# echo ${GCLOUD_SERVICE_KEY} | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
+echo ${GCLOUD_SERVICE_KEY} | base64 --decode > ${HOME}/gcloud-service-key.json
 
 if ${GCLOUD} version 2>&1 >> /dev/null; then
     echo "Cloud SDK is already installed"

@@ -1,13 +1,35 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
-version: 2.1
-# Use a package of configuration called an orb.
-orbs:
-  # Declare a dependency on the welcome-orb
-  welcome: circleci/welcome-orb@0.4.1
-# Orchestrate or schedule a set of jobs
-workflows:
-  # Name the workflow "welcome"
-  welcome:
-    # Run the welcome/run job in its own container
-    jobs:
-      - welcome/run
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      # checks out repo
+      - checkout
+
+      # restores cache (gcloud sdk)
+      - restore_cache:
+          keys:
+          - cloud-sdk-{{ checksum ".circleci/gcloud-sdk.sh" }}
+      # downloads and configures gcloud sdk
+      - run: 
+          name: Download and configure gcloud skd
+          command: /bin/bash .circleci/gcloud-sdk.sh
+      # saves cache (gcloud sdk installation)
+      - save_cache:
+          paths:
+            - ~/google-cloud-sdk
+          key: cloud-sdk-{{ checksum ".circleci/gcloud-sdk.sh" }}
+
+      # install dependencies
+      - run: 
+          name: Install dependencies
+          command: sudo apt-get install libc6:i386 zlib1g:i386 libstdc++6:i386
+      # installs submodule (blocky), creates AuthKey and builds binary
+      - run:
+          name: Install submodules, create AuthKey and build Binary
+          command: make init
+      # deploys to google app engine
+      - run:
+          name: Deploy to GAE
+          command: ~/google-cloud-sdk/bin/gcloud -q app deploy appinventor/appengine/build/war/WEB-INF/appengine-web.xml
