@@ -2,6 +2,7 @@
 SHELL = /bin/sh
 
 init:
+	echo ${JAVA_HOME}
 	.circleci/install-deps.sh 
 	cp sample-.gitignore .gitignore
 	git submodule update --init
