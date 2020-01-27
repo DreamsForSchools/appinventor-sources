@@ -23,3 +23,6 @@ fi
 
 ${GCLOUD} auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
 ${GCLOUD} config set project ${GCLOUD_PROJECT}
+
+# installs uglifyjs
+npm install uglify-js -g

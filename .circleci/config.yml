@@ -2,29 +2,26 @@ version: 2
 jobs:
   build:
     docker:
+      - image: circleci/node:latest
       - image: circleci/openjdk:8-jdk
     steps:
       # checks out repo
       - checkout
 
-      # restores cache (gcloud sdk)
+      # restores cache (gcloud sdk, uglifyjs)
       - restore_cache:
           keys:
-          - cloud-sdk-{{ checksum ".circleci/gcloud-sdk.sh" }}
-      # downloads and configures gcloud sdk
+          - deps-{{ checksum ".circleci/install-deps.sh" }}
+      # downloads and configures gcloud sdk. installs uglifyjs
       - run: 
-          name: Download and configure gcloud skd
-          command: /bin/bash .circleci/gcloud-sdk.sh
-      # saves cache (gcloud sdk installation)
+          name: Download and configure gcloud sdk, installs uglifyjs
+          command: /bin/bash .circleci/install-deps.sh
+      # saves cache (gcloud sdk, uglifyjs installation)
       - save_cache:
           paths:
             - ~/google-cloud-sdk
-          key: cloud-sdk-{{ checksum ".circleci/gcloud-sdk.sh" }}
+          key: deps-{{ checksum ".circleci/gcloud-sdk.sh" }}
 
-      # install dependencies
-      - run: 
-          name: Install dependencies
-          command: sudo apt-get install libc6:i386 zlib1g:i386 libstdc++6:i386
       # installs submodule (blocky), creates AuthKey and builds binary
       - run:
           name: Install submodules, create AuthKey and build Binary
