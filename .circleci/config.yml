@@ -10,10 +10,6 @@ executors:
 jobs:
   build:
     executor: node-jdk-executor
-    # only run on master
-    branches:
-        only:
-            - master
     environment:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
@@ -45,10 +41,6 @@ jobs:
               - appjam-ai
   deploy:
     executor: node-jdk-executor
-    # only run on master
-    branches:
-        only:
-            - master
     steps:
       # checks out workspace
       - attach_workspace:
@@ -75,6 +67,10 @@ workflows:
   version: 2
 
   build-and-deploy:
+    # only run on master
+    branches:
+        only:
+            - master
     jobs:
       - build
       - deploy:
