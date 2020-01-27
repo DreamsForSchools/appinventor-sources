@@ -65,12 +65,7 @@ jobs:
 
 workflows:
   version: 2
-  branches:
-    only:
-      - master
-
   build-and-deploy:
-    # only run on master
     jobs:
       - build
       - deploy:
