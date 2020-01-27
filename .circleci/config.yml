@@ -33,15 +33,13 @@ jobs:
           command: make init
 
       - persist_to_workspace:
-          root: .
-          # Must be relative path from root
-          paths:
-            - .
+            root: .
+            paths:
+              - .
   deploy:
     executor: node-jdk-executor
       - attach_workspace:
-        # Must be absolute path or relative path from working_directory
-          at: .
+          at: ~/appjam-ai
       # deploys to google app engine
       - run:
           name: Deploy to GAE
