@@ -40,9 +40,9 @@ jobs:
           command: make init
       # saves to workspace
       - persist_to_workspace:
-          root: .
+          root: ~
           paths:
-              - .
+              - appjam-ai
   deploy:
     executor: node-jdk-executor
     # only run on master
@@ -52,7 +52,7 @@ jobs:
     steps:
       # checks out workspace
       - attach_workspace:
-          at: .
+          at: ~/appjam-ai
       # restores cache (gcloud sdk, uglifyjs, ant, jdk)
       - restore_cache:
           keys:
