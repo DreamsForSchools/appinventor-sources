@@ -65,12 +65,12 @@ jobs:
 
 workflows:
   version: 2
+  branches:
+    only:
+      - master
 
   build-and-deploy:
     # only run on master
-    branches:
-        only:
-            - master
     jobs:
       - build
       - deploy:
