@@ -1,9 +1,15 @@
-version: 2
-jobs:
-  build:
+version: 2.1
+
+executors:
+  node-jdk-executor:
     docker:
       - image: circleci/node:latest
       - image: circleci/openjdk:8-jdk
+    working_directory: ~/appjam-ai
+
+jobs:
+  build:
+    executor: node-jdk-executor
     steps:
       # checks out repo
       - checkout
@@ -21,11 +27,21 @@ jobs:
           paths:
             - ~/google-cloud-sdk
           key: deps-{{ checksum ".circleci/gcloud-sdk.sh" }}
-
       # installs submodule (blocky), creates AuthKey and builds binary
       - run:
           name: Install submodules, create AuthKey and build Binary
           command: make init
+
+      - persist_to_workspace:
+          root: .
+          # Must be relative path from root
+          paths:
+            - .
+  deploy:
+    executor: node-jdk-executor
+      - attach_workspace:
+        # Must be absolute path or relative path from working_directory
+        at: .
       # deploys to google app engine
       - run:
           name: Deploy to GAE

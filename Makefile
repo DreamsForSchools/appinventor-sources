@@ -20,8 +20,5 @@ run-build-server:
 test:
 	ant tests
 
-build-gae:
-	sudo apt-get install libc6:i386 zlib1g:i386 libstdc++6:i386
-
 deploy:
 	gcloud -q app deploy appinventor/appengine/build/war/WEB-INF/appengine-web.xml
