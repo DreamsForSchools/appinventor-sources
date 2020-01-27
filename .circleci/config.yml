@@ -40,7 +40,7 @@ jobs:
           command: make init
       # saves to workspace
       - persist_to_workspace:
-          root: ~
+          root: ~/
           paths:
               - appjam-ai
   deploy:
