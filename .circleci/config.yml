@@ -13,7 +13,7 @@ jobs:
     # only run on master
     branches:
         only:
-          - master
+            - master
     environment:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
@@ -48,7 +48,7 @@ jobs:
     # only run on master
     branches:
         only:
-          - master
+            - master
     steps:
       # checks out workspace
       - attach_workspace:
