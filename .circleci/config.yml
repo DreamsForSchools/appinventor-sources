@@ -46,10 +46,19 @@ jobs:
       # checks out workspace
       - attach_workspace:
           at: ./appjam-ai
-      # restores cache (gcloud sdk, uglifyjs)
+      # restores cache (gcloud sdk, uglifyjs, ant, jdk)
       - restore_cache:
           keys:
           - deps-{{ checksum ".circleci/install-deps.sh" }}
+      # downloads and configures gcloud sdk. installs uglifyjs
+      - run: 
+          name: Download and configure gcloud sdk, installs uglifyjs
+          command: /bin/bash .circleci/install-deps.sh
+      # saves cache (gcloud sdk, uglifyjs installation)
+      - save_cache:
+          paths:
+            - ~/google-cloud-sdk
+          key: deps-{{ checksum ".circleci/install-deps.sh" }}
       # deploys to google app engine
       - run:
           name: Deploy to GAE
