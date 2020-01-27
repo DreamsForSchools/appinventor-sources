@@ -2,6 +2,7 @@
 SHELL = /bin/sh
 
 init:
+	export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
 	.circleci/install-deps.sh 
 	cp sample-.gitignore .gitignore
 	git submodule update --init
