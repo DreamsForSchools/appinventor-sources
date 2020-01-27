@@ -2,10 +2,11 @@
 SHELL = /bin/sh
 
 init:
-	.circleci/install-deps.sh 
+	# .circleci/install-deps.sh 
 	cp sample-.gitignore .gitignore
 	git submodule update --init
 	cd appinventor && ant MakeAuthKey && ant
+	# minify large .js file
 	find appinventor/appengine/build/war/ode -maxdepth 1 -iname "*.cache.js" -exec uglifyjs -o {} -- {} \;
 
 dev-mode:
