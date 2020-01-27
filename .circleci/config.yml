@@ -10,6 +10,10 @@ executors:
 jobs:
   build:
     executor: node-jdk-executor
+    # only run on master
+    branches:
+        only:
+          - master
     environment:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
@@ -34,18 +38,21 @@ jobs:
       - run:
           name: Install submodules, create AuthKey and build Binary
           command: make init
-
       # saves to workspace
       - persist_to_workspace:
-          root: ./
+          root: .
           paths:
-              - ./
+              - .
   deploy:
     executor: node-jdk-executor
+    # only run on master
+    branches:
+        only:
+          - master
     steps:
       # checks out workspace
       - attach_workspace:
-          at: ./appjam-ai
+          at: .
       # restores cache (gcloud sdk, uglifyjs, ant, jdk)
       - restore_cache:
           keys:
