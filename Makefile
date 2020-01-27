@@ -7,7 +7,7 @@ init:
 	git submodule update --init
 	cd appinventor && ant MakeAuthKey && ant
 	# minify large .js file
-	find appinventor/appengine/build/war/ode -maxdepth 1 -iname "*.cache.js" -exec uglifyjs -o {} -- {} \;
+	find appinventor/appengine/build/war/ode -maxdepth 1 -iname "*.cache.js" -exec uglifyjs {} -o {} -m \;
 
 dev-mode:
 	cd appinventor && ant devmode
