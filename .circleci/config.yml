@@ -41,7 +41,7 @@ jobs:
     executor: node-jdk-executor
       - attach_workspace:
         # Must be absolute path or relative path from working_directory
-        at: .
+          at: .
       # deploys to google app engine
       - run:
           name: Deploy to GAE
