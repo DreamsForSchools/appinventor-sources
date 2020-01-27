@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 
 executors:
   node-jdk-executor:
@@ -8,43 +8,43 @@ executors:
     working_directory: ~/appjam-ai
 
 jobs:
-  - build-and-deploy:
-      executor: node-jdk-executor
-      environment:
-        # Customize the JVM maximum heap limit
-        MAVEN_OPTS: -Xmx3200m
-        JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64/
-      filters:
-        branches:
-          only:
-            - master
-      steps:
-        # checks out repo
-        - checkout
-        # restores cache (gcloud sdk, uglifyjs, ant, jdk)
-        - restore_cache:
-            keys:
-            - deps-{{ checksum ".circleci/install-deps.sh" }}
-        # downloads and configures gcloud sdk. installs uglifyjs
-        - run: 
-            name: Download and configure gcloud sdk, installs uglifyjs
-            command: /bin/bash .circleci/install-deps.sh
-        # saves cache (gcloud sdk, uglifyjs installation)
-        - save_cache:
-            paths:
-              - ~/google-cloud-sdk
-            key: deps-{{ checksum ".circleci/install-deps.sh" }}
-        # installs submodule (blocky), creates AuthKey and builds binary
-        - run:
-            name: Install submodules, create AuthKey and build Binary
-            command: make init
-        # deploys to google app engine
-        - run:
-            name: Deploy to GAE
-            command: ~/google-cloud-sdk/bin/gcloud -q app deploy appinventor/appengine/build/war/WEB-INF/appengine-web.xml
+  build-and-deploy:
+    executor: node-jdk-executor
+    environment:
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
+      JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64/
+    steps:
+      # checks out repo
+      - checkout
+      # restores cache (gcloud sdk, uglifyjs, ant, jdk)
+      - restore_cache:
+          keys:
+          - deps-{{ checksum ".circleci/install-deps.sh" }}
+      # downloads and configures gcloud sdk. installs uglifyjs
+      - run: 
+          name: Download and configure gcloud sdk, installs uglifyjs
+          command: /bin/bash .circleci/install-deps.sh
+      # saves cache (gcloud sdk, uglifyjs installation)
+      - save_cache:
+          paths:
+            - ~/google-cloud-sdk
+          key: deps-{{ checksum ".circleci/install-deps.sh" }}
+      # installs submodule (blocky), creates AuthKey and builds binary
+      - run:
+          name: Install submodules, create AuthKey and build Binary
+          command: make init
+      # deploys to google app engine
+      - run:
+          name: Deploy to GAE
+          command: ~/google-cloud-sdk/bin/gcloud -q app deploy appinventor/appengine/build/war/WEB-INF/appengine-web.xml
 
 workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build-and-deploy
+      - build-and-deploy:
+          filters:
+              branches:
+                only:
+                  - master
