@@ -27,6 +27,9 @@ ${GCLOUD} config set project ${GCLOUD_PROJECT}
 # installs uglifyjs
 sudo npm install uglify-js -g
 
+# install java
+sudo apt-get install openjdk-8-jdk
+
 # installs ant	
 sudo apt-get update
 sudo apt-get install ant
