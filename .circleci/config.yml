@@ -32,12 +32,15 @@ jobs:
           name: Install submodules, create AuthKey and build Binary
           command: make init
 
+      # saves to workspace
       - persist_to_workspace:
           root: ./
           paths:
               - ./
   deploy:
     executor: node-jdk-executor
+    steps:
+      # checks out workspace
       - attach_workspace:
           at: ./appjam-ai
       # deploys to google app engine
