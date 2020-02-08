@@ -175,7 +175,7 @@
        ===================================================================== -->
   <target name="CheckPlayApp"
           depends="GenPlayAppSrcZip,BuildServer">
-    <uptodate property="PlayApp.uptodate" targetfile="${public.build.dir}/MIT AI2 Companion.apk">
+    <uptodate property="PlayApp.uptodate" targetfile="${public.build.dir}/DFS-AppMaker.apk">
       <srcfiles file="${local.build.dir}/aiplayapp.zip"/>
       <srcfiles dir="${run.lib.dir}" includes="*.jar"/>
     </uptodate>
@@ -208,14 +208,14 @@
   </target>
 
   <target name="CheckPlayAppExtras">
-    <uptodate property="PlayAppExtras.uptodate" targetfile="${public.build.dir}/MITAI2Companion-full.apk">
+    <uptodate property="PlayAppExtras.uptodate" targetfile="${public.build.dir}/DFSAppMaker-full.apk">
       <srcfiles file="${local.build.dir}/aiplayapp.zip"/>
       <srcfiles dir="${run.lib.dir}" includes="*.jar"/>
     </uptodate>
   </target>
 
   <!-- =====================================================================
-       PlayAppExtras: builds ../build/buildserver/MITAI2Companion-full.apk
+       PlayAppExtras: builds ../build/buildserver/DFSAppMaker-full.apk
        ===================================================================== -->
   <target name="PlayAppExtras"
           depends="CheckPlayAppExtras"
@@ -235,11 +235,11 @@
       <arg value="--isForCompanion" />
       <arg value="--includeDangerousPermissions" />
       <arg value="--extensions" />
-      <arg value="edu.mit.appinventor.companionextras.CompanionExtras" />
+      <arg value="edu.dfs.appinventor.companionextras.CompanionExtras" />
       <arg value="--outputDir" />
       <arg value="${public.build.dir}" />
       <arg value="--outputFileName" />
-      <arg value="MITAI2Companion-full.apk" />
+      <arg value="DFSAppMaker-full.apk" />
       <arg value="--dexCacheDir" />
       <arg value="${public.build.dir}/dexCache" />
     </java>
@@ -274,7 +274,7 @@
       <arg value="--isForEmulator" />
       <arg value="--includeDangerousPermissions" />
       <arg value="--extensions" />
-      <arg value="edu.mit.appinventor.companionextras.CompanionExtras" />
+      <arg value="edu.dfs.appinventor.companionextras.CompanionExtras" />
       <arg value="--outputDir" />
       <arg value="${public.build.dir}" />
       <arg value="--outputFileName" />
@@ -291,10 +291,10 @@
   <target name="installplay"
           depends="PlayApp">
     <exec executable="adb" failonerror="false">
-      <arg line="uninstall edu.mit.appinventor.aicompanion3" />
+      <arg line="uninstall edu.dfs.appinventor.appmaker" />
     </exec>
     <exec executable="adb" failonerror="true">
-      <arg line='install "${public.build.dir}/MIT AI2 Companion.apk"' />
+      <arg line='install "${public.build.dir}/DFS-AppMaker.apk"' />
     </exec>
   </target>
 

@@ -3,7 +3,7 @@
 // Released under the Apache License, Version 2.0
 // http://www.apache.org/licenses/LICENSE-2.0
 
-package edu.mit.appinventor.companionextras;
+package edu.dfs.appinventor.companionextras;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;

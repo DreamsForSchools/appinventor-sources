@@ -666,7 +666,7 @@ public final class Compiler {
    * Create the default color and styling for the app.
    */
   private boolean createValuesXml(File valuesDir, String suffix) {
-    String colorPrimary = project.getPrimaryColor() == null ? "#A5CF47" : project.getPrimaryColor();
+    String colorPrimary = project.getPrimaryColor() == null ? "#4156A6" : project.getPrimaryColor();
     String colorPrimaryDark = project.getPrimaryColorDark() == null ? "#41521C" : project.getPrimaryColorDark();
     String colorAccent = project.getAccentColor() == null ? "#00728A" : project.getAccentColor();
     String theme = project.getTheme() == null ? "Classic" : project.getTheme();

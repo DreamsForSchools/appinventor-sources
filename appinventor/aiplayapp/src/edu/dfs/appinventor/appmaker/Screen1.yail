@@ -2,7 +2,7 @@
 $Source $Yail
 |#
 
-(define-repl-form edu.mit.appinventor.aicompanion3.Screen1 Screen1)
+(define-repl-form edu.dfs.appinventor.appmaker.Screen1 Screen1)
 (require <com.google.youngandroid.runtime>)
 
 (def (p$badversion )  (set-and-coerce-property! 'ErrorLabel 'Text "The version of App Inventor you are using is not compatible with this Companion app. " 'text))
@@ -18,14 +18,14 @@ $Source $Yail
 (def g$rendezvousServer "rendezvous.appjam.org")
 ;;; Screen1
 
-(do-after-form-creation (set-and-coerce-property! 'Screen1 'AccentColor #xFF128BA8 'number)
+(do-after-form-creation (set-and-coerce-property! 'Screen1 'AccentColor #xFF0099FF 'number)
  (set-and-coerce-property! 'Screen1 'ActionBar #t 'boolean)
  (set-and-coerce-property! 'Screen1 'AlignHorizontal 3 'number)
  (set-and-coerce-property! 'Screen1 'BackgroundColor #x00FFFFFF 'number)
  (set-and-coerce-property! 'Screen1 'BackgroundImage "mooning.png" 'text)
- (set-and-coerce-property! 'Screen1 'Icon "AI2Companion-Icon.png" 'text)
- (set-and-coerce-property! 'Screen1 'PrimaryColor #xFFA5CF47 'number)
- (set-and-coerce-property! 'Screen1 'PrimaryColorDark #xFF516623 'number)
+ (set-and-coerce-property! 'Screen1 'Icon "appjam-logo.png" 'text)
+ (set-and-coerce-property! 'Screen1 'PrimaryColor #xFF4156A6 'number)
+ (set-and-coerce-property! 'Screen1 'PrimaryColorDark #xFF202E47 'number)
  (set-and-coerce-property! 'Screen1 'Scrollable #t 'boolean)
  (set-and-coerce-property! 'Screen1 'ShowListsAsJson #t 'boolean)
  (set-and-coerce-property! 'Screen1 'Sizing "Responsive" 'text)
@@ -232,6 +232,8 @@ $Source $Yail
 
 (set-and-coerce-property! 'CodeBox 'FontTypeface 1 'number)
 
+(set-and-coerce-property! 'CodeBox 'FontSize 18 'number)
+
 (set-and-coerce-property! 'CodeBox 'Hint "Six Character Code" 'text)
 
 (set-and-coerce-property! 'CodeBox 'MultiLine #t 'boolean)
@@ -308,12 +310,23 @@ $Source $Yail
 
 )
 
+;;; Spacer4
+
+(add-component PhonePanel com.google.appinventor.components.runtime.Label Spacer4 
+(set-and-coerce-property! 'Spacer4 'HasMargins #f 'boolean)
+
+(set-and-coerce-property! 'Spacer4 'Width 8 'number)
+
+)
+
 ;;; Label4
 
 (add-component IPContainer com.google.appinventor.components.runtime.Label Label4 
 (set-and-coerce-property! 'Label4 'HasMargins #f 'boolean)
 
 (set-and-coerce-property! 'Label4 'Text "Your IP Address is: " 'text)
+
+(set-and-coerce-property! 'Label4 'FontSize 18 'number)
 
 )
 
@@ -323,6 +336,8 @@ $Source $Yail
 (set-and-coerce-property! 'ipaddrlabel 'HasMargins #f 'boolean)
 
 (set-and-coerce-property! 'ipaddrlabel 'Text "Unknown" 'text)
+
+(set-and-coerce-property! 'ipaddrlabel 'FontSize 18 'number)
 
 )
 
@@ -335,12 +350,24 @@ $Source $Yail
 
 )
 
+;;; Spacer5
+
+(add-component HorizontalArrangement3 com.google.appinventor.components.runtime.Label Spacer5 
+(set-and-coerce-property! 'Spacer5 'HasMargins #f 'boolean)
+
+(set-and-coerce-property! 'Spacer 'Width 8 'number)
+
+)
+
+
 ;;; Label11
 
 (add-component HorizontalArrangement3 com.google.appinventor.components.runtime.Label Label11 
 (set-and-coerce-property! 'Label11 'HasMargins #f 'boolean)
 
 (set-and-coerce-property! 'Label11 'Text "Version: " 'text)
+
+(set-and-coerce-property! 'Label11 'FontSize 18 'number)
 
 )
 
@@ -351,12 +378,61 @@ $Source $Yail
 
 (set-and-coerce-property! 'versionlabel 'Text "Unknown" 'text)
 
+(set-and-coerce-property! 'versionlabel 'FontSize 18 'number)
+
 )
 
 ;;; CheckBox1
 
 (add-component MainPanel com.google.appinventor.components.runtime.CheckBox CheckBox1 
 (set-and-coerce-property! 'CheckBox1 'Text "Use Legacy Connection" 'text)
+
+(set-and-coerce-property! 'CheckBox1 'Visible #f 'boolean)
+
+)
+
+;;; Spacer6
+
+(add-component MainPanel com.google.appinventor.components.runtime.Label Spacer6
+(set-and-coerce-property! 'Spacer6 'HasMargins #f 'boolean)
+
+(set-and-coerce-property! 'Spacer6 'Height 8 'number)
+
+(set-and-coerce-property! 'Spacer6 'Visible #f 'boolean)
+
+)
+
+;;; footerContainer
+
+(add-component MainPanel com.google.appinventor.components.runtime.HorizontalArrangement footerContainer 
+(set-and-coerce-property! 'footerContainer 'AlignHorizontal 3 'number)
+
+(set-and-coerce-property! 'footerContainer 'Width -2 'number)
+
+)
+
+;;; Spacer7
+
+(add-component footerContainer com.google.appinventor.components.runtime.Label Spacer7 
+(set-and-coerce-property! 'Spacer7 'HasMargins #f 'boolean)
+
+(set-and-coerce-property! 'Spacer7 'Width 8 'number)
+
+)
+
+;;; Image3
+
+(add-component footerContainer com.google.appinventor.components.runtime.Image Image3
+(set-and-coerce-property! 'Image3 'Picture "footer.png" 'text)
+
+)
+
+;;; Spacer8
+
+(add-component footerContainer com.google.appinventor.components.runtime.Label Spacer8 
+(set-and-coerce-property! 'Spacer8 'HasMargins #f 'boolean)
+
+(set-and-coerce-property! 'Spacer8 'Width 8 'number)
 
 )
 

@@ -243,7 +243,7 @@ public class PhoneStatus extends AndroidNonvisibleComponent implements Component
   @SimpleFunction(description = "Downloads the URL and installs it as an Android Package via the installed browser")
   public void installURL(String url) {
     try {
-      Class<?> clazz = Class.forName("edu.mit.appinventor.companionextras.CompanionExtras");
+      Class<?> clazz = Class.forName("edu.dfs.appinventor.companionextras.CompanionExtras");
       Object o = clazz.getConstructor(Form.class).newInstance(form);
       Method m = clazz.getMethod("Extra1", String.class);
       m.invoke(o, url);
@@ -331,7 +331,7 @@ public class PhoneStatus extends AndroidNonvisibleComponent implements Component
   @SimpleFunction(description = "Return the app that installed us")
   public String GetInstaller() {
     if (SdkLevel.getLevel() >= SdkLevel.LEVEL_ECLAIR) {
-      String installer = EclairUtil.getInstallerPackageName("edu.mit.appinventor.aicompanion3", form);
+      String installer = EclairUtil.getInstallerPackageName("edu.dfs.appinventor.appmaker", form);
       if (installer == null) {
         return "sideloaded";
       } else {

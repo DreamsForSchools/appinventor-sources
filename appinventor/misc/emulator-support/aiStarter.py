@@ -124,7 +124,7 @@ def replstart(device=None):
         if re.match('emulator.*', device):  # Only fake the menu key for the emulator
             subprocess.check_output('"%s" -s %s shell input keyevent 82' % (ADB, device), shell=True)
         subprocess.check_output(
-            '"%s" -s %s shell am start -a android.intent.action.VIEW -n edu.mit.appinventor.aicompanion3/.Screen1 --ez rundirect true' % (ADB, device),
+            '"%s" -s %s shell am start -a android.intent.action.VIEW -n edu.dfs.appinventor.appmaker/.Screen1 --ez rundirect true' % (ADB, device),
             shell=True)
         response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['Access-Control-Allow-Headers'] = 'origin, content-type'

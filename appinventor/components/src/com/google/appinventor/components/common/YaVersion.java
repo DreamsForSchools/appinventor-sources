@@ -1331,7 +1331,7 @@ public class YaVersion {
   // default value here is for the MIT App Inventor service run
   // by MIT
 
-  public static final String ACCEPTABLE_COMPANION_PACKAGE = "edu.mit.appinventor.aicompanion3";
+  public static final String ACCEPTABLE_COMPANION_PACKAGE = "edu.dfs.appinventor.appmaker";
 
   public static final String PREFERRED_COMPANION = "2.56";
   public static final String COMPANION_UPDATE_URL = "";

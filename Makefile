@@ -18,6 +18,12 @@ run-main:
 run-build-server:
 	cd appinventor/buildserver && ant RunLocalBuildServer
 
+build-apk:
+	cd appinventor && ant PlayApp
+	# APK found in ./appinventor/build/buildserver/MIT AI2 Companion.apk
+	# Android project files found in
+	# ./appinventor/aiplayapp/youngandroidproject/project.properties
+
 test:
 	ant tests
 

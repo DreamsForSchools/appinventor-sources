@@ -168,3 +168,9 @@ Logs can be found at http://localhost:9876/log/ode and SourceMaps at http://loca
 
 ## Need help?
 Join [our community](https://community.appinventor.mit.edu/).
+
+## Signing Release
+`keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000`
+`keytool -importkeystore -srckeystore my-release-key.keystore -destkeystore my-release-key.keystore -deststoretype pkcs12`
+
+`jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore appinventor/build/buildserver/"DFS AppMaker.apk" alias_name`
