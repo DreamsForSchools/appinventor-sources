@@ -70,9 +70,9 @@ import java.util.List;
  */
 
 @DesignerComponent(version = YaVersion.VOTING_COMPONENT_VERSION,
-    designerHelpDescription = "<p>The Voting component enables users to vote " +
+    designerHelpDescription = "The Voting component enables users to vote " +
     "on a question by communicating with a Web service to retrieve a ballot " +
-    "and later sending back users' votes.</p>",
+    "and later sending back users' votes.",
     category = ComponentCategory.INTERNAL, // moved to Internal until fully tested
     nonVisible = true,
     iconName = "images/voting.png")

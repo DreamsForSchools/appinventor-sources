@@ -78,7 +78,7 @@ import java.util.Set;
  * changing the background color or image clears the drawing layer.
  */
 @DesignerComponent(version = YaVersion.CANVAS_COMPONENT_VERSION,
-    description = "<p>A two-dimensional touch-sensitive rectangular panel on " +
+    description = "A two-dimensional touch-sensitive rectangular panel on " +
     "which drawing can be done and sprites can be moved.</p> " +
     "<p>The <code>BackgroundColor</code>, <code>PaintColor</code>, " +
     "<code>BackgroundImage</code>, <code>Width</code>, and " +
@@ -93,7 +93,7 @@ import java.util.Set;
     "<p>There are events to tell when and where a Canvas has been touched or " +
     "a <code>Sprite</code> (<code>ImageSprite</code> or <code>Ball</code>) " +
     "has been dragged.  There are also methods for drawing points, lines, " +
-    "and circles.</p>",
+    "and circles.",
     category = ComponentCategory.ANIMATION)
 @SimpleObject
 @UsesPermissions(permissionNames = "android.permission.INTERNET," +

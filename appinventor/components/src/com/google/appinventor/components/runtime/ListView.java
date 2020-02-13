@@ -45,9 +45,9 @@ import com.google.appinventor.components.runtime.util.YailList;
  */
 
 @DesignerComponent(version = YaVersion.LISTVIEW_COMPONENT_VERSION,
-    description = "<p>This is a visible component that displays a list of text elements." +
+    description = "This is a visible component that displays a list of text elements." +
         " <br> The list can be set using the ElementsFromString property" +
-        " or using the Elements block in the blocks editor. </p>",
+        " or using the Elements block in the blocks editor.",
     category = ComponentCategory.USERINTERFACE,
     nonVisible = false,
     iconName = "images/listView.png")

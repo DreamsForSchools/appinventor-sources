@@ -85,7 +85,7 @@ import java.util.ArrayList;
  *
  */
 @DesignerComponent(version = YaVersion.FUSIONTABLESCONTROL_COMPONENT_VERSION,
-    description = "<p>A non-visible component that communicates with Google Fusion Tables. " +
+    description = "A non-visible component that communicates with Google Fusion Tables. " +
     "Fusion Tables let you store, share, query and visualize data tables; " +
     "this component lets you query, create, and modify these tables.</p> "  +
     "<p><font color=red><b>NOTE:</b>&nbsp;Google shutdown the Fusion Tables service on December 3, 2019. This " +
@@ -122,7 +122,7 @@ import java.util.ArrayList;
     "But you do need to make sure the query follows the syntax described in " +
     "<a href=\"https://developers.google.com/fusiontables/docs/v2/getting_started\" target=\"_blank\">the reference manual</a>, " +
     "which means that things like capitalization for names of columns matters, and " +
-    "that single quotes must be used around column names if there are spaces in them.</p>",
+    "that single quotes must be used around column names if there are spaces in them.",
     category = ComponentCategory.INTERNAL,
     nonVisible = true,
     iconName = "images/fusiontables.png")

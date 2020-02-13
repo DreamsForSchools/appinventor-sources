@@ -15,6 +15,9 @@ dev-mode:
 run-main:
 	/Users/dos/google-cloud-sdk/bin/java_dev_appserver.sh --port=8888 --address=0.0.0.0 appinventor/appengine/build/war/
 
+build-server:
+	cd appinventor && cd buildserver && ant BuildDeploymentTar
+
 run-build-server:
 	cd appinventor/buildserver && ant RunLocalBuildServer
 
@@ -23,6 +26,12 @@ build-apk:
 	# APK found in ./appinventor/build/buildserver/MIT AI2 Companion.apk
 	# Android project files found in
 	# ./appinventor/aiplayapp/youngandroidproject/project.properties
+
+sign-apk:
+	# remove signing key
+	zip -d appinventor/build/buildserver/DFSAppMaker.apk META-INF/\*
+	jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore.old appinventor/build/buildserver/DFSAppMaker.apk alias_name
+
 
 test:
 	ant tests

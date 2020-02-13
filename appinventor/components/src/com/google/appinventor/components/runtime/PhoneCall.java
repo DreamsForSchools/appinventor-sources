@@ -40,20 +40,20 @@ import android.telephony.TelephonyManager;
  * @author rekygx@gmail.com (Xian Gao)
  */
 @DesignerComponent(version = YaVersion.PHONECALL_COMPONENT_VERSION,
-    description = "<p>A non-visible component that makes a phone call to " +
+    description = "A non-visible component that makes a phone call to " +
         "the number specified in the <code>PhoneNumber</code> property, which " +
         "can be set either in the Designer or Blocks Editor. The component " +
         "has a <code>MakePhoneCall</code> method, enabling the program to launch " +
-        "a phone call.</p>" +
-        "<p>Often, this component is used with the <code>ContactPicker</code> " +
+        "a phone call.</br></br>" +
+        "Often, this component is used with the <code>ContactPicker</code> " +
         "component, which lets the user select a contact from the ones stored " +
         "on the phone and sets the <code>PhoneNumber</code> property to the " +
-        "contact's phone number.</p>" +
-        "<p>To directly specify the phone number (e.g., 650-555-1212), set " +
+        "contact's phone number.</br></br>" +
+        "To directly specify the phone number (e.g., 650-555-1212), set " +
         "the <code>PhoneNumber</code> property to a Text with the specified " +
         "digits (e.g., \"6505551212\").  Dashes, dots, and parentheses may be " +
         "included (e.g., \"(650)-555-1212\") but will be ignored; spaces may " +
-        "not be included.</p>",
+        "not be included.",
     category = ComponentCategory.SOCIAL,
     nonVisible = true,
     iconName = "images/phoneCall.png")

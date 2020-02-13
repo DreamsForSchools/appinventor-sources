@@ -76,20 +76,20 @@ import android.widget.Toast;
  */
 @SuppressWarnings("deprecation")
 @DesignerComponent(version = YaVersion.TEXTING_COMPONENT_VERSION,
-  description = "<p>A component that will, when the <code>SendMessage</code> method is " +
+  description = "A component that will, when the <code>SendMessage</code> method is " +
   "called, send the text message specified in the <code>Message</code> " +
   "property to the phone number specified in the <code>PhoneNumber</code> " +
-  "property.</p> " +
-  "<p>If the <code>ReceivingEnabled</code> property is set to 1 messages " +
+  "property.</br></br> " +
+  "If the <code>ReceivingEnabled</code> property is set to 1 messages " +
   "will <b>not</b> be received. If <code>ReceivingEnabled</code> is set " +
   "to 2 messages will be received only when the application is " +
   "running. Finally if <code>ReceivingEnabled</code> is set to 3, " +
   "messages will be received when the application is running <b>and</b> " +
   "when the application is not running they will be queued and a " +
-  "notification displayed to the user.</p> " +
-  "<p>When a message arrives, the <code>MessageReceived</code> event is " +
-  "raised and provides the sending number and message.</p> " +
-  "<p> An app that includes this component will receive messages even " +
+  "notification displayed to the user.</br></br> " +
+  "When a message arrives, the <code>MessageReceived</code> event is " +
+  "raised and provides the sending number and message.</br></br> " +
+  "An app that includes this component will receive messages even " +
   "when it is in the background (i.e. when it's not visible on the " +
   "screen) and, moreso, even if the app is not running, so long as it's " +
   "installed on the phone. If the phone receives a text message when the " +
@@ -97,21 +97,21 @@ import android.widget.Toast;
   "the notification bar.  Selecting the notification will bring up the " +
   "app.  As an app developer, you'll probably want to give your users the " +
   "ability to control ReceivingEnabled so that they can make the phone " +
-  "ignore text messages.</p> " +
-  "<p>If the GoogleVoiceEnabled property is true, messages can be sent " +
+  "ignore text messages.</br></br> " +
+  "If the GoogleVoiceEnabled property is true, messages can be sent " +
   "over Wifi using Google Voice. This option requires that the user have " +
   "a Google Voice account and that the mobile Voice app is installed on " +
   "the phone. The Google Voice option works only on phones that support " +
-  "Android 2.0 (Eclair) or higher.</p> " +
-  "<p>To specify the phone number (e.g., 650-555-1212), set the " +
+  "Android 2.0 (Eclair) or higher.</br></br> " +
+  "To specify the phone number (e.g., 650-555-1212), set the " +
   "<code>PhoneNumber</code> property to a Text string with the specified " +
   "digits (e.g., 6505551212).  Dashes, dots, and parentheses may be " +
   "included (e.g., (650)-555-1212) but will be ignored; spaces may not be " +
-  "included.</p> " +
-  "<p>Another way for an app to specify a phone number would be to " +
+  "included.</br></br> " +
+  "Another way for an app to specify a phone number would be to " +
   "include a <code>PhoneNumberPicker</code> component, which lets the " +
   "users select a phone numbers from the ones stored in the the phone's " +
-  "contacts.</p>",
+  "contacts.",
   category = ComponentCategory.SOCIAL,
   nonVisible = true,
   iconName = "images/texting.png")

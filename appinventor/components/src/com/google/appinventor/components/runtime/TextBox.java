@@ -29,25 +29,25 @@ import android.widget.EditText;
  * @author halabelson@google.com (Hal Abelson)
  */
 @DesignerComponent(version = YaVersion.TEXTBOX_COMPONENT_VERSION,
-    description = "<p>A box for the user to enter text.  The initial or " +
+    description = "A box for the user to enter text.  The initial or " +
     "user-entered text value is in the <code>Text</code> property.  If " +
     "blank, the <code>Hint</code> property, which appears as faint text " +
-    "in the box, can provide the user with guidance as to what to type.</p>" +
-    "<p>The <code>MultiLine</code> property determines if the text can have" +
+    "in the box, can provide the user with guidance as to what to type.</br></br>" +
+    "The <code>MultiLine</code> property determines if the text can have" +
     "more than one line.  For a single line text box, the keyboard will close" +
     "automatically when the user presses the Done key.  To close the keyboard " +
     "for multiline text boxes, the app should use  the HideKeyboard method or " +
-    " rely on the user to press the Back key.</p>" +
-    "<p>The <code> NumbersOnly</code> property restricts the keyboard to accept" +
-    "numeric input only.</p>" +
-    "<p>Other properties affect the appearance of the text box " +
+    " rely on the user to press the Back key.</br></br>" +
+    "The <code> NumbersOnly</code> property restricts the keyboard to accept" +
+    "numeric input only.</br></br>" +
+    "Other properties affect the appearance of the text box " +
     "(<code>TextAlignment</code>, <code>BackgroundColor</code>, etc.) and " +
-    "whether it can be used (<code>Enabled</code>).</p>" +
-    "<p>Text boxes are usually used with the <code>Button</code> " +
+    "whether it can be used (<code>Enabled</code>).</br></br>" +
+    "Text boxes are usually used with the <code>Button</code> " +
     "component, with the user clicking on the button when text entry is " +
-    "complete.</p>" +
-    "<p>If the text entered by the user should not be displayed, use " +
-    "<code>PasswordTextBox</code> instead.</p>",
+    "complete.</br></br>" +
+    "If the text entered by the user should not be displayed, use " +
+    "<code>PasswordTextBox</code> instead.",
     category = ComponentCategory.USERINTERFACE)
 @SimpleObject
 public final class TextBox extends TextBoxBase {

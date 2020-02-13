@@ -272,9 +272,7 @@
 
 <dl>
   <dt id="FeatureCollection.LoadFromURL" class="method"><i></i> LoadFromURL(<em class="text">url</em>)</dt>
-  <dd>
-    <p>Load a feature collection in <a href="https://en.wikipedia.org/wiki/GeoJSON">GeoJSON</a> format from the given url. On success, the event GotFeatures will be raised with the given url and a list of the features parsed from the GeoJSON as a list of (key, value) pairs. On failure, the LoadError event will be raised with any applicable HTTP response code and error message.</p>
-  </dd>
+  <dd>Load a feature collection in <a href="https://en.wikipedia.org/wiki/GeoJSON">GeoJSON</a> format from the given url. On success, the event GotFeatures will be raised with the given url and a list of the features parsed from the GeoJSON as a list of (key, value) pairs. On failure, the LoadError event will be raised with any applicable HTTP response code and error message.</dd>
 </dl>
 
 <h2 id="LineString">LineString</h2>
@@ -344,10 +342,7 @@
   <dt id="Map.BoundingBox" class="list bo"><em>BoundingBox</em></dt>
   <dd>Bounding box for the map stored as [[North, West], [South, East]].</dd>
   <dt id="Map.CenterFromString" class="text wo"><em>CenterFromString</em></dt>
-  <dd>
-    <p>Set the initial center coordinate of the map. The value is specified as a comma-separated pair of decimal latitude and longitude coordinates, for example, <code>42.359144, -71.093612</code>.</p>
-    <p>In blocks code, it is recommended for performance reasons to use SetCenter with numerical latitude and longitude rather than convert to the string representation for use with this property.</p>
-  </dd>
+  <dd>Set the initial center coordinate of the map. The value is specified as a comma-separated pair of decimal latitude and longitude coordinates, for example, <code>42.359144, -71.093612</code>.&lt;/br&gt;&lt;/br&gt;In blocks code, it is recommended for performance reasons to use SetCenter with numerical latitude and longitude rather than convert to the string representation for use with this property.</dd>
   <dt id="Map.EnablePan" class="boolean"><em>EnablePan</em></dt>
   <dd>Enable two-finger panning of the Map</dd>
   <dt id="Map.EnableRotation" class="boolean"><em>EnableRotation</em></dt>
@@ -470,9 +465,7 @@
 
 <dl>
   <dt id="Map.LoadFromURL" class="method"><i></i> LoadFromURL(<em class="text">url</em>)</dt>
-  <dd>
-    <p>Load a feature collection in <a href="https://en.wikipedia.org/wiki/GeoJSON">GeoJSON</a> format from the given url. On success, the event GotFeatures will be raised with the given url and a list of the features parsed from the GeoJSON as a list of (key, value) pairs. On failure, the LoadError event will be raised with any applicable HTTP response code and error message.</p>
-  </dd>
+  <dd>Load a feature collection in <a href="https://en.wikipedia.org/wiki/GeoJSON">GeoJSON</a> format from the given url. On success, the event GotFeatures will be raised with the given url and a list of the features parsed from the GeoJSON as a list of (key, value) pairs. On failure, the LoadError event will be raised with any applicable HTTP response code and error message.</dd>
   <dt id="Map.PanTo" class="method"><i></i> PanTo(<em class="number">latitude</em>,<em class="number">longitude</em>,<em class="number">zoom</em>)</dt>
   <dd>Pan the map center to the given latitude and longitude and adjust the zoom level to the specified zoom.</dd>
   <dt id="Map.Save" class="method"><i></i> Save(<em class="text">path</em>)</dt>

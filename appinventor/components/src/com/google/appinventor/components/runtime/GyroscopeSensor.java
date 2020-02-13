@@ -26,10 +26,10 @@ import android.hardware.SensorManager;
  * Component providing data from the device's gyroscope sensor.
  */
 @DesignerComponent(version = YaVersion.GYROSCOPESENSOR_COMPONENT_VERSION,
-    description = "<p>Non-visible component that can measure angular velocity in three " +
+    description = "Non-visible component that can measure angular velocity in three " +
     "dimensions in units of degrees per second.</p>" +
     "<p>In order to function, the component must have its <code>Enabled</code> property set to " +
-    "True, and the device must have a gyroscope sensor.</p>",
+    "True, and the device must have a gyroscope sensor.",
     category = ComponentCategory.SENSORS,
     nonVisible = true,
     iconName = "images/gyroscopesensor.png")

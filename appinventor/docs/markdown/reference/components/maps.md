@@ -179,7 +179,7 @@ Table of Contents:
  * visible becomes Visible
 
 {:id="FeatureCollection.LoadFromURL" class="method"} <i/> LoadFromURL(*url*{:.text})
-: <p>Load a feature collection in <a href="https://en.wikipedia.org/wiki/GeoJSON">GeoJSON</a> format from the given url. On success, the event GotFeatures will be raised with the given url and a list of the features parsed from the GeoJSON as a list of (key, value) pairs. On failure, the LoadError event will be raised with any applicable HTTP response code and error message.</p>
+: Load a feature collection in <a href="https://en.wikipedia.org/wiki/GeoJSON">GeoJSON</a> format from the given url. On success, the event GotFeatures will be raised with the given url and a list of the features parsed from the GeoJSON as a list of (key, value) pairs. On failure, the LoadError event will be raised with any applicable HTTP response code and error message.
 
 ## LineString  {#LineString}
 
@@ -267,7 +267,7 @@ Table of Contents:
 : Bounding box for the map stored as [[North, West], [South, East]].
 
 {:id="Map.CenterFromString" .text .wo} *CenterFromString*
-: <p>Set the initial center coordinate of the map. The value is specified as a comma-separated pair of decimal latitude and longitude coordinates, for example, <code>42.359144, -71.093612</code>.</p><p>In blocks code, it is recommended for performance reasons to use SetCenter with numerical latitude and longitude rather than convert to the string representation for use with this property.</p>
+: Set the initial center coordinate of the map. The value is specified as a comma-separated pair of decimal latitude and longitude coordinates, for example, <code>42.359144, -71.093612</code>.</br></br>In blocks code, it is recommended for performance reasons to use SetCenter with numerical latitude and longitude rather than convert to the string representation for use with this property.
 
 {:id="Map.EnablePan" .boolean} *EnablePan*
 : Enable two-finger panning of the Map
@@ -419,7 +419,7 @@ Table of Contents:
  * visible becomes Visible
 
 {:id="Map.LoadFromURL" class="method"} <i/> LoadFromURL(*url*{:.text})
-: <p>Load a feature collection in <a href="https://en.wikipedia.org/wiki/GeoJSON">GeoJSON</a> format from the given url. On success, the event GotFeatures will be raised with the given url and a list of the features parsed from the GeoJSON as a list of (key, value) pairs. On failure, the LoadError event will be raised with any applicable HTTP response code and error message.</p>
+: Load a feature collection in <a href="https://en.wikipedia.org/wiki/GeoJSON">GeoJSON</a> format from the given url. On success, the event GotFeatures will be raised with the given url and a list of the features parsed from the GeoJSON as a list of (key, value) pairs. On failure, the LoadError event will be raised with any applicable HTTP response code and error message.
 
 {:id="Map.PanTo" class="method"} <i/> PanTo(*latitude*{:.number},*longitude*{:.number},*zoom*{:.number})
 : Pan the map center to the given latitude and longitude and adjust the zoom level to the specified zoom.

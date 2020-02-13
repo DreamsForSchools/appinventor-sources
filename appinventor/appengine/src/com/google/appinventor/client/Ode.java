@@ -1094,7 +1094,7 @@ public class Ode implements EntryPoint {
     //workColumns.add(switchToDesignerButton);
 
     Box palletebox = PaletteBox.getPaletteBox();
-    palletebox.setWidth("240px");
+    palletebox.setWidth("20em");
     workColumns.add(palletebox);
 
     Box viewerbox = ViewerBox.getViewerBox();
@@ -1110,10 +1110,11 @@ public class Ode implements EntryPoint {
     structureAndAssets.add(SourceStructureBox.getSourceStructureBox());
     structureAndAssets.add(BlockSelectorBox.getBlockSelectorBox());  // initially not visible
     structureAndAssets.add(AssetListBox.getAssetListBox());
+    structureAndAssets.setWidth("18em");
     workColumns.add(structureAndAssets);
 
     Box propertiesbox = PropertiesBox.getPropertiesBox();
-    propertiesbox.setWidth("222px");
+    propertiesbox.setWidth("18em");
     workColumns.add(propertiesbox);
     //switchToBlocksButton.setHeight("650px");
     //workColumns.add(switchToBlocksButton);

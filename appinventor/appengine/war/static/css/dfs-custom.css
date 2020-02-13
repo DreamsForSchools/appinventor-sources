@@ -15,10 +15,12 @@
   box-shadow: none;
   border: none;
 }
+
 .ode-TextButton:hover {
   color: white;
   background-color: #172c79 !important;
 }
+
 label.gwt-CheckBox {
   display: block;
 }
@@ -97,16 +99,15 @@ body, table td, select {
 }
 .ode-ProjectHeaderRow {
   background: none !important;
-  background-color: #4156A6 !important;
-  border: 1px;
-  border-bottom: 1px solid #bbccff;
+  background-color: #A0AAD2 !important;
+  border: none;
   font-size: 1rem !important;
 }
 .ode-Box-content {
   font-size: 1rem !important;
   background-color: transparent !important;
-  background-image: none !important;
-  padding: 1em 0;
+  background-image: none ,!important;
+  /* padding: 1em 0; */
   border: 0 !important;
   box-shadow: 0px 0px 0px 0px !important;
 }
@@ -121,14 +122,29 @@ body, table td, select {
   font-size: 1rem;
   color: #555;
   cursor: pointer;
-  padding: 0.5em 0;
   line-height: 1.5;
+  padding: 0.5em 0;
 }
-.ode-Box-body.ode-Box-body-padding {
+
+.ya-Toolbar .ya-ProjectName {
+  color: white;
+  font-weight: bold;
+  font-size: 1em;
+  width: 19em;
+  background-color: #4156A6;
+  padding: 1em 0;
+  margin-top: 0.3em;
+  margin-left: 0.25em;
+  padding-left: 0.5em;
+  text-shadow: none;
+}
+
+.ode-Box-body {
   padding: 0;
+  background-color: white;
 }
 .ode-ContextMenuItem {
-  min-width: 50px;
+  min-width: 10em;
   padding: 0.5em 1em;
   -o-transition: color .1s ease-out, background .1s ease-in;
   -ms-transition: color .1s ease-out, background .1s ease-in;
@@ -177,7 +193,8 @@ td {
   left: .2em;
   font-size: 1em;
   line-height: 0.8;
-  color: #4156A6;
+  color: white;
+  /* color: #4156A6; */
 }
 /* checked mark aspect changes */
 [type="checkbox"]:not(:checked) + label:after {
@@ -203,6 +220,7 @@ td {
 /* accessibility */
 [type="checkbox"]:checked + label:before {
   border: 2px solid #4156A6 !important;
+  background-color: #4156A6;
 }
 /* hover style just for information */
 label:hover:before {
@@ -211,4 +229,217 @@ label:hover:before {
 
 .ode-ContextMenuItem {
   padding: 0.5em 1em;
+}
+
+.gwt-Button {
+  background: none;
+  background-color: #4156A6;
+  color: white;
+  padding: 1em 2em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1em !important;
+  cursor: pointer;
+  border-radius: 0.25em;
+  text-shadow: none;
+  background-image: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: none;
+}
+
+.gwt-Button:hover {
+  color: white;
+  background-color: #172c79;
+}
+
+.ode-DialogBox .gwt-Button {
+  width: 100%;
+  margin: 0;
+}
+
+.ode-DialogBox .Caption {
+  background-color: #4156A6;
+  color: white;
+  font-weight: bold;
+  font-size: 1em;
+  padding: 0.5em 0.25em;
+  box-shadow: none;
+}
+
+.ode-DialogBox {
+  border: 4px solid #4156A6;
+}
+
+.gwt-Tree .gwt-TreeItem {
+  font-size: 1em;
+}
+
+.gwt-TreeItem .gwt-HTML {
+  padding: 0.25em 0;
+}
+
+.gwt-Tree {
+  padding: 1em 0 0 1em;
+}
+
+.gwt-Tree .gwt-TreeItem span:hover, .gwt-Tree .gwt-TreeItem-selected span {
+  background-color: #D9DDED; 
+}
+
+.ode-Box-content .ode-Box-body.ode-Box-body-padding {
+  margin-top: 0;
+}
+
+.gwt-StackPanelItem div {
+  background: none;
+  background-color: #D9DDED;
+  font-size: 1em;
+  padding: 0.75em 0.5em;
+}
+
+.ode-SimplePaletteItem-caption {
+  font-size: 1em;
+}
+
+input.gwt-TextBox {
+  padding: 1em 0.5em;
+  margin: 0.25em 0;
+  font-size: 1em;
+}
+
+input.ode-PropertyEditor {
+  font-size: 1em;
+  margin: 0.25em 0;
+  min-height: 2em;
+}
+
+.ode-PropertiesComponentName {
+  font-size: 1em;
+  background-color: #D9DDED;
+}
+
+.ode-DialogBox .ode-LabeledTextBox {
+  padding: 0.5em 0.5em;
+  margin: 0.25em 0;
+  font-size: 1em;
+  font-family: Rubik, Roboto, Helvetica, Arial, sans-serif;
+}
+
+.ode-ComponentHelpPopup {
+  border: 4px solid #4156A6;
+}
+
+.ode-ComponentHelpPopup-TitleBar {
+  background-color: #4156A6;
+  color: white;
+  font-weight: bold;
+  font-size: 1em;
+  padding: 0.5em 0.25em;
+  box-shadow: none;
+}
+
+.ode-ComponentHelpPopup-Body {
+  font-size: 1em;
+}
+
+.ode-ComponentHelpPopup-Link {
+  font-size: 1em;
+}
+
+.ode-ComponentHelpPopup-Link a {
+  color: #4156A6;
+}
+
+code {
+  font-size: 1.25em;
+  background-color: #D9DDED;
+}
+
+.ode-PropertiesPanel {
+  background-color: #d9dded21;
+}
+
+.ode-ChoicePropertyEditor {
+  width: 95%;
+  padding: 0.5em 0.5em;
+}
+
+.ode-PropertyEditor {
+  width: 95%;
+  padding: 0.5em 0.5em;
+  font-size: 1em;
+}
+
+table.ode-SimplePaletteItem:hover {
+  background-color: rgb(217, 221, 237) !important;
+}
+
+.ode-PanelButtons {
+  width: 17.5em;
+  margin-bottom: 1em;
+}
+
+.ode-PanelButtons .ode-TextButton.ode-TextButton-up {
+  width: 100%;
+  max-width: 10em;
+  margin-top: 1em;
+}
+
+.ode-PanelButtons .ode-TextButton.ode-TextButton-up-hovering {
+  width: 100%;
+  max-width: 10em;
+  margin-top: 1em;
+  background-color: #172c79 !important;
+}
+
+.gwt-CheckBox label {
+  padding-left: 2em !important;
+}
+
+.ode-SimpleFormDesigner {
+  margin-top: 0.5em;
+}
+
+.ode-SimpleMockFormPhonePortrait.ode-SimpleMockFormPhonePortrait-selected {
+  margin: 1.5em 0;
+}
+
+.gwt-TreeItem .gwt-HTML img {
+  margin-right: 1em;
+}
+
+table.ode-SimpleFormDesigner td {
+  text-align: center;
+}
+
+.ode-SimpleUiDesignerNonVisibleComponents {
+  margin-bottom: 3em;
+}
+
+.ode-MultipleChoicePropertyEditor {
+  min-width: 20em;
+}
+
+.ode-MultipleChoicePropertyEditor .popupContent table {
+  width: 100%;
+}
+
+select.gwt-ListBox {
+  border: 0;
+  max-height: 15em;
+}
+
+.gwt-ListBox option {
+  padding: 0.5em 0.25em;
+}
+
+/* upload button */
+body > div.ode-MultipleChoicePropertyEditor > div > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > button {
+  margin: 0.5em 0;
+}
+
+body > div.ode-MultipleChoicePropertyEditor > div > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > button {
+  width: 98%;
 }

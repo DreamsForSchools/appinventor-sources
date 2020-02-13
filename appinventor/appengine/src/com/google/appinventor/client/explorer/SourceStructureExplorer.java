@@ -97,7 +97,7 @@ public class SourceStructureExplorer extends Composite {
 
     // Put a ScrollPanel around the tree.
     ScrollPanel scrollPanel = new ScrollPanel(tree);
-    scrollPanel.setWidth("200px");  // wide enough to avoid a horizontal scrollbar most of the time
+    scrollPanel.setWidth("17.5em");  // wide enough to avoid a horizontal scrollbar most of the time
     scrollPanel.setHeight("480px"); // approximately the same height as the viewer
 
     HorizontalPanel buttonPanel = new HorizontalPanel();

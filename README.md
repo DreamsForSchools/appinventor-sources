@@ -181,3 +181,6 @@ Remove debug signing
 https://stackoverflow.com/questions/22681907/you-uploaded-an-apk-that-is-not-zip-aligned-error
 
 `~/Library/Android/sdk/build-tools/29.0.2/zipalign -f -v 4 appinventor/build/buildserver/DFSAppMaker.apk appinventor/build/buildserver/DFSAppMaker-signed.apk`
+
+
+`/Users/dos/Desktop/appinventor-sources/appinventor/misc/i18n/i18n.py`
