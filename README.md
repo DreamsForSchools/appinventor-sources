@@ -173,4 +173,11 @@ Join [our community](https://community.appinventor.mit.edu/).
 `keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000`
 `keytool -importkeystore -srckeystore my-release-key.keystore -destkeystore my-release-key.keystore -deststoretype pkcs12`
 
-`jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore appinventor/build/buildserver/"DFS AppMaker.apk" alias_name`
+Remove debug signing
+`zip -d appinventor/build/buildserver/DFSAppMaker.apk META-INF/\*`
+
+`jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore.old appinventor/build/buildserver/"DFSAppMaker.apk" alias_name`
+
+https://stackoverflow.com/questions/22681907/you-uploaded-an-apk-that-is-not-zip-aligned-error
+
+`~/Library/Android/sdk/build-tools/29.0.2/zipalign -f -v 4 appinventor/build/buildserver/DFSAppMaker.apk appinventor/build/buildserver/DFSAppMaker-signed.apk`

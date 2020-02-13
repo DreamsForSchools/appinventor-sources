@@ -1,0 +1,214 @@
+.ode-TextButton {
+  background: none;
+  background-color: #4156A6 !important;
+  color: white;
+  padding: 1em 2em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1em !important;
+  cursor: pointer;
+  border-radius: 0.25em;
+  text-shadow: none;
+  background-image: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: none;
+}
+.ode-TextButton:hover {
+  color: white;
+  background-color: #172c79 !important;
+}
+label.gwt-CheckBox {
+  display: block;
+}
+.ode-ContextMenuItem-selected {
+  background-color: #4156A6;
+}
+tr.ode-ProjectRowUnHighlighted:hover {
+  background-color: #D9DDED;
+}
+body {
+  font-family: Rubik, Roboto, Helvetica, Arial, sans-serif;
+  background: none !important;
+  background-color: #F2F2F2 !important;
+}
+.gwt-HTML {
+  padding: 1em 0;
+}
+.ode-StatusPanel {
+  color: white;
+  background: none !important;
+  background-color: #202E47 !important;
+  border: 1px;
+}
+.ode-StatusPanel a {
+  color: white;
+  text-decoration: none;
+}
+.ode-StatusPanel a:hover {
+  font-weight: 800;
+}
+img.ode-Logo {
+  height: 40px;
+  padding: 1em 0;
+}
+.ode-TopPanelButton, .ActionDropDown-Default, .ActionDropDown-Options {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: -12px 0px;
+  padding: 0px 12px;
+  height: 40px;
+  border: transparent;
+  background: transparent;
+  color: grey;
+  -o-transition: color .2s ease-out, background .2s ease-in;
+  -ms-transition: color .2s ease-out, background .2s ease-in;
+  -moz-transition: color .2s ease-out, background .2s ease-in;
+  -webkit-transition: color .2s ease-out, background .2s ease-in;
+  transition: color .2s ease-out, background .2s ease-in;
+}
+.ya-Toolbar {
+  background-color: transparent !important;
+  margin-bottom: 0.5em;
+}
+.ode-ContextMenuItem, .ode-CurrentColor {
+  font-size: 1rem !important;
+}
+body, table td, select {
+  font-size: 1rem !important;
+}
+.ode-Box-header-caption, .ode-Box-header-caption-highlighted {
+  font-size: 1rem;
+  font-weight: bold;
+  padding-top: none;
+  padding: 0.75em;
+  line-height: 1.5;
+  color: white;
+}
+.ode-Box-header {
+  background-color: #4156A6;
+  border: none !important;
+}
+.ode-Box-body-padding {
+  margin-top: 1em;
+}
+.ode-ProjectHeaderRow {
+  background: none !important;
+  background-color: #4156A6 !important;
+  border: 1px;
+  border-bottom: 1px solid #bbccff;
+  font-size: 1rem !important;
+}
+.ode-Box-content {
+  font-size: 1rem !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  padding: 1em 0;
+  border: 0 !important;
+  box-shadow: 0px 0px 0px 0px !important;
+}
+.ode-ProjectHeaderLabel {
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  padding: 0.5em 0;
+}
+.ode-ProjectNameLabel {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #555;
+  cursor: pointer;
+  padding: 0.5em 0;
+  line-height: 1.5;
+}
+.ode-Box-body.ode-Box-body-padding {
+  padding: 0;
+}
+.ode-ContextMenuItem {
+  min-width: 50px;
+  padding: 0.5em 1em;
+  -o-transition: color .1s ease-out, background .1s ease-in;
+  -ms-transition: color .1s ease-out, background .1s ease-in;
+  -moz-transition: color .1s ease-out, background .1s ease-in;
+  -webkit-transition: color .1s ease-out, background .1s ease-in;
+  transition: color .1s ease-out, background .1s ease-in;
+}
+.ode-ProjectRowHighlighted {
+  background-color: #D9DDED;
+  border-collapse: collapse;
+}
+td {
+}
+.ode-ProjectTable td:nth-child(1) {
+  text-align: center;
+}
+/* Base for label styling */
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+  position: absolute;
+  left: -9999px;
+}
+[type="checkbox"]:not(:checked) + label, [type="checkbox"]:checked + label {
+  position: relative;
+  padding: 0 0.5em;
+  cursor: pointer;
+}
+/* checkbox aspect */
+[type="checkbox"]:not(:checked) + label:before, [type="checkbox"]:checked + label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1em;
+  height: 1em;
+  border: 2px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+ /* box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+  */
+}
+/* checked mark aspect */
+[type="checkbox"]:not(:checked) + label:after, [type="checkbox"]:checked + label:after {
+  content: '✔';
+  position: absolute;
+  top: .25em;
+  left: .2em;
+  font-size: 1em;
+  line-height: 0.8;
+  color: #4156A6;
+}
+/* checked mark aspect changes */
+[type="checkbox"]:not(:checked) + label:after {
+  opacity: 0;
+  transform: scale(0);
+}
+[type="checkbox"]:checked + label:after {
+  opacity: 1;
+  transform: scale(1);
+}
+/* disabled checkbox */
+[type="checkbox"]:disabled:not(:checked) + label:before, [type="checkbox"]:disabled:checked + label:before {
+  box-shadow: none;
+  border-color: #bbb;
+  background-color: #ddd;
+}
+[type="checkbox"]:disabled:checked + label:after {
+  color: #999;
+}
+[type="checkbox"]:disabled + label {
+  color: #aaa;
+}
+/* accessibility */
+[type="checkbox"]:checked + label:before {
+  border: 2px solid #4156A6 !important;
+}
+/* hover style just for information */
+label:hover:before {
+  border: 2px solid #4156A6 !important;
+}
+
+.ode-ContextMenuItem {
+  padding: 0.5em 1em;
+}
