@@ -3,7 +3,7 @@
 
 /**
  * @license
- * @fileoverview Visual blocks editor for MIT App Inventor
+ * @fileoverview Visual blocks editor for DFS - AppMaker
  * Add additional "class methods" to Blockly.Block
  *
  * @author ewpatton@mit.edu (Evan W. Patton)

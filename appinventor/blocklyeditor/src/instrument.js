@@ -4,7 +4,7 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 /**
  * @license
- * @fileoverview Visual blocks editor for MIT App Inventor
+ * @fileoverview Visual blocks editor for DFS - AppMaker
  * Instrumentation (timing and statistics) for core blockly functionality
  * that's useful for figuring out where time is being spent.
  * Lyn used this in conjunction with Chrome profiling to speed up

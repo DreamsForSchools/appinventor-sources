@@ -22,8 +22,8 @@ public interface Images extends Resources {
    * Codi the Bee for the No Projects Dialog
    * {@link Ode#createWelcomeDialog(boolean)}
    */
-  @Source("com/google/appinventor/images/codi_vert.png")
-  ImageResource codiVert();
+  @Source("com/google/appinventor/images/appjam-logo.png")
+  ImageResource appMakerLogo();
 
   /**
    * App Inventor Logo

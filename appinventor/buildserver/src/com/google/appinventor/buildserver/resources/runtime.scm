@@ -913,7 +913,7 @@
 
 ;; Below are hygienic versions of the forrange, foreach and while
 ;; macros. They are here to be "future aware". A future version of
-;; MIT App Inventor will use these hygienic versions which require
+;; DFS - AppMaker will use these hygienic versions which require
 ;; and additional argument, and therefore different YAIL generation
 
 (define-syntax foreach-with-break

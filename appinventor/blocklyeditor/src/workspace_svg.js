@@ -3,7 +3,7 @@
 
 /**
  * @license
- * @fileoverview Visual blocks editor for MIT App Inventor
+ * @fileoverview Visual blocks editor for DFS - AppMaker
  * App Inventor extensions to Blockly's SVG Workspace
  *
  * @author ewpatton@mit.edu (Evan W. Patton)

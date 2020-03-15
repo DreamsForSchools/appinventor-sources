@@ -20,7 +20,7 @@
     <meta HTTP-EQUIV="pragma" CONTENT="no-cache"/>
     <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate"/>
     <meta HTTP-EQUIV="expires" CONTENT="0"/>
-    <title>MIT App Inventor</title>
+    <title>DFS - AppMaker</title>
   </head>
 <body>
   <center>
@@ -86,7 +86,7 @@ out.println("<center><font color=red><b>" + error + "</b></font></center><br/>")
                   src="/static/images/mzl.png" width="30" height="30" title="Sina WeiBo"></a>&nbsp;
 <%    } %>
 <a href="http://www.appinventor.mit.edu" target="_blank"><img class="img-scale"
-                src="/static/images/login-app-inventor.jpg" width="50" height="30" title="MIT App Inventor"></a></center>
+                src="/static/images/login-app-inventor.jpg" width="50" height="30" title="DFS - AppMaker"></a></center>
 <p></p>
 
 <p style="text-align: center; clear:both;"><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"

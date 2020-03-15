@@ -199,10 +199,10 @@ var server = function(request, response) {
                                             "Cache-Control" : "no-cache, must-revalidate",
                                             "Expires" : "Fri, 01 Jan 1990 00:00:00 GMT" });
             response.end("<html>\n" +
-                         "<head><title>MIT App Inventor Rendezvous Server</title></head>\n" +
+                         "<head><title>DFS - AppMaker Rendezvous Server</title></head>\n" +
                          "<body>\n" +
-                         "<h1>MIT App Inventor Rendezvous Server</h1>\n" +
-                         "<P>This is the MIT App Inventor Rendezvous Server, which appears to be\n" +
+                         "<h1>DFS - AppMaker Rendezvous Server</h1>\n" +
+                         "<P>This is the DFS - AppMaker Rendezvous Server, which appears to be\n" +
                          "operating normally.</p></body></html>\n");
         } else {
             response.writeHead(404, '', {});

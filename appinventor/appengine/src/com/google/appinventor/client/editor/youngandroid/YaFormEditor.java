@@ -588,7 +588,7 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
     // | example if you examine a (newer) project and look in the          |
     // | Screen1.scm file, you should just see an authURL that looks like  |
     // | ["ai2.appinventor.mit.edu"]. This would indicate a project that   |
-    // | has only been edited on MIT App Inventor. If instead you see      |
+    // | has only been edited on DFS - AppMaker. If instead you see      |
     // | something like ["localhost", "ai2.appinventor.mit.edu"] it        |
     // | implies that at some point in its history this project was edited |
     // | using the local dev server on someone's own computer.             |

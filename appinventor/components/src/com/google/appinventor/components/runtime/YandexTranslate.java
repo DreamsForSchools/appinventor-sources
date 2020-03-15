@@ -42,6 +42,7 @@ import java.net.URLEncoder;
         "translation is complete, the \"GotTranslation\" event is triggered.",
     category = ComponentCategory.MEDIA,
     nonVisible = true,
+    showOnPalette = false,
     iconName = "images/yandex.png")
 @UsesPermissions(permissionNames = "android.permission.INTERNET")
 @SimpleObject

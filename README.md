@@ -1,13 +1,13 @@
-# Welcome to MIT App Inventor
+# Welcome to DFS - AppMaker
 
 ## Introduction
 
-Learn more about [MIT App Inventor](http://appinventor.mit.edu).
+Learn more about [DFS - AppMaker](http://appinventor.mit.edu).
 
 This code is designed to be run in Google's App Engine. MIT runs a
 public instance that all are welcome to use to build App Inventor
 Applications. You do not need to compile or use this code if you wish
-to build MIT App Inventor applications.
+to build DFS - AppMaker applications.
 
 We provide this code for reference and for experienced people who wish
 to operate their own App Inventor instance and/or contribute to the project.
@@ -182,5 +182,4 @@ https://stackoverflow.com/questions/22681907/you-uploaded-an-apk-that-is-not-zip
 
 `~/Library/Android/sdk/build-tools/29.0.2/zipalign -f -v 4 appinventor/build/buildserver/DFSAppMaker.apk appinventor/build/buildserver/DFSAppMaker-signed.apk`
 
-
-`/Users/dos/Desktop/appinventor-sources/appinventor/misc/i18n/i18n.py`
+/Users/dos/Desktop/appinventor-sources/appinventor/appengine/src/com/google/appinventor/client/TopPanel.java

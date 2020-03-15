@@ -83,7 +83,7 @@ Blockly.Msg.en.switch_language_to_english = {
    " and paste them into another project or screen. " +
    " To copy, you can drag-and-drop blocks into the Backpack. To paste, click on the Backpack icon and " +
    " drag-and-drop blocks into the workspace." +
-   "</p><p>If you leave MIT App Inventor with blocks left in your backpack, " +
+   "</p><p>If you leave DFS - AppMaker with blocks left in your backpack, " +
    " they will be there the next time you login." +
    "</p><p><a href='/reference/other/backpack.html' target='_blank'>Click Here</a> for further documentation and a 'how to' video.";
     Blockly.Msg.ENABLE_GRID = 'Enable Workspace Grid';

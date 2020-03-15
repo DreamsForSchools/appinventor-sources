@@ -52,8 +52,9 @@ body {
   font-weight: 800;
 }
 img.ode-Logo {
-  height: 40px;
-  padding: 1em 0;
+  width: 10em;
+  margin-top: 0.75em;
+  margin-left: 2em;
 }
 .ode-TopPanelButton, .ActionDropDown-Default, .ActionDropDown-Options {
   display: table-cell;
@@ -187,7 +188,7 @@ td {
 }
 /* checked mark aspect */
 [type="checkbox"]:not(:checked) + label:after, [type="checkbox"]:checked + label:after {
-  content: '✔';
+  content: '\2714';
   position: absolute;
   top: .25em;
   left: .2em;
@@ -382,13 +383,13 @@ table.ode-SimplePaletteItem:hover {
 }
 
 .ode-PanelButtons .ode-TextButton.ode-TextButton-up {
-  width: 100%;
+  /* width: 100%; */
   max-width: 10em;
   margin-top: 1em;
 }
 
 .ode-PanelButtons .ode-TextButton.ode-TextButton-up-hovering {
-  width: 100%;
+  /* width: 100%; */
   max-width: 10em;
   margin-top: 1em;
   background-color: #172c79 !important;

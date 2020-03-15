@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This version of MIT App Inventor stores session state in a Cookie
+This version of DFS - AppMaker stores session state in a Cookie
 named AppInventor. In many systems cookie values are database keys
 which reference a database that contains the actual session
 information. In an environment where here are multiple application

@@ -51,7 +51,7 @@ Blockly.Msg.ko.switch_language_to_korean = {
     Blockly.Msg.BACKPACK_CONFIRM_EMPTY = '배낭에 있는 모든 블록을 비우시겠습니까?';
     Blockly.Msg.BACKPACK_DOC_TITLE = '배낭 정보';
     Blockly.Msg.SHOW_BACKPACK_DOCUMENTATION = '배낭 설명서 표시';
-    Blockly.Msg.BACKPACK_DOCUMENTATION = '배낭은 복사 / 붙여 넣기 기능입니다. 하나의 프로젝트 또는 화면에서 블록을 복사하여 다른 프로젝트 또는 화면에 붙여 넣을 수 있습니다. 복사하려면 블록을 배낭으로 끌어다 놓을 수 있습니다. 붙여 넣으려면 배낭 아이콘을 클릭하고 블록을 작업 영역으로 끌어다 놓으십시오. </ p> <p> 배낭에 남아있는 블록이있는 MIT App Inventor를 떠나면 다음에 로그인 할 때이 블록이 나타납니다. < / p> <p> <a href=\'/reference/other/backpack.html\' target=\'_blank\'> 여기를 클릭 </a>하여 자세한 문서와 \'방법 \'비디오를 확인하십시오.';
+    Blockly.Msg.BACKPACK_DOCUMENTATION = '배낭은 복사 / 붙여 넣기 기능입니다. 하나의 프로젝트 또는 화면에서 블록을 복사하여 다른 프로젝트 또는 화면에 붙여 넣을 수 있습니다. 복사하려면 블록을 배낭으로 끌어다 놓을 수 있습니다. 붙여 넣으려면 배낭 아이콘을 클릭하고 블록을 작업 영역으로 끌어다 놓으십시오. </ p> <p> 배낭에 남아있는 블록이있는 DFS - AppMaker를 떠나면 다음에 로그인 할 때이 블록이 나타납니다. < / p> <p> <a href=\'/reference/other/backpack.html\' target=\'_blank\'> 여기를 클릭 </a>하여 자세한 문서와 \'방법 \'비디오를 확인하십시오.';
     Blockly.Msg.ENABLE_GRID = '작업 공간 격자 활성화';
     Blockly.Msg.DISABLE_GRID = '작업 공간 격자 비활성화';
     Blockly.Msg.ENABLE_SNAPPING = '자석 기능 활성화';

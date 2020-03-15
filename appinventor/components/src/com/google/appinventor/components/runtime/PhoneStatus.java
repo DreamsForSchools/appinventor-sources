@@ -307,7 +307,7 @@ public class PhoneStatus extends AndroidNonvisibleComponent implements Component
    *
    * We use this to determine whether or not the Companion is compatible
    * with the current version of App Inventor. We provide this to the
-   * Rendezvous server. When in "WebRTC" mode, the MIT App Inventor
+   * Rendezvous server. When in "WebRTC" mode, the DFS - AppMaker
    * client gets this value from the Rendezvous server (the older HTTPD
    * approach has its own "_getversion" URL which is used to do this, but
    * we cannot use that approach when using WebRTC, and the Rendezvous server

@@ -175,7 +175,7 @@
        ===================================================================== -->
   <target name="CheckPlayApp"
           depends="GenPlayAppSrcZip,BuildServer">
-    <uptodate property="PlayApp.uptodate" targetfile="${public.build.dir}/DFS-AppMaker.apk">
+    <uptodate property="PlayApp.uptodate" targetfile="${public.build.dir}/DFSAppMaker.apk">
       <srcfiles file="${local.build.dir}/aiplayapp.zip"/>
       <srcfiles dir="${run.lib.dir}" includes="*.jar"/>
     </uptodate>
@@ -294,7 +294,7 @@
       <arg line="uninstall edu.dfs.appinventor.appmaker" />
     </exec>
     <exec executable="adb" failonerror="true">
-      <arg line='install "${public.build.dir}/DFS-AppMaker.apk"' />
+      <arg line='install "${public.build.dir}/DFSAppMaker.apk"' />
     </exec>
   </target>
 

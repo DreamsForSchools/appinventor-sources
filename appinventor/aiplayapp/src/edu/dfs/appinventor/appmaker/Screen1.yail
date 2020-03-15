@@ -30,7 +30,7 @@ $Source $Yail
  (set-and-coerce-property! 'Screen1 'ShowListsAsJson #t 'boolean)
  (set-and-coerce-property! 'Screen1 'Sizing "Responsive" 'text)
  (set-and-coerce-property! 'Screen1 'Theme "AppTheme.Light.DarkActionBar" 'text)
- (set-and-coerce-property! 'Screen1 'Title "MIT App Inventor 2" 'text)
+ (set-and-coerce-property! 'Screen1 'Title "DFS - AppMaker 2" 'text)
 )
 
 (define-event Screen1 Initialize()(set-this-form)

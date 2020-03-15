@@ -9,6 +9,9 @@ init:
 	# minify large .js file
 	find appinventor/appengine/build/war/ode -maxdepth 1 -iname "*.cache.js" -exec uglifyjs {} -o {} -m \;
 
+build:
+	cd appinventor && ant
+
 dev-mode:
 	cd appinventor && ant devmode
 
@@ -31,7 +34,6 @@ sign-apk:
 	# remove signing key
 	zip -d appinventor/build/buildserver/DFSAppMaker.apk META-INF/\*
 	jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore.old appinventor/build/buildserver/DFSAppMaker.apk alias_name
-
 
 test:
 	ant tests

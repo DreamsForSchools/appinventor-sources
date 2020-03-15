@@ -96,11 +96,16 @@ public class PropertiesUtil {
     String componentType = mockComponent.getType();
     // Configure properties
     for (ComponentDatabaseInterface.PropertyDefinition property : propertyDefintions) {
-      mockComponent.addProperty(property.getName(), property.getDefaultValue(),
-          ComponentsTranslation.getPropertyName(property.getCaption()),
-          PropertiesUtil.createPropertyEditor(property.getEditorType(), property.getDefaultValue(), editor, property.getEditorArgs()));
-      /*OdeLog.log("Property Caption: " + property.getCaption() + ", "
-          + TranslationComponentProperty.getName(property.getCaption()));*/
+
+      // Hide TutorialURL and ShowListsAsJSON from Properties panel
+      String propertyCaption = property.getCaption();
+      if (!propertyCaption.equals("TutorialURL") && !propertyCaption.equals("ShowListsAsJson")) {
+        mockComponent.addProperty(property.getName(), property.getDefaultValue(),
+            ComponentsTranslation.getPropertyName(property.getCaption()),
+            PropertiesUtil.createPropertyEditor(property.getEditorType(), property.getDefaultValue(), editor, property.getEditorArgs()));
+        /*OdeLog.log("Property Caption: " + property.getCaption() + ", "
+            + TranslationComponentProperty.getName(property.getCaption()));*/
+      }
     }
 
   }

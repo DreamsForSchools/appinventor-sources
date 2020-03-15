@@ -183,7 +183,7 @@ public class DesignToolbar extends Toolbar {
     }
 
     addButton(new ToolbarItem(WIDGET_NAME_SWITCH_TO_FORM_EDITOR,
-        MESSAGES.switchToFormEditorButton(), new SwitchToFormEditorAction()), false);
+        MESSAGES.switchToFormEditorButton(), new SwitchToFormEditorAction()), true);
     addButton(new ToolbarItem(WIDGET_NAME_SWITCH_TO_BLOCKS_EDITOR,
         MESSAGES.switchToBlocksEditorButton(), new SwitchToBlocksEditorAction()), true);
 
