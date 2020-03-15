@@ -33,8 +33,9 @@ build-apk:
 
 sign-apk:
 	# remove signing key
-	zip -d appinventor/build/buildserver/DFSAppMaker.apk META-INF/\*
-	jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore.old appinventor/build/buildserver/DFSAppMaker.apk alias_name
+	zip -d appinventor/build/buildserver/"DFS AppMaker.apk" META-INF/\*
+	jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore.old appinventor/build/buildserver/"DFS AppMaker.apk" alias_name
+	~/Library/Android/sdk/build-tools/29.0.2/zipalign -f -v 4 appinventor/build/buildserver/"DFS AppMaker.apk" appinventor/build/buildserver/DFSAppMaker-signed.apk
 
 test:
 	ant tests
