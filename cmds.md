@@ -21,10 +21,12 @@ ant RunLocalBuildServer
 
 # Build to deploy app inventor
 
+This following command works consistently
+`gcloud app deploy --project=appjam-265500 --version=1 appengine/build/war/WEB-INF/appengine-web.xml`
+
 python ~/google-cloud-sdk/platform/google_appengine/appcfg.py -A appjam-265500 --oauth2 update appengine/build/war
 
 ~/google-cloud-sdk/bin/appcfg.sh -A appjam-265500 --oauth2 update appengine/build/war
-gcloud app deploy --project=appjam-265500 --version=1 appengine/build/war/WEB-INF/appengine-web.xml
 
 gcloud app deploy appengine/build/war/WEB-INF/appengine-web.xml
 

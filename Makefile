@@ -5,7 +5,8 @@ init:
 	# .circleci/install-deps.sh 
 	cp sample-.gitignore .gitignore
 	git submodule update --init
-	cd appinventor && ant MakeAuthKey && ant
+	cd appinventor && ant
+	# cd appinventor && ant MakeAuthKey && ant
 	# minify large .js file
 	find appinventor/appengine/build/war/ode -maxdepth 1 -iname "*.cache.js" -exec uglifyjs {} -o {} -m \;
 
@@ -39,4 +40,4 @@ test:
 	ant tests
 
 deploy:
-	gcloud -q app deploy appinventor/appengine/build/war/WEB-INF/appengine-web.xml
+	gcloud -q app deploy --project=appjam-265500 appinventor/appengine/build/war/WEB-INF/appengine-web.xml
