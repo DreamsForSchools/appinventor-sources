@@ -444,3 +444,8 @@ body > div.ode-MultipleChoicePropertyEditor > div > table > tbody > tr:nth-child
 body > div.ode-MultipleChoicePropertyEditor > div > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > button {
   width: 98%;
 }
+
+.ode-SimplePaletteItem-icon {
+  height: 25px;
+  width: 25px;
+}

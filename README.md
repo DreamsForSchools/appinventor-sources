@@ -183,3 +183,7 @@ https://stackoverflow.com/questions/22681907/you-uploaded-an-apk-that-is-not-zip
 `~/Library/Android/sdk/build-tools/29.0.2/zipalign -f -v 4 appinventor/build/buildserver/"DFS AppMaker.apk" appinventor/build/buildserver/DFSAppMaker-signed.apk`
 
 /Users/dos/Desktop/appinventor-sources/appinventor/appengine/src/com/google/appinventor/client/TopPanel.java
+
+# Switch Java version
+/usr/libexec/java_home -V
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`

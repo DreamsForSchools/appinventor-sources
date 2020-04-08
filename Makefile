@@ -12,6 +12,7 @@ init:
 
 build:
 	cd appinventor && ant
+	find appinventor/appengine/build/war/ode -maxdepth 1 -iname "*.cache.js" -exec uglifyjs {} -o {} -m \;
 
 dev-mode:
 	cd appinventor && ant devmode
