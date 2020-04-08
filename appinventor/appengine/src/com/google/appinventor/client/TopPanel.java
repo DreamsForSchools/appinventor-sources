@@ -68,7 +68,7 @@ public class TopPanel extends Composite {
   private static final String WIDGET_NAME_LANGUAGE = "Language";
 
   private static final String SIGNOUT_URL = "/ode/_logout";
-  private static final String LOGO_IMAGE_URL = "/static/images/appjam.png";
+  private static final String LOGO_IMAGE_URL = "/static/images/appmaker.png";
 
   private static final String WINDOW_OPEN_FEATURES = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
   private static final String WINDOW_OPEN_LOCATION = "_ai2";
@@ -303,7 +303,13 @@ public class TopPanel extends Composite {
     logo.setStyleName("ode-Logo");
     String logoUrl = ode.getSystemConfig().getLogoUrl();
     if (!Strings.isNullOrEmpty(logoUrl)) {
-      logo.addClickHandler(new WindowOpenClickHandler(logoUrl));
+      // logo.addClickHandler(new WindowOpenClickHandler(logoUrl));
+      logo.addClickHandler(new ClickHandler() {
+        @Override
+        public void onClick(ClickEvent event) {
+          Ode.getInstance().switchToProjectsView();
+        }
+      });
     }
     panel.add(logo);
     panel.setCellWidth(logo, "230px");

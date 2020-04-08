@@ -390,7 +390,8 @@ public class Ode implements EntryPoint {
         gallerySettings = settings;
         if(gallerySettings.galleryEnabled() == true){
           ProjectListBox.getProjectListBox().getProjectList().setPublishedHeaderVisible(true);
-          projectToolbar.setPublishOrUpdateButtonVisible(true);
+          // projectToolbar.setPublishOrUpdateButtonVisible(true);
+          projectToolbar.setPublishOrUpdateButtonVisible(false);
           GalleryClient.getInstance().setSystemEnvironment(settings.getEnvironment());
           topPanel.showGalleryLink(true);
           if(user.isModerator()){
@@ -463,7 +464,8 @@ public class Ode implements EntryPoint {
           // we re-enable it.
           projectToolbar.enableStartButton();
           projectToolbar.setProjectTabButtonsVisible(true);
-          projectToolbar.setPublishOrUpdateButtonVisible(true);
+          // projectToolbar.setPublishOrUpdateButtonVisible(true);
+          projectToolbar.setPublishOrUpdateButtonVisible(false);
           projectToolbar.setTrashTabButtonsVisible(false);
         }
       };
@@ -1815,7 +1817,7 @@ public class Ode implements EntryPoint {
       });
     holder.add(ok);
     holder.add(noshow);
-    DialogBoxContents.add(message);
+    // DialogBoxContents.add(message);
     DialogBoxContents.add(holder);
     dialogBox.setWidget(DialogBoxContents);
     dialogBox.show();

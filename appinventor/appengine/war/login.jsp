@@ -25,7 +25,9 @@
   </head>
 <body>
   <div id="main">
-    <img alt="AppJam+ Logo" src="/static/images/appjam-fitted.png" class="logo"/><h1>App Creator</h1></br>
+    <img alt="AppMaker Logo" src="/static/images/appmaker.png" class="logo"/>
+    <h3>Build your own apps with the Dreams for Schools App Maker Platform.<br/>
+      It allows anyone to create simple, beautiful and powerful mobile apps.</h3>
     
     <!-- Sign In With Google -->
     <%    if (useGoogleLabel != null && useGoogleLabel.equals("true")) { %>
@@ -37,7 +39,7 @@
     
     <footer class="footer">
       <span class="text-muted">Powered by 
-        <a href="https://www.dreamsforschools.org/" class="footer-link">
+        <a href="https://www.dreamsforschools.org/" target="_blank" class="footer-link">
           <img src="/static/images/d4s.jpeg" alt="d4s-icon" align="middle" class="icon"> Dreams for Schools
         </a>
       </span>
@@ -49,6 +51,7 @@
 body {
   font-family: Rubik, Roboto, Helvetica, Arial, sans-serif;
 }
+
 div#main {
   position: absolute;
   top:  45%;
@@ -56,6 +59,8 @@ div#main {
   transform: translate(-50%,-50%);
   text-align: center;
 }
+
+h1 { margin-top: 0; font-size: 3em; }
 
 .logo { width: 50%; }
 
@@ -71,5 +76,5 @@ div#main {
   color: #6c757d;
 }
 </style>
-</html>
 
+</html>
