@@ -79,6 +79,7 @@
       background-color: #4156a6;
     }
   </ui:style>
+
   <g:HTMLPanel>
      <div class="ode-noDialogDivHeader">
       <div class="ode-noDialogDivInnerHeader">
@@ -109,13 +110,13 @@
                     description="Title of the Getting Started app">Getting Started</ui:msg>
           </h4>
           <div class="ode-noDialogExampleImage">
-            <img src="/static/images/larry_icon.png" height="80" alt="Getting Started Logo"/>
+            <img src="/static/images/appmaker.png" height="40" alt="Getting Started Logo"/>
             <!-- <g:Image resource="{res.wilson}" altText="Wilson Logo" /> -->
           </div>
           <p class="ode-noDialogExampleAbout">
             <ui:msg key="gettingStartedDescription" description="Description of the Getting Started app">
               Following instructions in Lesson 0, you’ll learn how to set up your 
-              account, navigate the App Maker platoform, and be on your way to 
+              account, navigate the App Maker platform, and be on your way to 
               create your first mobile app game called “Larry the Lion”.
             </ui:msg>
           </p>
