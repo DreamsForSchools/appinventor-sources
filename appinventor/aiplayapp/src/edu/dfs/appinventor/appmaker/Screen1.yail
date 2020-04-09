@@ -21,16 +21,17 @@ $Source $Yail
 (do-after-form-creation (set-and-coerce-property! 'Screen1 'AccentColor #xFF0099FF 'number)
  (set-and-coerce-property! 'Screen1 'ActionBar #t 'boolean)
  (set-and-coerce-property! 'Screen1 'AlignHorizontal 3 'number)
+ (set-and-coerce-property! 'Screen1 'AppName "DFS - AppMaker" 'text)
  (set-and-coerce-property! 'Screen1 'BackgroundColor #x00FFFFFF 'number)
  (set-and-coerce-property! 'Screen1 'BackgroundImage "mooning.png" 'text)
  (set-and-coerce-property! 'Screen1 'Icon "appjam-logo.png" 'text)
  (set-and-coerce-property! 'Screen1 'PrimaryColor #xFF4156A6 'number)
  (set-and-coerce-property! 'Screen1 'PrimaryColorDark #xFF202E47 'number)
- (set-and-coerce-property! 'Screen1 'Scrollable #t 'boolean)
  (set-and-coerce-property! 'Screen1 'ShowListsAsJson #t 'boolean)
  (set-and-coerce-property! 'Screen1 'Sizing "Responsive" 'text)
  (set-and-coerce-property! 'Screen1 'Theme "AppTheme.Light.DarkActionBar" 'text)
  (set-and-coerce-property! 'Screen1 'Title "DFS - AppMaker 2" 'text)
+ (set-and-coerce-property! 'Screen1 'TitleVisible #f 'boolean)
 )
 
 (define-event Screen1 Initialize()(set-this-form)
@@ -158,9 +159,7 @@ $Source $Yail
 (add-component PhonePanel com.google.appinventor.components.runtime.Label Spacer1 
 (set-and-coerce-property! 'Spacer1 'HasMargins #f 'boolean)
 
-(set-and-coerce-property! 'Spacer1 'Height 8 'number)
-
-(set-and-coerce-property! 'Spacer1 'Visible #f 'boolean)
+(set-and-coerce-property! 'Spacer1 'Height -1010 'number)
 
 )
 
@@ -178,14 +177,14 @@ $Source $Yail
 (add-component instructionContainer com.google.appinventor.components.runtime.Label Spacer2 
 (set-and-coerce-property! 'Spacer2 'HasMargins #f 'boolean)
 
-(set-and-coerce-property! 'Spacer2 'Width 8 'number)
+(set-and-coerce-property! 'Spacer2 'Width -1010 'number)
 
 )
 
-;;; Image2
+;;; Image1
 
-(add-component instructionContainer com.google.appinventor.components.runtime.Image Image2 
-(set-and-coerce-property! 'Image2 'Picture "Instructions.png" 'text)
+(add-component instructionContainer com.google.appinventor.components.runtime.Image Image1 
+(set-and-coerce-property! 'Image1 'Picture "Instructions.png" 'text)
 
 )
 
@@ -194,7 +193,35 @@ $Source $Yail
 (add-component instructionContainer com.google.appinventor.components.runtime.Label Spacer3 
 (set-and-coerce-property! 'Spacer3 'HasMargins #f 'boolean)
 
-(set-and-coerce-property! 'Spacer3 'Width 8 'number)
+(set-and-coerce-property! 'Spacer3 'Width -1010 'number)
+
+)
+
+;;; ScanButton
+
+(add-component PhonePanel com.google.appinventor.components.runtime.Button ScanButton 
+(set-and-coerce-property! 'ScanButton 'BackgroundColor #xFF00FF00 'number)
+
+(set-and-coerce-property! 'ScanButton 'FontSize 18 'number)
+
+(set-and-coerce-property! 'ScanButton 'Height -1014 'number)
+
+(set-and-coerce-property! 'ScanButton 'Image "connectwQR.png" 'text)
+
+(set-and-coerce-property! 'ScanButton 'TextColor #xFFFFFFFF 'number)
+
+)
+
+(define-event ScanButton Click()(set-this-form)
+    (call-component-method 'BarcodeScanner1 'DoScan (*list-for-runtime*) '()))
+;;; HorizontalArrangement6
+
+(add-component PhonePanel com.google.appinventor.components.runtime.HorizontalArrangement HorizontalArrangement6 
+(set-and-coerce-property! 'HorizontalArrangement6 'BackgroundColor #xFF000000 'number)
+
+(set-and-coerce-property! 'HorizontalArrangement6 'Height 2 'number)
+
+(set-and-coerce-property! 'HorizontalArrangement6 'Width -1090 'number)
 
 )
 
@@ -203,7 +230,7 @@ $Source $Yail
 (add-component PhonePanel com.google.appinventor.components.runtime.Label Label10 
 (set-and-coerce-property! 'Label10 'HasMargins #f 'boolean)
 
-(set-and-coerce-property! 'Label10 'Height 8 'number)
+(set-and-coerce-property! 'Label10 'Height -1002 'number)
 
 )
 
@@ -230,9 +257,9 @@ $Source $Yail
 (add-component HorizontalArrangement2 com.google.appinventor.components.runtime.TextBox CodeBox 
 (set-and-coerce-property! 'CodeBox 'BackgroundColor #xFFFFFFFF 'number)
 
-(set-and-coerce-property! 'CodeBox 'FontTypeface 1 'number)
+(set-and-coerce-property! 'CodeBox 'FontSize 20 'number)
 
-(set-and-coerce-property! 'CodeBox 'FontSize 18 'number)
+(set-and-coerce-property! 'CodeBox 'FontTypeface 1 'number)
 
 (set-and-coerce-property! 'CodeBox 'Hint "Six Character Code" 'text)
 
@@ -240,7 +267,7 @@ $Source $Yail
 
 (set-and-coerce-property! 'CodeBox 'TextAlignment 1 'number)
 
-(set-and-coerce-property! 'CodeBox 'Width -2 'number)
+(set-and-coerce-property! 'CodeBox 'Width -1090 'number)
 
 )
 
@@ -267,7 +294,9 @@ $Source $Yail
 (add-component PhonePanel com.google.appinventor.components.runtime.Button ConnectButton 
 (set-and-coerce-property! 'ConnectButton 'BackgroundColor #xFFFFFF00 'number)
 
-(set-and-coerce-property! 'ConnectButton 'FontSize 18 'number)
+(set-and-coerce-property! 'ConnectButton 'FontSize 0 'number)
+
+(set-and-coerce-property! 'ConnectButton 'Height -1014 'number)
 
 (set-and-coerce-property! 'ConnectButton 'Image "connectwCode.png" 'text)
 
@@ -277,45 +306,12 @@ $Source $Yail
 
 (define-event ConnectButton Click()(set-this-form)
     (call-component-method 'CodeBox 'HideKeyboard (*list-for-runtime*) '())((get-var p$processcode) (get-property 'CodeBox 'Text)))
-;;; Spacer
-
-(add-component PhonePanel com.google.appinventor.components.runtime.Label Spacer 
-(set-and-coerce-property! 'Spacer 'HasMargins #f 'boolean)
-
-(set-and-coerce-property! 'Spacer 'Height 8 'number)
-
-)
-
-;;; ScanButton
-
-(add-component PhonePanel com.google.appinventor.components.runtime.Button ScanButton 
-(set-and-coerce-property! 'ScanButton 'BackgroundColor #xFF00FF00 'number)
-
-(set-and-coerce-property! 'ScanButton 'FontSize 18 'number)
-
-(set-and-coerce-property! 'ScanButton 'Image "connectwQR.png" 'text)
-
-(set-and-coerce-property! 'ScanButton 'TextColor #xFFFFFFFF 'number)
-
-)
-
-(define-event ScanButton Click()(set-this-form)
-    (call-component-method 'BarcodeScanner1 'DoScan (*list-for-runtime*) '()))
 ;;; IPContainer
 
 (add-component MainPanel com.google.appinventor.components.runtime.HorizontalArrangement IPContainer 
 (set-and-coerce-property! 'IPContainer 'AlignHorizontal 3 'number)
 
 (set-and-coerce-property! 'IPContainer 'Width -2 'number)
-
-)
-
-;;; Spacer4
-
-(add-component PhonePanel com.google.appinventor.components.runtime.Label Spacer4 
-(set-and-coerce-property! 'Spacer4 'HasMargins #f 'boolean)
-
-(set-and-coerce-property! 'Spacer4 'Width 8 'number)
 
 )
 
@@ -326,8 +322,6 @@ $Source $Yail
 
 (set-and-coerce-property! 'Label4 'Text "Your IP Address is: " 'text)
 
-(set-and-coerce-property! 'Label4 'FontSize 18 'number)
-
 )
 
 ;;; ipaddrlabel
@@ -336,8 +330,6 @@ $Source $Yail
 (set-and-coerce-property! 'ipaddrlabel 'HasMargins #f 'boolean)
 
 (set-and-coerce-property! 'ipaddrlabel 'Text "Unknown" 'text)
-
-(set-and-coerce-property! 'ipaddrlabel 'FontSize 18 'number)
 
 )
 
@@ -350,24 +342,12 @@ $Source $Yail
 
 )
 
-;;; Spacer5
-
-(add-component HorizontalArrangement3 com.google.appinventor.components.runtime.Label Spacer5 
-(set-and-coerce-property! 'Spacer5 'HasMargins #f 'boolean)
-
-(set-and-coerce-property! 'Spacer 'Width 8 'number)
-
-)
-
-
 ;;; Label11
 
 (add-component HorizontalArrangement3 com.google.appinventor.components.runtime.Label Label11 
 (set-and-coerce-property! 'Label11 'HasMargins #f 'boolean)
 
 (set-and-coerce-property! 'Label11 'Text "Version: " 'text)
-
-(set-and-coerce-property! 'Label11 'FontSize 18 'number)
 
 )
 
@@ -378,61 +358,23 @@ $Source $Yail
 
 (set-and-coerce-property! 'versionlabel 'Text "Unknown" 'text)
 
-(set-and-coerce-property! 'versionlabel 'FontSize 18 'number)
+)
+
+;;; Footer
+
+(add-component MainPanel com.google.appinventor.components.runtime.Image Footer 
+(set-and-coerce-property! 'Footer 'Picture "footer.png" 'text)
 
 )
 
 ;;; CheckBox1
 
 (add-component MainPanel com.google.appinventor.components.runtime.CheckBox CheckBox1 
+(set-and-coerce-property! 'CheckBox1 'Enabled #f 'boolean)
+
 (set-and-coerce-property! 'CheckBox1 'Text "Use Legacy Connection" 'text)
 
 (set-and-coerce-property! 'CheckBox1 'Visible #f 'boolean)
-
-)
-
-;;; Spacer6
-
-(add-component MainPanel com.google.appinventor.components.runtime.Label Spacer6
-(set-and-coerce-property! 'Spacer6 'HasMargins #f 'boolean)
-
-(set-and-coerce-property! 'Spacer6 'Height 8 'number)
-
-(set-and-coerce-property! 'Spacer6 'Visible #f 'boolean)
-
-)
-
-;;; footerContainer
-
-(add-component MainPanel com.google.appinventor.components.runtime.HorizontalArrangement footerContainer 
-(set-and-coerce-property! 'footerContainer 'AlignHorizontal 3 'number)
-
-(set-and-coerce-property! 'footerContainer 'Width -2 'number)
-
-)
-
-;;; Spacer7
-
-(add-component footerContainer com.google.appinventor.components.runtime.Label Spacer7 
-(set-and-coerce-property! 'Spacer7 'HasMargins #f 'boolean)
-
-(set-and-coerce-property! 'Spacer7 'Width 8 'number)
-
-)
-
-;;; Image3
-
-(add-component footerContainer com.google.appinventor.components.runtime.Image Image3
-(set-and-coerce-property! 'Image3 'Picture "footer.png" 'text)
-
-)
-
-;;; Spacer8
-
-(add-component footerContainer com.google.appinventor.components.runtime.Label Spacer8 
-(set-and-coerce-property! 'Spacer8 'HasMargins #f 'boolean)
-
-(set-and-coerce-property! 'Spacer8 'Width 8 'number)
 
 )
 
