@@ -43,6 +43,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 import java.util.MissingResourceException;
 
@@ -58,6 +59,7 @@ public class TopPanel extends Composite {
   public DropDownButton languageDropDown;
 
   private final String WIDGET_NAME_MESSAGES = "Messages";
+  private final String WIDGET_ACCOUNT_EMAIL = "EmailAdress";
   private final String WIDGET_NAME_PRIVATE_USER_PROFILE = "Profile";
   private final TextButton gallery;
   private final TextButton moderation;
@@ -66,7 +68,7 @@ public class TopPanel extends Composite {
   private static final String WIDGET_NAME_LANGUAGE = "Language";
 
   private static final String SIGNOUT_URL = "/ode/_logout";
-  private static final String LOGO_IMAGE_URL = "/static/images/codi_long.png";
+  private static final String LOGO_IMAGE_URL = "/static/images/appmaker.png";
 
   private static final String WINDOW_OPEN_FEATURES = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
   private static final String WINDOW_OPEN_LOCATION = "_ai2";
@@ -125,18 +127,18 @@ public class TopPanel extends Composite {
     }
 
     // My Projects Link
-    TextButton myProjects = new TextButton(MESSAGES.myProjectsTabName());
-    myProjects.setStyleName("ode-TopPanelButton");
+    // TextButton myProjects = new TextButton(MESSAGES.myProjectsTabName());
+    // myProjects.setStyleName("ode-TopPanelButton");
 
-    myProjects.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(ClickEvent event) {
-        ode.switchToProjectsView();
-      }
-    });
+    // myProjects.addClickHandler(new ClickHandler() {
+    //   @Override
+    //   public void onClick(ClickEvent event) {
+    //     ode.switchToProjectsView();
+    //   }
+    // });
 
-    myProjects.setStyleName("ode-TopPanelButton");
-    links.add(myProjects);
+    // myProjects.setStyleName("ode-TopPanelButton");
+    // links.add(myProjects);
 
     // View Trash Link
     TextButton viewTrash = new TextButton(MESSAGES.viewTrashTabName());
@@ -162,13 +164,15 @@ public class TopPanel extends Composite {
     links.add(gallery);
 
     Config config = ode.getSystemConfig();
-    String guideUrl = config.getGuideUrl();
-    if (!Strings.isNullOrEmpty(guideUrl)) {
-      TextButton guideLink = new TextButton(MESSAGES.guideTabName());
-      guideLink.addClickHandler(new WindowOpenClickHandler(guideUrl));
-      guideLink.setStyleName("ode-TopPanelButton");
-      links.add(guideLink);
-    }
+
+    // Guide Link
+    // String guideUrl = config.getGuideUrl();
+    // if (!Strings.isNullOrEmpty(guideUrl)) {
+    //   TextButton guideLink = new TextButton(MESSAGES.guideTabName());
+    //   guideLink.addClickHandler(new WindowOpenClickHandler(guideUrl));
+    //   guideLink.setStyleName("ode-TopPanelButton");
+    //   links.add(guideLink);
+    // }
 
     // Feedback Link
     String feedbackUrl = config.getFeedbackUrl();
@@ -222,20 +226,26 @@ public class TopPanel extends Composite {
     // Sign Out
     userItems.add(new DropDownItem(WIDGET_NAME_SIGN_OUT, MESSAGES.signOutLink(), new SignOutAction()));
 
-    accountButton = new DropDownButton(WIDGET_NAME_USER, " " , userItems, true);
+    accountButton = new DropDownButton(WIDGET_NAME_USER, "Account" , userItems, true);
     accountButton.setItemEnabled(WIDGET_NAME_MESSAGES, false);
     accountButton.setStyleName("ode-TopPanelButton");
 
     // Language
     List<DropDownItem> languageItems = Lists.newArrayList();
     String[] localeNames = LocaleInfo.getAvailableLocaleNames();
+    String[] visibleLangs = new String[]{"en", "zh_CN", "es_ES", "fr_FR", "ko_KR"};
+    List<String> langList = Arrays.asList(visibleLangs);
+
     String nativeName;
     for (String localeName : localeNames) {
       if (!localeName.equals("default")) {
         SelectLanguage lang = new SelectLanguage();
         lang.setLocale(localeName);
         nativeName = getDisplayName(localeName);
-        languageItems.add(new DropDownItem(WIDGET_NAME_LANGUAGE, nativeName, lang));
+
+        if (langList.contains(localeName)) {
+          languageItems.add(new DropDownItem(WIDGET_NAME_LANGUAGE, nativeName, lang));
+        }
       }
     }
     String currentLang = LocaleInfo.getCurrentLocale().getLocaleName();
@@ -289,11 +299,17 @@ public class TopPanel extends Composite {
     // to get around browsers that agressively cache the image! This
     // same trick is used in StorageUtil.getFilePath().
     Image logo = new Image(LOGO_IMAGE_URL + "?t=" + System.currentTimeMillis());
-    logo.setSize("180px", "40px");
+    // logo.setSize("180px", "40px");
     logo.setStyleName("ode-Logo");
     String logoUrl = ode.getSystemConfig().getLogoUrl();
     if (!Strings.isNullOrEmpty(logoUrl)) {
-      logo.addClickHandler(new WindowOpenClickHandler(logoUrl));
+      // logo.addClickHandler(new WindowOpenClickHandler(logoUrl));
+      logo.addClickHandler(new ClickHandler() {
+        @Override
+        public void onClick(ClickEvent event) {
+          Ode.getInstance().switchToProjectsView();
+        }
+      });
     }
     panel.add(logo);
     panel.setCellWidth(logo, "230px");
@@ -314,7 +330,15 @@ public class TopPanel extends Composite {
    * @param email the email address
    */
   public void showUserEmail(String email) {
-    accountButton.setCaption(email);
+    // Since we want to insert user's email address before "Sign Out", we need to clear first.
+    accountButton.clearAllItems();
+
+    // add email address and disable it
+    accountButton.addItem(new DropDownItem(WIDGET_ACCOUNT_EMAIL, email, null));
+    accountButton.setItemEnabled(email, false);
+    accountButton.addItem(null);
+    // add sign out button
+    accountButton.addItem(new DropDownItem(WIDGET_NAME_SIGN_OUT, MESSAGES.signOutLink(), new SignOutAction()));
   }
 
   /**

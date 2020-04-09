@@ -86,7 +86,7 @@ public class ShowBarcodeCommand extends ChainableCommand {
           "\" target=\"_blank\">",
           "</a>"));
       warningLabel.setWordWrap(true);
-      warningLabel.setWidth("200px");  // set width to get the text to wrap
+      warningLabel.setWidth("20em");  // set width to get the text to wrap
       HorizontalPanel warningPanel = new HorizontalPanel();
       warningPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
       warningPanel.add(warningLabel);

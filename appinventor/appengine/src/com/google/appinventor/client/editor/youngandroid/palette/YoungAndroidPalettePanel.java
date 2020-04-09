@@ -159,7 +159,7 @@ public class YoungAndroidPalettePanel extends Composite implements SimplePalette
 
     paletteHelpers = new HashMap<ComponentCategory, PaletteHelper>();
     // If a category has a palette helper, add it to the paletteHelpers map here.
-    paletteHelpers.put(ComponentCategory.LEGOMINDSTORMS, new LegoPaletteHelper());
+    // paletteHelpers.put(ComponentCategory.LEGOMINDSTORMS, new LegoPaletteHelper());
 
     categoryPanels = new HashMap<ComponentCategory, VerticalPanel>();
     simplePaletteItems = new HashMap<String, SimplePaletteItem>();
@@ -300,6 +300,21 @@ public class YoungAndroidPalettePanel extends Composite implements SimplePalette
 
   private static boolean showCategory(ComponentCategory category) {
     if (category == ComponentCategory.UNINITIALIZED) {
+      return false;
+    }
+    if (category == ComponentCategory.SOCIAL) {
+      return false;
+    }
+    if (category == ComponentCategory.CONNECTIVITY) {
+      return false;
+    }
+    if (category == ComponentCategory.LEGOMINDSTORMS) {
+      return false;
+    }
+    if (category == ComponentCategory.MAPS) {
+      return false;
+    }
+    if (category == ComponentCategory.EXPERIMENTAL) {
       return false;
     }
     if (category == ComponentCategory.INTERNAL &&

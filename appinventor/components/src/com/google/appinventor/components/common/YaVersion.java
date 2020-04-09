@@ -1328,10 +1328,10 @@ public class YaVersion {
   // appropriate Companion. Different versions (forks) of App Inventor
   // should use their own Companion. This variable holds the value
   // of the Android Package for this version of App Inventor. The
-  // default value here is for the MIT App Inventor service run
+  // default value here is for the DFS - AppMaker service run
   // by MIT
 
-  public static final String ACCEPTABLE_COMPANION_PACKAGE = "edu.mit.appinventor.aicompanion3";
+  public static final String ACCEPTABLE_COMPANION_PACKAGE = "edu.dfs.appinventor.appmaker";
 
   public static final String PREFERRED_COMPANION = "2.56";
   public static final String COMPANION_UPDATE_URL = "";

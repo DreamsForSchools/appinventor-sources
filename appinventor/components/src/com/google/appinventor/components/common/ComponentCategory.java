@@ -49,16 +49,17 @@ import java.util.Map;
     // TODO(user): i18n category names
     USERINTERFACE("User Interface"),
     LAYOUT("Layout"),
-    MEDIA("Media"),
     ANIMATION("Drawing and Animation"),
-    MAPS("Maps"),
-    SENSORS("Sensors"),
-    SOCIAL("Social"),
+    MEDIA("Media"),
     STORAGE("Storage"),
-    CONNECTIVITY("Connectivity"),
-    LEGOMINDSTORMS("LEGO\u00AE MINDSTORMS\u00AE"),
+    SENSORS("Sensors"),
+    MAPS("Maps"),
     EXPERIMENTAL("Experimental"),
     EXTENSION("Extension"),
+    // The categories below will not be shown
+    SOCIAL("Social"),
+    CONNECTIVITY("Connectivity"),
+    LEGOMINDSTORMS("LEGO\u00AE MINDSTORMS\u00AE"),
     INTERNAL("For internal use only"),
     // UNINITIALIZED is used as a default value so Swing libraries can still compile
     UNINITIALIZED("Uninitialized");

@@ -1,5 +1,5 @@
 ---
-title: MIT App Inventor Logic Blocks
+title: DFS - AppMaker Logic Blocks
 layout: documentation
 ---
 

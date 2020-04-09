@@ -32,8 +32,8 @@ import java.util.GregorianCalendar;
  */
 @DesignerComponent(version = YaVersion.DATEPICKER_COMPONENT_VERSION,
     category = ComponentCategory.USERINTERFACE,
-    description = "<p>A button that, when clicked on, launches a popup" +
-        " dialog to allow the user to select a date.</p>")
+    description = "A button that, when clicked on, launches a popup" +
+        " dialog to allow the user to select a date.")
 @SimpleObject
 public class DatePicker extends ButtonBase {
 

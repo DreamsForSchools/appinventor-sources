@@ -24,8 +24,8 @@ import android.view.View;
  * @author lizlooney@google.com (Liz Looney)
  */
 @DesignerComponent(version = YaVersion.TABLEARRANGEMENT_COMPONENT_VERSION,
-    description = "<p>A formatting element in which to place components " +
-    "that should be displayed in tabular form.</p>",
+    description = "A formatting element in which to place components " +
+    "that should be displayed in tabular form.",
     category = ComponentCategory.LAYOUT)
 @SimpleObject
 public class TableArrangement extends AndroidViewComponent

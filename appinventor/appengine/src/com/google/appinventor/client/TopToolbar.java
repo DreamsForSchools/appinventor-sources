@@ -249,8 +249,8 @@ public class TopToolbar extends Composite {
     List<DropDownItem> connectItems = Lists.newArrayList();
     connectItems.add(new DropDownItem(WIDGET_NAME_WIRELESS_BUTTON,
         MESSAGES.AICompanionMenuItem(), new WirelessAction()));
-    connectItems.add(new DropDownItem(WIDGET_NAME_EMULATOR_BUTTON,
-        MESSAGES.emulatorMenuItem(), new EmulatorAction()));
+    // connectItems.add(new DropDownItem(WIDGET_NAME_EMULATOR_BUTTON,
+    //     MESSAGES.emulatorMenuItem(), new EmulatorAction()));
     connectItems.add(new DropDownItem(WIDGET_NAME_USB_BUTTON, MESSAGES.usbMenuItem(),
         new UsbAction()));
     connectItems.add(null);
@@ -282,7 +282,7 @@ public class TopToolbar extends Composite {
     // To support the creation of packages for older devices, we leave the buildserver
     // (as of 8/1/2018) generating minSdk 7 packages (no target SDK) which will run on
     // much older devices. The second buildserver will package applications with a target
-    // SDK of 26 for those MIT App Inventor users who wish to put their applications in
+    // SDK of 26 for those DFS - AppMaker users who wish to put their applications in
     // the Play Store after 8/1/2018.
 
     if (Ode.getInstance().hasSecondBuildserver()) {
@@ -353,8 +353,8 @@ public class TopToolbar extends Composite {
     }
     String forumsUrl = config.getForumsUrl();
     if (!Strings.isNullOrEmpty(forumsUrl)) {
-      helpItems.add(new DropDownItem(WIDGET_NAME_FORUMS, MESSAGES.forumsMenuItem(),
-          new WindowOpenAction(forumsUrl)));
+      // helpItems.add(new DropDownItem(WIDGET_NAME_FORUMS, MESSAGES.forumsMenuItem(),
+      //     new WindowOpenAction(forumsUrl)));
     }
     helpItems.add(null);
     String feedbackUrl = config.getFeedbackUrl();
@@ -363,8 +363,8 @@ public class TopToolbar extends Composite {
           new WindowOpenAction(feedbackUrl)));
       helpItems.add(null);
     }
-    helpItems.add(new DropDownItem(WIDGET_NAME_COMPANIONINFO, MESSAGES.companionInformation(),
-        new AboutCompanionAction()));
+    // helpItems.add(new DropDownItem(WIDGET_NAME_COMPANIONINFO, MESSAGES.companionInformation(),
+    //     new AboutCompanionAction()));
     helpItems.add(new DropDownItem(WIDGET_NAME_COMPANIONUPDATE, MESSAGES.companionUpdate(),
         new CompanionUpdateAction()));
     helpItems.add(new DropDownItem(WIDGET_NAME_SHOWSPLASH, MESSAGES.showSplashMenuItem(),
@@ -841,7 +841,7 @@ public class TopToolbar extends Composite {
     @Override
     public void execute() {
       final DialogBox db = new DialogBox(false, true);
-      db.setText("About MIT App Inventor");
+      db.setText("About DFS - AppMaker");
       db.setStyleName("ode-DialogBox");
       db.setHeight("200px");
       db.setWidth("400px");
@@ -850,20 +850,24 @@ public class TopToolbar extends Composite {
       db.center();
 
       VerticalPanel DialogBoxContents = new VerticalPanel();
-      String html = MESSAGES.gitBuildId(GitBuildId.getDate(), GitBuildId.getVersion()) +
-          "<BR/>" + MESSAGES.useCompanion(YaVersion.PREFERRED_COMPANION, YaVersion.PREFERRED_COMPANION + "u") +
-          "<BR/>" + MESSAGES.targetSdkVersion(YaVersion.TARGET_SDK_VERSION, YaVersion.TARGET_ANDROID_VERSION);
+      String html = 
+        // MESSAGES.gitBuildId(GitBuildId.getDate(), GitBuildId.getVersion()) +
+        "Built: " + GitBuildId.getDate() + "<br/>" +
+        "Version: " + GitBuildId.getVersion() + "<br/>" +
+        "<BR/>" + MESSAGES.useCompanion(YaVersion.PREFERRED_COMPANION, YaVersion.PREFERRED_COMPANION + "u") +
+        "<BR/>" + MESSAGES.targetSdkVersion(YaVersion.TARGET_SDK_VERSION, YaVersion.TARGET_ANDROID_VERSION);
       Config config = Ode.getInstance().getSystemConfig();
-      String releaseNotesUrl = config.getReleaseNotesUrl();
-      if (!Strings.isNullOrEmpty(releaseNotesUrl)) {
-        html += "<BR/><BR/>Please see <a href=\"" + releaseNotesUrl +
-            "\" target=\"_blank\">release notes</a>";
-      }
-      String tosUrl = config.getTosUrl();
-      if (!Strings.isNullOrEmpty(tosUrl)) {
-        html += "<BR/><BR/><a href=\"" + tosUrl +
-            "\" target=\"_blank\">" + MESSAGES.privacyTermsLink() + "</a>";
-      }
+      // String releaseNotesUrl = config.getReleaseNotesUrl();
+      // if (!Strings.isNullOrEmpty(releaseNotesUrl)) {
+      //   html += "<BR/><BR/>Please see <a href=\"" + releaseNotesUrl +
+      //       "\" target=\"_blank\">release notes</a>";
+      // }
+      // String tosUrl = config.getTosUrl();
+      // if (!Strings.isNullOrEmpty(tosUrl)) {
+      //   html += "<BR/><BR/><a href=\"" + tosUrl +
+      //       "\" target=\"_blank\">" + MESSAGES.privacyTermsLink() + "</a>";
+      // }
+      html += "<BR/><BR/>Questions? Email us at <a href=\"mailto:support@dreamsforschools.org\" target=\"_blank\">support@dreamsforschools.org</a>";
       HTML message = new HTML(html);
 
       SimplePanel holder = new SimplePanel();
@@ -977,12 +981,12 @@ public class TopToolbar extends Composite {
   private void updateConnectToDropDownButton(boolean isEmulatorRunning, boolean isCompanionRunning, boolean isUsbRunning){
     if (!isEmulatorRunning && !isCompanionRunning && !isUsbRunning) {
       connectDropDown.setItemEnabled(MESSAGES.AICompanionMenuItem(), true);
-      connectDropDown.setItemEnabled(MESSAGES.emulatorMenuItem(), true);
+      // connectDropDown.setItemEnabled(MESSAGES.emulatorMenuItem(), true);
       connectDropDown.setItemEnabled(MESSAGES.usbMenuItem(), true);
       connectDropDown.setItemEnabled(MESSAGES.refreshCompanionMenuItem(), false);
     } else {
       connectDropDown.setItemEnabled(MESSAGES.AICompanionMenuItem(), false);
-      connectDropDown.setItemEnabled(MESSAGES.emulatorMenuItem(), false);
+      // connectDropDown.setItemEnabled(MESSAGES.emulatorMenuItem(), false);
       connectDropDown.setItemEnabled(MESSAGES.usbMenuItem(), false);
       connectDropDown.setItemEnabled(MESSAGES.refreshCompanionMenuItem(), true);
     }

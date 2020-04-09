@@ -1,5 +1,5 @@
 ---
-title: MIT App Inventor Text Blocks
+title: DFS - AppMaker Text Blocks
 layout: documentation
 ---
 

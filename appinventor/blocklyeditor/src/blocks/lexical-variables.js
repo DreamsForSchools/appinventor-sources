@@ -4,7 +4,7 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 /**
  * @license
- * @fileoverview Variables blocks for Blockly, modified for MIT App Inventor.
+ * @fileoverview Variables blocks for Blockly, modified for DFS - AppMaker.
  * @author fturbak@wellesley.edu (Lyn Turbak)
  */
 

@@ -29,7 +29,7 @@ import com.google.appinventor.components.runtime.util.MediaUtil;
  *
  */
 @DesignerComponent(version = YaVersion.IMAGESPRITE_COMPONENT_VERSION,
-    description = "<p>A 'sprite' that can be placed on a " +
+    description = "A 'sprite' that can be placed on a " +
         "<code>Canvas</code>, where it can react to touches and drags, " +
         "interact with other sprites (<code>Ball</code>s and other " +
         "<code>ImageSprite</code>s) and the edge of the Canvas, and move " +
@@ -47,7 +47,7 @@ import com.google.appinventor.components.runtime.util.MediaUtil;
         "with a rotated sprite currently checks the sprite's unrotated position " +
         "so that collision checking will be inaccurate for tall narrow or short " +
         "wide sprites that are rotated.  Any of the sprite properties " +
-        "can be changed at any time under program control.</p> ",
+        "can be changed at any time under program control.",
     category = ComponentCategory.ANIMATION)
 @SimpleObject
 @UsesPermissions(permissionNames = "android.permission.INTERNET")

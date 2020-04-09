@@ -19,11 +19,11 @@ import com.google.appinventor.components.common.YaVersion;
  */
 
 @DesignerComponent(version = YaVersion.VERTICALARRANGEMENT_COMPONENT_VERSION,
-    description = "<p>A formatting element in which to place components " +
+    description = "A formatting element in which to place components " +
     "that should be displayed one below another.  (The first child component " +
     "is stored on top, the second beneath it, etc.)  If you wish to have " +
     "components displayed next to one another, use " +
-    "<code>HorizontalArrangement</code> instead.</p>",
+    "<code>HorizontalArrangement</code> instead.",
     category = ComponentCategory.LAYOUT)
 @SimpleObject
 public class VerticalArrangement extends HVArrangement {

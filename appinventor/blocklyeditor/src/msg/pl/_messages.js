@@ -51,7 +51,7 @@ Blockly.Msg.pl.switch_language_to_polish = {
     Blockly.Msg.BACKPACK_CONFIRM_EMPTY = 'Czy na pewno chcesz opróżnić plecak?';
     Blockly.Msg.BACKPACK_DOC_TITLE = 'Informacje o plecaku';
     Blockly.Msg.SHOW_BACKPACK_DOCUMENTATION = 'Pokaż dokumentację plecaka';
-    Blockly.Msg.BACKPACK_DOCUMENTATION = 'Plecak to funkcja kopiowania/wklejania. Pozwala kopiować bloki z jednego projektu lub ekranu i wklejać je do innego projektu lub ekranu. Aby skopiować, możesz przeciągać i upuszczać bloki do plecaka. Aby wkleić, kliknij ikonę Plecaka i przeciągnij i upuść bloki do obszaru roboczego. </p><p> Jeśli opuścisz MIT App Inventor z blokami pozostawionymi w plecaku, będą tam przy następnym logowaniu. </p><p><a href=\'/reference/other/backpack.html\' target=\'_blank\'> Kliknij tutaj </a>, aby uzyskać dalszą dokumentację i wideo „jak to zrobić”.';
+    Blockly.Msg.BACKPACK_DOCUMENTATION = 'Plecak to funkcja kopiowania/wklejania. Pozwala kopiować bloki z jednego projektu lub ekranu i wklejać je do innego projektu lub ekranu. Aby skopiować, możesz przeciągać i upuszczać bloki do plecaka. Aby wkleić, kliknij ikonę Plecaka i przeciągnij i upuść bloki do obszaru roboczego. </p><p> Jeśli opuścisz DFS - AppMaker z blokami pozostawionymi w plecaku, będą tam przy następnym logowaniu. </p><p><a href=\'/reference/other/backpack.html\' target=\'_blank\'> Kliknij tutaj </a>, aby uzyskać dalszą dokumentację i wideo „jak to zrobić”.';
     Blockly.Msg.ENABLE_GRID = 'Włącz siatkę Pulpi';
     Blockly.Msg.DISABLE_GRID = 'Wyłącz siatkę Pulpitu';
     Blockly.Msg.ENABLE_SNAPPING = 'Włącz przyciąganie do siatki';

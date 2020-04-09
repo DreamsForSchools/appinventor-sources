@@ -4,7 +4,7 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 /**
  * @license
- * @fileoverview Container block for all mutators for Blockly, modified for MIT App Inventor.
+ * @fileoverview Container block for all mutators for Blockly, modified for DFS - AppMaker.
  * @author mckinney@mit.edu (Andrew F. McKinney)
  */
 

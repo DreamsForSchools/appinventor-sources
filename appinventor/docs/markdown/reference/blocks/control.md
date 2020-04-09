@@ -1,5 +1,5 @@
 ---
-title: MIT App Inventor Control Blocks
+title: DFS - AppMaker Control Blocks
 layout: documentation
 ---
 

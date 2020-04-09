@@ -390,7 +390,8 @@ public class Ode implements EntryPoint {
         gallerySettings = settings;
         if(gallerySettings.galleryEnabled() == true){
           ProjectListBox.getProjectListBox().getProjectList().setPublishedHeaderVisible(true);
-          projectToolbar.setPublishOrUpdateButtonVisible(true);
+          // projectToolbar.setPublishOrUpdateButtonVisible(true);
+          projectToolbar.setPublishOrUpdateButtonVisible(false);
           GalleryClient.getInstance().setSystemEnvironment(settings.getEnvironment());
           topPanel.showGalleryLink(true);
           if(user.isModerator()){
@@ -463,7 +464,8 @@ public class Ode implements EntryPoint {
           // we re-enable it.
           projectToolbar.enableStartButton();
           projectToolbar.setProjectTabButtonsVisible(true);
-          projectToolbar.setPublishOrUpdateButtonVisible(true);
+          // projectToolbar.setPublishOrUpdateButtonVisible(true);
+          projectToolbar.setPublishOrUpdateButtonVisible(false);
           projectToolbar.setTrashTabButtonsVisible(false);
         }
       };
@@ -1094,7 +1096,7 @@ public class Ode implements EntryPoint {
     //workColumns.add(switchToDesignerButton);
 
     Box palletebox = PaletteBox.getPaletteBox();
-    palletebox.setWidth("240px");
+    palletebox.setWidth("18em");
     workColumns.add(palletebox);
 
     Box viewerbox = ViewerBox.getViewerBox();
@@ -1110,10 +1112,11 @@ public class Ode implements EntryPoint {
     structureAndAssets.add(SourceStructureBox.getSourceStructureBox());
     structureAndAssets.add(BlockSelectorBox.getBlockSelectorBox());  // initially not visible
     structureAndAssets.add(AssetListBox.getAssetListBox());
+    structureAndAssets.setWidth("18em");
     workColumns.add(structureAndAssets);
 
     Box propertiesbox = PropertiesBox.getPropertiesBox();
-    propertiesbox.setWidth("222px");
+    propertiesbox.setWidth("18em");
     workColumns.add(propertiesbox);
     //switchToBlocksButton.setHeight("650px");
     //workColumns.add(switchToBlocksButton);
@@ -1735,7 +1738,7 @@ public class Ode implements EntryPoint {
             HasHorizontalAlignment.ALIGN_RIGHT,
             HasVerticalAlignment.ALIGN_MIDDLE);
 
-    Image dialogImage = new Image(Ode.getImageBundle().codiVert());
+    Image dialogImage = new Image(Ode.getImageBundle().appMakerLogo());
 
     Grid messageGrid = new Grid(2, 1);
     messageGrid.getCellFormatter().setAlignment(0,
@@ -1776,7 +1779,7 @@ public class Ode implements EntryPoint {
   }
 
   /**
-   * Possibly display the MIT App Inventor "Splash Screen"
+   * Possibly display the DFS - AppMaker "Splash Screen"
    *
    * @param force Bypass the check to see if they have dimissed this version
    */
@@ -1814,7 +1817,7 @@ public class Ode implements EntryPoint {
       });
     holder.add(ok);
     holder.add(noshow);
-    DialogBoxContents.add(message);
+    // DialogBoxContents.add(message);
     DialogBoxContents.add(holder);
     dialogBox.setWidget(DialogBoxContents);
     dialogBox.show();

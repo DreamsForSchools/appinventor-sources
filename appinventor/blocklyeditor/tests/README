@@ -71,7 +71,7 @@ data, and also an expected yail file to test against, acquired from
 App Inventor Classic.
 
 *** Getting the .scm and .bky files:
-- Create a new project in App Inventor 2
+- Create a new project in DFS - AppMaker
 - When the project is complete, go to 'My Projects', select your project,
 and click 'Download Source'
 - You will receive a .aia file. This behaves as a .zip file. When unzipped,

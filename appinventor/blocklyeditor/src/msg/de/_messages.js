@@ -81,7 +81,7 @@ Blockly.Msg.de.switch_language_to_german = {
         " zu kopieren und in ein anderes Projekt oder einem anderen Screen einzufügen. " +
         " Um zu kopieren, kannst Du per Drag und Drop die Blöcke in den Rucksack ablegen. Um einzufügen, " +
         " klicke auf das Rucksacksymbol und lege die Blöcke in den Arbeitsbereich per Drag und Drop ab." +
-        "</p><p>Falls Du den MIT App Inventor verlässt und sich Blöcke in Deinem Rucksack befinden, " +
+        "</p><p>Falls Du den DFS - AppMaker verlässt und sich Blöcke in Deinem Rucksack befinden, " +
         " werden sie noch dort sein, wenn Du dich das nächste Mal einloggst." +
         "</p><p>Für weitere Dokumentation und einem Anleitungsvideo, besuche:" +
         '</p><p><a href="http://ai2.appinventor.mit.edu/reference/other/backpack.html" target="_blank">http://ai2.appinventor.mit.edu/reference/other/backpack.html</a>';

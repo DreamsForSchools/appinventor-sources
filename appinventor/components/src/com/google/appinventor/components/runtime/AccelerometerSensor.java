@@ -415,7 +415,7 @@ public int getDeviceDefaultOrientation() {
     description="Prior to the release that added this property the AccelerometerSensor " +
     "component passed through sensor values directly as received from the " +
     "Android system. However these values do not compensate for tablets " +
-    "that default to Landscape mode, requiring the MIT App Inventor " +
+    "that default to Landscape mode, requiring the DFS - AppMaker " +
     "programmer to compensate. However compensating would result in " +
     "incorrect results in Portrait mode devices such as phones. " +
     "We now detect Landscape mode tablets and perform the compensation. " +

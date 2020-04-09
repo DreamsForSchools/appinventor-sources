@@ -607,7 +607,7 @@ public class AIMerger extends JFrame {
   }
 
   public AIMerger() {
-    super("App Inventor Merger v1.2 -- for App Inventor 2");
+    super("App Inventor Merger v1.2 -- for DFS - AppMaker");
 
     // Set the size and location of the application's window based on the screen size.
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

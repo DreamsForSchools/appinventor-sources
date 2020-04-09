@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Create a report describing a bug in MIT App Inventor
+about: Create a report describing a bug in DFS - AppMaker
 labels: 'bug, status: new'
 ---
 

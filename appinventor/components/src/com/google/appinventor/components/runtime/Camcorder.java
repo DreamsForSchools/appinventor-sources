@@ -39,6 +39,7 @@ import java.util.Date;
   "the source property of a VideoPlayer component.",
   category = ComponentCategory.MEDIA,
   nonVisible = true,
+  showOnPalette = false,
   iconName = "images/camcorder.png")
 @SimpleObject
 @UsesPermissions(permissionNames = "android.permission.WRITE_EXTERNAL_STORAGE, android.permission.READ_EXTERNAL_STORAGE," +

@@ -26,7 +26,7 @@ import android.graphics.Paint;
  *
  */
 @DesignerComponent(version = YaVersion.BALL_COMPONENT_VERSION,
-    description = "<p>A round 'sprite' that can be placed on a " +
+    description = "A round 'sprite' that can be placed on a " +
         "<code>Canvas</code>, where it can react to touches and drags, " +
         "interact with other sprites (<code>ImageSprite</code>s and other " +
         "<code>Ball</code>s) and the edge of the Canvas, and move according " +
@@ -40,7 +40,7 @@ import android.graphics.Paint;
         "<p>The difference between a <code>Ball</code> and an <code>ImageSprite</code> is " +
         "that the latter can get its appearance from an image file, while a " +
         "<code>Ball</code>'s appearance can be changed only by varying its " +
-        "<code>PaintColor</code> and <code>Radius</code> properties.</p>",
+        "<code>PaintColor</code> and <code>Radius</code> properties.",
     category = ComponentCategory.ANIMATION)
 @SimpleObject
 public final class Ball extends Sprite {

@@ -1,5 +1,5 @@
 ---
-title: Controlling Internet of Things Devices with MIT App Inventor
+title: Controlling Internet of Things Devices with DFS - AppMaker
 layout: documentation
 ---
 

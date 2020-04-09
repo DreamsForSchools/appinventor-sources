@@ -105,7 +105,7 @@ public final class Compiler {
   private static final String EXT_COMPS_DIR_NAME = "external_comps";
 
   private static final String DEFAULT_APP_NAME = "";
-  private static final String DEFAULT_ICON = RUNTIME_FILES_DIR + "ya.png";
+  private static final String DEFAULT_ICON = RUNTIME_FILES_DIR + "dfsappmaker.png";
   private static final String DEFAULT_VERSION_CODE = "1";
   private static final String DEFAULT_VERSION_NAME = "1.0";
   private static final String DEFAULT_MIN_SDK = "7";
@@ -666,7 +666,7 @@ public final class Compiler {
    * Create the default color and styling for the app.
    */
   private boolean createValuesXml(File valuesDir, String suffix) {
-    String colorPrimary = project.getPrimaryColor() == null ? "#A5CF47" : project.getPrimaryColor();
+    String colorPrimary = project.getPrimaryColor() == null ? "#4156A6" : project.getPrimaryColor();
     String colorPrimaryDark = project.getPrimaryColorDark() == null ? "#41521C" : project.getPrimaryColorDark();
     String colorAccent = project.getAccentColor() == null ? "#00728A" : project.getAccentColor();
     String theme = project.getTheme() == null ? "Classic" : project.getTheme();
@@ -1166,7 +1166,7 @@ public final class Compiler {
     List<Integer> standardICSizesForMipmaps = Arrays.asList(48,72,96,144,192);
     List<Integer> foregroundICSizesForMipmaps = Arrays.asList(108,162,216,324,432);
 
-    if (!compiler.prepareApplicationIcon(new File(drawableDir, "ya.png"), mipmapDirectoriesForIcons, standardICSizesForMipmaps, foregroundICSizesForMipmaps)) {
+    if (!compiler.prepareApplicationIcon(new File(drawableDir, "dfsappmaker.png"), mipmapDirectoriesForIcons, standardICSizesForMipmaps, foregroundICSizesForMipmaps)) {
       return false;
     }
     if (reporter != null) {
