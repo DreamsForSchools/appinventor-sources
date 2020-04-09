@@ -1112,7 +1112,7 @@ public class Ode implements EntryPoint {
     structureAndAssets.add(SourceStructureBox.getSourceStructureBox());
     structureAndAssets.add(BlockSelectorBox.getBlockSelectorBox());  // initially not visible
     structureAndAssets.add(AssetListBox.getAssetListBox());
-    structureAndAssets.setWidth("18em");
+    structureAndAssets.setWidth("20em");
     workColumns.add(structureAndAssets);
 
     Box propertiesbox = PropertiesBox.getPropertiesBox();
