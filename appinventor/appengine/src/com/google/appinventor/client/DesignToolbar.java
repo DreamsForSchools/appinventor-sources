@@ -166,7 +166,7 @@ public class DesignToolbar extends Toolbar {
     toolbar.insert(projectNameLabel, 0);
 
     // width of palette minus cellspacing/border of buttons
-    toolbar.setCellWidth(projectNameLabel, "222px");
+    toolbar.setCellWidth(projectNameLabel, "150px");
 
     addButton(new ToolbarItem(WIDGET_NAME_TUTORIAL_TOGGLE,
         MESSAGES.toggleTutorialButton(), new ToogleTutorialAction()));
