@@ -81,10 +81,11 @@ public class ShowBarcodeCommand extends ChainableCommand {
       HTML linkQrcode = new HTML("<center><a href=\"" + appInstallUrl + "\" target=\"_blank\">" + appInstallUrl + "</a></center>");
       HorizontalPanel buttonPanel = new HorizontalPanel();
       buttonPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
-      HTML warningLabel = new HTML(MESSAGES.barcodeWarning(
-          "<a href=\"" + "http://appinventor.mit.edu/explore/ai2/share.html" +
-          "\" target=\"_blank\">",
-          "</a>"));
+      // HTML warningLabel = new HTML(MESSAGES.barcodeWarning(
+      //     "<a href=\"" + "http://appinventor.mit.edu/explore/ai2/share.html" +
+      //     "\" target=\"_blank\">",
+      //     "</a>"));
+      HTML warningLabel = new HTML("Note: this barcode is only valid for 2 hours.");
       warningLabel.setWordWrap(true);
       warningLabel.setWidth("20em");  // set width to get the text to wrap
       HorizontalPanel warningPanel = new HorizontalPanel();
