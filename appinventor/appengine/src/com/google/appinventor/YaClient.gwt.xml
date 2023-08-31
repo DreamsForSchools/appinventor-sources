@@ -135,6 +135,7 @@
   <extend-property name="locale" values="pl"/>
 
   <set-property-fallback name="locale" value="en"/>
-  <collapse-all-properties/>
+  <!-- <collapse-all-properties/>  -->
+  <!-- Commented out due to this issue https://community.appinventor.mit.edu/t/deploy-app-inventor-failed-on-google-app-engine/2574/3 -->
 
 </module>
