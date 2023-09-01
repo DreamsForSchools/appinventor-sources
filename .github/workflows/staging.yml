@@ -24,8 +24,8 @@ jobs:
         distribution: 'temurin'
 
     # !!! FOR DEV ENVIRONMENT ONLY: Comment out the next step before pushing to source control. Downloads 'ant' on the local dev github actions runner (act library).
-    - name: Install build dependencies for testing locally  
-      run: bash ./scripts/dev_testing/set_up_act.sh
+    # - name: Install build dependencies for testing locally  
+    #   run: bash ./scripts/dev_testing/set_up_act.sh
 
     - name: Make auth key
       run: ant MakeAuthKey -f ./appinventor/build.xml
