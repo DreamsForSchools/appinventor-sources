@@ -27,6 +27,9 @@ jobs:
     # - name: Install build dependencies for testing locally  
     #   run: bash ./scripts/dev_testing/set_up_act.sh
 
+    - name: Install blockly git submodule
+      run: git submodule update --init
+
     - name: Make auth key
       run: ant MakeAuthKey -f ./appinventor/build.xml
 
