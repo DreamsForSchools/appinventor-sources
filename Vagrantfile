@@ -8,12 +8,12 @@
 
 Vagrant.configure("2") do |config|
 
-  config.vm.box = "ubuntu/bionic64"
+  config.vm.box = "ubuntu/jammy64"
 
   config.vm.boot_timeout = 400
 
   config.vm.provider "virtualbox" do |v|
-    v.name = "ForAppinventor2-bionic64"
+    v.name = "ForAppinventor2-jammy64"
     v.memory = "4096"
     v.customize ["modifyvm", :id, "--usb", "on"]
     # fix for slow network

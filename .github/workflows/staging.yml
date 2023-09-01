@@ -1,25 +1,49 @@
 # This workflow will build a Java project with Ant
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-ant
 
-name: Java CI
+name: Staging CI
 
 on:
   push:
     branches: [ "staging" ]
 
 jobs:
-  build:
+  appmaker:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v3
-    # - name: Set up JDK 8
-    #   uses: actions/setup-java@v3
-    #   with:
-    #     java-version: '8'
-    #     distribution: 'temurin'
-    - name: Run bootstrap script
-      run: bash bootstrap.sh
+    - name: Set up JDK 8
+      uses: actions/setup-java@v3
+      with:
+        java-version: '8'
+        distribution: 'temurin'
+
+    # !!! FOR DEV ENVIRONMENT ONLY: Comment out the next step before pushing to source control. Downloads 'ant' on the local dev github actions runner (act library).
+    - name: Install build dependencies for testing locally  
+      run: bash ./scripts/dev_testing/set_up_act.sh
+
+    - name: Make auth key
+      run: ant MakeAuthKey -f ./appinventor/build.xml
+
     - name: Build with Ant
-      run: ant
+      run: ant -f ./appinventor/build.xml
+
+    - name: Change build server address to staging build server
+      run: bash ./scripts/deployment/change_build_server_address.sh BS_ADDR=35.215.113.84
+
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+
+    - name: 'Use gcloud CLI'
+      run: 'gcloud app deploy -q ./appinventor/appengine/build/war' 
+      # -q in order to avoid interactive prompt asking to confirm before deploying

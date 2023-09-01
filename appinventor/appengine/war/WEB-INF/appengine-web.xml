@@ -93,7 +93,8 @@
     <property name="localauth.mailserver.password" value="changeme" />
 
     <!-- host[:port] to use for connecting to the build server -->
-    <property name="build.server.host" value="35.215.69.168:9990" />
+    <!-- Do not change the value of localhost:9990 below! The deployment script change_build_server_address.sh finds and replaces localhost:9990 with the appropriate staging/prod build server ip address. Not the best practice but the value doesn't need to be changed for local development either! -->
+    <property name="build.server.host" value="localhost:9990" />
 
     <!-- We provide below for a second buildserver. If this field is
          non-empty then the user is presented a choice of two different

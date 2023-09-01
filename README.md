@@ -1,30 +1,24 @@
 # Welcome to DFS - AppMaker
 
 ## Introduction
+DFS AppMaker is a fork of MIT's App Inventor. Learn more about [MIT App Inventor](http://appinventor.mit.edu). 
 
-Learn more about [DFS - AppMaker](http://appinventor.mit.edu).
+Large parts of this README is also borrowed from AppInventor. Additionally, remnants of the identifier `appinventor` still remain in the codebase. We could refactor all instances of `appinventor` into `appmaker`, however, one benefit is that it makes merging changes from AppInventor into AppMaker simpler.
 
 This code is designed to be run in Google's App Engine. MIT runs a
 public instance that all are welcome to use to build App Inventor
 Applications. You do not need to compile or use this code if you wish
-to build DFS - AppMaker applications.
+to build DFS AppMaker applications.
 
 We provide this code for reference and for experienced people who wish
-to operate their own App Inventor instance and/or contribute to the project.
+to operate their own AppMaker instance and/or contribute to the project.
 
 This code is tested and known to work with Java 8.
 
-## Contributors
-The best way to go about integrating changes in App Inventor is to start a conversation in the [Open Source forum](https://groups.google.com/forum/#!forum/app-inventor-open-source-dev) about whatever you intend to change or add.
+## App Inventor Resources
+Check out AppInventor's open source [site](http://appinventor.mit.edu/appinventor-sources/) to find a lot more information about the project.
 
-We use ***very brief and informal*** design documents with descriptions of the proposed changes and screenshots of how the functionality would look like and behave, in order to gather as much feedback from the community, as early as possible. We generally use shared Google docs for this (with permissions to add comments), but any format that is accessible from a web browser (and allows comments) would do.
-
-If you have skipped this step and have gone ahead and made your changes already, feel free to open a pull request, but don't be too surprised if we ask you to go back and document it in a design document. Remember that the main goal of doing this is ***to gather as much feedback, as early as possible***. We will also possibly ask you to put an instance with your changes on [appspot](http://appspot.com), and provide a modified Companion app (if that applies) so that reviewers can play with the changes before looking at the source.
-
-Check out our open source [site](http://appinventor.mit.edu/appinventor-sources/) to find a lot more information about the project and how to contribute to it.
-
-## Setup instructions (Vagrant)
-
+## Setup Instructions (Vagrant)
 The easiest way to get a development environment up and running is to use the provided Vagrantfile. Install [Vagrant](https://vagrantup.com) and open a terminal in the root directory of this repository. Run the following commands
 
 ```bash
