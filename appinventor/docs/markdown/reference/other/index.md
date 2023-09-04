@@ -5,6 +5,7 @@ layout: documentation
 
 These documents provide additional details on some App Inventor topics.
 
+* [Editing Your App (Copy and Paste)](editing-functions.html)
 * [Using the Activity Starter](activitystarter.html)
 * [Uploading Your Apps to Google Play](appstoplay.html)
 * [Creating a Custom TinyWebDB Service](tinywebdb.html)
@@ -17,6 +18,7 @@ These documents provide additional details on some App Inventor topics.
 * [Using Images with App Inventor](usingImages.html)
 * [Interfacing App Inventor projects to external sensors](https://docs.google.com/document/d/1HuWW8C3Ghz-pO-tWRpod2znM5wD7RfK10b2J37ftf2E/pub)
 * [Building apps with many screens](manyscreens.html)
+* [Working with JSON and Web APIs](json-web-apis.html)
 * [Working with XML and Web Services](xml.html)
 * [Using the Genymotion emulator with App Inventor](genymotion.html)
 * [App Inventor Extensions](extensions.html)
@@ -29,6 +31,7 @@ These documents provide additional details on some App Inventor topics.
 * [Brief introduction to cloud data and the Firebase component](firebaseIntro.html)
 * [Controlling Internet of Things Devices with DFS - AppMaker](IoT.html)
 * [Project merger tool](merger.html)
-* [Experiments with Virtual Reality and DFS - AppMaker](vr.html)
-* [Don't Repeat Yourself (DRY) using Generic Blocks](any-component-blocks.html)
+* [Experiments with Virtual Reality and MIT App Inventor](vr.html)
+* [Don't Repeat Yourself (DRY) using Any Component Blocks](any-component-blocks.html)
 * [Import and export code blocks as PNGs](download-pngs.html)
+* [ListView Layouts with ListViewLayout and ElementsFromString](advanced-listview.html)

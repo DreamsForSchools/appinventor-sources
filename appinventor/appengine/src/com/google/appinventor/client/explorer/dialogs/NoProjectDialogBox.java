@@ -15,6 +15,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -29,6 +30,7 @@ public class NoProjectDialogBox extends DialogBox {
 
   private static NoProjectDialogBoxUiBinder uiBinder =
       GWT.create(NoProjectDialogBoxUiBinder.class);
+  private static NoProjectDialogBox lastDialog = null;
 
   interface NoProjectDialogBoxUiBinder extends UiBinder<Widget, NoProjectDialogBox> {
   }
@@ -65,6 +67,7 @@ public class NoProjectDialogBox extends DialogBox {
     this.center();
     this.setAnimationEnabled(true);
     this.setAutoHideEnabled(true);
+    lastDialog = this;
   }
 
   @UiHandler("closeDialogBox")
@@ -99,6 +102,13 @@ public class NoProjectDialogBox extends DialogBox {
   @UiHandler("noDialogNewProject")
   void handleNewProject(ClickEvent e) {
     this.hide();
-    new NewYoungAndroidProjectWizard(null).show();
+    new NewYoungAndroidProjectWizard();
+  }
+
+  public static void closeIfOpen() {
+    if (lastDialog != null) {
+      lastDialog.removeFromParent();;
+      lastDialog = null;
+    }
   }
 }

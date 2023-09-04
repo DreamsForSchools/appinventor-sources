@@ -1,5 +1,5 @@
 // -*- mode: java; c-basic-offset: 2; -*-
-// Copyright 2018 MIT, All rights reserved
+// Copyright 2018-2020 MIT, All rights reserved
 // Released under the Apache License, Version 2.0
 // http://www.apache.org/licenses/LICENSE-2.0
 
@@ -10,9 +10,8 @@ import com.google.appinventor.client.editor.simple.components.utils.SVGPanel;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.InlineHTML;
 
 /**
  * Mock Switch component, inherited from MockToggleBase
@@ -34,7 +33,7 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
 
   public InlineHTML switchLabel;
   public SVGPanel switchGraphic;
-  public Boolean isInitialized = false;
+  public Boolean isInitialized;
 
   /**
    * Creates a new MockSwitch component.
@@ -52,26 +51,6 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
     isInitialized = false;
     initWrapper(toggleWidget);
   }
-
-  /**
-   * Class that extends Widget so we can use a protected constructor.
-   *
-   * <p/>The purpose of this class is to create a clone of the Switch
-   * passed to the constructor. It will be used to determine the preferred size
-   * of the Switch, without having the size constrained by its parent,
-   * since the cloned Switch won't have a parent.
-   */
-  static class ClonedSwitch extends InlineHTML {
-    ClonedSwitch(HorizontalPanel ptb) {
-      super(DOM.clone(ptb.getWidget(0).getElement(), true));
-    }
-  }
-
-  @Override
-  protected Widget createClonedWidget() {
-    return new ClonedSwitch(toggleWidget);
-  }
-
 
   /**
    * Draw the SVG graphic of the toggle switch. It can be drawn in either checked or
@@ -184,7 +163,7 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
 
   @Override
   protected void setFontTypefaceProperty(String text) {
-    MockComponentsUtil.setWidgetFontTypeface(toggleWidget.getWidget(0), text);
+    MockComponentsUtil.setWidgetFontTypeface(this.editor, toggleWidget.getWidget(0), text);
     updatePreferredSize();
   }
 
@@ -211,6 +190,15 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
     } else if (propertyName.equals(PROPERTY_NAME_HEIGHT)) {
       paintSwitch();
       refreshForm();
+    } else if (propertyName.equals(PROPERTY_NAME_WIDTH)) {
+      MockComponentsUtil.updateTextAppearances(switchLabel, newValue);
+      refreshForm();
     }
+  }
+
+  @Override
+  public void onDesignPreviewChanged() {
+    super.onDesignPreviewChanged();
+    paintSwitch();
   }
 }

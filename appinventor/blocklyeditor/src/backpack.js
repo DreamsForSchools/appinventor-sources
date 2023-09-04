@@ -53,6 +53,8 @@ Blockly.Backpack = function(targetWorkspace, opt_options) {
   } else {
     opt_options = opt_options || {};
     this.options = new Blockly.Options(opt_options);
+    // Parsing loses this option so we have to reassign.
+    this.options.disabledPatternId = opt_options.disabledPatternId;
   }
   this.workspace_ = targetWorkspace;
   this.flyout_ = new Blockly.BackpackFlyout(this.options);
@@ -476,7 +478,7 @@ Blockly.Backpack.prototype.openBackpack = function(e) {
       var len = backpack.length;
       var newBackpack = [];
       for (var i = 0; i < len; i++) {
-        newBackpack[i] = Blockly.Xml.textToDom(backpack[i]).firstChild;
+        newBackpack[i] = Blockly.Versioning.upgradeComponentMethods(Blockly.Xml.textToDom(backpack[i]).firstChild);
       }
       Blockly.hideChaff();
       p.flyout_.show(newBackpack);

@@ -9,8 +9,6 @@ reports/
 *~
 *.out
 .DS_Store*
-*.out
-*~
 *.iml
 .idea/
 .externalToolBuilders/
@@ -19,3 +17,7 @@ out/
 *.pyc
 .vagrant/
 *.log
+.build/
+*-cache/
+.bundle/
+vendor/

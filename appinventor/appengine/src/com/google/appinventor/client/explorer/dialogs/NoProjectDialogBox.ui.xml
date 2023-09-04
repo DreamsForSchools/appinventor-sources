@@ -191,11 +191,11 @@
     </div>
 
     <div class="ode-bottomRow">
-        <g:Button ui:field='noDialogNewProject' styleName="{style.ode-noDialogNewProject}">
+        <g:Button ui:field='noDialogNewProject' styleName="ode-noDialogNewProject">
           <ui:msg key="startProjectButton" description="Text of the button to start a new project"
           >Start a blank project</ui:msg>
         </g:Button>
-        <g:Button ui:field='closeDialogBox' styleName='{style.ode-closeDialogBox}'>
+        <g:Button ui:field='closeDialogBox' styleName='ode-closeDialogBox'>
           <ui:msg key="closeButton" description="Text of the button to close the dialog box"
           >Close</ui:msg>
         </g:Button>

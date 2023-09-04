@@ -190,10 +190,10 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     // [lyn, 10/28/13] I thought this rerendering was unnecessary. But I was wrong!
     // Without it, get bug noticed by Andrew in which toggling horizontal -> vertical params
     // in procedure decl doesn't handle body tag appropriately!
+    for (var i = 0; i < this.inputList.length; i++) {
+      this.inputList[i].init();
+    }
     if (this.rendered) {
-      for (var i = 0; i < this.inputList.length; i++) {
-        this.inputList[i].init();
-      }
       this.render();
     }
     if (this.workspace.loadCompleted) {  // set in BlocklyPanel.java on successful load
@@ -249,16 +249,8 @@ Blockly.Blocks['procedures_defnoreturn'] = {
       var newArguments = procDecl.arguments_;
       newArguments[paramIndex] = newParamName;
 
-      var procName = procDecl.getFieldValue('NAME');
-
       // 1. Change all callers so label reflects new name
       Blockly.Procedures.mutateCallers(procDecl);
-
-      var callers = Blockly.Procedures.getCallers(procName, procWorkspace);
-      for (var x = 0; x < callers.length; x++) {
-        var block = callers[x];
-        Blockly.Blocks.Utilities.renameCollapsed(block, 0);
-      }
 
       // 2. If there's an open mutator, change the name in the corresponding slot.
       if (procDecl.mutator && procDecl.mutator.rootBlock_) {
@@ -390,7 +382,8 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     Blockly.BlockSvg.prototype.dispose.apply(this, arguments);
 
     var procDb = workspace.getProcedureDatabase();
-    if (editable && procDb) {  // only true for the top-level workspaces, not flyouts/flydowns
+    if (editable && procDb && workspace == Blockly.mainWorkspace) {
+      // only remove for the top-level workspaces, not flyouts/flydowns
       procDb.removeProcedure(this.id);
     }
 
@@ -694,7 +687,6 @@ Blockly.Blocks['procedures_callnoreturn'] = {
   renameProcedure: function(oldName, newName) {
     if (Blockly.Names.equals(oldName, this.getFieldValue('PROCNAME'))) {
       this.setFieldValue(newName, 'PROCNAME');
-      Blockly.Blocks.Utilities.renameCollapsed(this, 0);
     }
   },
   // [lyn, 10/27/13] Renamed "fromChange" parameter to "startTracking", because it should be true in any situation
@@ -910,4 +902,3 @@ Blockly.Blocks['procedures_callreturn'] = {
   // blocks have not been loaded yet (they are loaded in typeblock.js)
   typeblock: [{ translatedName: Blockly.Msg.LANG_PROCEDURES_CALLRETURN_TRANSLATED_NAME}]
 };
-

@@ -68,12 +68,19 @@ public final class YoungAndroidSettings extends Settings {
         EditableProperty.TYPE_INVISIBLE));
     addProperty(new EditableProperty(this,
         SettingsConstants.YOUNG_ANDROID_SETTINGS_PRIMARY_COLOR, "&HFF4156A6",
+    //     SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW, "Classic",
+    //     EditableProperty.TYPE_INVISIBLE));
+    // addProperty(new EditableProperty(this,
+    //     SettingsConstants.YOUNG_ANDROID_SETTINGS_PRIMARY_COLOR, "&HFFA5CF47",
         EditableProperty.TYPE_INVISIBLE));
     addProperty(new EditableProperty(this,
         SettingsConstants.YOUNG_ANDROID_SETTINGS_PRIMARY_COLOR_DARK, "&HFF202E47",
         EditableProperty.TYPE_INVISIBLE));
     addProperty(new EditableProperty(this,
         SettingsConstants.YOUNG_ANDROID_SETTINGS_ACCENT_COLOR, "&HFF0099FF",
+        EditableProperty.TYPE_INVISIBLE));
+    addProperty(new EditableProperty(this,
+        SettingsConstants.YOUNG_ANDROID_SETTINGS_DEFAULTFILESCOPE, "App",
         EditableProperty.TYPE_INVISIBLE));
   }
 }
