@@ -3,6 +3,13 @@
 /usr/libexec/java_home -V
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 
+## Dependencies for M2
+gem install bundler:2.0.1
+gem install google-protobuf -v 3.23.4
+gem install sass-embedded -v 1.58.3
+gem install rouge -v 3.30.0
+gem install jekyll
+
 # Build instance
 ant
 

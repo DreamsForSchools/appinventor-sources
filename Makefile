@@ -3,7 +3,7 @@ SHELL = /bin/sh
 
 init:
 	# .circleci/install-deps.sh 
-	cp sample-.gitignore .gitignore
+	# cp sample-.gitignore .gitignore
 	git submodule update --init
 	cd appinventor && ant
 	# cd appinventor && ant MakeAuthKey && ant
