@@ -1,0 +1,23 @@
+# Builds the build server, see https://docs.google.com/document/u/0/d/1Xc9yt02x3BRoq5m1PJHBr81OOv69rEBy8LVG_84j9jc/pub#h.7uzl42kitrog under section 6
+# FROM node:18-alpine
+FROM alpine as build
+WORKDIR /app
+COPY . .
+# ant requires git
+RUN apk update && apk add openjdk8 && apk add apache-ant && apk add git
+RUN mkdir buildserv-docker
+RUN ant BuildDeploymentTar -f ./appinventor/buildserver/build.xml
+RUN cp ./appinventor/build/buildserver/BuildServer.tar ./buildserv-docker
+RUN cp ./appinventor/misc/buildserver/launch-buildserver ./buildserv-docker
+# output ./lib file from tar to ./buildserv-docker
+RUN tar -C ./buildserv-docker -xf ./buildserv-docker/BuildServer.tar
+
+
+# Multistage dockerfiles to reduce image size
+FROM alpine as main
+WORKDIR /app
+# bash is needed to run launch script
+RUN apk update && apk add openjdk8 && apk add bash
+COPY --from=build /app/buildserv-docker /app/buildserv-docker/
+CMD ./buildserv-docker/launch-buildserver && sleep 10
+EXPOSE 9990

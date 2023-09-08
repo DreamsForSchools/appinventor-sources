@@ -43,6 +43,9 @@ cd `dirname $0`/lib;
 # Revised 10/25 to add commons-io-2.0.1.jar
 # Revised 07/03 to add bcprov-jdk15on-149.jar and bcpkix-jdk15on-149.jar:sdklib.jar to support Android SDK 4.2.2
 # Revised 2018/04/20 to switch to wildcard inclusion of jars in classpath
-
+ 
 exec nohup java -Xmx1828m -cp "*" -Dfile.encoding=UTF-8 com.google.appinventor.buildserver.BuildServer --dexCacheDir /tmp/dxcache $LAUNCH_BUILDSERVER_OPT &> $LAUNCH_BUILDSERVER_LOG_PATH &
 fi
+
+# Keeps the process running in the foreground so docker doesn't exit the container
+while true; do sleep 1; done
