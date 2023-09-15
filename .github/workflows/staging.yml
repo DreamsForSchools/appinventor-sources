@@ -34,7 +34,8 @@ jobs:
       run: ant MakeAuthKey -f ./appinventor/build.xml
 
     - name: Build with Ant
-      run: ant -f ./appinventor/build.xml
+      run: ant -Drelease=true noplay -f ./appinventor/build.xml
+      # -Drelease=true sets the release flag, build the optimized release version of the code
 
     - name: Change build server address to staging build server # make sure the ip address has the port
       run: bash ./scripts/deployment/change_build_server_address.sh BS_ADDR=35.215.113.84:9990
