@@ -47,8 +47,8 @@ jobs:
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v1'
 
-    - name: 'Use gcloud CLI'
-      run: 'gcloud app deploy -q ./appinventor/appengine/build/war' 
+    # - name: 'Use gcloud CLI'
+    #   run: 'gcloud app deploy -q ./appinventor/appengine/build/war' 
     # -q in order to avoid interactive prompt asking to confirm before deploying
     # need -q aka quiet for ALL gcloud commands
 
