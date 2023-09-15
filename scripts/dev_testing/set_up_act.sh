@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-apt-get update
-apt-get upgrade -y
-apt-get install -y ant
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install -y ant
