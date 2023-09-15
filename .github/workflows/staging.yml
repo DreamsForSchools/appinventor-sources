@@ -23,9 +23,9 @@ jobs:
         java-version: '8'
         distribution: 'temurin'
 
-    # !!! FOR DEV ENVIRONMENT ONLY: Comment out the next step before pushing to source control. Downloads 'ant' on the local dev github actions runner (act library).
-    # - name: Install build dependencies for testing locally  
-    #   run: bash ./scripts/dev_testing/set_up_act.sh
+    # Downloads 'ant' and 'docker' on the local dev github actions runner (act library).
+    - name: Install build dependencies for testing locally  
+      run: bash ./scripts/dev_testing/set_up_act.sh
 
     - name: Install blockly git submodule
       run: git submodule update --init
@@ -36,8 +36,8 @@ jobs:
     - name: Build with Ant
       run: ant -f ./appinventor/build.xml
 
-    - name: Change build server address to staging build server
-      run: bash ./scripts/deployment/change_build_server_address.sh BS_ADDR=35.215.113.84
+    - name: Change build server address to staging build server # make sure the ip address has the port
+      run: bash ./scripts/deployment/change_build_server_address.sh BS_ADDR=35.215.113.84:9990
 
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
@@ -49,19 +49,16 @@ jobs:
 
     - name: 'Use gcloud CLI'
       run: 'gcloud app deploy -q ./appinventor/appengine/build/war' 
-      # -q in order to avoid interactive prompt asking to confirm before deploying
+    # -q in order to avoid interactive prompt asking to confirm before deploying
+    # need -q aka quiet for ALL gcloud commands
 
 
-    ## UNTESTED
-    ## BUILD SERVER DEPLOYMENT
-    - uses: 'docker-practice/actions-setup-docker@master'
-      timeout-minutes: 12
-
+    # ## BUILD SERVER DEPLOYMENT
     - name: Build docker image
       run: docker build -t build-server --no-cache -f DockerfileBuildServer .
 
     - name: Configure pushing to artifact registry
-      run: gcloud auth configure-docker us-west2-docker.pkg.dev
+      run: gcloud auth configure-docker us-west2-docker.pkg.dev -q
       
     - name: Tag docker image
       run: docker tag build-server us-west2-docker.pkg.dev/dfs-appjam-staging/staging-build-server/build-server-image:staging
@@ -70,4 +67,4 @@ jobs:
       run: docker push us-west2-docker.pkg.dev/dfs-appjam-staging/staging-build-server/build-server-image:staging
 
     - name: Update build compute engine instance to use latest pushed docker image
-      run: gcloud compute instances update-container appmaker-staging-build-server-containerized --container-image us-west2-docker.pkg.dev/dfs-appjam-staging/staging-build-server/build-server-image:staging
+      run: gcloud compute instances update-container appmaker-staging-build-server-container --container-image us-west2-docker.pkg.dev/dfs-appjam-staging/staging-build-server/build-server-image:staging

@@ -14,10 +14,10 @@ RUN tar -C ./buildserv-docker -xf ./buildserv-docker/BuildServer.tar
 
 
 # Multistage dockerfiles to reduce image size
-FROM alpine as main
+FROM ubuntu:jammy as main
 WORKDIR /app
 # bash is needed to run launch script
-RUN apk update && apk add openjdk8 && apk add bash
+RUN apt-get update && apt-get upgrade -y && apt-get install -y openjdk-8-jdk
 COPY --from=build /app/buildserv-docker /app/buildserv-docker/
 CMD ./buildserv-docker/launch-buildserver && sleep 10
 EXPOSE 9990

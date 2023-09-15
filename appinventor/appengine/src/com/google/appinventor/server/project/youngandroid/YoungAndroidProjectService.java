@@ -115,7 +115,7 @@ public final class YoungAndroidProjectService extends CommonProjectService {
 
   // host[:port] to use for connecting to the build server
   private static final Flag<String> buildServerHost =
-      Flag.createFlag("build.server.host", "35.215.69.168:9990");
+      Flag.createFlag("build.server.host", "35.215.113.84:9990");
   // host[:port] to use for connecting to the second build server
   private static final Flag<String> buildServerHost2 =
       Flag.createFlag("build2.server.host", "");
