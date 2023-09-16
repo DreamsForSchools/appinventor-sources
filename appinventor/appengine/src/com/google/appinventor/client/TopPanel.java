@@ -148,11 +148,11 @@ public class TopPanel extends Composite {
     ode.switchToProjectsView();
   }
 
-  @SuppressWarnings("unused")
-  @UiHandler("viewTrash")
-  public void switchToTrash(ClickEvent e) {
-    ode.switchToTrash();
-  }
+  // @SuppressWarnings("unused")
+  // @UiHandler("viewTrash")
+  // public void switchToTrash(ClickEvent e) {
+  //   ode.switchToTrash();
+  // }
 
   private String getDisplayName(String localeName){
     String nativeName=LocaleInfo.getLocaleNativeDisplayName(localeName);

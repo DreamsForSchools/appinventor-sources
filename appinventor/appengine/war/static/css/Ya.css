@@ -267,8 +267,9 @@ div.StatusPanel {
   vertical-align: top;
   padding-right: 10px;
   text-align: left;
-  flex-grow: 1;
+  /* flex-grow: 1; */
   min-width: 100px;
+  width: 40%;
 }
 
 .ode-ProjectFieldLabel {
@@ -341,17 +342,18 @@ div.StatusPanel {
   text-align: left;
   padding-right: 10px;
   display: inline-flex;
-
   align-items: center;
 }
 
 .ode-ProjectListName {
   min-width: 100px;
-  flex-grow: 1;
+  width: 40%;
+  /* flex-grow: 1; */
 }
 
 .ode-ProjectListDate {
-  width: 200px;
+  width: 15%;
+  /* width: 200px; */
 }
 
 .ode-CheckpointProjectTable {
