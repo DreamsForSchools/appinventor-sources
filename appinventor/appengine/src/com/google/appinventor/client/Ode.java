@@ -465,7 +465,7 @@ public class Ode implements EntryPoint {
       deckPanel.showWidget(designTabIndex);
     } else if (!editorManager.hasOpenEditor()) {  // is there a project editor pending visibility?
       LOG.warning("No current file editor to show in designer");
-      ErrorReporter.reportInfo(MESSAGES.chooseProject());
+      // ErrorReporter.reportInfo(MESSAGES.chooseProject());
     }
   }
 
@@ -563,7 +563,7 @@ public class Ode implements EntryPoint {
             // we only get here iff onProjectAdded is never called with the target project id
             projectManager.removeProjectManagerEventListener(this);
             switchToProjectsView();  // the user will need to select a project...
-            ErrorReporter.reportInfo(MESSAGES.chooseProject());
+            // ErrorReporter.reportInfo(MESSAGES.chooseProject());
           }
         });
       }

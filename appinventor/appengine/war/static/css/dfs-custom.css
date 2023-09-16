@@ -36,13 +36,14 @@ body {
   background-color: #F2F2F2 !important;
 }
 .gwt-HTML {
-  padding: 1em 0;
+  padding: 1.25em 0;
 }
 .ode-StatusPanel {
   color: white;
   background: none !important;
   background-color: #202E47 !important;
   border: 1px;
+  padding: 0.5em 0;
 }
 .ode-StatusPanel a {
   color: white;
@@ -96,6 +97,9 @@ body, table td, select {
   padding: 0.75em;
   line-height: 1.5;
   color: white;
+}
+.ode-Box-header-caption {
+  width: 18em;
 }
 .ode-Box-header {
   background-color: #4156A6;
@@ -402,7 +406,7 @@ table.ode-SimplePaletteItem:hover {
 }
 
 .gwt-CheckBox label {
-  padding-left: 2em !important;
+  padding-left: 1em !important;
 }
 
 .ode-SimpleFormDesigner {
@@ -411,10 +415,6 @@ table.ode-SimplePaletteItem:hover {
 
 .ode-SimpleMockFormPhonePortrait.ode-SimpleMockFormPhonePortrait-selected {
   margin: 1.5em 0;
-}
-
-.gwt-TreeItem .gwt-HTML img {
-  margin-right: 1em;
 }
 
 table.ode-SimpleFormDesigner td {
@@ -478,6 +478,12 @@ img.gwt-Image {
   vertical-align: text-top;
 }
 
+.dialogContent img.gwt-Image {
+  height: 5em;
+  width: 5em;
+  margin-top: 1em;
+}
+
 span.gwt-CheckBox {
   display: -webkit-inline-box;
 }
@@ -490,4 +496,14 @@ span.gwt-CheckBox {
 /* disclosure panel icon */
 .ode-PropertiesPanel .gwt-DisclosurePanel tbody tr td a tbody tr td:first-child {
   padding: 0.5em !important;
+}
+
+.gwt-CheckBox {
+  display: block;
+  margin: 0px 2em;
+}
+
+.ode-TopPanel .gwt-HTML img {
+  width: 10em;
+  margin: 0 1em;
 }

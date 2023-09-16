@@ -53,8 +53,6 @@ import java.util.Map;
     MEDIA("Media"),
     STORAGE("Storage"),
     SENSORS("Sensors"),
-    MAPS("Maps"),
-    EXPERIMENTAL("Experimental"),
     EXTENSION("Extension"),
     // The categories below will not be shown
     SOCIAL("Social"),
@@ -63,6 +61,8 @@ import java.util.Map;
     INTERNAL("For internal use only"),
     CHARTS("Charts"),
     DATASCIENCE("Data Science"),
+    EXPERIMENTAL("Experimental"),
+    MAPS("Maps"),
     FUTURE("Future"),
     // UNINITIALIZED is used as a default value so Swing libraries can still compile
     UNINITIALIZED("Uninitialized");
