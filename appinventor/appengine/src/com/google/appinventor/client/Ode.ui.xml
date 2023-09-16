@@ -24,14 +24,14 @@
         <g:FlowPanel styleName="ode-ProjectEditor" ui:field="projectEditor">
           <ed:DesignToolbar ui:field="designToolbar" />
           <g:FlowPanel ui:field="workColumns" styleName="ode-WorkColumns">
-            <box:PaletteBox width="240px" ui:field="paletteBox"/>
+            <box:PaletteBox width="20em" ui:field="paletteBox"/>
             <box:ViewerBox ui:field="viewerBox" />
             <g:FlowPanel ui:field="structureAndAssets">
               <box:SourceStructureBox ui:field="sourceStructureBox" />
               <box:BlockSelectorBox />
               <box:AssetListBox  ui:field="assetListBox" />
             </g:FlowPanel>
-            <box:PropertiesBox ui:field="propertiesBox" width="222px" />
+            <box:PropertiesBox ui:field="propertiesBox" width="20em" />
           </g:FlowPanel>
         </g:FlowPanel>
         <g:FlowPanel width="100%">

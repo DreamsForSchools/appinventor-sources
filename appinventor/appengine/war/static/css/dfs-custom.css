@@ -78,6 +78,10 @@ img.ode-Logo {
 .ya-Toolbar {
   background-color: transparent !important;
   margin-bottom: 0.5em;
+  justify-content: left !important;
+}
+.ya-Toolbar div:last-child {
+  margin-left: auto;
 }
 .ode-ContextMenuItem, .ode-CurrentColor {
   font-size: 1rem !important;
@@ -259,7 +263,7 @@ label:hover:before {
 
 .ode-DialogBox .gwt-Button {
   width: 100%;
-  margin: 0;
+  margin: 0 0.5em;
 }
 
 .ode-DialogBox .Caption {
@@ -476,4 +480,14 @@ img.gwt-Image {
 
 span.gwt-CheckBox {
   display: -webkit-inline-box;
+}
+
+.ode-PropertiesPanel .gwt-DisclosurePanel > tbody > tr > td > a {
+  background-color: #003169;
+  color: white !important;
+}
+
+/* disclosure panel icon */
+.ode-PropertiesPanel .gwt-DisclosurePanel tbody tr td a tbody tr td:first-child {
+  padding: 0.5em !important;
 }

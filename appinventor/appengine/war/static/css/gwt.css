@@ -202,7 +202,7 @@ a, a:visited, a:hover {
 .gwt-DisclosurePanel .header a,
 .gwt-DisclosurePanel .header td {
   text-decoration: none;  /* Remove underline from header */
-  color: black;
+  /* color: black; */
   cursor: pointer;
   cursor: hand;
 }
