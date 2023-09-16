@@ -1788,7 +1788,7 @@ public class ObjectifyStorageIo implements  StorageIo {
 
     ByteArrayOutputStream zipFile = new ByteArrayOutputStream();
     final ZipOutputStream out = new ZipOutputStream(zipFile);
-    out.setComment("Built with MIT App Inventor");
+    out.setComment("Built with DFS - AppMaker");
 
     try {
       JobRetryHelper job = new JobRetryHelper() {
@@ -2522,7 +2522,7 @@ public class ObjectifyStorageIo implements  StorageIo {
               SplashData firstSd = new SplashData(); // We do this so cacheing works
               firstSd.id = SPLASHDATA_ID;
               firstSd.version = 0;                   // on future calls
-              firstSd.content = "<b>Welcome to MIT App Inventor</b>";
+              firstSd.content = "<b>Welcome to DFS - AppMaker</b>";
               firstSd.width = 350;
               firstSd.height = 100;
               datastore.put(firstSd);

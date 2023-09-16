@@ -2549,7 +2549,7 @@ public class Form extends AppInventorCompatActivity
 
   private void showAboutApplicationNotification() {
     String title = "About this app";
-    String MITtagline = "<p><small><em>Invented with MIT App Inventor<br>appinventor.mit.edu</em></small></p>";
+    String MITtagline = "<p><small><em>Invented with DFS - AppMaker<br>appinventor.mit.edu</em></small></p>";
     // Users can hide the taglines by including an HTML open comment <!-- in the about screen message
     String message = aboutScreen + MITtagline;
     message = message.replaceAll("\\n", "<br>"); // Allow for line breaks in the string.

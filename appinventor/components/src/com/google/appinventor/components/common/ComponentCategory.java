@@ -45,26 +45,27 @@ import java.util.Map;
 //    //DOC_MAP.put(MESSAGES.experimentalComponentPallette(), "experimental");
 //  }
 
-public enum ComponentCategory {
-  // TODO(user): i18n category names
-  USERINTERFACE("User Interface"),
-  LAYOUT("Layout"),
-  MEDIA("Media"),
-  ANIMATION("Drawing and Animation"),
-  MAPS("Maps"),
-  CHARTS("Charts"),
-  DATASCIENCE("Data Science"),
-  SENSORS("Sensors"),
-  SOCIAL("Social"),
-  STORAGE("Storage"),
-  CONNECTIVITY("Connectivity"),
-  LEGOMINDSTORMS("LEGO® MINDSTORMS®"),
-  EXPERIMENTAL("Experimental"),
-  EXTENSION("Extension"),
-  FUTURE("Future"),
-  INTERNAL("For internal use only"),
-  // UNINITIALIZED is used as a default value so Swing libraries can still compile
-  UNINITIALIZED("Uninitialized");
+  public enum ComponentCategory {
+    // TODO(user): i18n category names
+    USERINTERFACE("User Interface"),
+    LAYOUT("Layout"),
+    ANIMATION("Drawing and Animation"),
+    MEDIA("Media"),
+    STORAGE("Storage"),
+    SENSORS("Sensors"),
+    MAPS("Maps"),
+    EXPERIMENTAL("Experimental"),
+    EXTENSION("Extension"),
+    // The categories below will not be shown
+    SOCIAL("Social"),
+    CONNECTIVITY("Connectivity"),
+    LEGOMINDSTORMS("LEGO\u00AE MINDSTORMS\u00AE"),
+    INTERNAL("For internal use only"),
+    CHARTS("Charts"),
+    DATASCIENCE("Data Science"),
+    FUTURE("Future"),
+    // UNINITIALIZED is used as a default value so Swing libraries can still compile
+    UNINITIALIZED("Uninitialized");
 
 
   // Mapping of component categories to names consisting only of lower-case letters,

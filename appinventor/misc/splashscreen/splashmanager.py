@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Simple tool for managing the Splash Screen in MIT App Inventor using
+# Simple tool for managing the Splash Screen in DFS - AppMaker using
 # the Remote API Service
 #
 # @author Jeffrey I. Schiller <jis@mit.edu>

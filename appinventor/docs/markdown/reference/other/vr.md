@@ -1,5 +1,5 @@
 ---
-title: Experiments with Virtual Reality and MIT App Inventor
+title: Experiments with Virtual Reality and DFS - AppMaker
 layout: documentation
 ---
 

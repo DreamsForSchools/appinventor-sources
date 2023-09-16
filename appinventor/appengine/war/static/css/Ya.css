@@ -692,7 +692,7 @@ div.StatusPanel {
 
 .ode-Icon-selected {
   padding: 0 2px 0 2px;
-  border: 2px solid #8fc202;
+  border: 2px solid #4156A6;
 }
 
 .gwt-TabBar {
@@ -711,13 +711,13 @@ div.StatusPanel {
   font-size: 13px;
   text-align: center;
   background-color: #eef2e0;
-  border: 2px solid #d2e0a6;
+  border: 2px solid #d9dded;
 }
 
 .gwt-TabBar .gwt-TabBarItem-selected {
   cursor: default;
-  background-color: #8fc202;
-  border: 2px solid #8fc202;
+  background-color: #4156A6;
+  border: 2px solid #4156A6;
 }
 
 .gwt-RadioButton {
@@ -755,13 +755,13 @@ div.StatusPanel {
 
 .gwt-Tree .gwt-TreeItem span:hover,
 .gwt-Tree .gwt-TreeItem-selected span {
-  background-color: #d2e0a6;
+  background-color: #d9dded;
 }
 
 /* Young Android Toolbar */
 
 .ya-Toolbar {
-  background-color: #8fc202;
+  background-color: #4156A6;
   margin-bottom: 4px;
   padding: 2px;
 }
@@ -772,7 +772,9 @@ div.StatusPanel {
   font-size: 18px;
   padding-top: 2px;
   padding-left: 8px;
-  text-shadow: 0 0 1px #404040;
+  padding-bottom: 8px;
+  text-shadow: 0px 0px 1px #404040;
+  width: 17em !important;
 }
 
 .ode-TextButton,
@@ -1119,7 +1121,7 @@ select.ode-PropertyEditor[disabled] {
 
 .ode-SimpleMockForm {
   height: auto !important;
-  background-color: #d2e0a6;
+  background-color: #d9dded;
   border: 2px solid black;
   -webkit-display: flex;
   display: flex;
@@ -1180,7 +1182,7 @@ select.ode-PropertyEditor[disabled] {
 /* ==== end: skins for Android */
 
 .ode-SimpleMockForm-selected {
-  border: 2px solid #8fc202;
+  border: 2px solid #4156A6;
 }
 
 .ode-SimpleMockFormTitleBar {
@@ -1192,7 +1194,7 @@ select.ode-PropertyEditor[disabled] {
 }
 
 .ode-SimpleMockFormTitleBar-ActionBar {
-  background-color: #a5cf47;
+  background-color: #4156A6;
   color: white;
   font-size: 20px;
   position: relative;
@@ -1254,7 +1256,7 @@ select.ode-PropertyEditor[disabled] {
 }
 
 .ode-SimpleMockContainer-selected {
-  border: 2px solid #8fc202;
+  border: 2px solid #4156A6;
 }
 
 .ode-SimpleMockComponent {
@@ -1268,16 +1270,16 @@ select.ode-PropertyEditor[disabled] {
 }
 
 .ode-SimpleMockComponent-selected {
-  border: 2px solid #8fc202;
+  border: 2px solid #4156A6;
 }
 
 .ode-SimpleMockMapFeature-selected svg * {
-  stroke: #8fc202;
+  stroke: #4156A6;
   stroke-opacity: 1;
 }
 
 path.ode-SimpleMockMapFeature-selected {
-  stroke: #8fc202;
+  stroke: #4156A6;
   stroke-opacity: 1;
 }
 
@@ -1287,7 +1289,7 @@ path.ode-SimpleMockMapFeature-selected {
 
 .ode-SimpleMockMapFeature-selected img {
   padding: 0;
-  border: 2px solid #8fc202;
+  border: 2px solid #4156A6;
 }
 
 .ode-SimpleMockContainer .leaflet-container .leaflet-toolbar-icon {
@@ -1370,16 +1372,16 @@ path.ode-SimpleMockMapFeature-selected {
 
 .ode-ComponentHelpPopup {
   background-color: white;
-  border-left: 4px solid #8fc202;
-  border-right: 4px solid #8fc202;
-  border-bottom: 4px solid #8fc202;
+  border-left: 4px solid #4156A6;
+  border-right: 4px solid #4156A6;
+  border-bottom: 4px solid #4156A6;
   width: 20%;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.065);
   z-index: 1000;
 }
 
 .ode-ComponentHelpPopup-TitleBar {
-  background-color: #8fc202;
+  background-color: #4156A6;
   color: white;
   font-weight: bold;
   font-size: 13px;
@@ -1398,7 +1400,7 @@ path.ode-SimpleMockMapFeature-selected {
 
 }
 .ode-ComponentHelpPopup-Link a {
-  color: #8fc202;
+  color: #4156A6;
 }
 
 .ode-ComponentHelpPopup > .popupContent > table {
@@ -1498,7 +1500,7 @@ path.ode-SimpleMockMapFeature-selected {
 }
 
 .ode-noDialogDivHeader {
-  background-color: #a5cf47;
+  background-color: #4156A6;
   height: 10%;
   padding: 10px;
   border-bottom: 1px #e9e9e9 solid;
@@ -1649,9 +1651,9 @@ path.ode-SimpleMockMapFeature-selected {
 
 .ode-DialogBox {
   background-color: white;
-  border-left: 4px solid #8fc202;
-  border-right: 4px solid #8fc202;
-  border-bottom: 4px solid #8fc202;
+  border-left: 4px solid #4156A6;
+  border-right: 4px solid #4156A6;
+  border-bottom: 4px solid #4156A6;
   z-index: 1000;
   min-height: 40px;
 }
@@ -1693,11 +1695,11 @@ path.ode-SimpleMockMapFeature-selected {
 }
 
 .ode-DialogBox .dialogTop {
-  background-color: #8fc202;
+  background-color: #4156A6;
 }
 
 .ode-DialogBox .Caption {
-  background-color: #8fc202;
+  background-color: #4156A6;
   color: white;
   font-weight: bold;
   font-size: 13px;
@@ -1774,7 +1776,7 @@ a.ode-ExtensionAnchor:hover {
 }
 
 .ode-Android-caption {
-  background-color: #8fc202;
+  background-color: #4156A6;
   color: white;
   font-size: medium;
 }
@@ -1801,7 +1803,7 @@ a.ode-ExtensionAnchor:hover {
   width: 100%;
 }
 .gwt-ProgressBar-shell .gwt-ProgressBar-bar {
-  background-color: #8fc202;
+  background-color: #4156A6;
 }
 .gwt-ProgressBar-shell .gwt-ProgressBar-text {
   position: absolute;
@@ -2109,7 +2111,7 @@ textarea::-webkit-input-placeholder {
 
 /* Gallery Toolbar*/
 .ya-GalleryToolbar {
-  background-color: #8fc202;
+  background-color: #4156A6;
   margin-bottom: 4px;
   clear: both;
 }

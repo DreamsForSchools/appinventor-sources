@@ -5,8 +5,8 @@ dpkg --add-architecture i386
 # Install dependencies
 apt-get update
 apt-get upgrade -y
-apt-get install -y libc6:i386 libstdc++6:i386 glibc-doc:i386 gcc-5-base:i386 gcc-6-base:i386 libgcc1:i386 \
-     openjdk-8-jdk zip unzip ant lib32z1 adb phantomjs
+apt-get install -y libc6:i386 libstdc++6:i386 glibc-doc:i386 libgcc1:i386 \
+     openjdk-8-jdk zip unzip ant lib32z1 adb
 
 # Install App Engine
 mkdir -p /opt/appengine

@@ -1,16 +1,17 @@
-# Welcome to MIT App Inventor
+# Welcome to DFS - AppMaker
 
 ## Introduction
+DFS AppMaker is a fork of MIT's App Inventor. Learn more about [MIT App Inventor](http://appinventor.mit.edu). 
 
-Learn more about [MIT App Inventor](http://appinventor.mit.edu).
+Large parts of this README is also borrowed from AppInventor. Additionally, remnants of the identifier `appinventor` still remain in the codebase. We could refactor all instances of `appinventor` into `appmaker`, however, one benefit is that it makes merging changes from AppInventor into AppMaker simpler.
 
 This code is designed to be run in Google's App Engine. MIT runs a
 public instance that all are welcome to use to build App Inventor
 Applications. You do not need to compile or use this code if you wish
-to build MIT App Inventor applications.
+to build DFS AppMaker applications.
 
 We provide this code for reference and for experienced people who wish
-to operate their own App Inventor instance and/or contribute to the project.
+to operate their own AppMaker instance and/or contribute to the project.
 
 This code is tested and known to work with Java 8.
 
@@ -26,6 +27,7 @@ Check out our open source [site](http://appinventor.mit.edu/appinventor-sources/
 
 ## Setup Instructions (Vagrant)
 
+## Setup Instructions (Vagrant)
 The easiest way to get a development environment up and running is to use the provided Vagrantfile. Install [Vagrant](https://vagrantup.com) and open a terminal in the root directory of this repository. Run the following commands
 
 ```bash
@@ -269,3 +271,22 @@ Logs can be found at http://localhost:9876/log/ode and SourceMaps at http://loca
 ## Need Help?
 
 Join [our community](https://community.appinventor.mit.edu/).
+
+## Signing Release
+`keytool -genkey -v -keystore dfs-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000`
+`keytool -importkeystore -srckeystore dfs-release-key.keystore -destkeystore dfs-release-key.keystore -deststoretype pkcs12`
+
+Remove debug signing
+`zip -d appinventor/build/buildserver/"DFS AppMaker.apk" META-INF/\*`
+
+`jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore dfs-release-key.keystore.old appinventor/build/buildserver/"DFS AppMaker.apk" alias_name`
+
+https://stackoverflow.com/questions/22681907/you-uploaded-an-apk-that-is-not-zip-aligned-error
+
+`~/Library/Android/sdk/build-tools/29.0.2/zipalign -f -v 4 appinventor/build/buildserver/"DFS AppMaker.apk" appinventor/build/buildserver/DFSAppMaker-signed.apk`
+
+/Users/dos/Desktop/appinventor-sources/appinventor/appengine/src/com/google/appinventor/client/TopPanel.java
+
+# Switch Java version
+/usr/libexec/java_home -V
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`

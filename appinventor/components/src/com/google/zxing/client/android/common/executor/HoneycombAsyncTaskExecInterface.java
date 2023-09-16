@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
  * On Honeycomb and later, {@link AsyncTask} returns to serial execution by default which is undesirable.
  * This calls Honeycomb-only APIs to request parallel execution.
  *
- * For MIT App Inventor we have to use reflection because we are linked with the Froyo (2.2)
+ * For DFS - AppMaker we have to use reflection because we are linked with the Froyo (2.2)
  * version of the android libraries.
  */
 /* @TargetApi(11) */

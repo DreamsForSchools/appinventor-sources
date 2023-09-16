@@ -3,7 +3,7 @@
 
 /**
  * @license
- * @fileoverview Visual blocks editor for MIT App Inventor
+ * @fileoverview Visual blocks editor for DFS - AppMaker
  * Color definitions for blocks
  *
  * @author mckinney@mit.edu (Andrew F. McKinney)

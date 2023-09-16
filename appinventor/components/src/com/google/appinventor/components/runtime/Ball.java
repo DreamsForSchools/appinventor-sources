@@ -37,7 +37,7 @@ import android.graphics.Paint;
  * {@link #PaintColor(int)} and {@link #Radius(int)} properties.
  */
 @DesignerComponent(version = YaVersion.BALL_COMPONENT_VERSION,
-    description = "<p>A round 'sprite' that can be placed on a " +
+    description = "A round 'sprite' that can be placed on a " +
         "<code>Canvas</code>, where it can react to touches and drags, " +
         "interact with other sprites (<code>ImageSprite</code>s and other " +
         "<code>Ball</code>s) and the edge of the Canvas, and move according " +

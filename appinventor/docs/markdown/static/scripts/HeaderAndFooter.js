@@ -86,7 +86,7 @@ function createFooter(){
           "http://i.creativecommons.org/l/by/3.0/88x31.png"></a><br>');
     document.write('This work is licensed under a <a href="http:// \ creativecommons.org/licenses/by/3.0/" rel= \
           "license">Creative Commons Attribution 3.0 Unported License</a>.<br>');
-    document.write('<a href="/about/termsofservice.html">Privacy Policy and Terms of Use</a>.');
+    document.write('<a href="https://docs.google.com/document/d/1F0SiDEAi9aBsrkqSzSQr4gUD2eJHCB_w-hrQXWjEf48/preview">Privacy Policy and Terms of Use</a>.');
    document.write('</p>');
    document.close();
 }

@@ -1,5 +1,5 @@
 ---
-title: MIT App Inventor Color Blocks
+title: DFS - AppMaker Color Blocks
 layout: documentation
 ---
 

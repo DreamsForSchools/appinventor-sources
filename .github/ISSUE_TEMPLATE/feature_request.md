@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Describe a new feature for MIT App Inventor
+about: Describe a new feature for DFS - AppMaker
 labels: 'feature request, status: new'
 ---
 
@@ -25,5 +25,5 @@ Explain why the use case cannot be completed using the features of the current s
 **Why is this feature beneficial to App Inventor's educational mission?**
 
 <!--
-Because MIT App Inventor is aimed at educational use, we prioritize development of features with an educational benefit. Help us understand how your feature request relates to our mission.
+Because DFS - AppMaker is aimed at educational use, we prioritize development of features with an educational benefit. Help us understand how your feature request relates to our mission.
 -->

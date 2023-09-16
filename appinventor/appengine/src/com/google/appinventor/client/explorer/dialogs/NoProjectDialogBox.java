@@ -19,6 +19,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.Window;
 
 /**
  * A dialog containing options to begin 3 different tutorials or being a new
@@ -47,11 +48,11 @@ public class NoProjectDialogBox extends DialogBox {
   @UiField
   Button closeDialogBox;
   @UiField
-  Button goToPurr;
+  Button goToGettingStarted;
   @UiField
-  Button goToTalk;
+  Button goToMeetLarry;
   @UiField
-  Button goToYR;
+  Button goToWhackAMole;
   @UiField
   Button noDialogNewProject;
 
@@ -74,23 +75,23 @@ public class NoProjectDialogBox extends DialogBox {
     this.hide();
   }
 
-  @UiHandler("goToPurr")
-  void handleGoToPurr(ClickEvent e) {
+  @UiHandler("goToGettingStarted")
+  void handleGoToGettingStarted(ClickEvent e) {
     this.hide();
     new TemplateUploadWizard().createProjectFromExistingZip("HelloPurr", new NewTutorialProject(),
             "HelloPurr");
   }
 
-  @UiHandler("goToTalk")
-  void handleGoToTalk(ClickEvent e) {
+  @UiHandler("goToMeetLarry")
+  void handleGoToMeetLarry(ClickEvent e) {
     this.hide();
     TemplateUploadWizard.openProjectFromTemplate(Window.Location.getProtocol()
         + "//appinventor.mit.edu/yrtoolkit/yr/aiaFiles/talk_to_me/TalkToMe.asc",
         new NewTutorialProject());
   }
 
-  @UiHandler("goToYR")
-  void handleGoToYR(ClickEvent e) {
+  @UiHandler("goToWhackAMole")
+  void handleGoToWhackAMole(ClickEvent e) {
     this.hide();
     TemplateUploadWizard.openProjectFromTemplate(Window.Location.getProtocol()
         + "//appinventor.mit.edu/yrtoolkit/yr/aiaFiles/hello_bonjour/translate_tutorial.asc",

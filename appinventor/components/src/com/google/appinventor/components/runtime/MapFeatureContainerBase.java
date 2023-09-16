@@ -222,12 +222,12 @@ public abstract class MapFeatureContainerBase extends AndroidViewComponent imple
    *
    * @param url The URL from which to read a GeoJSON-encoded feature collection
    */
-  @SimpleFunction(description = "<p>Load a feature collection in " +
+  @SimpleFunction(description = "Load a feature collection in " +
       "<a href=\"https://en.wikipedia.org/wiki/GeoJSON\">GeoJSON</a> format from the given " +
       "url. On success, the event GotFeatures will be raised with the given url and a list of " +
       "the features parsed from the GeoJSON as a list of (key, value) pairs. On failure, the " +
       "LoadError event will be raised with any applicable HTTP response code and error " +
-      "message.</p>")
+      "message.")
   public void LoadFromURL(final String url) {
     AsynchUtil.runAsynchronously(new Runnable() {
       public void run() {

@@ -1,5 +1,5 @@
 ---
-title: MIT App Inventor Procedure Blocks
+title: DFS - AppMaker Procedure Blocks
 layout: documentation
 ---
 

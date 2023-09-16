@@ -853,7 +853,7 @@ public class TemplateUploadWizard extends Wizard implements NewUrlDialogCallback
         String url = hostUrl + TEMPLATES_ROOT_DIRECTORY + info.name + "/" + info.screenshotStr;
         image.setUrl(url);
       } else {
-        TemplateWidget.image.setResource(Ode.getImageBundle().appInventorLogo());
+        TemplateWidget.image.setResource(Ode.getImageBundle().appMakerLogo());
       }
       image.setWidth("240px");
       image.setHeight("400px");
@@ -892,7 +892,7 @@ public class TemplateUploadWizard extends Wizard implements NewUrlDialogCallback
         String src = hostUrl + TEMPLATES_ROOT_DIRECTORY +   template.name + "/" + template.thumbStr;
         sb.appendHtmlConstant("<img style='width:32px' src='" + src + "'>");
       } else {
-        ImageResource imgResource = Ode.getImageBundle().appInventorLogo();
+        ImageResource imgResource = Ode.getImageBundle().appMakerLogo();
         Image img = new Image(imgResource);
         String url = img.getUrl();
         sb.appendHtmlConstant("<img style='width:32px' src='" + url + "'>");

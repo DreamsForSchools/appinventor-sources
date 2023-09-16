@@ -3,7 +3,7 @@
 
 /**
  * @license
- * @fileoverview Visual blocks editor for MIT App Inventor
+ * @fileoverview Visual blocks editor for DFS - AppMaker
  * Initialize the blocks editor workspace.
  *
  * @author mckinney@mit.edu (Andrew F. McKinney)

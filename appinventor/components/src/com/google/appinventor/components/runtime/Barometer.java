@@ -23,6 +23,7 @@ import android.hardware.Sensor;
     description = "A sensor component that can measure the ambient air pressure.",
     category = ComponentCategory.SENSORS,
     nonVisible = true,
+    showOnPalette = false,
     iconName = "images/barometer.png")
 @SimpleObject
 public class Barometer extends SingleValueSensor {

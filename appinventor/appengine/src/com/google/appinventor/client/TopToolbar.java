@@ -127,7 +127,7 @@ public class TopToolbar extends Composite {
     // To support the creation of packages for older devices, we leave the buildserver
     // (as of 8/1/2018) generating minSdk 7 packages (no target SDK) which will run on
     // much older devices. The second buildserver will package applications with a target
-    // SDK of 26 for those MIT App Inventor users who wish to put their applications in
+    // SDK of 26 for those DFS - AppMaker users who wish to put their applications in
     // the Play Store after 8/1/2018.
     // template.
     if (!Ode.getInstance().hasSecondBuildserver()) {

@@ -1436,7 +1436,7 @@ public class Ode implements EntryPoint {
             HasHorizontalAlignment.ALIGN_RIGHT,
             HasVerticalAlignment.ALIGN_MIDDLE);
 
-    Image dialogImage = new Image(Ode.getImageBundle().codiVert());
+    Image dialogImage = new Image(Ode.getImageBundle().appMakerLogo());
 
     Grid messageGrid = new Grid(2, 1);
     messageGrid.getCellFormatter().setAlignment(0,
@@ -1477,7 +1477,7 @@ public class Ode implements EntryPoint {
   }
 
   /**
-   * Possibly display the MIT App Inventor "Splash Screen"
+   * Possibly display the DFS - AppMaker "Splash Screen"
    *
    * @param force Bypass the check to see if they have dimissed this version
    */
@@ -1515,7 +1515,7 @@ public class Ode implements EntryPoint {
       });
     holder.add(ok);
     holder.add(noshow);
-    DialogBoxContents.add(message);
+    // DialogBoxContents.add(message);
     DialogBoxContents.add(holder);
     dialogBox.setWidget(DialogBoxContents);
     dialogBox.show();

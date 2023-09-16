@@ -35,8 +35,8 @@ public class ComponentServiceTest {
 
   private static final String PACKAGE_BASE = "com.domain.noname.";
   private static final String PROJECT1_NAME = "Project1";
-  private static final String EXTENSION1_CLASS = "edu.mit.appinventor.aix_test.AIXTestExtension";
-  private static final String EXTENSION2_CLASS = "edu.mit.appinventor.aix_test.AIXTestExtension2";
+  private static final String EXTENSION1_CLASS = "edu.dfs.appinventor.aix_test.AIXTestExtension";
+  private static final String EXTENSION2_CLASS = "edu.dfs.appinventor.aix_test.AIXTestExtension2";
 
   private ProjectServiceImpl projectService;
   private ComponentService componentService;
@@ -105,8 +105,8 @@ public class ComponentServiceTest {
     assertEquals(1, result.getComponentTypes().size());
     assertTrue(result.getComponentTypes().containsKey(EXTENSION1_CLASS));
     assertExtensionAssets(result);
-    assertAssetsWithPrefixRemoved("assets/external_comps/edu.mit.appinventor.aix_test.AIXTestExtension/component.json");
-    assertAssetsOnServer("assets/external_comps/edu.mit.appinventor.aix_test.AIXTestExtension/components.json");
+    assertAssetsWithPrefixRemoved("assets/external_comps/edu.dfs.appinventor.aix_test.AIXTestExtension/component.json");
+    assertAssetsOnServer("assets/external_comps/edu.dfs.appinventor.aix_test.AIXTestExtension/components.json");
   }
 
   @Test
@@ -118,8 +118,8 @@ public class ComponentServiceTest {
     assertEquals(1, result.getComponentTypes().size());
     assertTrue(result.getComponentTypes().containsKey(EXTENSION1_CLASS));
     assertExtensionAssets(result);
-    assertAssetsOnServer("assets/external_comps/edu.mit.appinventor.aix_test/components.json");
-    assertAssetsWithPrefixRemoved("assets/external_comps/edu.mit.appinventor.aix_test.AIXTestExtension/");
+    assertAssetsOnServer("assets/external_comps/edu.dfs.appinventor.aix_test/components.json");
+    assertAssetsWithPrefixRemoved("assets/external_comps/edu.dfs.appinventor.aix_test.AIXTestExtension/");
   }
 
   @Test
@@ -128,8 +128,8 @@ public class ComponentServiceTest {
     projectId = project.getProjectId();
     ComponentImportResponse result = importTestExtension("Extension-Bundle.aix");
     assertExtensionAssets(result);
-    assertAssetsOnServer("assets/external_comps/edu.mit.appinventor.aix_test/components.json");
-    assertAssetsWithPrefixRemoved("assets/external_comps/edu.mit.appinventor.aix_test.AIXTestExtension/");
+    assertAssetsOnServer("assets/external_comps/edu.dfs.appinventor.aix_test/components.json");
+    assertAssetsWithPrefixRemoved("assets/external_comps/edu.dfs.appinventor.aix_test.AIXTestExtension/");
   }
 
   @Test
@@ -154,7 +154,7 @@ public class ComponentServiceTest {
     assertTrue(result.getComponentTypes().containsKey(EXTENSION1_CLASS));
     assertTrue(result.getComponentTypes().containsKey(EXTENSION2_CLASS));
     assertExtensionAssets(result);
-    assertAssetsOnServer("assets/external_comps/edu.mit.appinventor.aix_test/components.json");
+    assertAssetsOnServer("assets/external_comps/edu.dfs.appinventor.aix_test/components.json");
   }
 
   @Test
@@ -165,7 +165,7 @@ public class ComponentServiceTest {
     assertEquals(1, result.getComponentTypes().size());
     assertTrue(result.getComponentTypes().containsKey(EXTENSION1_CLASS));
     assertExtensionAssets(result);
-    assertAssetsOnServer("assets/external_comps/edu.mit.appinventor.aix_test/components.json");
+    assertAssetsOnServer("assets/external_comps/edu.dfs.appinventor.aix_test/components.json");
   }
 
   @Test
@@ -177,7 +177,7 @@ public class ComponentServiceTest {
     assertTrue(result.getComponentTypes().containsKey(EXTENSION1_CLASS));
     assertTrue(result.getComponentTypes().containsKey(EXTENSION2_CLASS));
     assertExtensionAssets(result);
-    assertAssetsOnServer("assets/external_comps/edu.mit.appinventor.aix_test/components.json");
+    assertAssetsOnServer("assets/external_comps/edu.dfs.appinventor.aix_test/components.json");
   }
 
   @Test
@@ -188,7 +188,7 @@ public class ComponentServiceTest {
     assertEquals(1, result.getComponentTypes().size());
     assertTrue(result.getComponentTypes().containsKey(EXTENSION1_CLASS));
     assertExtensionAssets(result);
-    assertAssetsOnServer("assets/external_comps/edu.mit.appinventor.aix_test/components.json");
+    assertAssetsOnServer("assets/external_comps/edu.dfs.appinventor.aix_test/components.json");
   }
 
   @Test
@@ -200,7 +200,7 @@ public class ComponentServiceTest {
     assertEquals(1, result.getComponentTypes().size());
     assertTrue(result.getComponentTypes().containsKey(EXTENSION1_CLASS));
     assertExtensionAssets(result);
-    assertAssetsWithPrefixRemoved("assets/external_comps/edu.mit.appinventor.aix_test.AIXTestExtension/");
+    assertAssetsWithPrefixRemoved("assets/external_comps/edu.dfs.appinventor.aix_test.AIXTestExtension/");
   }
 
   @Test

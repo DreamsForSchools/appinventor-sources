@@ -78,10 +78,10 @@ import org.osmdroid.util.BoundingBox;
 @DesignerComponent(version = YaVersion.MAP_COMPONENT_VERSION,
   category = ComponentCategory.MAPS,
   androidMinSdk = 8,
-  description = "<p>A two-dimensional container that renders map tiles in the background and " +
+  description = "A two-dimensional container that renders map tiles in the background and " +
     "allows for multiple Marker elements to identify points on the map. Map tiles are supplied " +
-    "by OpenStreetMap contributors and the United States Geological Survey.</p>" +
-    "<p>The Map component provides three utilities for manipulating its boundaries within App " +
+    "by OpenStreetMap contributors and the United States Geological Survey.</br></br>" +
+    "The Map component provides three utilities for manipulating its boundaries within App " +
     "Inventor. First, a locking mechanism is provided to allow the map to be moved relative to " +
     "other components on the Screen. Second, when unlocked, the user can pan the Map to any " +
     "location. At this new location, the &quot;Set Initial Boundary&quot; button can be pressed " +
@@ -155,11 +155,12 @@ public class Map extends MapFeatureContainerBase implements MapEventListener {
   @DesignerProperty(defaultValue = "42.359144, -71.093612",
       editorType = PropertyTypeConstants.PROPERTY_TYPE_GEOGRAPHIC_POINT)
   @SimpleProperty(category = PropertyCategory.APPEARANCE,
-      description = "<p>Set the initial center coordinate of the map. The value is specified as " +
+      description = "Set the initial center coordinate of the map. The value is specified as " +
           "a comma-separated pair of decimal latitude and longitude coordinates, for example, " +
-          "<code>42.359144, -71.093612</code>.</p><p>In blocks code, it is recommended for " +
+          "<code>42.359144, -71.093612</code>.</br></br>" +
+          "In blocks code, it is recommended for " +
           "performance reasons to use SetCenter with numerical latitude and longitude rather " +
-          "than convert to the string representation for use with this property.</p>")
+          "than convert to the string representation for use with this property.")
   public void CenterFromString(String center) {
     String[] parts = center.split(",");
     if (parts.length != 2) {

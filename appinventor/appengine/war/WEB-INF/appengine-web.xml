@@ -45,7 +45,7 @@
 
     <!-- Set this to the IP Address or Host Name of the Rendezvous server.
          If left as the empty string, the default in YaVersion is used, which
-         should be rendezvous.appinventor.mit.edu. Note: You can specify both
+         should be rendezvous.appjam.org. Note: You can specify both
          a name and a port using a colon to separate them. For example you can
          use example.com:8888 to specify port 8888. Note: The rendezvous server
          is assumed to be a path "/rendezvous/" on the server. So specifying
@@ -82,6 +82,7 @@
     <property name="localauth.mailserver.password" value="changeme" />
 
     <!-- host[:port] to use for connecting to the build server -->
+    <!-- Do not change the value of localhost:9990 below! The deployment script change_build_server_address.sh finds and replaces localhost:9990 with the appropriate staging/prod build server ip address. Not the best practice but the value doesn't need to be changed for local development either! -->
     <property name="build.server.host" value="localhost:9990" />
 
     <!-- We provide below for a second buildserver. If this field is
@@ -95,7 +96,7 @@
          changes). This is required for new Apps submitted to the Google
          Play Store. Having two buildservers provides us the flexibility to
          support older devices while also ensuring that people can submit
-         MIT App Inventor created Apps to the Google Play Store.
+         DFS - AppMaker created Apps to the Google Play Store.
     -->
 
     <!-- host[:port] to use for the second build server -->
@@ -150,14 +151,14 @@
     <property name="firebase.url" value="" />
 
     <property name="library.url" value="http://appinventor.mit.edu/explore/library" />
-    <property name="get_started.url" value="http://appinventor.mit.edu/explore/get-started" />
-    <property name="tutorials.url" value="http://appinventor.mit.edu/explore/ai2/tutorials" />
+    <property name="get_started.url" value="https://www.dreamsforschools.org/codeathome-mobileapps" />
+    <property name="tutorials.url" value="https://www.dreamsforschools.org/codeathome-mobileapps" />
     <property name="extensions.url" value="http://appinventor.mit.edu/extensions" />
     <property name="troubleshooting.url" value="http://appinventor.mit.edu/explore/ai2/support/troubleshooting" />
     <property name="forums.url" value="https://community.appinventor.mit.edu" />
-    <property name="feedback.url" value="http://something.example.com" />
+    <property name="feedback.url" value="mailto:support@dreamsforschools.org" />
     <property name="release.notes.url" value="http://appinventor.mit.edu/ai2/ReleaseNotes.html" />
-    <property name="tos.url" value="/about/termsofservice.html" />
+    <property name="tos.url" value="https://docs.google.com/document/d/1F0SiDEAi9aBsrkqSzSQr4gUD2eJHCB_w-hrQXWjEf48/preview" />
     <property name="logo.url" value="http://appinventor.mit.edu" />
     <property name="guide.url" value="http://appinventor.mit.edu/explore/library" />
     <property name="reference.components.url" value="/reference/components/" />
