@@ -1,10 +1,27 @@
 // -*- mode: java; c-basic-offset: 2; -*-
 // Copyright 2009-2011 Google, All Rights reserved
-// Copyright 2011-2018 MIT, All rights reserved
+// Copyright 2011-2021 MIT, All rights reserved
 // Released under the Apache License, Version 2.0
 // http://www.apache.org/licenses/LICENSE-2.0
 
 package com.google.appinventor.components.runtime;
+
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
+import android.app.Activity;
+
+import android.content.ContentValues;
+import android.content.Intent;
+
+import android.net.Uri;
+
+import android.os.Build;
+import android.os.Environment;
+
+import android.provider.MediaStore;
+
+import android.util.Log;
 
 import com.google.appinventor.components.annotations.DesignerComponent;
 import com.google.appinventor.components.annotations.PropertyCategory;
@@ -13,28 +30,30 @@ import com.google.appinventor.components.annotations.SimpleFunction;
 import com.google.appinventor.components.annotations.SimpleObject;
 import com.google.appinventor.components.annotations.SimpleProperty;
 import com.google.appinventor.components.annotations.UsesPermissions;
+
 import com.google.appinventor.components.common.ComponentCategory;
 import com.google.appinventor.components.common.YaVersion;
+
 import com.google.appinventor.components.runtime.util.BulkPermissionRequest;
 import com.google.appinventor.components.runtime.util.ErrorMessages;
+import com.google.appinventor.components.runtime.util.FileUtil;
 import com.google.appinventor.components.runtime.util.NougatUtil;
-
-import android.app.Activity;
-import android.content.ContentValues;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.Manifest;
+import com.google.appinventor.components.runtime.util.ScopedFile;
 
 import java.io.File;
-import java.util.Date;
+
+import java.net.URI;
 
 /**
- * Camera provides access to the phone's camera
+ * ![Camera icon](images/camera.png)
  *
+ * Use a camera component to take a picture on the phone.
  *
+ * `Camera` is a non-visible component that takes a picture using the device's camera. After the
+ * picture is taken, the path to the file on the phone containing the picture is available as an
+ * argument to the {@link #AfterPicture(String)} event. The path can be used, for example, as the
+ * [`Picture`](userinterface.html#Image.Picture) property of an [`Image`](userinterface.html3Image)
+ * component.
  */
 @DesignerComponent(version = YaVersion.CAMERA_COMPONENT_VERSION,
    description = "A component to take a picture using the device's camera. " +
@@ -46,13 +65,12 @@ import java.util.Date;
    nonVisible = true,
    iconName = "images/camera.png")
 @SimpleObject
-@UsesPermissions(permissionNames = "android.permission.WRITE_EXTERNAL_STORAGE, android.permission.READ_EXTERNAL_STORAGE," +
-                 "android.permission.CAMERA")
+@UsesPermissions({CAMERA})
 public class Camera extends AndroidNonvisibleComponent
     implements ActivityResultListener, Component {
 
-  private static final String CAMERA_INTENT = "android.media.action.IMAGE_CAPTURE";
-  private static final String CAMERA_OUTPUT = "output";
+  private static final String CAMERA_INTENT = MediaStore.ACTION_IMAGE_CAPTURE;
+  private static final String CAMERA_OUTPUT = MediaStore.EXTRA_OUTPUT;
   private final ComponentContainer container;
   private Uri imageFile;
 
@@ -63,7 +81,7 @@ public class Camera extends AndroidNonvisibleComponent
   // whether to open into the front-facing camera
   private boolean useFront;
 
-  // wether or not we have permission to use the camera
+  // whether or not we have permission to use the camera
 
   private boolean havePermission = false;
 
@@ -80,6 +98,16 @@ public class Camera extends AndroidNonvisibleComponent
 
     // Default property values
     UseFront(false);
+  }
+
+  /**
+   * Determine whether we have the right permissions during initialization.
+   */
+  public void Initialize() {
+    havePermission = !form.isDeniedPermission(CAMERA);
+    if (FileUtil.needsWritePermission(form.DefaultFileScope())) {
+      havePermission &= !form.isDeniedPermission(WRITE_EXTERNAL_STORAGE);
+    }
   }
 
   /**
@@ -110,52 +138,35 @@ public class Camera extends AndroidNonvisibleComponent
   }
 
   /**
-   * Takes a picture, then raises the AfterPicture event.
+   * Takes a picture, then raises the {@link #AfterPicture(String)} event.
+   *
+   * @internaldoc
    * If useFront is true, adds an extra to the intent that requests the front-facing camera.
    */
   @SimpleFunction
   public void TakePicture() {
+    final ScopedFile target = FileUtil.getScopedPictureFile(form, "jpg");
     if (!havePermission) {
-      final Camera me = this;
-      form.askPermission(new BulkPermissionRequest(this, "TakePicture",
-          Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE) {
+      String[] permissions;
+      if (FileUtil.needsWritePermission(target)) {
+        permissions = new String[] { CAMERA, WRITE_EXTERNAL_STORAGE };
+      } else {
+        permissions = new String[] { CAMERA };
+      }
+      form.askPermission(new BulkPermissionRequest(this, "TakePicture", permissions) {
         @Override
         public void onGranted() {
-          me.havePermission = true;
-          me.TakePicture();
+          havePermission = true;
+          Camera.this.TakePicture();
         }
       });
       return;
     }
+
     String state = Environment.getExternalStorageState();
-    if (Environment.MEDIA_MOUNTED.equals(state)) {
+    if (!FileUtil.needsExternalStorage(form, target) || Environment.MEDIA_MOUNTED.equals(state)) {
       Log.i("CameraComponent", "External storage is available and writable");
-
-      imageFile = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),
-        "/Pictures/app_inventor_" + new Date().getTime()
-        + ".jpg"));
-
-      ContentValues values = new ContentValues();
-      values.put(MediaStore.Images.Media.DATA, imageFile.getPath());
-      values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-      values.put(MediaStore.Images.Media.TITLE, imageFile.getLastPathSegment());
-
-      if (requestCode == 0) {
-        requestCode = form.registerForActivityResult(this);
-      }
-
-      Uri imageUri = container.$context().getContentResolver().insert(
-        MediaStore.Images.Media.INTERNAL_CONTENT_URI, values);
-      Intent intent = new Intent(CAMERA_INTENT);
-      intent.putExtra(CAMERA_OUTPUT, imageUri);
-
-      // NOTE: This uses an undocumented, testing feature (CAMERA_FACING).
-      // It may not work in the future.
-      if (useFront) {
-        intent.putExtra("android.intent.extras.CAMERA_FACING", 1);
-      }
-
-      container.$context().startActivityForResult(intent, requestCode);
+      capturePicture(target);
     } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
       form.dispatchErrorOccurredEvent(this, "TakePicture",
           ErrorMessages.ERROR_MEDIA_EXTERNAL_STORAGE_READONLY);
@@ -163,6 +174,42 @@ public class Camera extends AndroidNonvisibleComponent
       form.dispatchErrorOccurredEvent(this, "TakePicture",
           ErrorMessages.ERROR_MEDIA_EXTERNAL_STORAGE_NOT_AVAILABLE);
     }
+  }
+
+  private void capturePicture(final ScopedFile target) {
+    File path = new File(URI.create(FileUtil.resolveFileName(form, target.getFileName(), target.getScope())));
+    File directory = path.getParentFile();
+    if (!directory.exists()) {
+      directory.mkdirs();
+    }
+    imageFile = Uri.fromFile(path);
+
+    ContentValues values = new ContentValues();
+    values.put(MediaStore.Images.Media.DATA, imageFile.getPath());
+    values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+    values.put(MediaStore.Images.Media.TITLE, imageFile.getLastPathSegment());
+
+    if (requestCode == 0) {
+      requestCode = form.registerForActivityResult(this);
+    }
+
+    Uri imageUri;
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+      imageUri = container.$context().getContentResolver().insert(
+          MediaStore.Images.Media.INTERNAL_CONTENT_URI, values);
+    } else {
+      imageUri = NougatUtil.getPackageUri(form, path);
+    }
+    Intent intent = new Intent(CAMERA_INTENT);
+    intent.putExtra(CAMERA_OUTPUT, imageUri);
+
+    // NOTE: This uses an undocumented, testing feature (CAMERA_FACING).
+    // It may not work in the future.
+    if (useFront) {
+      intent.putExtra("android.intent.extras.CAMERA_FACING", 1);
+    }
+
+    container.$context().startActivityForResult(intent, requestCode);
   }
 
   @Override
@@ -222,8 +269,8 @@ public class Camera extends AndroidNonvisibleComponent
   }
 
   /**
-   * Indicates that a photo was taken with the camera and provides the path to
-   * the stored picture.
+   * Called after the picture is taken. The text argument `image` is the path that can be used to
+   * locate the image on the phone.
    */
   @SimpleEvent
   public void AfterPicture(String image) {

@@ -118,7 +118,7 @@ public class MockLineString extends MockMapFeatureBase {
     if (!polyline.clickHandler) {
       while (el.lastChild) el.removeChild(el.lastChild);  // clear the div
       polyline.clickHandler = function(e) {
-        this.@com.google.appinventor.client.editor.simple.components.MockLineString::select()();
+        this.@com.google.appinventor.client.editor.simple.components.MockLineString::select(*)(e);
         if (e.originalEvent) e.originalEvent.stopPropagation();
       };
       polyline.dragHandler = function() {
@@ -143,6 +143,10 @@ public class MockLineString extends MockMapFeatureBase {
     this.@com.google.appinventor.client.editor.simple.components.MockMapFeatureBase::setNativeTooltip(*)(
       this.@com.google.appinventor.client.editor.simple.components.MockMapFeatureBase::getTooltip()()
     );
+    var isVisible = this.@com.google.appinventor.client.editor.simple.components.MockMapFeatureBase::getVisibleProperty()();
+    if (!isVisible) {
+      map.removeLayer(polyline);
+    }
   }-*/;
 
   private native void preserveLayerData()/*-{

@@ -9,13 +9,14 @@ package com.google.appinventor.client.boxes;
 import static com.google.appinventor.client.Ode.MESSAGES;
 import com.google.appinventor.client.explorer.youngandroid.ProjectList;
 import com.google.appinventor.client.widgets.boxes.Box;
-
+import java.util.logging.Logger;
 
 /**
  * Box implementation for project list.
  *
  */
 public final class ProjectListBox extends Box {
+  private static final Logger LOG = Logger.getLogger(ProjectListBox.class.getName());
 
   // Singleton project explorer box instance (only one project explorer allowed)
   private static final ProjectListBox INSTANCE = new ProjectListBox();
@@ -52,5 +53,17 @@ public final class ProjectListBox extends Box {
    */
   public ProjectList getProjectList() {
      return plist;
+  }
+
+  public void loadProjectList () {
+    plist.setIsTrash(false);
+    plist.refresh(false);
+    this.setCaption(MESSAGES.projectListBoxCaption());
+  }
+
+  public void loadTrashList() {
+    plist.setIsTrash(true);
+    plist.refresh(false);
+    this.setCaption(MESSAGES.trashprojectlistbox());
   }
 }

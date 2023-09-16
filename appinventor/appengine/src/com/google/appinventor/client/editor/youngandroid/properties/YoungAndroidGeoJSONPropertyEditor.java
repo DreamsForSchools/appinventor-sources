@@ -19,6 +19,8 @@ import com.google.appinventor.shared.rpc.project.ProjectNode;
 import com.google.appinventor.shared.rpc.project.youngandroid.YoungAndroidAssetNode;
 import com.google.appinventor.shared.rpc.project.youngandroid.YoungAndroidAssetsFolder;
 import com.google.appinventor.shared.rpc.project.youngandroid.YoungAndroidProjectNode;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Command;
@@ -45,6 +47,12 @@ public class YoungAndroidGeoJSONPropertyEditor extends AdditionalChoicePropertyE
     VerticalPanel selectorPanel = new VerticalPanel();
     assetsList = new ListBox();
     assetsList.setVisibleItemCount(10);
+    assetsList.addChangeHandler(new ChangeHandler() {
+      @Override
+      public void onChange(ChangeEvent event) {
+        setOkButtonEnabled(true);
+      }
+    });
     assetsList.setWidth("100%");
     selectorPanel.add(assetsList);
 
@@ -92,9 +100,8 @@ public class YoungAndroidGeoJSONPropertyEditor extends AdditionalChoicePropertyE
             closeAdditionalChoiceDialog(true);
           }
         };
-        FileUploadWizard uploader = new FileUploadWizard(assetsFolder,
+        new FileUploadWizard(assetsFolder,
             Collections.singleton(".geojson"), callback);
-        uploader.show();
       }
     });
     Button urlButton = new Button(MESSAGES.fromUrlButton());
@@ -146,7 +153,21 @@ public class YoungAndroidGeoJSONPropertyEditor extends AdditionalChoicePropertyE
   }
 
   @Override
+  protected void openAdditionalChoiceDialog() {
+    if (!isMultipleValues()) {
+      choices.selectValue(property.getValue());
+    } else {
+      setOkButtonEnabled(false);
+    }
+    super.openAdditionalChoiceDialog();
+    assetsList.setFocus(true);
+  }
+
+  @Override
   protected String getPropertyValueSummary() {
+    if (isMultipleValues()) {
+      return MESSAGES.multipleValues();
+    }
     String value = property.getValue();
     if (choices.containsValue(value)) {
       return choices.getDisplayItemForValue(value);
@@ -161,7 +182,9 @@ public class YoungAndroidGeoJSONPropertyEditor extends AdditionalChoicePropertyE
       Window.alert(MESSAGES.noAssetSelected());
       return false;
     }
-    property.setValue(choices.getValueAtIndex(selected));
+    boolean multiple = isMultipleValues();
+    setMultipleValues(false);
+    property.setValue(choices.getValueAtIndex(selected), multiple);
     return true;
   }
 

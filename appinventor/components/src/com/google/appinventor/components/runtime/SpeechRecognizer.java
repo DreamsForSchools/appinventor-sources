@@ -6,6 +6,20 @@
 
 package com.google.appinventor.components.runtime;
 
+
+import static android.Manifest.permission.INTERNET;
+import static android.Manifest.permission.RECORD_AUDIO;
+
+import android.text.TextUtils;
+
+import android.content.Intent;
+
+import android.Manifest;
+
+import android.os.Build;
+
+import android.speech.RecognizerIntent;
+
 import com.google.appinventor.components.annotations.DesignerComponent;
 import com.google.appinventor.components.annotations.DesignerProperty;
 import com.google.appinventor.components.annotations.PropertyCategory;
@@ -14,16 +28,22 @@ import com.google.appinventor.components.annotations.SimpleFunction;
 import com.google.appinventor.components.annotations.SimpleObject;
 import com.google.appinventor.components.annotations.SimpleProperty;
 import com.google.appinventor.components.annotations.UsesPermissions;
+import com.google.appinventor.components.annotations.UsesQueries;
+
+import com.google.appinventor.components.annotations.androidmanifest.ActionElement;
+import com.google.appinventor.components.annotations.androidmanifest.IntentFilterElement;
+
 import com.google.appinventor.components.common.ComponentCategory;
 import com.google.appinventor.components.common.PropertyTypeConstants;
 import com.google.appinventor.components.common.YaVersion;
 
-import android.content.Intent;
-import android.Manifest;
-import android.os.Build;
-import android.speech.RecognizerIntent;
-
 /**
+ * ![SpeechRecognizer icon](images/speechrecognizer.png)
+ *
+ * Use a `SpeechRecognizer` component to listen to the user speaking and convert the spoken sound
+ * into text using the device's speech recognition feature.
+ *
+ * @internaldoc
  * Component for using the built in VoiceRecognizer to convert speech to text.
  * For more details, please see:
  * http://developer.android.com/reference/android/speech/RecognizerIntent.html
@@ -36,8 +56,7 @@ import android.speech.RecognizerIntent;
     iconName = "images/speechRecognizer.png")
 
 @SimpleObject
-@UsesPermissions(permissionNames = "android.permission.RECORD_AUDIO," +
-        "android.permission.INTERNET")
+@UsesPermissions({RECORD_AUDIO, INTERNET})
 public class SpeechRecognizer extends AndroidNonvisibleComponent
     implements Component, OnClearListener, SpeechListener {
 
@@ -48,6 +67,8 @@ public class SpeechRecognizer extends AndroidNonvisibleComponent
 
   private boolean havePermission = false;
   private boolean useLegacy = true;
+
+  private String language = "";
 
   /**
    * Creates a SpeechRecognizer component.
@@ -66,7 +87,32 @@ public class SpeechRecognizer extends AndroidNonvisibleComponent
   }
 
   /**
-   * Result property getter method.
+   * Suggests the language to use for recognizing speech. An empty string (the default) will
+   * use the system's default language.
+   *
+   *     Language is specified using a [language tag](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
+   *     with an optional region suffix, such as en or es-MX. The set of supported languages will
+   *     vary by device.
+   *
+   * @return the target language for recognition
+   */
+  @SimpleProperty(category = PropertyCategory.BEHAVIOR)
+  public String Language() {
+    return language;
+  }
+
+  @SimpleProperty
+  public void Language(String language) {
+    this.language = language;
+    if (TextUtils.isEmpty(language)) {
+      recognizerIntent.removeExtra(RecognizerIntent.EXTRA_LANGUAGE);
+    } else {
+      recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, language);
+    }
+  }
+
+  /**
+   * Returns the last text produced by the recognizer.
    */
   @SimpleProperty(
       category = PropertyCategory.BEHAVIOR)
@@ -75,8 +121,8 @@ public class SpeechRecognizer extends AndroidNonvisibleComponent
   }
 
   /**
-   * Solicits speech input from the user.  After the speech is converted to
-   * text, the AfterGettingText event will be raised.
+   * Asks the user to speak, and converts the speech to text. Signals the
+   * {@link #AfterGettingText(String, boolean)} event when the result is available.
    */
   @SimpleFunction
   public void GetText() {
@@ -86,7 +132,7 @@ public class SpeechRecognizer extends AndroidNonvisibleComponent
       form.runOnUiThread(new Runnable() {
         @Override
         public void run() {
-          form.askPermission(Manifest.permission.RECORD_AUDIO,
+          form.askPermission(RECORD_AUDIO,
               new PermissionResultHandler() {
                 @Override
                 public void HandlePermissionResponse(String permission, boolean granted) {
@@ -94,7 +140,7 @@ public class SpeechRecognizer extends AndroidNonvisibleComponent
                     me.havePermission = true;
                     me.GetText();
                   } else {
-                    form.dispatchPermissionDeniedEvent(me, "GetText", Manifest.permission.RECORD_AUDIO);
+                    form.dispatchPermissionDeniedEvent(me, "GetText", RECORD_AUDIO);
                   }
                 }
           });
@@ -110,7 +156,8 @@ public class SpeechRecognizer extends AndroidNonvisibleComponent
   /**
    * Function used to forcefully stop listening speech in cases where
    * SpeechRecognizer cannot stop automatically.
-   * This function works only when UseLegacy property is set to 'false'.
+   * This function works only when the {@link #UseLegacy(boolean)} property is
+   * set to `false`{:.logic.block}.
    */
   @SimpleFunction
   public void Stop() {
@@ -120,7 +167,7 @@ public class SpeechRecognizer extends AndroidNonvisibleComponent
   }
 
   /**
-   * Simple event to raise when VoiceReco is invoked but before the VoiceReco
+   * Simple event to raise when the `SpeechRecognizer` is invoked but before its
    * activity is started.
    */
   @SimpleEvent
@@ -129,9 +176,13 @@ public class SpeechRecognizer extends AndroidNonvisibleComponent
   }
 
   /**
-   * Simple event to raise after the VoiceReco activity has returned.
-   * Partial is 'false' when SpeechRecognizer stops automatically after listening,
-   * else it is 'true' if SpeechRecognizer returns partial results.
+   * Simple event to raise after the SpeechRecognizer has recognized speech. If
+   * {@link #UseLegacy(boolean)} is `true`{:.logic.block}, then this event will only happen once
+   * at the very end of the recognition. If {@link #UseLegacy(boolean)} is `false`{:.logic.block},
+   * then this event will run multiple times as the `SpeechRecognizer` incrementally recognizes
+   * speech. In this case, `partial` will be `true`{:.logic.block} until the recognized speech
+   * has been finalized (e.g., the user has stopped speaking), in which case `partial` will be
+   * `false`{:.logic.block}.
    */
   @SimpleEvent
   public void AfterGettingText(String result, boolean partial) {
@@ -179,15 +230,30 @@ public class SpeechRecognizer extends AndroidNonvisibleComponent
     return useLegacy;
   }
 
+  /**
+   * If true, a separate dialog is used to recognize speech (the default). If false, speech is
+   * recognized in the background and updates are received as it recognizes words.
+   * {@link #AfterGettingText(String, boolean)} may get several calls with `partial` set to `true`{:.logic.block}.
+   * Once sufficient time has elapsed since the last utterance, or `StopListening` is called,
+   * the last string will be returned with `partial` set to `false`{:.logic.block} to indicate that it is the
+   * final recognized string and no more data will be provided until recognition is again started. See
+   * {@link #AfterGettingText(String, boolean)} for more details on partial speech recognition.
+   * @param useLegacy
+   */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_BOOLEAN,
       defaultValue = "True")
-  @SimpleProperty(description = "If true, a separate dialog is used to recognize speech. "
-      + "If false, speech is recognized without changing the user interface and "
+  @SimpleProperty(description = "If true, a separate dialog is used to recognize speech "
+      + "(the default). If false, speech is recognized in the background and "
       + "partial results are also provided.")
+  @UsesQueries(intents = {
+      @IntentFilterElement(actionElements = {
+          @ActionElement(name = "android.speech.RecognitionService")
+      })
+  })
   public void UseLegacy(boolean useLegacy) {
     this.useLegacy = useLegacy;
     Stop();
-    if (useLegacy == true || Build.VERSION.SDK_INT<8) {
+    if (useLegacy || Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
       speechRecognizerController = new IntentBasedSpeechRecognizer(container, recognizerIntent);
     } else {
       speechRecognizerController = new ServiceBasedSpeechRecognizer(container, recognizerIntent);

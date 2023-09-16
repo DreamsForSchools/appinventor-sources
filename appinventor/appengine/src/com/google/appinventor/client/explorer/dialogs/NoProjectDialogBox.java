@@ -15,6 +15,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -29,6 +30,7 @@ public class NoProjectDialogBox extends DialogBox {
 
   private static NoProjectDialogBoxUiBinder uiBinder =
       GWT.create(NoProjectDialogBoxUiBinder.class);
+  private static NoProjectDialogBox lastDialog = null;
 
   interface NoProjectDialogBoxUiBinder extends UiBinder<Widget, NoProjectDialogBox> {
   }
@@ -65,6 +67,7 @@ public class NoProjectDialogBox extends DialogBox {
     this.center();
     this.setAnimationEnabled(true);
     this.setAutoHideEnabled(true);
+    lastDialog = this;
   }
 
   @UiHandler("closeDialogBox")
@@ -75,30 +78,36 @@ public class NoProjectDialogBox extends DialogBox {
   @UiHandler("goToGettingStarted")
   void handleGoToGettingStarted(ClickEvent e) {
     this.hide();
-    Window.open("https://www.dreamsforschools.org/codeathome-mobileapps/#lets-whack-a-mole", "_blank", "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes");
-    // new WindowOpenClickHandler("https://www.dreamsforschools.org/codeathome-mobileapps/#getting-started");
-    // new TemplateUploadWizard().createProjectFromExistingZip("HelloPurr", new NewTutorialProject());
+    new TemplateUploadWizard().createProjectFromExistingZip("HelloPurr", new NewTutorialProject(),
+            "HelloPurr");
   }
 
   @UiHandler("goToMeetLarry")
   void handleGoToMeetLarry(ClickEvent e) {
     this.hide();
-    Window.open("https://www.dreamsforschools.org/codeathome-mobileapps/#lets-whack-a-mole", "_blank", "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes");
-    // new WindowOpenClickHandler("https://www.dreamsforschools.org/codeathome-mobileapps/#lets-meet-larry");
-    // TemplateUploadWizard.openProjectFromTemplate("http://appinventor.mit.edu/yrtoolkit/yr/aiaFiles/talk_to_me/TalkToMe.asc", new NewTutorialProject());
+    TemplateUploadWizard.openProjectFromTemplate(Window.Location.getProtocol()
+        + "//appinventor.mit.edu/yrtoolkit/yr/aiaFiles/talk_to_me/TalkToMe.asc",
+        new NewTutorialProject());
   }
 
   @UiHandler("goToWhackAMole")
   void handleGoToWhackAMole(ClickEvent e) {
     this.hide();
-    Window.open("https://www.dreamsforschools.org/codeathome-mobileapps/#lets-whack-a-mole", "_blank", "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes");
-    // new WindowOpenClickHandler("https://www.dreamsforschools.org/codeathome-mobileapps/#lets-whack-a-mole");
-    // TemplateUploadWizard.openProjectFromTemplate("http://appinventor.mit.edu/yrtoolkit/yr/aiaFiles/hello_bonjour/translate_tutorial.asc", new NewTutorialProject());
+    TemplateUploadWizard.openProjectFromTemplate(Window.Location.getProtocol()
+        + "//appinventor.mit.edu/yrtoolkit/yr/aiaFiles/hello_bonjour/translate_tutorial.asc",
+        new NewTutorialProject());
   }
 
   @UiHandler("noDialogNewProject")
   void handleNewProject(ClickEvent e) {
     this.hide();
-    new NewYoungAndroidProjectWizard(null).show();
+    new NewYoungAndroidProjectWizard();
+  }
+
+  public static void closeIfOpen() {
+    if (lastDialog != null) {
+      lastDialog.removeFromParent();;
+      lastDialog = null;
+    }
   }
 }

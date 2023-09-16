@@ -18,9 +18,11 @@ Please check off the part of the system that is affected by the bug.
 
 - [ ] Designer
 - [ ] Blocks editor
+- [ ] Projects Explorer
 - [ ] Companion
 - [ ] Compiled apps
 - [ ] Buildserver
+- [ ] Debugging
 - [ ] Other... (please describe)
 
 **Expected behavior**

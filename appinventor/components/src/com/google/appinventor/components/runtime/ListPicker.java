@@ -25,7 +25,16 @@ import android.content.Intent;
 import android.view.WindowManager;
 
 /**
- * A button allowing a user to select one among a list of text strings.
+ * A button that, when clicked on, displays a list of texts for the user to choose among. The texts
+ * can be specified through the Designer or Blocks Editor by setting the
+ * {@link #ElementsFromString(String)}  property to their string-separated concatenation
+ * (for example, `choice 1, choice 2, choice 3`) or by setting the {@link #Elements(YailList)}
+ * property to a List in the Blocks editor.
+ *
+ * Setting property {@link #ShowFilterBar(boolean)} to `true`{:.logic.block}, will make the list
+ * searchable. Other properties affect the appearance of the button ({@link #TextAlignment(int)},
+ * {@link #BackgroundColor(int)}, etc.) and whether it can be clicked on
+ * ({@link #Enabled(boolean)}).
  *
  * @author sharon@google.com (Sharon Perl)
  * @author M. Hossein Amerkashi (kkashi01@gmail.com)
@@ -42,7 +51,8 @@ import android.view.WindowManager;
     "<p>Setting property ShowFilterBar to true, will make the list searchable.  " +
     "Other properties affect the appearance of the button " +
     "(<code>TextAlignment</code>, <code>BackgroundColor</code>, etc.) and " +
-    "whether it can be clicked on (<code>Enabled</code>).")
+    "whether it can be clicked on (<code>Enabled</code>).</p>",
+    iconName = "images/listPicker.png")
 @SimpleObject
 @UsesActivities(activities = {
     @ActivityElement(name = "com.google.appinventor.components.runtime.ListPickerActivity",
@@ -103,7 +113,9 @@ public class ListPicker extends Picker implements ActivityResultListener, Delete
   }
 
   /**
-   * Selection property getter method.
+   * The selected item. When directly changed by the programmer, the {@link #SelectionIndex(int)}
+   * property is also changed to the first item in the {@link ListPicker} with the given value.
+   * If the value is not in {@link #Elements()}, {@link #SelectionIndex(int)} will be set to 0.
    */
   @SimpleProperty(
       description = "The selected item.  When directly changed by the " +
@@ -117,6 +129,8 @@ public class ListPicker extends Picker implements ActivityResultListener, Delete
 
   /**
    * Selection property setter method.
+   *
+   * @suppressdoc
    */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_STRING,
       defaultValue = "")
@@ -135,6 +149,9 @@ public class ListPicker extends Picker implements ActivityResultListener, Delete
     this.showFilter = showFilter;
   }
 
+  /**
+   * If `true`{:.logic.block}, the ListPicker will show a search filter bar.
+   */
   @SimpleProperty(category = PropertyCategory.BEHAVIOR,
       description = "Returns current state of ShowFilterBar indicating if " +
           "Search Filter Bar will be displayed on ListPicker or not")
@@ -163,6 +180,9 @@ public class ListPicker extends Picker implements ActivityResultListener, Delete
     this.itemBackgroundColor = argb;
   }
 
+  /**
+   * The background color of the `ListPicker` items.
+   */
   @SimpleProperty(description = "The background color of the ListPicker items.",
       category = PropertyCategory.APPEARANCE)
   @IsColor
@@ -197,7 +217,7 @@ public class ListPicker extends Picker implements ActivityResultListener, Delete
   }
 
   /**
-   * Elements property getter method
+   * Specifies the list of choices to display.
    *
    * @return a YailList representing the list of strings to be picked from
    */
@@ -208,6 +228,8 @@ public class ListPicker extends Picker implements ActivityResultListener, Delete
 
   /**
    * Elements property setter method
+   *
+   * @suppressdoc
    * @param itemList - a YailList containing the strings to be added to the
    *                   ListPicker
    */
@@ -218,7 +240,7 @@ public class ListPicker extends Picker implements ActivityResultListener, Delete
   }
 
   /**
-   * ElementsFromString property setter method
+   * Set the list of choices from a string of comma-separated values.
    *
    * @param itemstring - a string containing a comma-separated list of the
    *                     strings to be picked from
@@ -234,6 +256,9 @@ public class ListPicker extends Picker implements ActivityResultListener, Delete
   }
 
   /**
+   * Optional title displayed at the top of the list of choices.
+   *
+   * @internaldoc
    * Title property getter method.
    *
    * @return  list picker title
@@ -248,6 +273,7 @@ public class ListPicker extends Picker implements ActivityResultListener, Delete
    * Title property setter method: sets a new caption for the list picker in the
    * list picker activity's title bar.
    *
+   * @suppressdoc
    * @param title  new list picker caption
    */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_STRING,
@@ -269,7 +295,7 @@ public class ListPicker extends Picker implements ActivityResultListener, Delete
     // Get the current Form's opening transition anim type,
     // and pass it to the list picker activity. For consistency,
     // the closing animation will be the same (but in reverse)
-    String openAnim = container.$form().getOpenAnimType();
+    String openAnim = container.$form().OpenScreenAnimation();
     intent.putExtra(LIST_ACTIVITY_ANIM_TYPE, openAnim);
     intent.putExtra(LIST_ACTIVITY_ORIENTATION_TYPE,container.$form().ScreenOrientation());
     intent.putExtra(LIST_ACTIVITY_ITEM_TEXT_COLOR, itemTextColor);

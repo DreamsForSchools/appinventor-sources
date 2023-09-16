@@ -28,7 +28,7 @@
     }
 
     .ode-tutorialButton:hover {
-      background-color: rgba(143, 194, 2, 0.616);
+      background-color: #4156A6;
       color: white;
       cursor: pointer;
     }
@@ -66,7 +66,7 @@
     }
 
     .ode-noDialogNewProject:hover {
-      background-color: rgba(143, 194, 2, 0.616);
+      background-color: #4156A6;
       color: white;
       cursor: pointer;
     }
@@ -115,7 +115,7 @@
           </div>
           <p class="ode-noDialogExampleAbout">
             <ui:msg key="gettingStartedDescription" description="Description of the Getting Started app">
-              Following instructions in Lesson 0, you’ll learn how to set up your 
+              Following instructions in Lesson 0, you'll learn how to set up your 
               account, navigate the App Maker platform, and be on your way to 
               create your first mobile app game called “Larry the Lion”.
             </ui:msg>
@@ -146,11 +146,11 @@
 
           <p class="ode-noDialogExampleAbout">
             <ui:msg key="letsMeetLarryDescription" description="Description of the Let's Meet Larry app">
-              We’ll explore Concept Cards A to C where you will create your first Mobile App, Larry the Lion. The objective of the game is simple:
+              You will complete Concept Cards A to C to create your first mobile game, Larry the Lion. You will program the game to:
               <ul class="ode-noDialogExampleAbout">
-                <li>When the title is touched, you’ll program it to play jungle music.</li>
-                <li>When the player swipes Larry, you’ll program it so that Larry the Lion will roar and establish his authority in the jungle!</li>
-                <li>You’ll continue on to have Larry collect melons in a timed manner!</li>
+                <li>When you touch the title, the game will play jungle music.</li>
+                <li>When you swipe Larry, Larry the Lion will roar and establish his authority in the jungle!</li>
+                <li>Then, you will help Larry collect melons before time runs out!</li>
               </ul>
             </ui:msg>
           </p>
@@ -176,9 +176,9 @@
               In this tutorial, you will complete a simple, Whack-a-mole style game. By following this tutorial you will...
               <ul class="ode-noDialogExampleAbout">
                 <li>Implement different game components such as Canvases and Game Sprites</li>
-                <li>Utilize basic game elements such as a Timer and Scorekeeper</li>
+                <li>Use basic game elements such as a Timer and Scorekeeper</li>
                 <li>Learn to code basic game logic</li>
-                <li>Understand the basics of UI and Game Design</li>
+                <li>Understand the basics of UI and game design</li>
               </ul>
             </ui:msg>
           </p>
@@ -191,11 +191,11 @@
     </div>
 
     <div class="ode-bottomRow">
-        <g:Button ui:field='noDialogNewProject' styleName="{style.ode-noDialogNewProject}">
+        <g:Button ui:field='noDialogNewProject' styleName="ode-noDialogNewProject">
           <ui:msg key="startProjectButton" description="Text of the button to start a new project"
           >Start a blank project</ui:msg>
         </g:Button>
-        <g:Button ui:field='closeDialogBox' styleName='{style.ode-closeDialogBox}'>
+        <g:Button ui:field='closeDialogBox' styleName='ode-closeDialogBox'>
           <ui:msg key="closeButton" description="Text of the button to close the dialog box"
           >Close</ui:msg>
         </g:Button>

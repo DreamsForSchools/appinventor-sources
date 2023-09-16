@@ -1,3 +1,4 @@
+appinventor/docs
 # You can copy and/or modify this file to create your own .gitignore file.
 # This keeps generated files from being added to source control management.
 .classpath
@@ -8,8 +9,6 @@ reports/
 *~
 *.out
 .DS_Store*
-*.out
-*~
 *.iml
 .idea/
 .externalToolBuilders/
@@ -18,3 +17,7 @@ out/
 *.pyc
 .vagrant/
 *.log
+.build/
+*-cache/
+.bundle/
+vendor/

@@ -44,11 +44,6 @@ import com.google.gwt.event.dom.client.KeyDownHandler;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.*;
 
 import static com.google.appinventor.client.Ode.MESSAGES;
@@ -237,7 +232,7 @@ public class YoungAndroidPalettePanel extends Composite implements SimplePalette
   }
 
   /**
-   *  Users press escapte button, results and searchText will be cleared
+   *  Users press escape button, results and searchText will be cleared
    */
   private class EscapeKeyDownHandler implements KeyDownHandler {
     @Override
@@ -314,13 +309,26 @@ public class YoungAndroidPalettePanel extends Composite implements SimplePalette
     if (category == ComponentCategory.MAPS) {
       return false;
     }
+    if (category == ComponentCategory.CHARTS) {
+      return false;
+    }
     if (category == ComponentCategory.EXPERIMENTAL) {
+      return false;
+    }
+    if (category == ComponentCategory.DATASCIENCE) {
+      return false;
+    }
+
+    // We should only show FUTURE components if the future feature flag is enabled...
+    if (category == ComponentCategory.FUTURE &&
+        !AppInventorFeatures.enableFutureFeatures()) {
       return false;
     }
     if (category == ComponentCategory.INTERNAL &&
         !AppInventorFeatures.showInternalComponentsCategory()) {
       return false;
     }
+    
     return true;
   }
 

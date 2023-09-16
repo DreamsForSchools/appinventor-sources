@@ -9,10 +9,10 @@ import com.google.appinventor.client.editor.simple.components.MockForm;
 import com.google.appinventor.client.editor.youngandroid.BlockDrawerSelectionListener;
 import com.google.appinventor.client.explorer.SourceStructureExplorer;
 import com.google.appinventor.client.explorer.SourceStructureExplorerItem;
-import com.google.appinventor.client.output.OdeLog;
 import com.google.appinventor.client.widgets.boxes.Box;
 import com.google.appinventor.shared.settings.SettingsConstants;
 import com.google.common.collect.Maps;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.resources.client.ImageResource;
@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import static com.google.appinventor.client.Ode.MESSAGES;
 
@@ -41,12 +42,14 @@ import static com.google.appinventor.client.Ode.MESSAGES;
  *
  */
 public final class BlockSelectorBox extends Box {
+  private static final Logger LOG = Logger.getLogger(BlockSelectorBox.class.getName());
+
   private static class BlockSelectorItem implements SourceStructureExplorerItem {
     BlockSelectorItem() {
     }
 
     @Override
-    public void onSelected() {
+    public void onSelected(NativeEvent source) {
     }
 
     @Override
@@ -76,7 +79,9 @@ public final class BlockSelectorBox extends Box {
   // Starts out not visible. call setVisible(true) to make it visible
   private static final BlockSelectorBox INSTANCE = new BlockSelectorBox();
 
-  private static final Set<String> BUILTIN_DRAWER_NAMES = new HashSet<String>(Arrays.asList("Control", "Logic", "Math", "Text", "Lists", "Colors", "Variables", "Procedures"));
+  private static final Set<String> BUILTIN_DRAWER_NAMES = new HashSet<String>(
+      Arrays.asList("Control", "Logic", "Math", "Text", "Lists", "Dictionaries", "Colors",
+          "Variables", "Procedures"));
 
   private static final Images images = Ode.getImageBundle();
   private static final Map<String, ImageResource> bundledImages = Maps.newHashMap();
@@ -138,6 +143,7 @@ public final class BlockSelectorBox extends Box {
     bundledImages.put("Colors", images.colors());
     bundledImages.put("Variables", images.variables());
     bundledImages.put("Procedures", images.procedures());
+    bundledImages.put("Dictionaries", images.dictionaries());
   }
 
   /**
@@ -164,7 +170,7 @@ public final class BlockSelectorBox extends Box {
           + getBuiltinDrawerNames(drawerName) + "</span>"));
       SourceStructureExplorerItem sourceItem = new BlockSelectorItem() {
         @Override
-        public void onSelected() {
+        public void onSelected(NativeEvent source) {
           fireBuiltinDrawerSelected(drawerName);
         }
       };
@@ -181,7 +187,7 @@ public final class BlockSelectorBox extends Box {
   private String getBuiltinDrawerNames(String drawerName) {
     String name;
 
-    OdeLog.wlog("getBuiltinDrawerNames: drawerName = " + drawerName);
+    LOG.warning("getBuiltinDrawerNames: drawerName = " + drawerName);
 
     if (drawerName.equals("Control")) {
        name = MESSAGES.builtinControlLabel();
@@ -199,6 +205,8 @@ public final class BlockSelectorBox extends Box {
        name = MESSAGES.builtinVariablesLabel();
     } else if (drawerName.equals("Procedures")) {
        name = MESSAGES.builtinProceduresLabel();
+    } else if (drawerName.equals("Dictionaries")) {
+       name = MESSAGES.builtinDictionariesLabel();
     } else {
        name = drawerName;
     }
@@ -225,7 +233,7 @@ public final class BlockSelectorBox extends Box {
           + ComponentsTranslation.getComponentName(typeName) + "</span>"));
       SourceStructureExplorerItem sourceItem = new BlockSelectorItem() {
         @Override
-        public void onSelected() {
+        public void onSelected(NativeEvent source) {
           fireGenericDrawerSelected(typeName);
         }
       };
