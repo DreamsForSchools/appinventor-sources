@@ -629,6 +629,8 @@
       </classpath>
       <jvmarg value="-Xss2M"/>  <!-- increase if you see a StackOverflowError -->
       <jvmarg value="-Xmx2G"/>
+      <!-- use only a serial garbage collector to cause less spontaneous CPU load bursts, was causing github action runner to crash -->
+      <jvmarg value="-XX:+UseSerialGC"/>
       <jvmarg line="${XstartOnFirstThread}"/>
       <jvmarg value="-Dfile.encoding=UTF-8" />
       <arg value="-war"/>
@@ -667,7 +669,7 @@
     <pathelement location="${local.build.dir}/AiRebindLib.jar" />
     <pathelement location="${local.build.dir}/AiSharedLib.jar" />
     <pathelement location="${build.dir}/common/CommonTestUtils.jar" />
-    <pathelement location="${build.dir}/components/CommonConstants.jar"/>
+    <pathelement location="${build.dir}/acomponents/CommonConstants.jar"/>
     <pathelement location="${build.dir}/components/CommonConstants-gwt.jar"/>
     <pathelement location="${build.dir}/common/CommonUtils.jar" />
     <pathelement location="${build.dir}/common/CommonUtils-gwt.jar" />
