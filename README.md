@@ -213,7 +213,9 @@ There are two servers in App Inventor, the main server that deals with project i
     $ your-google-cloud-SDK-folder/bin/java_dev_appserver.sh
             --port=8888 --address=0.0.0.0 appengine/build/war/
 
-Make sure you change *your-google-cloud-SDK-folder* to wherever in your hard drive you have placed the Google Cloud SDK.
+Make sure you change *your-google-cloud-SDK-folder* to wherever in your hard drive you have placed the Google Cloud SDK. For Ubuntu, it may be `/usr/lib/google-cloud-sdk/bin/java_dev_appserver.sh --port=8888 --address=0.0.0.0 appengine/build/war/`.
+
+If the port is already used and you can't find it, run `sudo netstat -nlp | grep :8888` to find the process using the port and then kill with `kill -9 process_id`.
 
 ### Running the build server
 
@@ -223,6 +225,14 @@ The build server can be run from the terminal by typing:
     $ ant RunLocalBuildServer
 
 Note that you will only need to run the build server if you are going to build an app as an apk. You can do all the layout and programming without having the build server running, but you will need it to download the apk.
+
+The build server has also been containerized using Docker to make it easier to deploy to GCP Cloud Compute. 
+To build the docker image and test it locally, run `docker build -t build-server --no-cache -f DockerfileBuildServer .` and `docker run -dp 127.0.0.1:9990:9990 build-server`.
+
+Other relevant useful commands are `docker ps` to display running containers and `docker kill [container_id]`.
+
+To troubleshoot on the deployed build server (e.g. failed builds), SSH into the compute engine instance using GCP web console, find the running container id, and then access the containers shell using `docker exec -it [container_id] bash`.
+Use the same process to troubleshoot the build server locally or simply use Docker Desktop to access the container files as needed.
 
 ### Accessing your local server
 
@@ -237,6 +247,16 @@ Before entering or scanning the QR code in the Companion, check the box labeled 
 The automated tests depend on [Phantomjs](http://phantomjs.org/). Make sure you install it and add it to your path. After that, you can run all tests by typing the following in a terminal window:
 
     $ ant tests
+
+### Testing Github Actions locally
+If there are changes to how AppMaker is built, the CI/CD pipeline may not work exactly. In order to reduce broken pushes that use up Github actions build minutes, we can test the Github Actions CI/CD locally using [act](https://github.com/nektos/act).
+
+Once installed, run `act`, which will spin up a Docker container automatically and run the workflows in `.github/workflows/pipeline_name.yml`.
+
+Secrets can be passed like so `act -s GCP_CREDENTIALS`, where in the given example, act will prompt you to paste the JSON credentials (the JSON is reduced to a single line).
+
+### Accessing and restoring firestore backups
+Please see the following [link](gcloud projects list) to get the gcloud commands to restore a Firestore database. The commands to create a backup has already been executed and can be verified using the commands in the link.
 
 ### Building Release Code
 

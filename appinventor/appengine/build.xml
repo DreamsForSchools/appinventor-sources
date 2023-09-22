@@ -32,7 +32,7 @@
              else="com.google.appinventor.YaClient-dev">
     <equals arg1="${release}" arg2="true" />
   </condition>
-
+  <!-- changed java compiler local workers to 4 instead of 8, 8 crashes github runners -->
   <condition property="client.flags"
              value="-optimize 9 -localWorkers 4"
              else="-style pretty">
