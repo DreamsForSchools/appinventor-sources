@@ -34,6 +34,10 @@
         <actions:DeleteAction />
       </ai:DropDownItem>
       <hr />
+      <ai:DropDownItem name="ShareProject" caption="{messages.shareProjectMenuItem}" visible="{hasWriteAccess}">
+        <actions:ShareAction />
+      </ai:DropDownItem>
+      <hr />
       <ai:DropDownItem name="Save" caption="{messages.saveMenuItem}" visible="{hasWriteAccess}">
         <actions:SaveAction />
       </ai:DropDownItem>

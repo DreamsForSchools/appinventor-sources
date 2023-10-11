@@ -192,4 +192,8 @@ abstract class MockToggleBase<T extends Widget> extends MockWrapper implements F
   public void onComponentSelectionChange(MockComponent component, boolean selected) {
 
   }
+
+  @Override
+  public void onComponentMoved(MockComponent component, String newParentId, int index) {
+  }
 }

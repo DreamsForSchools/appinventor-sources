@@ -125,6 +125,7 @@ public class CollaborationManager implements FormChangeListener {
     public native void removeLockedComponent(String channel) /*-{
     delete $wnd.userLockedComponent[channel];
   }-*/;
+
     public native void broadcastComponentEvent(JavaScriptObject eventJson)/*-{
     var msg = {
       "channel": $wnd.Ode_getCurrentChannel(),
@@ -403,10 +404,6 @@ public class CollaborationManager implements FormChangeListener {
       }
     }
     return;
-  }-*/;
-
-    public native void setProjectLeader(String project, String leader) /*-{
-    $wnd.projectLeader[project] = leader;
   }-*/;
 
     public static void setCurrentScreenChannel(String channel) {

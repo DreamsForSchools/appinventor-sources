@@ -73,6 +73,11 @@ public final class BlockSelectorBox extends Box {
     @Override
     public void delete() {
     }
+
+    @Override
+    public String getObjectId() {
+      return null;
+    }
   }
 
   // Singleton block selector box instance

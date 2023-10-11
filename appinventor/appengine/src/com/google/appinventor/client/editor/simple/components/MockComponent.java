@@ -8,6 +8,7 @@ package com.google.appinventor.client.editor.simple.components;
 
 import static com.google.appinventor.client.Ode.MESSAGES;
 
+import com.google.appinventor.client.boxes.SourceStructureBox;
 import com.google.appinventor.client.editor.simple.SimpleComponentDatabase;
 import com.google.appinventor.client.ComponentsTranslation;
 import com.google.appinventor.client.Images;
@@ -16,6 +17,8 @@ import com.google.appinventor.client.editor.simple.SimpleEditor;
 import com.google.appinventor.client.editor.simple.components.utils.PropertiesUtil;
 import com.google.appinventor.client.editor.youngandroid.YaBlocksEditor;
 import com.google.appinventor.client.editor.youngandroid.YaFormEditor;
+import com.google.appinventor.client.editor.youngandroid.events.ChangeProperty;
+import com.google.appinventor.client.editor.youngandroid.events.DeleteComponent;
 import com.google.appinventor.client.explorer.SourceStructureExplorerItem;
 import com.google.appinventor.client.explorer.project.Project;
 import com.google.appinventor.client.widgets.ClonedWidget;
@@ -39,6 +42,7 @@ import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DomEvent;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.HasAllTouchHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
@@ -170,9 +174,13 @@ public abstract class MockComponent extends Composite implements PropertyChangeL
         hide();
       } else if (validate(newName)) {
         hide();
-        String oldName = getName();
-        changeProperty(PROPERTY_NAME_NAME, newName);
-        getForm().fireComponentRenamed(MockComponent.this, oldName);
+//        String oldName = getName();
+//        changeProperty(PROPERTY_NAME_NAME, newName);
+//        getForm().fireComponentRenamed(MockComponent.this, oldName);
+
+        getForm().fireComponentEvent(ChangeProperty.create(
+                Ode.getCurrentChannel(), getUuid(), PROPERTY_NAME_NAME, newName
+        ));
       } else {
         newNameTextBox.setFocus(true);
         newNameTextBox.selectAll();
@@ -314,6 +322,10 @@ public abstract class MockComponent extends Composite implements PropertyChangeL
   private MouseListenerCollection mouseListeners = new MouseListenerCollection();
   private HandlerManager handlers;
 
+  private int index;
+
+  private boolean selected;
+
   /**
    * Creates a new instance of the component.
    *
@@ -372,6 +384,11 @@ public abstract class MockComponent extends Composite implements PropertyChangeL
           new DeleteDialog().center();
         }
       }
+
+      @Override
+      public String getObjectId() {
+        return MockComponent.this.getUuid();
+      };
     };
     expanded = true;
 
@@ -381,6 +398,7 @@ public abstract class MockComponent extends Composite implements PropertyChangeL
     // Add the mock component itself as a property change listener so that it can update its
     // visual aspects according to changes of its properties
     properties.addPropertyChangeListener(this);
+    properties.setComponent(this);
 
     // Allow dragging this component in a drag-and-drop action if this is not the root form
     if (!isForm()) {
@@ -391,6 +409,8 @@ public abstract class MockComponent extends Composite implements PropertyChangeL
       addTouchEndHandler(dragSourceSupport);
       addTouchCancelHandler(dragSourceSupport);
     }
+
+    selected = false;
   }
 
   /**
@@ -710,10 +730,12 @@ public abstract class MockComponent extends Composite implements PropertyChangeL
    */
   protected void onSelectedChange(boolean selected) {
     if (selected) {
+      getElement().getStyle().clearBorderColor();
       addStyleDependentName("selected");
     } else {
       removeStyleDependentName("selected");
     }
+    this.selected = selected;
     getForm().fireComponentSelectionChange(this, selected);
   }
 
@@ -1130,8 +1152,11 @@ public abstract class MockComponent extends Composite implements PropertyChangeL
        * fireComponentPropertyChanged when we start dragging the component from
        * the palette. We need to explicitly trigger on Form here, because forms
        * are not in containers.
+       *
+       * If the editor is not initialized, we fire changes on the form directly.
+       * Otherwise, raise the event and run it.
        */
-      getForm().fireComponentPropertyChanged(this, propertyName, newValue);
+//      getForm().fireComponentPropertyChanged(this, propertyName, newValue);
     }
   }
 
@@ -1142,13 +1167,15 @@ public abstract class MockComponent extends Composite implements PropertyChangeL
 
   public void delete() {
     this.editor.getProjectEditor().clearLocation(getName());
-    getForm().select(null);
+    getForm().select((NativeEvent) null);
     // Pass true to indicate that the component is being permanently deleted.
-    getContainer().removeComponent(this, true);
+//    getContainer().removeComponent(this, true);
     // tell the component its been removed, so it can remove children's blocks
-    onRemoved();
-    properties.removePropertyChangeListener(this);
-    properties.clear();
+    if (getForm().fireComponentEvent(DeleteComponent.create(Ode.getCurrentChannel(), this.getUuid()))) {
+      onRemoved();
+      properties.removePropertyChangeListener(this);
+      properties.clear();
+    }
   }
 
   // Layout
@@ -1278,4 +1305,69 @@ public abstract class MockComponent extends Composite implements PropertyChangeL
     return !event.shouldNotCancel;
   }-*/;
 
+  /**
+   * Set the index of the component in its parent container, used in collaboration. -1 means the last child.
+   * @param index index of the component
+   */
+  public void setIndex(int index) {
+    this.index = index;
+  }
+
+  /**
+   * Get the index of the component in its parent container.
+   * @return index of the component
+   */
+  public int getIndex() {
+    return this.index;
+  }
+
+  /**
+   * Change the border color of the component in the form when it is selected by others.
+   * @param color border color
+   */
+//  public final void select(NativeEvent event, String color) {
+//    getForm().setSelectedComponent(this, event);
+//    getElement().getStyle().setProperty("borderColor", color);
+//  }
+  /**
+   * Change the border color of the component in the form when it is selected by others.
+   * @param color border color
+   */
+//  public final void selectColor(String color) {
+//    getElement().getStyle().setProperty("borderColor", color);
+//  }
+
+  /**
+   * Reset the component style in the form
+   */
+  public void deselect() {
+    getElement().getStyle().clearBorderColor();
+    if (selected) {
+      addStyleDependentName("selected");
+    }
+  }
+
+  /**
+   * Set the background color of this component item in source structure explorer.
+   * @param color background color
+   */
+  public void setItemBackgroundColor(String color) {
+    Element element = SourceStructureBox.getSourceStructureBox()
+            .getSourceStructureExplorer().getItem(this.sourceStructureExplorerItem);
+    if (element != null) {
+      element.getStyle().setBackgroundColor(color);
+    }
+  }
+
+  /**
+   * Clear the background color of this component item in source structure explorer.
+   */
+  public void clearItemBackgroundColor() {
+    Element element = SourceStructureBox.getSourceStructureBox()
+            .getSourceStructureExplorer().getItem(this.sourceStructureExplorerItem);
+    if (element != null) {
+      element.getStyle().clearBackgroundColor();
+    }
+
+  }
 }

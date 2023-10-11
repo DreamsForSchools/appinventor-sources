@@ -831,4 +831,8 @@ public final class YaProjectEditor extends ProjectEditor implements ProjectChang
       manager.scheduleAutoSave(editors.blocksEditor);
     }
   }
+
+  public Set<String> getFormNames() {
+    return editorMap.keySet();
+  }
 }

@@ -64,6 +64,7 @@
     '../lib/blockly/core/zoom_controls.js',
 
     //finally, include any of our own .js file in any order
+    "./src/adapters.js",
     "./src/msg.js",
     "./src/events.js",
     "./src/blocklyeditor.js",
@@ -151,6 +152,9 @@
 
     // Repl
     "./src/replmgr.js",
+
+    // Group collaboration
+    "./src/collaboration.js",
 
     // extras
     "./src/extras.js"

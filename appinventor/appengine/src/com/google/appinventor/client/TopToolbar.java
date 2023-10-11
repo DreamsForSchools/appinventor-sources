@@ -15,6 +15,7 @@ import com.google.appinventor.client.editor.youngandroid.DesignToolbar.DesignPro
 import com.google.appinventor.client.editor.youngandroid.DesignToolbar.Screen;
 import com.google.appinventor.client.editor.youngandroid.YaBlocksEditor;
 import com.google.appinventor.client.widgets.DropDownButton;
+import com.google.appinventor.client.wizards.ShareProjectWizard;
 import com.google.appinventor.common.version.AppInventorFeatures;
 import com.google.appinventor.shared.storage.StorageUtil;
 import com.google.gwt.core.client.GWT;
@@ -65,6 +66,7 @@ public class TopToolbar extends Composite {
   private static final String WIDGET_NAME_IMPORTPROJECT = "ImportProject";
   private static final String WIDGET_NAME_IMPORTTEMPLATE = "ImportTemplate";
   private static final String WIDGET_NAME_EXPORTPROJECT = "ExportProject";
+  private static final String WIDGET_NAME_SHARE = "ShareProject";
 
   private static final String WIDGET_NAME_ADMIN = "Admin";
   private static final String WIDGET_NAME_USER_ADMIN = "UserAdmin";
@@ -305,6 +307,7 @@ public class TopToolbar extends Composite {
       fileDropDown.setItemEnabled(MESSAGES.checkpointMenuItem(), false);
       buildDropDown.setItemEnabled(MESSAGES.showExportAndroidApk(), false);
       buildDropDown.setItemEnabled(MESSAGES.showExportAndroidAab(), false);
+      fileDropDown.setItemEnabled(MESSAGES.shareProjectMenuItem(), false);
       if (Ode.getInstance().hasSecondBuildserver()) {
         buildDropDown.setItemEnabled(MESSAGES.showExportAndroidApk2(), false);
         buildDropDown.setItemEnabled(MESSAGES.showExportAndroidAab2(), false);
@@ -319,6 +322,7 @@ public class TopToolbar extends Composite {
       fileDropDown.setItemEnabled(MESSAGES.checkpointMenuItem(), true);
       buildDropDown.setItemEnabled(MESSAGES.showExportAndroidApk(), true);
       buildDropDown.setItemEnabled(MESSAGES.showExportAndroidAab(), true);
+      fileDropDown.setItemEnabled(MESSAGES.shareProjectMenuItem(), true);
       if (Ode.getInstance().hasSecondBuildserver()) {
         buildDropDown.setItemEnabled(MESSAGES.showExportAndroidApk2(), true);
         buildDropDown.setItemEnabled(MESSAGES.showExportAndroidAab2(), true);

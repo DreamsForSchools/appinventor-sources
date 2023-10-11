@@ -64,6 +64,7 @@
         <li> Firefox 52+ </li>
       </ul>
     </div>
+    <script type="text/javascript" src="static/js/socket.io.js"></script>
     <script type="text/javascript" src="static/closure-library/closure/goog/base.js"></script>
     <script type="text/javascript" src="ode/ode.nocache.js"></script>
     <script src="static/leaflet/leaflet.js"></script>

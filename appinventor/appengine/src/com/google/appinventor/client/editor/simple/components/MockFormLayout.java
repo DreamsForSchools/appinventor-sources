@@ -13,7 +13,7 @@ import com.google.appinventor.components.common.ComponentConstants;
  *
  * @author lizlooney@google.com (Liz Looney)
  */
-final class MockFormLayout extends MockHVLayoutBase {
+public final class MockFormLayout extends MockHVLayoutBase {
   /**
    * Creates a new form layout.
    */

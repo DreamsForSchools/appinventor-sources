@@ -54,6 +54,8 @@ public class UserProject implements IsSerializable {
 
   private static final String DELIM = "#DELIM#";
 
+  private boolean shared;
+
   /**
    * Default constructor. This constructor is required by GWT.
    */
@@ -62,7 +64,7 @@ public class UserProject implements IsSerializable {
   }
 
   /**
-   * Creates a new project info object.
+   * Creates a new project info object. Without modification date and shared boolean.
    *
    * @param projectId the project id
    * @param projectName the project name
@@ -70,11 +72,23 @@ public class UserProject implements IsSerializable {
    */
   public UserProject(long projectId, String projectName, String projectType, long creationDate, boolean projectMovedToTrashFlag) {
     this(projectId, projectName, projectType, creationDate, creationDate, 0,
-        projectMovedToTrashFlag);
+        projectMovedToTrashFlag, false);
   }
 
   /**
-   * Creates a new project info object.
+   * Creates a new project info object. Without modification date.
+   *
+   * @param projectId the project id
+   * @param projectName the project name
+   * @param projectType the project type
+   */
+  public UserProject(long projectId, String projectName, String projectType, long creationDate, boolean projectMovedToTrashFlag, boolean shared) {
+    this(projectId, projectName, projectType, creationDate, creationDate, 0,
+            projectMovedToTrashFlag, shared);
+  }
+
+  /**
+   * Creates a new project info object. Without buildDate and shared boolean.
    *
    * @param projectId the project id
    * @param projectName the project name
@@ -83,7 +97,20 @@ public class UserProject implements IsSerializable {
   public UserProject(long projectId, String projectName, String projectType, long creationDate,
       long modificationDate, boolean projectMovedToTrashFlag) {
     this(projectId, projectName, projectType, creationDate, modificationDate, 0,
-        projectMovedToTrashFlag);
+        projectMovedToTrashFlag, false);
+  }
+
+  /**
+   * Creates a new project info object. Without buildDate and shared boolean.
+   *
+   * @param projectId the project id
+   * @param projectName the project name
+   * @param projectType the project type
+   */
+  public UserProject(long projectId, String projectName, String projectType, long creationDate,
+                     long modificationDate, boolean projectMovedToTrashFlag, boolean shared) {
+    this(projectId, projectName, projectType, creationDate, modificationDate, 0,
+            projectMovedToTrashFlag, shared);
   }
 
   /**
@@ -94,7 +121,7 @@ public class UserProject implements IsSerializable {
    * @param projectType the project type
    */
   public UserProject(long projectId, String projectName, String projectType, long creationDate,
-      long modificationDate, long buildDate, boolean projectMovedToTrashFlag) {
+      long modificationDate, long buildDate, boolean projectMovedToTrashFlag, boolean shared) {
     this.projectId = projectId;
     this.projectName = projectName;
     this.projectType = projectType;
@@ -102,6 +129,7 @@ public class UserProject implements IsSerializable {
     this.modificationDate = modificationDate;
     this.projectMovedToTrashFlag = projectMovedToTrashFlag;
     this.buildDate = buildDate;
+    this.shared = shared;
   }
 
   /**
@@ -208,5 +236,13 @@ public class UserProject implements IsSerializable {
     userProject.modificationDate = Long.parseLong(parts[4]);
     userProject.buildDate = Long.parseLong(parts[5]);
     return userProject;
+  }
+
+  public void setShared(boolean shared) {
+    this.shared = shared;
+  }
+
+  public boolean isShared() {
+    return shared;
   }
 }

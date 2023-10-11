@@ -204,4 +204,14 @@ public interface ProjectServiceAsync {
    */
   void log(String message, AsyncCallback<Void> callback);
 
+  /**
+   * @see ProjectService#makeUserProject(String, long)
+   */
+  void makeUserProject(String userId, long projectId, AsyncCallback<UserProject> callback);
+
+  /**
+   * @see ProjectService#shareProject(String, long, String, int)
+   */
+  void shareProject(String userId, long projectId, String otherEmail,
+                    int perm, AsyncCallback<Long> callback);
 }

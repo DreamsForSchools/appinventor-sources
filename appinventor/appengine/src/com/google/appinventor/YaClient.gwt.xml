@@ -11,7 +11,8 @@
   -->
 
   <inherits name='com.google.gwt.user.UserAgent'/>
-  <set-property name="user.agent" value="safari,gecko1_8" />
+    <set-property name="user.agent" value="safari" />
+<!--  <set-property name="user.agent" value="safari,gecko1_8" />-->
 
   <!-- inherits -->
 
@@ -97,6 +98,11 @@
 
   <!-- extra_module_contents -->
 
+  <!-- javascript -->
+  <!--<public path="public"/>-->
+  <!--<script src="socket.io.js"></script>-->
+  <!-- extra_module_contents -->
+
   <!-- ExtendedProxy -->
   <!--
     || GWT by default automatically generates code for remote services that provides the client with
@@ -123,42 +129,42 @@
 
   <!-- English language, independent of country -->
   <extend-property name="locale" values="en"/>
-  <!-- Simplified Chinese -->
-  <extend-property name="locale" values="zh_CN"/>
-  <!-- Traditional Chinese -->
-  <extend-property name="locale" values="zh_TW"/>
-  <!-- Spanish from Spain -->
-  <extend-property name="locale" values="es_ES"/>
-  <!-- French -->
-  <extend-property name="locale" values="fr_FR"/>
-  <!-- Italian -->
-  <extend-property name="locale" values="it_IT"/>
-  <!-- Russian -->
-  <extend-property name="locale" values="ru"/>
-  <!-- Korean -->
-  <extend-property name="locale" values="ko_KR"/>
-  <!-- Swedish -->
-  <extend-property name="locale" values="sv"/>
-  <!-- Portuguese (Brazilian) -->
-  <extend-property name="locale" values="pt_BR"/>
-  <!-- Portuguese (Portugal) -->
-  <extend-property name="locale" values="pt"/>
-  <!-- Hungarian -->
-  <extend-property name="locale" values="hu"/>
-  <!-- Dutch -->
-  <extend-property name="locale" values="nl"/>
-  <!-- German -->
-  <extend-property name="locale" values="de"/>
-  <!-- Polish -->
-  <extend-property name="locale" values="pl"/>
-  <!-- Lithuanian -->
-  <extend-property name="locale" values="lt"/>
-  <!-- Turkish -->
-  <extend-property name="locale" values="tr"/>
-  <!-- Armenian -->
-  <extend-property name="locale" values="hy"/>
-  <!-- Catalan -->
-  <extend-property name="locale" values="ca"/>
+<!--  &lt;!&ndash; Simplified Chinese &ndash;&gt;-->
+<!--  <extend-property name="locale" values="zh_CN"/>-->
+<!--  &lt;!&ndash; Traditional Chinese &ndash;&gt;-->
+<!--  <extend-property name="locale" values="zh_TW"/>-->
+<!--  &lt;!&ndash; Spanish from Spain &ndash;&gt;-->
+<!--  <extend-property name="locale" values="es_ES"/>-->
+<!--  &lt;!&ndash; French &ndash;&gt;-->
+<!--  <extend-property name="locale" values="fr_FR"/>-->
+<!--  &lt;!&ndash; Italian &ndash;&gt;-->
+<!--  <extend-property name="locale" values="it_IT"/>-->
+<!--  &lt;!&ndash; Russian &ndash;&gt;-->
+<!--  <extend-property name="locale" values="ru"/>-->
+<!--  &lt;!&ndash; Korean &ndash;&gt;-->
+<!--  <extend-property name="locale" values="ko_KR"/>-->
+<!--  &lt;!&ndash; Swedish &ndash;&gt;-->
+<!--  <extend-property name="locale" values="sv"/>-->
+<!--  &lt;!&ndash; Portuguese (Brazilian) &ndash;&gt;-->
+<!--  <extend-property name="locale" values="pt_BR"/>-->
+<!--  &lt;!&ndash; Portuguese (Portugal) &ndash;&gt;-->
+<!--  <extend-property name="locale" values="pt"/>-->
+<!--  &lt;!&ndash; Hungarian &ndash;&gt;-->
+<!--  <extend-property name="locale" values="hu"/>-->
+<!--  &lt;!&ndash; Dutch &ndash;&gt;-->
+<!--  <extend-property name="locale" values="nl"/>-->
+<!--  &lt;!&ndash; German &ndash;&gt;-->
+<!--  <extend-property name="locale" values="de"/>-->
+<!--  &lt;!&ndash; Polish &ndash;&gt;-->
+<!--  <extend-property name="locale" values="pl"/>-->
+<!--  &lt;!&ndash; Lithuanian &ndash;&gt;-->
+<!--  <extend-property name="locale" values="lt"/>-->
+<!--  &lt;!&ndash; Turkish &ndash;&gt;-->
+<!--  <extend-property name="locale" values="tr"/>-->
+<!--  &lt;!&ndash; Armenian &ndash;&gt;-->
+<!--  <extend-property name="locale" values="hy"/>-->
+<!--  &lt;!&ndash; Catalan &ndash;&gt;-->
+<!--  <extend-property name="locale" values="ca"/>-->
 
   <set-property-fallback name="locale" value="en"/>
 </module>

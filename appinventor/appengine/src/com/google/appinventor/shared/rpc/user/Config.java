@@ -36,6 +36,7 @@ public class Config implements IsSerializable, Serializable {
   private String firebaseURL;   // Default Firebase URL
   private String defaultCloudDBserver;
   private int noop;            // No-op interval
+  private String blocklyShareUrl;
   private boolean secondBuildserver; // Whether or not we have a second
                                      // buildserver (used for a different
                                      // target SDK).
@@ -249,4 +250,11 @@ public class Config implements IsSerializable, Serializable {
     deleteAccountAllowed = value;
   }
 
+  public void setBlocklyShareUrl(String blocklyShareUrl) {
+    this.blocklyShareUrl = blocklyShareUrl;
+  }
+
+  public String getBlocklyShareUrl() {
+    return blocklyShareUrl;
+  }
 }

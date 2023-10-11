@@ -18,6 +18,7 @@ import com.google.appinventor.client.widgets.properties.EditableProperties;
 import com.google.appinventor.components.common.ComponentConstants;
 import com.google.appinventor.components.common.PropertyTypeConstants;
 import com.google.appinventor.shared.settings.SettingsConstants;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -1212,7 +1213,7 @@ public final class MockForm extends MockContainer {
   /**
    * Triggers a component property change event to be sent to the listener on the listener list.
    */
-  protected void fireComponentPropertyChanged(MockComponent component, String propertyName,
+  public void fireComponentPropertyChanged(MockComponent component, String propertyName,
       String propertyValue) {
     for (FormChangeListener listener : formChangeListeners) {
       listener.onComponentPropertyChanged(component, propertyName, propertyValue);
@@ -1222,7 +1223,7 @@ public final class MockForm extends MockContainer {
   /**
    * Triggers a component removed event to be sent to the listener on the listener list.
    */
-  protected void fireComponentRemoved(MockComponent component, boolean permanentlyDeleted) {
+  public void fireComponentRemoved(MockComponent component, boolean permanentlyDeleted) {
     for (FormChangeListener listener : formChangeListeners) {
       listener.onComponentRemoved(component, permanentlyDeleted);
     }
@@ -1231,7 +1232,7 @@ public final class MockForm extends MockContainer {
   /**
    * Triggers a component added event to be sent to the listener on the listener list.
    */
-  protected void fireComponentAdded(MockComponent component) {
+  public void fireComponentAdded(MockComponent component) {
     for (FormChangeListener listener : formChangeListeners) {
       listener.onComponentAdded(component);
     }
@@ -1240,7 +1241,7 @@ public final class MockForm extends MockContainer {
   /**
    * Triggers a component renamed event to be sent to the listener on the listener list.
    */
-  protected void fireComponentRenamed(MockComponent component, String oldName) {
+  public void fireComponentRenamed(MockComponent component, String oldName) {
     for (FormChangeListener listener : formChangeListeners) {
       listener.onComponentRenamed(component, oldName);
     }
@@ -1249,7 +1250,7 @@ public final class MockForm extends MockContainer {
   /**
    * Triggers a component selection change event to be sent to the listener on the listener list.
    */
-  protected void fireComponentSelectionChange(MockComponent component, boolean selected) {
+  public void fireComponentSelectionChange(MockComponent component, boolean selected) {
     for (FormChangeListener listener : formChangeListeners) {
       listener.onComponentSelectionChange(component, selected);
     }
@@ -1490,4 +1491,30 @@ public final class MockForm extends MockContainer {
     return properties;
   }
 
+  /**
+   * Triggers a component moved event to be sent to the listener on the listener list.
+   */
+  public void fireComponentMoved(MockComponent component, String newParentId, int index) {
+    for (FormChangeListener listener : formChangeListeners) {
+      listener.onComponentMoved(component, newParentId, index);
+    }
+  }
+
+  //TODO: make the language to ODEMESSAGE
+  public native boolean fireComponentEvent(JavaScriptObject json) /*-{
+    if($wnd.AIFeature_enableComponentLocking()) {
+      if($wnd.CollaborationManager_isComponentLocked(json.editorId, $wnd.Ode_getCurrentUserEmail(), json.componentId)){
+        console.log(json);
+        window.alert("Someone else is working on this component");
+        return false;
+      }
+      //TODO: Check if the any blocks belong to the deleted component
+    }
+    json.run();
+    return true;
+  }-*/;
+
+  public MockComponent getComponentByUuid(String uuid){
+    return ((YaFormEditor) editor).getComponent(uuid);
+  }
 }

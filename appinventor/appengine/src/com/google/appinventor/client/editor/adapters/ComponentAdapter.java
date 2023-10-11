@@ -22,7 +22,7 @@ public class ComponentAdapter extends JavaScriptObject implements IComponent {
       var component = this.component;
       var args = Array.prototype.slice.call(arguments);
       $entry(function(){
-//        component.@com.google.appinventor.client.editor.simple.components.MockComponent::deselect().apply(component, args)
+        component.@com.google.appinventor.client.editor.simple.components.MockComponent::deselect().apply(component, args)
       })();
     }
 
@@ -30,7 +30,7 @@ public class ComponentAdapter extends JavaScriptObject implements IComponent {
       var component = this.component;
       var args = Array.prototype.slice.call(arguments);
       $entry(function(){
-//        component.@com.google.appinventor.client.editor.simple.components.MockComponent::setItemBackgroundColor(Ljava/lang/String;).apply(component, args)
+        component.@com.google.appinventor.client.editor.simple.components.MockComponent::setItemBackgroundColor(Ljava/lang/String;).apply(component, args)
       })();
     }
 
@@ -38,7 +38,7 @@ public class ComponentAdapter extends JavaScriptObject implements IComponent {
       var component = this.component;
       var args = Array.prototype.slice.call(arguments);
       $entry(function(){
-//        component.@com.google.appinventor.client.editor.simple.components.MockComponent::clearItemBackgroundColor().apply(component, args)
+        component.@com.google.appinventor.client.editor.simple.components.MockComponent::clearItemBackgroundColor().apply(component, args)
       })();
     }
   }-*/;

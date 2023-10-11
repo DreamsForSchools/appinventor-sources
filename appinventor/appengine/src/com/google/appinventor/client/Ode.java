@@ -20,6 +20,7 @@ import com.google.appinventor.client.editor.youngandroid.BlocklyPanel;
 import com.google.appinventor.client.editor.youngandroid.DesignToolbar;
 import com.google.appinventor.client.editor.youngandroid.TutorialPanel;
 import com.google.appinventor.client.editor.youngandroid.YaFormEditor;
+import com.google.appinventor.client.editor.youngandroid.YaProjectEditor;
 import com.google.appinventor.client.editor.youngandroid.i18n.BlocklyMsg;
 import com.google.appinventor.client.explorer.commands.ChainableCommand;
 import com.google.appinventor.client.explorer.commands.CommandRegistry;
@@ -57,6 +58,7 @@ import com.google.appinventor.shared.rpc.project.ProjectRootNode;
 import com.google.appinventor.shared.rpc.project.ProjectService;
 import com.google.appinventor.shared.rpc.project.ProjectServiceAsync;
 import com.google.appinventor.shared.rpc.project.youngandroid.YoungAndroidSourceNode;
+import com.google.appinventor.shared.rpc.project.*;
 import com.google.appinventor.shared.rpc.user.Config;
 import com.google.appinventor.shared.rpc.user.SplashConfig;
 import com.google.appinventor.shared.rpc.user.User;
@@ -67,6 +69,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JsArrayString;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
@@ -282,6 +285,8 @@ public class Ode implements EntryPoint {
 
   private boolean warnedBuild1 = false;
   private boolean warnedBuild2 = false;
+
+  private CollaborationManager collaborationManager; // Collaboration Server Manager
 
   /**
    * Returns global instance of Ode.
@@ -573,18 +578,23 @@ public class Ode implements EntryPoint {
 
   public void openYoungAndroidProjectInDesigner(final Project project) {
     ProjectRootNode projectRootNode = project.getRootNode();
-    if (projectRootNode == null) {
+
+    if (projectRootNode == null) { // Removed Deng's code here that checked for isShared()
+      LOG.info("ODE: PROJECT IS SHARED?? "+project.isShared());
       // The project nodes haven't been loaded yet.
       // Add a ProjectChangeListener so we'll be notified when they have been loaded.
       project.addProjectChangeListener(new ProjectChangeAdapter() {
         @Override
         public void onProjectLoaded(Project glass) {
-          project.removeProjectChangeListener(this);
+          glass.removeProjectChangeListener(this);
+          LOG.info("ODE: project "+glass.getProjectId()+" finish loading");
           openYoungAndroidProjectInDesigner(project);
         }
       });
       project.loadProjectNodes();
     } else {
+
+      LOG.info("ODE: LETS SEE "+projectRootNode.getProjectId()+projectRootNode.getProjectType());
       // The project nodes have been loaded. Tell the viewer to open
       // the project. This will cause the projects source files to be fetched
       // asynchronously, and loaded into file editors.
@@ -599,6 +609,7 @@ public class Ode implements EntryPoint {
         History.newItem(projectIdString, false);
       }
       assetManager.loadAssets(project.getProjectId());
+      Ode.getInstance().getCollaborationManager().joinProject(projectIdString);
     }
     getTopToolbar().updateFileMenuButtons(1);
   }
@@ -625,6 +636,8 @@ public class Ode implements EntryPoint {
    */
   @Override
   public void onModuleLoad() {
+    exportMethodToJavascript();
+
     // Handler for any otherwise unhandled exceptions
     GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
       @Override
@@ -795,6 +808,12 @@ public class Ode implements EntryPoint {
             });
             editorManager = new EditorManager();
             projectListbox = ProjectListBox.getProjectListBox();
+
+            // Connect to collaboration server
+            if(AppInventorFeatures.enableGroupProject()){
+              collaborationManager = new CollaborationManager();
+              Ode.getInstance().getCollaborationManager().connectCollaborationServer(result.getBlocklyShareUrl(), user.getUserEmail());
+            }
 
             // Initialize UI
             initializeUi();
@@ -1126,6 +1145,15 @@ public class Ode implements EntryPoint {
    */
   public TokenAuthServiceAsync getTokenAuthService(){
     return tokenAuthService;
+  }
+
+  /**
+   * Returns collaboration manager.
+   *
+   * @return collaboration manager.
+   */
+  public CollaborationManager getCollaborationManager() {
+    return collaborationManager;
   }
 
   /**
@@ -2426,6 +2454,70 @@ public class Ode implements EntryPoint {
     if (top.proxy) {
       top.proxy.close();
     }
+  }-*/;
+
+  public static void addSharedProject(String projectId){
+    final String userId = Ode.getInstance().getUser().getUserId();
+    Ode.getInstance().getProjectService().makeUserProject(userId, Long.parseLong(projectId),
+            new OdeAsyncCallback<UserProject>() {
+              @Override
+              public void onSuccess(UserProject userProject) {
+                Ode.getInstance().getProjectManager().addProject(userProject);
+              }
+            });
+  }
+
+  public static String getCurrentChannel() {
+    if (Ode.getInstance().getDesignToolbar().getCurrentProject() == null) {
+      return "";
+    }
+    return Ode.getInstance().getDesignToolbar().getCurrentProject().projectId + "_" + Ode.getInstance().getDesignToolbar().getCurrentProject().currentScreen;
+  }
+
+  public static void enableBroadcast() {
+    Ode.getInstance().getCollaborationManager().enableBroadcast();
+  }
+
+  public static void disableBroadcast() {
+    Ode.getInstance().getCollaborationManager().disableBroadcast();
+  }
+
+  public static String getCurrentUserId() {
+    return Ode.getInstance().getUser().getUserId();
+  }
+
+  public static String getCurrentUserEmail() {
+    return Ode.getInstance().getUser().getUserEmail();
+  }
+
+  public static JsArrayString getChannelsByProject(String projectId){
+    YaProjectEditor projectEditor = (YaProjectEditor)(Ode.getInstance().getEditorManager()
+            .getOpenProjectEditor(Long.parseLong(projectId)));
+    JsArrayString result = JsArrayString.createArray().cast();
+    for (String formName : projectEditor.getFormNames()) {
+      result.push(projectId + "_" + formName);
+    }
+    return result;
+  }
+
+  public static native void exportMethodToJavascript()/*-{
+    $wnd.Ode_addSharedProject =
+        $entry(@com.google.appinventor.client.Ode::addSharedProject(Ljava/lang/String;));
+    $wnd.Ode_getCurrentChannel =
+        $entry(@com.google.appinventor.client.Ode::getCurrentChannel());
+    $wnd.Ode_enableBroadcast =
+        $entry(@com.google.appinventor.client.Ode::enableBroadcast());
+    $wnd.Ode_disableBroadcast =
+        $entry(@com.google.appinventor.client.Ode::disableBroadcast());
+    $wnd.Ode_getCurrentUserId =
+        $entry(@com.google.appinventor.client.Ode::getCurrentUserId());
+    $wnd.Ode_getCurrentUserEmail =
+      $entry(@com.google.appinventor.client.Ode::getCurrentUserEmail());
+    $wnd.Ode_getChannelsByProject =
+      $entry(@com.google.appinventor.client.Ode::getChannelsByProject(Ljava/lang/String;));
+    $wnd.AIFeature_enableComponentLocking =
+        $entry(@com.google.appinventor.common.version.AppInventorFeatures::enableComponentLocking());
+
   }-*/;
 
 }

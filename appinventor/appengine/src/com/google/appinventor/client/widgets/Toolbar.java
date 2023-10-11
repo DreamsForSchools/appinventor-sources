@@ -36,7 +36,7 @@ public class Toolbar extends FlowPanel {
 
 
   private final FlowPanel leftButtons = new FlowPanel();
-  private final FlowPanel rightButtons = new FlowPanel();
+  protected final FlowPanel rightButtons = new FlowPanel(); // Protected to give access to child class DesignToolbar
   private final FlowPanel centerButtons = new FlowPanel();
 
   /**

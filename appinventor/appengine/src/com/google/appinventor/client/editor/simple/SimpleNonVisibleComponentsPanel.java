@@ -7,12 +7,16 @@
 package com.google.appinventor.client.editor.simple;
 
 import static com.google.appinventor.client.Ode.MESSAGES;
+
+import com.google.appinventor.client.Ode;
 import com.google.appinventor.client.editor.simple.components.MockComponent;
 import com.google.appinventor.client.editor.simple.components.MockForm;
 import com.google.appinventor.client.editor.simple.palette.SimplePaletteItem;
+import com.google.appinventor.client.editor.youngandroid.events.CreateComponent;
 import com.google.appinventor.client.explorer.project.ComponentDatabaseChangeListener;
 import com.google.appinventor.client.widgets.dnd.DragSource;
 import com.google.appinventor.client.widgets.dnd.DropTarget;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -119,14 +123,16 @@ public final class SimpleNonVisibleComponentsPanel extends Composite implements 
 
   @Override
   public void onDrop(DragSource source, int x, int y, int offsetX, int offsetY) {
-    MockComponent sourceComponent = ((SimplePaletteItem) source).createMockComponent();
+    MockComponent component = ((SimplePaletteItem) source).createMockComponent();
 
     // Add component to the form
-    form.addComponent(sourceComponent);
+    if(form.fireComponentEvent(CreateComponent.create(
+            Ode.getCurrentChannel(), component.getUuid(), component.getType()))){
+      MockComponent sourceComponent = form.getComponentByUuid(component.getUuid());
+      sourceComponent.select((NativeEvent) null);
+    }
 
-    // Add component to this panel
-    addComponent(sourceComponent);
-    sourceComponent.select(null);
+
   }
 
   @Override

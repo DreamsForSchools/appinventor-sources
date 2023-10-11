@@ -6,6 +6,9 @@
 
 package com.google.appinventor.client.editor.simple.components;
 
+import com.google.appinventor.client.Ode;
+import com.google.appinventor.client.editor.youngandroid.events.ChangeProperty;
+import com.google.appinventor.client.editor.youngandroid.events.MoveComponent;
 import com.google.appinventor.components.common.ComponentConstants;
 import com.google.gwt.event.dom.client.ErrorEvent;
 import com.google.gwt.event.dom.client.ErrorHandler;
@@ -23,6 +26,8 @@ import java.util.logging.Logger;
  * @author lizlooney@google.com (Liz Looney)
  */
 final class MockCanvasLayout extends MockLayout {
+  private static final String PROPERTY_NAME_X = "X";
+  private static final String PROPERTY_NAME_Y = "Y";
   private static final Logger LOG = Logger.getLogger(MockCanvasLayout.class.getName());
 
   private final Image image;
@@ -135,15 +140,26 @@ final class MockCanvasLayout extends MockLayout {
         toIntegerString(y - offsetY + sprite.getYOffset()));
 
     // Perform drop
-    MockContainer srcContainer = source.getContainer();
-    if (srcContainer != null) {
-      // Pass false to indicate that the component isn't being permanently deleted.
-      // It's just being moved from one container to another.
-      srcContainer.removeComponent(source, false);
+//    MockContainer srcContainer = source.getContainer();
+//    if (srcContainer != null) {
+//      // Pass false to indicate that the component isn't being permanently deleted.
+//      // It's just being moved from one container to another.
+//      srcContainer.removeComponent(source, false);
+//    }
+//    container.addComponent(source);
+    if(container.getForm().fireComponentEvent(MoveComponent.create(
+            Ode.getCurrentChannel(), source.getUuid(), container.getUuid(), -1))){
+      // Set position of component
+      container.getForm().fireComponentEvent(ChangeProperty.create(
+              Ode.getCurrentChannel(), source.getUuid(),PROPERTY_NAME_X, toIntegerString(x - offsetX)
+      ));
+      container.getForm().fireComponentEvent(ChangeProperty.create(
+              Ode.getCurrentChannel(), source.getUuid(),PROPERTY_NAME_Y, toIntegerString(y - offsetY)
+      ));
+      ((MockCanvas) container).reorderComponents(sprite);
+      return true;
     }
-    container.addComponent(source);
-    ((MockCanvas) container).reorderComponents(sprite);
-    return true;
+    return false;
   }
 
   /*

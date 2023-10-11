@@ -13,16 +13,16 @@ public class ChangeProperty extends JavaScriptObject {
     protected ChangeProperty() {}
 
     private static native String init(Class<ChangeProperty> clazz)/*-{
-    clazz.jsType = AI.Events.ComponentProperty;
-    return clazz.jsType.prototype.type;
+//    clazz.jsType = AI.Events.ComponentProperty;
+//    return clazz.jsType.prototype.type;
   }-*/;
 
     public static native ChangeProperty create(String editorId, String uuid, String propertyName, String value)/*-{
-    var component = {
-      id: uuid,
-      property: propertyName,
-      value: value};
-    return new AI.Events.ComponentProperty(editorId, component);
+//    var component = {
+//      id: uuid,
+//      property: propertyName,
+//      value: value};
+//    return new AI.Events.ComponentProperty(editorId, component);
   }-*/;
 
     public final native boolean recordUndo()/*-{
@@ -71,9 +71,9 @@ public class ChangeProperty extends JavaScriptObject {
   }-*/;
 
     public static final native ChangeProperty fromJson(JavaScriptObject json)/*-{
-    var event = new AI.Events.ComponentProperty(null, null);
-    event.fromJson(json);
-    return event;
+//    var event = new AI.Events.ComponentProperty(null, null);
+//    event.fromJson(json);
+//    return event;
   }-*/;
 
     public final native boolean isTransient() /*-{
