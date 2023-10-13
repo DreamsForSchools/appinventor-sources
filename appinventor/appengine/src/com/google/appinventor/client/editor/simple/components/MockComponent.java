@@ -1321,14 +1321,6 @@ public abstract class MockComponent extends Composite implements PropertyChangeL
     return this.index;
   }
 
-//  /**
-//   * Change the border color of the component in the form when it is selected by others.
-//   * @param color border color
-//   */
-//  public final void select(NativeEvent event, String color) {
-//    getForm().setSelectedComponent(this, event);
-//    getElement().getStyle().setProperty("borderColor", color);
-//  }
   /**
    * Change the border color of the component in the form when it is selected by others.
    * @param color border color
