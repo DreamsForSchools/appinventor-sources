@@ -14,7 +14,7 @@ public class ComponentAdapter extends JavaScriptObject implements IComponent {
       var component = this.component;
       var args = Array.prototype.slice.call(arguments);
       $entry(function(){
-//        component.@com.google.appinventor.client.editor.simple.components.MockComponent::selectColor(Ljava/lang/String;).apply(component, args)
+        component.@com.google.appinventor.client.editor.simple.components.MockComponent::selectColor(Ljava/lang/String;).apply(component, args)
       })();
     }
 
