@@ -1226,7 +1226,8 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
   public IComponent getComponentByUuid(String uuid) {
     MockComponent component = componentsDb.get(uuid);
     if (component == null) {
-      throw new IllegalStateException("No component exists with UUID \"" + uuid + "\"");
+//      throw new IllegalStateException("No component exists with UUID \"" + uuid + "\"");
+      return null;
     }
     String formName = this.getProjectId() + "_" + this.form.getName();
     return ComponentAdapter.create(DesignerAdapter.make(formName, this), component);

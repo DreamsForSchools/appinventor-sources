@@ -364,10 +364,13 @@ public class CollaborationManager implements FormChangeListener {
   }-*/;
 
     public static native boolean isComponentLocked(String channel, String userEmail, String componentId) /*-{
-    if(componentId in $wnd.lockedComponentsByChannel[channel]){
-      if($wnd.lockedComponentsByChannel[channel][componentId]!=userEmail) {
-        return true;
-      }
+    // temporary hack
+    if (channel in $wnd.lockedComponentsByChannel) {
+        if(componentId in $wnd.lockedComponentsByChannel[channel]){
+          if($wnd.lockedComponentsByChannel[channel][componentId]!=userEmail) {
+            return true;
+          }
+        }
     }
     return false;
   }-*/;
