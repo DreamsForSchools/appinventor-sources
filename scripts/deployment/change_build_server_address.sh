@@ -8,10 +8,10 @@ do
    export "$KEY"="$VALUE"
 done
 
-if test -n "$BS_ADDR"; then
-  sed -i "s/localhost:9990/$BS_ADDR/g" ./appinventor/appengine/build/war/WEB-INF/appengine-web.xml
-  echo "Build server address changed"
+if test -n "$CS_ADDR"; then
+  sed -i "s/localhost:9990/$CS_ADDR/g" ./appinventor/appengine/build/war/WEB-INF/appengine-web.xml
+  echo "Collab server address changed"
 else
-  echo "Build server address value not provided (e.g. bash script.sh BS_ADDR=\"1.2.3.4\")"
+  echo "Collab server address value not provided (e.g. bash script.sh CS_ADDR=\"1.2.3.4\")"
   exit 0
 fi
