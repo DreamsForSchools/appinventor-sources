@@ -38,16 +38,16 @@ AI.Events.SCREEN_POP = 'screen.pop';
  * Type identifier used for serializing ComponentAdd events.
  * @const {string}
  */
-AI.Events.COMPONENT_ADD = 'component.add';
+AI.Events.COMPONENT_CREATE = 'component.create';
 
 /**
  * Type identifier used for serializing ComponentRemove events.
  * @const {string}
  */
-AI.Events.COMPONENT_REMOVE = 'component.remove';
+AI.Events.COMPONENT_DELETE = 'component.delete';
 
 /**
- * Type identifier used for serializing ComponentMove events.
+ * Type identifier used for serializing MoveComponent events.
  * @const {string}
  */
 AI.Events.COMPONENT_MOVE = 'component.move';
@@ -56,7 +56,39 @@ AI.Events.COMPONENT_MOVE = 'component.move';
  * Type identifier used for serializing PropertyChange events.
  * @const {string}
  */
-AI.Events.COMPONENT_PROPERTY_CHANGE = 'property.change';
+AI.Events.COMPONENT_PROPERTY = 'component.property';
+
+/**
+ * Type identifier used for serializing SelectComponent events.
+ * @const {string}
+ */
+AI.Events.COMPONENT_SELECT = 'component.select';
+
+/**
+ * Type identifier used for serializing LockComponent events.
+ * @type {string}
+ */
+AI.Events.COMPONENT_LOCK = 'component.lock';
+
+/**
+ * Type identifier used for serializing UnlockComponent events.
+ * @type {string}
+ */
+AI.Events.COMPONENT_UNLOCK = 'component.unlock';
+
+/**
+ * Type identifier used for serializing LockBlock events.
+ * @type {string}
+ */
+AI.Events.BLOCK_LOCK = 'block.lock';
+
+/**
+ * Type identifier used for serializing UnlockBlock events.
+ * @type {string}
+ */
+AI.Events.BLOCK_UNLOCK = 'block.unlock';
+
+AI.Events.BLOCK_SELECT = 'block.select';
 
 /**
  * Type identifier used for serializing StartArrangeBlocks events.
@@ -179,6 +211,19 @@ goog.inherits(AI.Events.ScreenEvent, AI.Events.Abstract);
 // Changing screens is transient behavior.
 AI.Events.ScreenEvent.prototype.isTransient = true;
 
+AI.Events.ScreenEvent.prototype.toJSON = function() {
+  var json = {
+    "type" : this.type
+  };
+  if(this.projectId){
+    json["projectId"] = this.projectId;
+  }
+  if(this.componentId){
+    json["screenName"] = this.screenName;
+  }
+  return json;
+};
+
 /**
  * Event raised when a screen switch occurs in a project editor.
  *
@@ -193,6 +238,10 @@ AI.Events.ScreenSwitch = function(projectId, screenName) {
 goog.inherits(AI.Events.ScreenSwitch, AI.Events.ScreenEvent);
 
 AI.Events.ScreenSwitch.prototype.type = AI.Events.SCREEN_SWITCH;
+
+AI.Events.ScreenSwitch.prototype.toJson = function() {
+  return AI.Events.ScreenSwitch.superClass_.toJSON.call(this);
+};
 
 /**
  * Event raised when a screen is pushed on the view stack in the Companion.
@@ -224,95 +273,471 @@ AI.Events.ScreenPop.prototype.type = AI.Events.SCREEN_POP;
 /**
  * Base class for component-related events.
  *
- * @param {number} projectId Project ID of the project the designer editor is editing.
- * @param {{}} component The newly created Component object.
+ * @param {number} projectId_screenName which is the id of the designer editor is editing.
+ * @param {{}} component Id of the newly created Component object.
  * @extends {AI.Events.Abstract}
  * @constructor
  */
-AI.Events.ComponentEvent = function(projectId, component) {
+AI.Events.ComponentEvent = function(editorId, component) {
   AI.Events.ComponentEvent.superClass_.constructor.call(this);
-  this.projectId = projectId;
-  this.component = component;
+  this.editorId = editorId;
+  this.projectId = editorId.split("_")[0];
+  this.componentId = component.id;
 };
 goog.inherits(AI.Events.ComponentEvent, AI.Events.Abstract);
 
 // Component events need to be sent while collaborating in real time.
 AI.Events.ComponentEvent.prototype.realtime = true;
+AI.Events.ComponentEvent.prototype.isTransient = true;
+
+AI.Events.ComponentEvent.prototype.fromJson = function(json) {
+  this.editorId = json["editorId"];
+  this.projectId = json["projectId"];
+  this.componentId = json["componentId"];
+};
+
+AI.Events.ComponentEvent.prototype.toJson = function() {
+  var json = {
+    "type": this.type
+  };
+  if(this.editorId) {
+    json["editorId"] = this.editorId;
+  }
+  if(this.projectId){
+    json["projectId"] = this.projectId;
+  }
+  if(this.componentId){
+    json["componentId"] = this.componentId;
+  }
+  return json;
+};
+
+AI.Events.ComponentEvent.fromJson = function(json) {
+  var event;
+  switch(json["type"]){
+    case AI.Events.COMPONENT_CREATE:
+      event = new AI.Events.CreateComponent(null, null);
+      break;
+    case AI.Events.COMPONENT_DELETE:
+      event = new AI.Events.DeleteComponent(null, null);
+      break;
+    case AI.Events.COMPONENT_MOVE:
+      event = new AI.Events.MoveComponent(null, null);
+      break;
+    case AI.Events.COMPONENT_PROPERTY:
+      event = new AI.Events.ComponentProperty(null, null);
+      break;
+    case AI.Events.COMPONENT_SELECT:
+      event = new AI.Events.SelectComponent(null, null);
+      break;
+    case AI.Events.COMPONENT_LOCK:
+      event = new AI.Events.LockComponent(null, null);
+      break;
+    case AI.Events.COMPONENT_UNLOCK:
+      event = new AI.Events.UnlockComponent(null, null);
+      break;
+    default:
+      throw "Unknown component type: "+json["type"];
+  }
+  event.fromJson(json);
+  return event;
+};
 
 /**
  * Event raised when a new Component has been dragged from the palette and dropped in the
  * Designer view.
  *
- * @param {number} projectId Project ID of the project the designer editor is editing.
+ * @param {String} editorId Editor ID of the project the designer editor is editing.
  * @param {{}} component The newly created Component object.
  * @extends {AI.Events.ComponentEvent}
  * @constructor
  */
-AI.Events.ComponentAdd = function(projectId, component) {
+AI.Events.CreateComponent = function(editorId, component) {
   if (!component) {
     return;  // Blank event to be populated by fromJson.
   }
-  AI.Events.ComponentAdd.superClass_.constructor.call(this, projectId, component);
+  AI.Events.CreateComponent.superClass_.constructor.call(this, editorId, component);
+  this.componentType = component.type;
 };
-goog.inherits(AI.Events.ComponentAdd, AI.Events.ComponentEvent);
+goog.inherits(AI.Events.CreateComponent, AI.Events.ComponentEvent);
 
-AI.Events.ComponentAdd.prototype.type = AI.Events.COMPONENT_ADD;
+AI.Events.CreateComponent.prototype.type = AI.Events.COMPONENT_CREATE;
+
+AI.Events.CreateComponent.prototype.fromJson = function(json) {
+  console.log(json);
+  AI.Events.CreateComponent.superClass_.fromJson.call(this, json);
+  this.componentType = json["componentType"];
+};
+
+AI.Events.CreateComponent.prototype.toJson = function() {
+  var json = AI.Events.CreateComponent.superClass_.toJson.call(this);
+  json["componentType"] = this.componentType;
+  console.log(json);
+  return json;
+};
+
+AI.Events.CreateComponent.prototype.run = function() {
+  console.log(this);
+  var editor = top.getDesignerForForm(this.editorId);
+  editor.addComponent(this.componentId, this.componentType);
+};
 
 /**
  * Event raised when a Component has been removed from the screen.
  *
- * @param {number} projectId Project ID of the project the designer editor is editing.
+ * @param {number} editorId Editor ID of the project the designer editor is editing.
  * @param {{}} component The deleted Component object.
  * @extends {AI.Events.ComponentEvent}
  * @constructor
  */
-AI.Events.ComponentRemove = function(projectId, component) {
+AI.Events.DeleteComponent = function(editorId, component) {
   if (!component) {
     return;  // Blank event for deserialization.
   }
-  AI.Events.ComponentRemove.superClass_.constructor.call(this, projectId, component);
+  AI.Events.DeleteComponent.superClass_.constructor.call(this, editorId, component);
 };
-goog.inherits(AI.Events.ComponentRemove, AI.Events.ComponentEvent);
+goog.inherits(AI.Events.DeleteComponent, AI.Events.ComponentEvent);
 
-AI.Events.ComponentRemove.prototype.type = AI.Events.COMPONENT_REMOVE;
+AI.Events.DeleteComponent.prototype.type = AI.Events.COMPONENT_DELETE;
+
+AI.Events.DeleteComponent.prototype.fromJson = function(json) {
+  AI.Events.DeleteComponent.superClass_.fromJson.call(this, json);
+};
+
+AI.Events.DeleteComponent.prototype.toJson = function() {
+  var json = AI.Events.DeleteComponent.superClass_.toJson.call(this);
+  return json;
+};
+
+AI.Events.DeleteComponent.prototype.run = function() {
+  console.log(this);
+  var editor = top.getDesignerForForm(this.editorId);
+  editor.removeComponent(this.componentId);
+};
 
 /**
  * Event raised when a Component has been moved in the component hierarchy.
  *
- * @param {number} projectId Project ID of the project the designer editor is editing.
+ * @param {number} editorId Editor ID of the project the designer editor is editing.
  * @param {{}} component The moved Component
  * @extends {AI.Events.ComponentEvent}
  * @constructor
  */
-AI.Events.ComponentMove = function(projectId, component) {
+AI.Events.MoveComponent = function(editorId, component) {
   if (!component) {
     return;  // Blank event for deserialization.
   }
-  AI.Events.ComponentMove.superClass_.constructor.call(this, projectId, component);
-  var location = this.currentLocation_();
-  this.oldParentUuid = location.parentUuid;
-  this.oldIndex = location.index;
+  AI.Events.MoveComponent.superClass_.constructor.call(this, editorId, component);
+  this.parentId = component.parentId;
+  this.index = component.index;
 };
-goog.inherits(AI.Events.ComponentMove, AI.Events.ComponentEvent);
+goog.inherits(AI.Events.MoveComponent, AI.Events.ComponentEvent);
 
-AI.Events.ComponentMove.prototype.type = AI.Events.COMPONENT_MOVE;
+AI.Events.MoveComponent.prototype.type = AI.Events.COMPONENT_MOVE;
+
+AI.Events.MoveComponent.prototype.fromJson = function(json) {
+  AI.Events.MoveComponent.superClass_.fromJson.call(this, json);
+  this.parentId = json["parentId"];
+  this.index = json["index"];
+};
+
+AI.Events.MoveComponent.prototype.toJson = function() {
+  var json = AI.Events.MoveComponent.superClass_.toJson.call(this);
+  json["parentId"] = this.parentId;
+  json["index"] = this.index;
+  return json;
+};
+
+AI.Events.MoveComponent.prototype.run = function() {
+  console.log(this);
+  var editor = top.getDesignerForForm(this.editorId);
+  editor.moveComponent(this.componentId, this.parentId, this.index);
+};
 
 /**
+ * Event raised when a Component's property is changed.
  *
- * @param projectId
- * @param component
- * @param property
- * @param oldValue
- * @param newValue
+ * @param {number} editorId Editor ID of the project the designer editor is editing.
+ * @param {{}} component The changed Component
+ * @extends {AI.Events.ComponentEvent}
  * @constructor
  */
-AI.Events.PropertyChange = function(projectId, component, property, oldValue, newValue) {
+AI.Events.ComponentProperty = function(editorId, component) {
   if (!component) {
     return;  // Blank event for deserialization.
   }
-  this.property = property;
-  this.oldValue = oldValue;
-  this.newValue = newValue;
+  AI.Events.ComponentProperty.superClass_.constructor.call(this, editorId, component);
+  this.property = component.property;
+  this.value = component.value;
+};
+
+goog.inherits(AI.Events.ComponentProperty, AI.Events.ComponentEvent);
+
+AI.Events.ComponentProperty.prototype.type = AI.Events.COMPONENT_PROPERTY;
+
+AI.Events.ComponentProperty.prototype.fromJson = function(json) {
+  AI.Events.ComponentProperty.superClass_.fromJson.call(this, json);
+  this.property = json["property"];
+  this.value = json["value"];
+};
+
+AI.Events.ComponentProperty.prototype.toJson = function() {
+  var json = AI.Events.ComponentProperty.superClass_.toJson.call(this);
+  json["property"] = this.property;
+  json["value"] = this.value;
+  return json;
+};
+
+AI.Events.ComponentProperty.prototype.run = function() {
+  console.log(this);
+  var editor = top.getDesignerForForm(this.editorId);
+  if(this.property=="Name"){
+    editor.renameComponent(this.componentId, this.value);
+  } else {
+    editor.setProperty(this.componentId, this.property, this.value);
+  }
+};
+
+/**
+ * Event raised when a Component has been selected by a user.
+ *
+ * @param {number} editorId Editor ID of the project the designer editor is editing.
+ * @param {{}} component The selected Component
+ * @extends {AI.Events.ComponentEvent}
+ * @constructor
+ */
+AI.Events.SelectComponent  = function(editorId, component) {
+  if (!component) {
+    return;  // Blank event for deserialization.
+  }
+  AI.Events.SelectComponent.superClass_.constructor.call(this, editorId, component);
+  this.userEmail = component.userEmail;
+  this.selected = component.selected;
+};
+goog.inherits(AI.Events.SelectComponent, AI.Events.ComponentEvent);
+
+AI.Events.SelectComponent.prototype.type = AI.Events.COMPONENT_SELECT;
+
+AI.Events.SelectComponent.prototype.fromJson = function(json) {
+  AI.Events.SelectComponent.superClass_.fromJson.call(this, json);
+  this.userEmail = json["userEmail"];
+  this.selected = json["selected"];
+};
+
+AI.Events.SelectComponent.prototype.toJson = function() {
+  var json = AI.Events.SelectComponent.superClass_.toJson.call(this);
+  json["userEmail"] = this.userEmail;
+  json["selected"] = this.selected;
+  return json;
+};
+
+AI.Events.SelectComponent.prototype.run = function() {
+  console.log(this);
+  var editor = top.getDesignerForForm(this.editorId);
+  var component = editor.getComponentByUuid(this.componentId);
+  if(this.selected) {
+    if(window.parent.userColorMap){
+      var color = window.parent.userColorMap.get(this.projectId).get(this.userEmail);
+      component.select(color);
+    }
+  }else {
+    component.deselect();
+  }
+};
+
+/**
+ * Event raised when a Component has been locked by a user.
+ *
+ * @param {number} editorId Editor ID of the project the designer editor is editing.
+ * @param {{}} component The selected Component
+ * @extends {AI.Events.ComponentEvent}
+ * @constructor
+ */
+AI.Events.LockComponent  = function(editorId, component) {
+  if (!component) {
+    return;  // Blank event for deserialization.
+  }
+  AI.Events.LockComponent.superClass_.constructor.call(this, editorId, component);
+  this.userEmail = component.userEmail;
+};
+goog.inherits(AI.Events.LockComponent, AI.Events.ComponentEvent);
+
+AI.Events.LockComponent.prototype.type = AI.Events.COMPONENT_LOCK;
+
+AI.Events.LockComponent.prototype.fromJson = function(json) {
+  AI.Events.LockComponent.superClass_.fromJson.call(this, json);
+  this.userEmail = json["userEmail"];
+};
+
+AI.Events.LockComponent.prototype.toJson = function() {
+  var json = AI.Events.LockComponent.superClass_.toJson.call(this);
+  json["userEmail"] = this.userEmail;
+  return json;
+};
+
+AI.Events.LockComponent.prototype.run = function() {
+  var lockedComponents = window.parent.lockedComponentsByChannel[this.editorId];
+  lockedComponents[this.componentId] = this.userEmail;
+  var editor = top.getDesignerForForm(this.editorId);
+  var component = editor.getComponentByUuid(this.componentId);
+  if(window.parent.userColorMap.get(this.projectId).has(this.userEmail)){
+    component.setItemBackgroundColor(window.parent.userColorMap.get(this.projectId).get(this.userEmail));
+  }
+};
+
+/**
+ * Event raised when a Component has been unlocked by a user.
+ *
+ * @param {number} editorId Editor ID of the project the designer editor is editing.
+ * @param {{}} component The selected Component
+ * @extends {AI.Events.ComponentEvent}
+ * @constructor
+ */
+AI.Events.UnlockComponent  = function(editorId, component) {
+  if (!component) {
+    return;  // Blank event for deserialization.
+  }
+  AI.Events.UnlockComponent.superClass_.constructor.call(this, editorId, component);
+  this.userEmail = component.userEmail;
+};
+goog.inherits(AI.Events.UnlockComponent, AI.Events.ComponentEvent);
+
+AI.Events.UnlockComponent.prototype.type = AI.Events.COMPONENT_UNLOCK;
+
+AI.Events.UnlockComponent.prototype.fromJson = function(json) {
+  AI.Events.UnlockComponent.superClass_.fromJson.call(this, json);
+  this.userEmail = json["userEmail"];
+};
+
+AI.Events.UnlockComponent.prototype.toJson = function() {
+  var json = AI.Events.UnlockComponent.superClass_.toJson.call(this);
+  json["userEmail"] = this.userEmail;
+  return json;
+};
+
+AI.Events.UnlockComponent.prototype.run = function() {
+  var lockedComponents = window.parent.lockedComponentsByChannel[this.editorId];
+  if(lockedComponents[this.componentId] == this.userEmail){
+    delete lockedComponents[this.componentId];
+  }
+  console.log("HELLO", this.componentId)
+  var editor = top.getDesignerForForm(this.editorId);
+  var component = editor.getComponentByUuid(this.componentId);
+  component.clearItemBackgroundColor();
+  component.deselect();
+};
+
+/**
+ * Event raised when a Block has been locked by a user. The parents and children of this block
+ * will also be locked.
+ *
+ * @param {String} workspaceId Workspace ID of the project the blocks editor is editing.
+ * @param {String} blockId The selected block
+ * @constructor
+ */
+AI.Events.LockBlock = function(workspaceId, blockId, userEmail) {
+  this.workspaceId = workspaceId;
+  this.blockId = blockId;
+  this.userEmail = userEmail;
+};
+
+AI.Events.LockBlock.prototype.type = AI.Events.BLOCK_LOCK;
+
+AI.Events.LockBlock.prototype.run = function() {
+  var workspace = Blockly.allWorkspaces[this.workspaceId];
+  var rootBlock = workspace.getBlockById(this.blockId);
+  var lockedBlock = window.parent.lockedBlocksByChannel[this.workspaceId];
+  while(rootBlock.parentBlock_){
+    rootBlock = rootBlock.parentBlock_;
+  }
+  var blockQueue = [rootBlock];
+  while(blockQueue.length!=0) {
+    var block = blockQueue.shift();
+    block.svgPath_.setAttribute('fill', 'url(#blocklyLockedPattern-'+this.userEmail+')');
+    lockedBlock[block.id] = this.userEmail;
+    block.childBlocks_.forEach(function(e){
+      blockQueue.push(e);
+    });
+  }
+};
+
+/**
+ * Event raised when a Block has been unlocked by a user. The parents and children of this block
+ * will also be unlocked.
+ *
+ * @param {String} workspaceId Workspace ID of the project the blocks editor is editing.
+ * @param {String} blockId The selected block
+ * @constructor
+ */
+AI.Events.UnlockBlock = function(workspaceId, blockId, userEmail) {
+  this.workspaceId = workspaceId;
+  this.blockId = blockId;
+  this.userEmail = userEmail;
+};
+
+AI.Events.UnlockBlock.prototype.type = AI.Events.BLOCK_UNLOCK;
+
+AI.Events.UnlockBlock.prototype.run = function() {
+  var workspace = Blockly.allWorkspaces[this.workspaceId];
+  var rootBlock = workspace.getBlockById(this.blockId);
+  var lockedBlock = window.parent.lockedBlocksByChannel[this.workspaceId];
+  while(rootBlock.parentBlock_){
+    rootBlock = rootBlock.parentBlock_;
+  }
+  var blockQueue = [rootBlock];
+  while(blockQueue.length!=0) {
+    var block = blockQueue.shift();
+    block.svgPath_.setAttribute('fill', block.colour_);
+    block.svgGroup_.className.baseVal = 'blockDraggable';
+    block.svgGroup_.className.animVal = 'blockDraggable';
+    block.svgPath_.removeAttribute('stroke');
+
+    if(lockedBlock[block.id] = this.userEmail) {
+      delete lockedBlock[block.id];
+    }
+    block.childBlocks_.forEach(function(e){
+      blockQueue.push(e);
+    });
+
+  }
+};
+
+AI.Events.SelectBlock = function(workspaceId, blockId, userEmail) {
+  this.workspaceId = workspaceId;
+  this.blockId = blockId;
+  this.userEmail = userEmail;
+};
+
+AI.Events.SelectBlock.prototype.type = AI.Events.BLOCK_SELECT;
+
+AI.Events.SelectBlock.prototype.run = function() {
+  var workspace = Blockly.allWorkspaces[this.workspaceId];
+  if(this.userEmail in workspace.userLastSelection){
+    var prevSelected = workspace.userLastSelection[this.userEmail];
+    if(prevSelected.svgGroup_){
+      prevSelected.svgGroup_.className.baseVal = 'blockDraggable';
+      prevSelected.svgGroup_.className.animVal = 'blockDraggable';
+      prevSelected.svgPath_.removeAttribute('stroke');
+    }
+    delete workspace.userLastSelection[this.userEmail];
+    if($wnd.AIFeature_enableComponentLocking()) {
+      new AI.Events.UnlockBlock(this.workspaceId, prevSelected.id, this.userEmail).run();
+    }
+  }
+  if(this.blockId) {
+    var block = workspace.getBlockById(this.blockId);
+    var project = this.workspaceId.split('_')[0];
+    var color = window.parent.userColorMap.get(project).get(this.userEmail);
+    if(block.svgGroup_) {
+      block.svgGroup_.className.baseVal += ' blocklyOtherSelected';
+      block.svgGroup_.className.animVal += ' blocklyOtherSelected';
+      block.svgPath_.setAttribute('stroke', color);
+    }
+    workspace.userLastSelection[this.userEmail] = block;
+    if($wnd.AIFeature_enableComponentLocking()) {
+      new AI.Events.LockBlock(this.workspaceId, block.id, this.userEmail).run();
+    }
+  }
 };
 
 /**

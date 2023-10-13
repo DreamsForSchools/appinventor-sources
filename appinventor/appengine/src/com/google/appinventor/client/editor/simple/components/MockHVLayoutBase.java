@@ -11,6 +11,9 @@ import static com.google.appinventor.client.Ode.MESSAGES;
 import java.util.Map;
 
 import com.google.appinventor.client.ErrorReporter;
+import com.google.appinventor.client.Ode;
+import com.google.appinventor.client.editor.youngandroid.events.CreateComponent;
+import com.google.appinventor.client.editor.youngandroid.events.MoveComponent;
 import com.google.appinventor.components.common.ComponentConstants;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
@@ -26,7 +29,7 @@ import java.util.logging.Logger;
  * @author lizlooney@google.com (Liz Looney)
  * @author hal@mit.edu (Hal Abelson)
  */
-abstract class MockHVLayoutBase extends MockLayout {
+public abstract class MockHVLayoutBase extends MockLayout {
   private static final Logger LOG = Logger.getLogger(MockHVLayoutBase.class.getName());
 
   // Gap between adjacent components to allow for the insertion divider
@@ -673,14 +676,10 @@ abstract class MockHVLayoutBase extends MockLayout {
         }
       }
 
-      // Perform drop
-      if (srcContainer != null) {
-        // Pass false to indicate that the component isn't being permanently deleted.
-        // It's just being moved from one container to another.
-        srcContainer.removeComponent(source, false);
+      if(container.getForm().fireComponentEvent(MoveComponent.create(Ode.getInstance().getCurrentChannel(),
+              source.getUuid(), dstContainer.getUuid(), dstPos))){
+        return true;
       }
-      dstContainer.addVisibleComponent(source, dstPos);
-      return true;
     }
     return false;
   }
@@ -761,4 +760,8 @@ abstract class MockHVLayoutBase extends MockLayout {
     return childLength;
   }
 
+  @Override
+  void cleanup() {
+    setDividerLocation(-1);
+  }
 }

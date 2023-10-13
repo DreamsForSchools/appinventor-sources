@@ -14,6 +14,7 @@ import com.google.appinventor.server.project.youngandroid.YoungAndroidProjectSer
 import com.google.appinventor.server.properties.json.ServerJsonParser;
 import com.google.appinventor.server.storage.StorageIo;
 import com.google.appinventor.server.storage.StorageIoInstanceHolder;
+import com.google.appinventor.server.storage.StoredData;
 import com.google.appinventor.server.util.CsvParser;
 
 import com.google.appinventor.shared.properties.json.JSONArray;
@@ -759,7 +760,7 @@ public class ProjectServiceImpl extends OdeRemoteServiceServlet implements Proje
     // System.out.println(serializedResponse);  // COV_NF_LINE
   }
 
-  private UserProject makeUserProject(String userId, long projectId) {
+  public UserProject makeUserProject(String userId, long projectId) {
     return storageIo.getUserProject(userId, projectId);
   }
 
@@ -829,4 +830,9 @@ public class ProjectServiceImpl extends OdeRemoteServiceServlet implements Proje
       }
   }
 
+  @Override
+  public long shareProject(String userId, long projectId, String otherEmail, int perm) {
+    return getProjectRpcImpl(userId, projectId).shareProject(userId, projectId,
+            otherEmail, StoredData.Permission.values()[perm]);
+  }
 }

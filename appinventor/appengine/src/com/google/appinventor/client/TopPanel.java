@@ -130,6 +130,9 @@ public class TopPanel extends Composite {
     }
     languageDropDown.setItems(languageItems);
     languageDropDown.setCaption(getDisplayName(LocaleInfo.getCurrentLocale().getLocaleName()));
+
+    // Set id to retrieve user email
+    accountButton.getElement().setId("userEmail");
   }
 
   @UiFactory

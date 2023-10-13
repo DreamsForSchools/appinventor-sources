@@ -91,4 +91,9 @@ abstract class MockLayout {
    */
   void dispose() {
   }
+
+  /**
+   * Cleans up the ongoing elements if an action is aborted, such as hiding the divider.
+   */
+  void cleanup(){}
 }

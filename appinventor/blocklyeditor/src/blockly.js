@@ -154,6 +154,15 @@ Blockly.onKeyDown_ = (function(f) {
       }
       // check that the main workspace's parent is the target injection div (if any)
       if (Blockly.mainWorkspace.getParentSvg().parentNode == target) {
+
+        // Cancel key presses when block locking for collaboration is enabled
+        var lockedBlocks = top.lockedBlocksByChannel &&
+            top.lockedBlocksByChannel[Blockly.mainWorkspace.formName];
+        if (Blockly.selected && lockedBlocks && Blockly.selected.id in lockedBlocks &&
+            lockedBlocks[Blockly.selected.id] !== top.userEmail) {
+          return;
+        }
+
         f.call(this, e);
       }
     };

@@ -8,6 +8,8 @@ package com.google.appinventor.client.explorer;
 
 import com.google.appinventor.client.Ode;
 import com.google.appinventor.client.widgets.TextButton;
+import com.google.appinventor.common.version.AppInventorFeatures;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
@@ -20,6 +22,7 @@ import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.OpenEvent;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.Window;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -153,6 +156,13 @@ public class SourceStructureExplorer extends Composite {
           Object userObject = treeItem.getUserObject();
           if (userObject instanceof SourceStructureExplorerItem) {
             SourceStructureExplorerItem item = (SourceStructureExplorerItem) userObject;
+            if (AppInventorFeatures.enableComponentLocking()
+                    && Ode.getInstance().getCollaborationManager().isComponentLocked(
+                    Ode.getCurrentChannel(), Ode.getInstance().getUser().getUserEmail(),
+                    item.getObjectId())){
+              Window.alert(MESSAGES.componentLockedWarning());
+              return;
+            }
             item.rename();
           }
         }
@@ -190,6 +200,13 @@ public class SourceStructureExplorer extends Composite {
       Object userObject = treeItem.getUserObject();
       if (userObject instanceof SourceStructureExplorerItem) {
         SourceStructureExplorerItem item = (SourceStructureExplorerItem) userObject;
+        if (AppInventorFeatures.enableComponentLocking()
+                && Ode.getInstance().getCollaborationManager().isComponentLocked(
+                Ode.getCurrentChannel(), Ode.getInstance().getUser().getUserEmail(),
+                item.getObjectId())){
+          Window.alert(MESSAGES.componentLockedWarning());
+          return;
+        }
         item.delete();
       }
     }
@@ -249,6 +266,10 @@ public class SourceStructureExplorer extends Composite {
     TreeItem items[] = new TreeItem[1];
     items[0] = root;
     updateTree(items, itemToSelect);
+    if (AppInventorFeatures.enableComponentLocking()) {
+      Ode.getInstance().getCollaborationManager().updateSourceTree(
+              Ode.getCurrentChannel(), Ode.getCurrentUserEmail());
+    }
   }
 
   
@@ -314,5 +335,22 @@ public class SourceStructureExplorer extends Composite {
    */
   public void unselectItem(SourceStructureExplorerItem item) {
     selectItem(item, false);
+  }
+
+  /**
+   * Get the HTML element of the given item.
+   *
+   * @param item item to get
+   * @return HTML element
+   */
+  public Element getItem(SourceStructureExplorerItem item) {
+    Iterator<TreeItem> iter = tree.treeItemIterator();
+    while (iter.hasNext()) {
+      TreeItem treeItem = iter.next();
+      if (item.equals(treeItem.getUserObject())) {
+        return treeItem.getElement();
+      }
+    }
+    return null;
   }
 }

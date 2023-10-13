@@ -6,6 +6,8 @@
 
 package com.google.appinventor.client.widgets.properties;
 
+import com.google.appinventor.client.Ode;
+import com.google.appinventor.client.editor.youngandroid.events.ChangeProperty;
 import com.google.appinventor.client.properties.Property;
 
 /**
@@ -206,5 +208,31 @@ public final class EditableProperty extends Property {
 
   public String getDescription() {
     return description;
+  }
+
+  public boolean raisePropertyChangeEvent(String value){
+    if(!value.equals(getValue())){
+      if(properties.getComponent()!=null){
+        return properties.getComponent().getForm().fireComponentEvent(ChangeProperty.create(
+                Ode.getCurrentChannel(), properties.getComponent().getUuid(), getName(), value
+        ));
+      }
+    }
+    return false;
+  }
+
+  public boolean raisePropertyChangeEvent(String value, boolean force){
+    if(!value.equals(getValue()) || force){
+      if(properties.getComponent()!=null){
+        return properties.getComponent().getForm().fireComponentEvent(ChangeProperty.create(
+                Ode.getCurrentChannel(), properties.getComponent().getUuid(), getName(), value
+        ));
+      }
+    }
+    return false;
+  }
+
+  public String getComponentId() {
+    return this.properties.getComponent().getUuid();
   }
 }

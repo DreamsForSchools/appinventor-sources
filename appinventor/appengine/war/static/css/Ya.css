@@ -3084,3 +3084,19 @@ div.dropdiv p {
 .listItem:nth-child(2n + 0) {
   background: rgba(200, 200, 200, 0.1);
 }
+
+.collaboration-user-box{
+  width: 25px;
+  height: 25px;
+  margin-left: 4px;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.joined-user-panel {
+  display: inline-flex;
+}

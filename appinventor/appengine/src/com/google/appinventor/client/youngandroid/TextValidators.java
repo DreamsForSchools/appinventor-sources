@@ -270,4 +270,13 @@ public final class TextValidators {
     }
     return warningMessage;
   }
+
+  /**
+   * Checks whether the argument is a valid email address format.
+   * @param email The email address
+   * @return {@code true} if the email has valid email address format.
+   */
+  public static boolean checkValidEmail(String email){
+    return email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,6}$");
+  }
 }

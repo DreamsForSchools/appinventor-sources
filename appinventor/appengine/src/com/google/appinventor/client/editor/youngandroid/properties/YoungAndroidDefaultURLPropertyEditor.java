@@ -39,9 +39,9 @@ public class YoungAndroidDefaultURLPropertyEditor extends PropertyEditor {
   }
 
   /**
-   * Creates a new length property editor.
+   * Creates a new default url editor.
    *
-   * @param includePercent  whether to include percent of screen option
+   * @param defaultURL  the default url
    */
   public YoungAndroidDefaultURLPropertyEditor(final String defaultURL) {
     // The radio button group cannot be shared across all instances, so we append a unique id.
@@ -76,7 +76,9 @@ public class YoungAndroidDefaultURLPropertyEditor extends PropertyEditor {
     urlField.addValueChangeHandler(new ValueChangeHandler() {
         @Override
         public void onValueChange(ValueChangeEvent event) {
-          property.setValue(urlField.getText());
+          if (!property.raisePropertyChangeEvent(urlField.getText())) {
+            updateValue(); // Restore to previous value
+          }
         }
       });
 
@@ -94,8 +96,11 @@ public class YoungAndroidDefaultURLPropertyEditor extends PropertyEditor {
         @Override
         public void onValueChange(ValueChangeEvent event) {
           if (setDefaultCheckbox.isChecked()) {
-            urlField.setText(defaultURL);
-            property.setValue(defaultURL);
+            if (property.raisePropertyChangeEvent(defaultURL)) {
+              urlField.setText(defaultURL);
+            } else {
+              updateValue(); // Restore
+            }
           }
         }
       });

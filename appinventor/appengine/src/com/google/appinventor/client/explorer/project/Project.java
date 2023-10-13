@@ -329,4 +329,23 @@ public final class Project {
       listener.onProjectNodeRemoved(this, node);
     }
   }
+
+  /**
+   * Returns if the project is shared with others
+   *
+   * @return shared
+   */
+  public boolean isShared() {
+    return projectInfo.isShared();
+  }
+
+  /**
+   * Set if the project is shared.
+   *
+   * @param shared
+   */
+  public void setShared(boolean shared) {
+    projectInfo.setShared(shared);
+  }
+
 }

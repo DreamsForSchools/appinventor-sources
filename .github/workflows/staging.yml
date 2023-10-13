@@ -40,6 +40,9 @@ jobs:
     - name: Change build server address to staging build server # make sure the ip address has the port
       run: bash ./scripts/deployment/change_build_server_address.sh BS_ADDR=35.215.113.84:9990
 
+    - name: Change collab server address to staging collab server # make sure the ip address has the port
+      run: bash ./scripts/deployment/change_collab_server_address.sh CS_ADDR=35.215.122.219:3000
+
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
       with:
@@ -70,3 +73,17 @@ jobs:
       # --zone is needed otherwise gcloud will error saying underspecified zone
     - name: Update build compute engine instance to use latest pushed docker image
       run: gcloud compute instances update-container --zone=us-west2-a appmaker-staging-build-server-container --container-image us-west2-docker.pkg.dev/dfs-appjam-staging/staging-build-server/build-server-image:staging 
+
+   # ## COLLAB SERVER DEPLOYMENT
+    - name: Build docker image
+      run: docker build -t collab-server --no-cache -f ./collab-server/Dockerfile ./collab-server
+      
+    - name: Tag docker image
+      run: docker tag collab-server us-west2-docker.pkg.dev/dfs-appjam-staging/staging-collab-server/collab-server-image:staging
+
+    - name: Push docker image
+      run: docker push us-west2-docker.pkg.dev/dfs-appjam-staging/staging-collab-server/collab-server-image:staging 
+
+    # --zone is needed otherwise gcloud will error saying underspecified zone
+    - name: Update build compute engine instance to use latest pushed docker image
+      run: gcloud compute instances update-container --zone=us-west2-a appmaker-staging-collab-server-container --container-image us-west2-docker.pkg.dev/dfs-appjam-staging/staging-collab-server/collab-server-image:staging

@@ -6,6 +6,9 @@
 
 package com.google.appinventor.client.editor.simple.components;
 
+import com.google.appinventor.client.Ode;
+import com.google.appinventor.client.editor.youngandroid.events.ChangeProperty;
+import com.google.appinventor.client.editor.youngandroid.events.MoveComponent;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import java.util.Arrays;
@@ -420,16 +423,25 @@ final class MockTableLayout extends MockLayout {
       setDropTargetCell(null);
 
       // Perform drop.
-      MockContainer srcContainer = source.getContainer();
-      if (srcContainer != null) {
-        // Pass false to indicate that the component isn't being permanently deleted.
-        // It's just being moved from one container to another.
-        srcContainer.removeComponent(source, false);
+//      MockContainer srcContainer = source.getContainer();
+//      if (srcContainer != null) {
+//        // Pass false to indicate that the component isn't being permanently deleted.
+//        // It's just being moved from one container to another.
+//        srcContainer.removeComponent(source, false);
+//      }
+//      source.changeProperty(MockVisibleComponent.PROPERTY_NAME_COLUMN, "" + destCell.col);
+//      source.changeProperty(MockVisibleComponent.PROPERTY_NAME_ROW, "" + destCell.row);
+//      container.addComponent(source);
+      if(container.getForm().fireComponentEvent(ChangeProperty.create(
+              Ode.getCurrentChannel(), source.getUuid(), MockVisibleComponent.PROPERTY_NAME_COLUMN, "" + destCell.col))){
+        container.getForm().fireComponentEvent(ChangeProperty.create(
+                Ode.getCurrentChannel(), source.getUuid(), MockVisibleComponent.PROPERTY_NAME_ROW, "" + destCell.row
+        ));
+        container.getForm().fireComponentEvent(MoveComponent.create(
+                Ode.getCurrentChannel(), source.getUuid(), container.getUuid(), -1
+        ));
+        return true;
       }
-      source.changeProperty(MockVisibleComponent.PROPERTY_NAME_COLUMN, "" + destCell.col);
-      source.changeProperty(MockVisibleComponent.PROPERTY_NAME_ROW, "" + destCell.row);
-      container.addComponent(source);
-      return true;
     }
     return false;
   }
@@ -439,5 +451,10 @@ final class MockTableLayout extends MockLayout {
     if (dropTargetArea != null) {
       DOM.removeChild(container.getRootPanel().getElement(), dropTargetArea);
     }
+  }
+
+  @Override
+  void cleanup() {
+    setDropTargetCell(null);
   }
 }

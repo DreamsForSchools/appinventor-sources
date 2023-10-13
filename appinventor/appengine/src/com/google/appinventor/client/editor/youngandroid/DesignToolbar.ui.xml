@@ -30,6 +30,8 @@
                     align="center">
       <ya:RemoveFormAction />
     </ai:ToolbarItem>
+
+    <!-- Right toolbar items -->
     <ai:ToolbarItem name="switchToDesign" caption="{messages.switchToFormEditorButton}"
                     ui:field="switchToDesign" align="right">
       <ya:SwitchToFormEditorAction />

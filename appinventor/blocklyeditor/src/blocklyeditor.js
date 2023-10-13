@@ -449,6 +449,7 @@ Blockly.ai_inject = function(container, workspace) {
   workspace.fireChangeListener(new AI.Events.ScreenSwitch(workspace.projectId, workspace.formName));
   var gridEnabled = top.BlocklyPanel_getGridEnabled && top.BlocklyPanel_getGridEnabled();
   var gridSnap = top.BlocklyPanel_getSnapEnabled && top.BlocklyPanel_getSnapEnabled();
+  var channelId = window.parent.Ode_getCurrentChannel();
   if (workspace.injected) {
     workspace.setGridSettings(gridEnabled, gridSnap);
     // Update the workspace size in case the window was resized while we were hidden
@@ -456,6 +457,12 @@ Blockly.ai_inject = function(container, workspace) {
       goog.array.forEach(workspace.blocksNeedingRendering, function(block) {
         workspace.getWarningHandler().checkErrors(block);
         block.render();
+        if(window.parent.AIFeature_enableComponentLocking()) {
+          if(block.id in window.parent.lockedBlocksByChannel[channelId]){
+            new AI.Events.LockBlock(channelId, block.id,
+                window.parent.lockedBlocksByChannel[channelId][block.id]).run();
+          }
+        }
       });
       workspace.blocksNeedingRendering.splice(0);  // clear the array of pending blocks
       workspace.resizeContents();
@@ -569,6 +576,12 @@ Blockly.ai_inject = function(container, workspace) {
     if (block.comment && block.comment.visible && block.comment.setVisible) {
       setTimeout(commentRenderer(block.comment), 1);
     }
+    if(window.parent.AIFeature_enableComponentLocking()) {
+      if(block.id in window.parent.lockedBlocksByChannel[channelId]){
+        new AI.Events.LockBlock(channelId, block.id,
+            window.parent.lockedBlocksByChannel[channelId][block.id]).run();
+      }
+    }
   }
   workspace.render();
   // blocks = workspace.getTopBlocks();
@@ -586,6 +599,9 @@ Blockly.ai_inject = function(container, workspace) {
   workspace.injected = true;
   // Add pending resize event to fix positioning issue in Firefox.
   setTimeout(function() { workspace.resizeContents(); Blockly.svgResize(workspace); });
+  // add collaboration code
+  console.log("Create workspace collaboration");
+  workspace.collaboration = new Blockly.Collaboration(workspace);
   return workspace;
 };
 

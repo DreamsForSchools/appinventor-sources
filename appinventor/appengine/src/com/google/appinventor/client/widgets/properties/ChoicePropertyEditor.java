@@ -91,7 +91,9 @@ public class ChoicePropertyEditor extends PropertyEditor {
         public void execute() {
           boolean multiple = isMultipleValues();
           setMultipleValues(false);
-          property.setValue(choice.value, multiple);
+          if (!property.raisePropertyChangeEvent(choice.value, multiple)) {
+            updateValue(); //Restore to previous state
+          }
         }
       }));
     }
