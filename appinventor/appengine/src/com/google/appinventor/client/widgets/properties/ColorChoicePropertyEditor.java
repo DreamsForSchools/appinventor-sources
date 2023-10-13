@@ -179,9 +179,13 @@ public abstract class ColorChoicePropertyEditor extends PropertyEditor {
           setMultipleValues(false);
           if (color.argbValue == 0) {
             // Handle default value specially to prevent sending #x00000000 to the REPL...
-            property.setValue(defaultValue, isMultiple);
+            if (!property.raisePropertyChangeEvent(defaultValue, isMultiple)) {
+              updateValue(); //Restore to previous state
+            }
           } else {
-            property.setValue(hexPrefix + color.alphaString + color.rgbString, isMultiple);
+            if (!property.raisePropertyChangeEvent(hexPrefix + color.alphaString + color.rgbString, isMultiple)) {
+              updateValue(); //Restore to previous state
+            }
           }
           if (advanced) {
             String customColor = color.argbValue == 0 ?

@@ -8,6 +8,8 @@ package com.google.appinventor.client.widgets.properties;
 
 import static com.google.appinventor.client.Ode.MESSAGES;
 
+import com.google.appinventor.client.Ode;
+import com.google.appinventor.common.version.AppInventorFeatures;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -113,6 +115,12 @@ public class TextPropertyEditorBase extends PropertyEditor {
     // onUnload is called immediately before a widget becomes detached from the browser's document.
     // Calling validateText here means that we will save the changed property value (if it is
     // valid) when the user clicks on another component.
+    if (AppInventorFeatures.enableComponentLocking()
+            && Ode.getInstance().getCollaborationManager().isComponentLocked(
+            Ode.getCurrentChannel(), Ode.getInstance().getUser().getUserEmail(),
+            this.property.getComponentId())){
+      return;
+    }
     validateText();
     super.onUnload();
   }
@@ -150,7 +158,9 @@ public class TextPropertyEditorBase extends PropertyEditor {
     String text = textEdit.getText();
     try {
       validate(text);
-      property.setValue(text);
+      if (!property.raisePropertyChangeEvent(text)) {
+        updateValue(); // Restore previous property value.
+      }
     } catch (InvalidTextException e) {
       if (!inMultiselectMode()) {
         String error = e.getMessage();

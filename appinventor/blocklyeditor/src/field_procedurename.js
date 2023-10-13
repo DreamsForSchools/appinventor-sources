@@ -22,8 +22,11 @@ goog.require('Blockly.FieldTextInput');
 AI.Blockly.FieldProcedureName = function(text) {
   AI.Blockly.FieldProcedureName.superClass_.constructor.call(this, text,
     Blockly.AIProcedure.renameProcedure);
+  this.value_ = text;
 };
 goog.inherits(AI.Blockly.FieldProcedureName, Blockly.FieldTextInput);
+
+AI.Blockly.FieldProcedureName.prototype.value_ = '';
 
 /**
  * Set the value of the field.
@@ -33,24 +36,36 @@ goog.inherits(AI.Blockly.FieldProcedureName, Blockly.FieldTextInput);
  * @override
  */
 AI.Blockly.FieldProcedureName.prototype.setValue = function(newValue) {
+  if (newValue === null) {
+    return;
+  }
   if (this.sourceBlock_ && this.sourceBlock_.isInFlyout) {
     // Do not take action for blocks in flyouts
     return;
   }
-  var oldValue = this.getValue();
-  AI.Blockly.FieldProcedureName.superClass_.setValue.call(this, newValue);
-  newValue = this.getValue();
-  if (typeof newValue === 'string' && this.sourceBlock_) {
-    var procDb = this.sourceBlock_.workspace.getProcedureDatabase();
-    if (procDb) {
-      if (procDb.getProcedure(this.sourceBlock_.id)) {
-        procDb.renameProcedure(this.sourceBlock_.id, oldValue, newValue);
-      } else {
-        procDb.addProcedure(newValue, this.sourceBlock_);
+  if (this.sourceBlock_) {  // can only set the property of an existing block
+    var oldValue = this.getValue();
+    AI.Blockly.FieldProcedureName.superClass_.setValue.call(this, newValue);
+    newValue = this.getText();  // asymmetry here due to how Blockly.Field.setValue is implemented.
+    if (typeof newValue === 'string' && this.sourceBlock_) {
+      var procDb = this.sourceBlock_.workspace.getProcedureDatabase();
+      if (procDb) {
+        if (procDb.getProcedure(this.sourceBlock_.id)) {
+          procDb.renameProcedure(this.sourceBlock_.id, oldValue, newValue);
+        } else {
+          procDb.addProcedure(newValue, this.sourceBlock_);
+        }
       }
     }
+    this.value_ = newValue;
+    this.oldName_ = undefined;
+  } else {
+    this.setText(newValue);
   }
-  this.oldName_ = undefined;
+};
+
+AI.Blockly.FieldProcedureName.prototype.getValue = function() {
+  return this.value_;
 };
 /*
 AI.Blockly.FieldProcedureName.prototype.onHtmlInputChange_ = function(e) {

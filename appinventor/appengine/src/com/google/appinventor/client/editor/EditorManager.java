@@ -103,7 +103,6 @@ public final class EditorManager {
    */
   public ProjectEditor openProject(ProjectRootNode projectRootNode) {
     long projectId = projectRootNode.getProjectId();
-    LOG.info("I'm HERE!!!!");
     ProjectEditor projectEditor = openProjectEditors.get(projectId);
     if (projectEditor == null) {
       // No open editor for this project yet.
