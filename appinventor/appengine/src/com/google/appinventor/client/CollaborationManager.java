@@ -391,10 +391,12 @@ public class CollaborationManager implements FormChangeListener {
       if (lockedComponent.hasOwnProperty(componentId)) {
         var component = editor.getComponentByUuid(componentId);
         var userLocked = lockedComponent[componentId];
-        if(userEmail!=userLocked){
-          if($wnd.userColorMap.get(editor.projectId).has(userLocked)){
-            component.setItemBackgroundColor($wnd.userColorMap.get(editor.projectId).get(userLocked));
-          }
+        if (component) {
+            if(userEmail!=userLocked){
+              if($wnd.userColorMap.get(editor.projectId).has(userLocked)){
+                component.setItemBackgroundColor($wnd.userColorMap.get(editor.projectId).get(userLocked));
+              }
+            }
         }
       }
     }
