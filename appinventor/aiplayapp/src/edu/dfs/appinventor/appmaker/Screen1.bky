@@ -1393,7 +1393,7 @@
     <field name="NAME">rendezvousServer</field>
     <value name="VALUE">
       <block type="text" id="165">
-        <field name="TEXT">rendezvous.appinventor.mit.edu</field>
+        <field name="TEXT">rendezvous.appjam.org</field>
       </block>
     </value>
   </block>

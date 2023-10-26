@@ -218,7 +218,7 @@ public class ViewController: UINavigationController, UITextFieldDelegate {
     let code = phoneStatus.setHmacSeedReturnCode(text)
     NSLog("Seed = \(text)")
     NSLog("Code = \(code)")
-    let url = URL(string: "https://rendezvous.appinventor.mit.edu/rendezvous/");
+    let url = URL(string: "https://rendezvous.appjam.org/rendezvous/");
     var request = URLRequest(url: url!)
     let values = [
       "key": code,
@@ -244,7 +244,7 @@ public class ViewController: UINavigationController, UITextFieldDelegate {
           return
         }
         DispatchQueue.main.async {
-          self.phoneStatus.startWebRTC("rendezvous.appinventor.mit.edu", responseContent)
+          self.phoneStatus.startWebRTC("rendezvous.appjam.org", responseContent)
         }
       } else {
         var responseContent = ""
