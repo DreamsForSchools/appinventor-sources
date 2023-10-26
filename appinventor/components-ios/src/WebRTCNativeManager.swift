@@ -6,6 +6,8 @@
 import Foundation
 import WebRTC
 
+public let kDefaultRendezvousServer = "rendezvous.appjam.org"
+
 struct Offer: Codable {
   var sdp: String
   var type: String
@@ -100,12 +102,17 @@ struct WebRTCMessage: Codable {
   public init(_ rendezvousServer: String, _ rendezvousResult: String) {
     RTCInitializeSSL()
     self.rendezvousServer = rendezvousServer
+    var rendezvousData = rendezvousResult
     constraints = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: nil)
     if rendezvousResult.isEmpty || rendezvousResult.starts(with: "OK") {
-
+      rendezvousData = "{\"rendezvous2\" : \"" + kDefaultRendezvousServer + "\"," +
+        "\"iceservers\" : " +
+        "[{ \"server\" : \"turn:34.94.57.90:3478\"," +
+           "\"username\" : \"appjam\"," +
+           "\"password\" : \"dreams4schoolspw\"}]}"
     }
     do {
-      let resultJson = try JSONSerialization.jsonObject(with: rendezvousResult.data(using: .utf8)!) as! [String:Any]
+      let resultJson = try JSONSerialization.jsonObject(with: rendezvousData.data(using: .utf8)!, options: .allowFragments) as! [String:Any]
       let server = resultJson["rendezvous2"] as? String
       self.rendezvousServer2 = server
       for item in (resultJson["iceservers"] as! [[String:Any]]) {

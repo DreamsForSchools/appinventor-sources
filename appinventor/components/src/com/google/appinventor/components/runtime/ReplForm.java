@@ -341,7 +341,7 @@ public class ReplForm extends Form {
     String aid = status.InstallationId();
     Log.d(LOG_TAG, "InstallationId = " + aid);
     Web web = new Web(this);
-    web.Url("https://rendezvous.appjam.org/rendezvous/");
+    web.Url("http://rendezvous.appjam.org/rendezvous/");
     web.PostText("ipaddr=" + ipAddress + "&port=9987&webrtc=true" +
       "&version=" + version + "&api=" + api + "&aid=" +
       aid + "&installer=" + status.GetInstaller() + "&r2=true&key=" + code);

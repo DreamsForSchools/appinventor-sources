@@ -5,7 +5,7 @@
 
 import UIKit
 import AIComponentKit
-import AVKit
+import AVKit 
 
 /**
  * Menu for the iPad REPL.
@@ -145,7 +145,7 @@ public class ViewController: UINavigationController, UITextFieldDelegate {
       }
 //      form.PrimaryColor = Int32(bitPattern: 0xFFA5CF47)
 //      form.PrimaryColorDark = Int32(bitPattern: 0xFF516623)
-      form.title = "DreamsForSchools AppMaker"
+      form.title = "DFS AppMaker"
       interpreter.evalForm("(add-component Screen1 AIComponentKit.BarcodeScanner BarcodeScanner1)")
       interpreter.evalForm("(define-event BarcodeScanner1 AfterScan(result) (yail:invoke AICompanionApp.ViewController 'gotText result))")
       if let exception = interpreter.exception {
@@ -218,7 +218,7 @@ public class ViewController: UINavigationController, UITextFieldDelegate {
     let code = phoneStatus.setHmacSeedReturnCode(text)
     NSLog("Seed = \(text)")
     NSLog("Code = \(code)")
-    let url = URL(string: "https://rendezvous.appjam.org/rendezvous/");
+    let url = URL(string: "https://\(kDefaultRendezvousServer)/rendezvous/");
     var request = URLRequest(url: url!)
     let values = [
       "key": code,
@@ -244,7 +244,7 @@ public class ViewController: UINavigationController, UITextFieldDelegate {
           return
         }
         DispatchQueue.main.async {
-          self.phoneStatus.startWebRTC("rendezvous.appjam.org", responseContent)
+          self.phoneStatus.startWebRTC(kDefaultRendezvousServer, responseContent)
         }
       } else {
         var responseContent = ""
