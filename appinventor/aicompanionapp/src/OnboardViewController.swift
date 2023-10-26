@@ -10,9 +10,9 @@ class OnboardViewController: UIViewController {
   @IBOutlet var holderView: UIView!
   let scrollView = UIScrollView()
   let titles = [
-    "Welcome to MIT App Inventor!",
-    "Use your computer to access ai2.appinventor.mit.edu or code.appinventor.mit.edu",
-    "Select Connect then AI Companion to start a connection",
+    "Welcome to DreamsForSchools AppMaker!",
+    "Use your computer to access appjam.org",
+    "Select Connect then AppMaker Companion to start a connection",
     "Scan the code to finish the connection"
   ]
   var onCompletionHandler: (() -> Void)? = nil

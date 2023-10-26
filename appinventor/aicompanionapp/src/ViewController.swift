@@ -31,7 +31,7 @@ class MenuViewController: UITableViewController {
 }
 
 /**
- * Root view controller for the MIT AI Companion for iOS. Eventually this will go away
+ * Root view controller for the DreamsForSchools AppMaker for iOS. Eventually this will go away
  * once we have the capability to build apps from YAIL files, in which case we will be
  * able to build the app from the aiplayapp sources.
  *
@@ -139,13 +139,13 @@ public class ViewController: UINavigationController, UITextFieldDelegate {
       form = self.viewControllers[self.viewControllers.count - 1] as? ReplForm
       form.makeTopForm()
       interpreter.setCurrentForm(form!)
-      form.AccentColor = Int32(bitPattern: 0xFF128BA8)
+//      form.AccentColor = Int32(bitPattern: 0xFF128BA8)
       if let mooning = UIImage(named: "Mooning") {
         form.view.backgroundColor = UIColor(patternImage: mooning)
       }
-      form.PrimaryColor = Int32(bitPattern: 0xFFA5CF47)
-      form.PrimaryColorDark = Int32(bitPattern: 0xFF516623)
-      form.title = "MIT App Inventor 2"
+//      form.PrimaryColor = Int32(bitPattern: 0xFFA5CF47)
+//      form.PrimaryColorDark = Int32(bitPattern: 0xFF516623)
+      form.title = "DreamsForSchools AppMaker"
       interpreter.evalForm("(add-component Screen1 AIComponentKit.BarcodeScanner BarcodeScanner1)")
       interpreter.evalForm("(define-event BarcodeScanner1 AfterScan(result) (yail:invoke AICompanionApp.ViewController 'gotText result))")
       if let exception = interpreter.exception {
@@ -366,15 +366,15 @@ public class ViewController: UINavigationController, UITextFieldDelegate {
     }
 
     // Show onboarding
-    let vc = storyboard?.instantiateViewController(withIdentifier: "onboard") as! OnboardViewController
-    vc.modalPresentationStyle = .fullScreen
-    present(vc, animated: true)
-    onboardingScreen = vc
-    vc.onCompletionHandler = {
-      if !self.didWifiCheck {
-        self.checkWifi()
-      }
-    }
+//    let vc = storyboard?.instantiateViewController(withIdentifier: "onboard") as! OnboardViewController
+//    vc.modalPresentationStyle = .fullScreen
+//    present(vc, animated: true)
+//    onboardingScreen = vc
+//    vc.onCompletionHandler = {
+//      if !self.didWifiCheck {
+//        self.checkWifi()
+//      }
+//    }
   }
 
   // Implemented in Swift based on aiplayapp/src/edu/mit/appinventor/aicompanion3/Screen1.yail
