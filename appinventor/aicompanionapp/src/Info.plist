@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>App Inventor</string>
+	<string>AppMaker</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -32,15 +32,15 @@
 	<key>NSCameraUsageDescription</key>
 	<string>scanning barcodes and taking pictures</string>
 	<key>NSContactsUsageDescription</key>
-	<string>App Inventor accesses your contacts when you include a ContactPicker component in your app.</string>
+	<string>AppMaker accesses your contacts when you include a ContactPicker component in your app.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>App Inventor accesses your location data when you include a LocationSensor component in your app.</string>
+	<string>AppMaker accesses your location data when you include a LocationSensor component in your app.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>App Inventor accesses your microphone to record videos or audio</string>
+	<string>AppMaker accesses your microphone to record videos or audio</string>
 	<key>NSMotionUsageDescription</key>
-	<string>App Inventor accesses your motion data when you include a Gyroscope Sensor</string>
+	<string>AppMaker accesses your motion data when you include a Gyroscope Sensor</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App Inventor accesses your photo library when you include an ImagePicker component in your app.</string>
+	<string>AppMaker accesses your photo library when you include an ImagePicker component in your app.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>App Inventor uses speech recognition when you include a SpeechRecognizer component in your app</string>
 	<key>UIFileSharingEnabled</key>

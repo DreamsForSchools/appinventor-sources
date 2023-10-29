@@ -334,18 +334,18 @@ public class ReplForm extends Form {
     String code = data.substring(data.indexOf("//comp/") + 7);
     PhoneStatus status = new PhoneStatus(this);
     status.WebRTC(true);
-    code = status.setHmacSeedReturnCode(code, "rendezvous.appinventor.mit.edu");
+    code = status.setHmacSeedReturnCode(code, "rendezvous.appjam.org");
     String ipAddress = PhoneStatus.GetWifiIpAddress();
     int api = status.SdkLevel();
     String version = status.GetVersionName();
     String aid = status.InstallationId();
     Log.d(LOG_TAG, "InstallationId = " + aid);
     Web web = new Web(this);
-    web.Url("http://rendezvous.appinventor.mit.edu/rendezvous/");
+    web.Url("http://rendezvous.appjam.org/rendezvous/");
     web.PostText("ipaddr=" + ipAddress + "&port=9987&webrtc=true" +
       "&version=" + version + "&api=" + api + "&aid=" +
       aid + "&installer=" + status.GetInstaller() + "&r2=true&key=" + code);
-    status.startWebRTC("rendezvous.appinventor.mit.edu", "OK");
+    status.startWebRTC("rendezvous.appjam.org", "OK");
   }
 
   public boolean isDirect() {

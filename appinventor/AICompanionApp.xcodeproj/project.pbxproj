@@ -349,11 +349,13 @@
 				TargetAttributes = {
 					06463EF71D95956800B23DCD = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = P38Z3S696H;
 						LastSwiftMigration = 1100;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					06463F0B1D95956800B23DCD = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = P38Z3S696H;
 						LastSwiftMigration = 1100;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 06463EF71D95956800B23DCD;
@@ -361,7 +363,6 @@
 					06463F161D95956800B23DCD = {
 						CreatedOnToolsVersion = 8.0;
 						LastSwiftMigration = 1100;
-						ProvisioningStyle = Automatic;
 						TestTargetID = 06463EF71D95956800B23DCD;
 					};
 				};
@@ -786,6 +787,9 @@
 			baseConfigurationReference = 917EBEF8E1E3632C01B06EE1 /* Pods-AICompanionApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P38Z3S696H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/prebuilts/$(PLATFORM_NAME)",
@@ -793,11 +797,9 @@
 				INFOPLIST_FILE = aicompanionapp/src/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.mit.appinventor.aicompanion3;
+				PRODUCT_BUNDLE_IDENTIFIER = dfs.appmaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9c96ca04-1d70-4a2b-bb01-28f545b35d28";
-				PROVISIONING_PROFILE_SPECIFIER = "MIT App Inventor Development";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "MIT App Inventor Development";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -808,6 +810,9 @@
 			baseConfigurationReference = FE5CAE0EE58EBC32C4E5ADFC /* Pods-AICompanionApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P38Z3S696H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/prebuilts/$(PLATFORM_NAME)",
@@ -815,11 +820,9 @@
 				INFOPLIST_FILE = aicompanionapp/src/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.mit.appinventor.aicompanion3;
+				PRODUCT_BUNDLE_IDENTIFIER = dfs.appmaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9c96ca04-1d70-4a2b-bb01-28f545b35d28";
-				PROVISIONING_PROFILE_SPECIFIER = "MIT App Inventor Production";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "MIT App Inventor Production";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -831,10 +834,15 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P38Z3S696H;
 				INFOPLIST_FILE = aicompanionapp/tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.mit.appinventor.aicompanion3Tests;
+				PRODUCT_BUNDLE_IDENTIFIER = dfs.appmaker.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AICompanionApp.app/AICompanionApp";
 			};
@@ -846,10 +854,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = aicompanionapp/tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.mit.appinventor.aicompanion3Tests;
+				PRODUCT_BUNDLE_IDENTIFIER = dfs.appmaker.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AICompanionApp.app/AICompanionApp";
 			};
@@ -874,10 +886,14 @@
 			baseConfigurationReference = 0B5F0E886334FD3FB7921E2A /* Pods-AICompanionApp-AICompanionAppUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = aicompanionapp/uitests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.mit.appinventor.aicompanion3UITests;
+				PRODUCT_BUNDLE_IDENTIFIER = dfs.appmaker.uitests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = AICompanionApp;
 			};
