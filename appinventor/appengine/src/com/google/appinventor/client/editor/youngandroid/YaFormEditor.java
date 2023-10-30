@@ -146,6 +146,10 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
   private final List<ComponentDatabaseChangeListener> componentDatabaseChangeListeners = new ArrayList<ComponentDatabaseChangeListener>();
   private JSONArray authURL;    // List of App Inventor versions we have been edited on.
 
+  public Map<String, MockComponent> getComponentsDb() {
+    return componentsDb;
+  }
+
   /**
    * A mapping of component UUIDs to mock components in the designer view.
    */
@@ -563,6 +567,7 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
         content, JSON_PARSER);
     try {
       form = createMockForm(propertiesObject.getProperties().get("Properties").asObject());
+//      componentsDb.put("0", form); // evan included this in Xinyue's componentlocking branch 2/23/17, not needed
     } catch(ComponentNotFoundException e) {
       Ode.getInstance().recordCorruptProject(getProjectId(), getProjectRootNode().getName(),
           e.getMessage());
@@ -1189,6 +1194,9 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
     MockComponent component = SimpleComponentDescriptor.createMockComponent(type, COMPONENT_DATABASE.getComponentType(type), this);
     component.onCreateFromPalette();
     component.changeProperty(MockComponent.PROPERTY_NAME_UUID, uuid);
+//    LOG.info("The component in question" + uuid + component);
+//    LOG.info("ComponentsDB before put" + getComponentsDb());
+
     componentsDb.put(uuid, component);
     // if component is non-visible, add to non-visible panel directly.
     if(!component.isVisibleComponent()){
@@ -1219,6 +1227,11 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
       String oldName = component.getPropertyValue(MockComponent.PROPERTY_NAME_NAME);
       component.changeProperty(MockComponent.PROPERTY_NAME_NAME, name);
       getForm().fireComponentRenamed(component, oldName);
+      // evan included this in Xinyue's componentlocking branch 2/23/17, not needed
+      onFormStructureChange();
+      // the new "Update Properties Panel"
+      SourceStructureBox.getSourceStructureBox().show(form);
+      PropertiesBox.getPropertiesBox().show(this, true);
     }
   }
 
@@ -1277,10 +1290,12 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
     long projectId = Long.parseLong(parts[0]);
     ProjectEditor projectEditor = Ode.getInstance().getEditorManager().getOpenProjectEditor(projectId);
     for (FileEditor e : projectEditor.getOpenFileEditors()) {
-      if (e instanceof YaFormEditor) {
+      if (e instanceof YaFormEditor && e.isActiveEditor()) {
         editor = (YaFormEditor) e;
+        break;
       }
     }
+//    LOG.info("getdesignerforform editor: " + editor);
     if (editor != null) {
       return DesignerAdapter.make(formName, editor);
     } else {
