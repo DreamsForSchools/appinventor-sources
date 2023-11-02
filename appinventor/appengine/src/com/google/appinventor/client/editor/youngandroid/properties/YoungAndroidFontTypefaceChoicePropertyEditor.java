@@ -194,8 +194,7 @@ public final class YoungAndroidFontTypefaceChoicePropertyEditor extends Addition
     }
     boolean multiple = isMultipleValues();
     setMultipleValues(false);
-    property.setValue(choices.getValueAtIndex(selected), multiple);
-    return true;
+    return property.raisePropertyChangeEvent(choices.getValueAtIndex(selected), multiple);
   }
   
   // ProjectChangeListener implementation

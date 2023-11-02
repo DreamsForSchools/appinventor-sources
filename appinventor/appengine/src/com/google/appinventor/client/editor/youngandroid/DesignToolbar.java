@@ -227,6 +227,18 @@ public class DesignToolbar extends Toolbar {
     ProjectEditor projectEditor = screen.formEditor.getProjectEditor();
     currentProject.setCurrentScreen(newScreenName);
     setDropDownButtonCaption(WIDGET_NAME_SCREENS_DROPDOWN, newScreenName);
+
+    // Setup collaboration channel
+    // Need to set up collaboration components for each screen before loading blockly editor.
+    // Otherwise, Blockly.ai_inject will try to access window.parent.lockedBlocksByChannel[channelId] which has not been
+    // initialized by componentSocketEvent(channelId) yet
+    String currentChannel = Ode.getInstance().getCurrentChannel();
+    LOG.info("DOSWITCHSCREENHERE: " + currentChannel + "...." + Ode.getInstance().getCollaborationManager().getScreenChannel());
+    if(!currentChannel.equals(Ode.getInstance().getCollaborationManager().getScreenChannel())){
+      Ode.getInstance().getCollaborationManager().setScreenChannel(currentChannel);
+      Ode.getInstance().getCollaborationManager().componentSocketEvent(currentChannel);
+    }
+
     LOG.info("Setting currentScreen to " + newScreenName);
     if (currentView == View.FORM) {
       projectEditor.selectFileEditor(screen.formEditor);
@@ -238,12 +250,7 @@ public class DesignToolbar extends Toolbar {
     Ode.getInstance().getTopToolbar().updateFileMenuButtons(1);
     // Inform the Blockly Panel which project/screen (aka form) we are working on
     BlocklyPanel.setCurrentForm(projectId + "_" + newScreenName);
-    // Setup collaboration channel
-    String currentChannel = Ode.getInstance().getCurrentChannel();
-    if(!currentChannel.equals(Ode.getInstance().getCollaborationManager().getScreenChannel())){
-      Ode.getInstance().getCollaborationManager().setScreenChannel(currentChannel);
-      Ode.getInstance().getCollaborationManager().componentSocketEvent(currentChannel);
-    }
+
     screen.blocksEditor.makeActiveWorkspace();
   }
 
