@@ -207,8 +207,6 @@ public abstract class MockContainer extends MockVisibleComponent implements Drop
     } else {
       editor.getNonVisibleComponentsPanel().removeComponent(component);
     }
-
-    getForm().fireComponentRemoved(component, permanentlyDeleted);
   }
 
   /**
