@@ -69,7 +69,7 @@ public class ShareProjectWizard extends Wizard{
                             @Override
                             public void onSuccess(Long projectId) {
                                 publishShareProject(email, projectId.toString());
-                                Window.alert("Success");
+                                Window.alert("Project shared successfully!");
                             }
                         });
             }
