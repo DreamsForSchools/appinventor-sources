@@ -12,35 +12,37 @@
   <ui:with field="messages" type="com.google.appinventor.client.OdeMessages" />
   <!-- Projects Menu -->
   <ai:Toolbar>
-    <ai:ToolbarItem name="New" caption="{messages.newProjectButton}" ui:field="newProjectItem" >
+    <ai:ToolbarItem name="New" caption="{messages.newProjectButton}" ui:field="newProjectItem" align="left">
       <actions:NewProjectAction />
     </ai:ToolbarItem>
-    <ai:ToolbarItem name="Projects" caption="{messages.myProjectsButton}" >
+    <ai:ToolbarItem name="Projects" caption="{messages.myProjectsButton}" align="left">
       <actions:SwitchToProjectAction />
     </ai:ToolbarItem>
-    <ai:ToolbarItem name="Folder" caption="{messages.newProjectFolderMenuItem}" ui:field="newFolderItem" >
+    <ai:ToolbarItem name="Folder" caption="{messages.newProjectFolderMenuItem}" ui:field="newFolderItem" align="left">
       <actions:NewFolderAction />
     </ai:ToolbarItem>
-    <ai:ToolbarItem name="Move" caption="{messages.moveProjectButton}" >
+    <ai:ToolbarItem name="Move" caption="{messages.moveProjectButton}" align="left">
       <actions:MoveProjectsAction />
     </ai:ToolbarItem>
-    <ai:ToolbarItem name="Delete" caption="{messages.deleteProjectButton}">
-      <actions:DeleteAction />
-    </ai:ToolbarItem>
-    <ai:ToolbarItem name="Trash" caption="{messages.viewTrashButton}">
-      <actions:TrashAction />
-    </ai:ToolbarItem>
-    <ai:ToolbarItem name="Restore" caption="{messages.restoreProjectButton}">
+    <ai:ToolbarItem name="Restore" caption="{messages.restoreProjectButton}" align="left">
       <actions:RestoreProjectAction />
     </ai:ToolbarItem>
-    <ai:ToolbarItem name="Delete From Trash" caption="{messages.deleteFromTrashButton}">
-      <actions:DeleteForeverProjectAction />
-    </ai:ToolbarItem>
-    <ai:ToolbarItem name="Login to Gallery" caption="{messages.loginToGallery}" visible="false">
+    <ai:ToolbarItem name="Login to Gallery" caption="{messages.loginToGallery}" visible="false" align="left">
       <actions:LoginToGalleryAction />
     </ai:ToolbarItem>
-    <ai:ToolbarItem name="Send to Gallery" caption="{messages.publishToGalleryButton}" visible="false">
+    <ai:ToolbarItem name="Send to Gallery" caption="{messages.publishToGalleryButton}" visible="false" align="left">
       <actions:SendToGalleryAction />
+    </ai:ToolbarItem>
+
+    <!-- Right toolbar items -->
+    <ai:ToolbarItem name="Delete" caption="{messages.deleteProjectButton}" align="right">
+      <actions:DeleteAction />
+    </ai:ToolbarItem>
+    <ai:ToolbarItem name="Trash" caption="{messages.viewTrashButton}" align="right">
+      <actions:TrashAction />
+    </ai:ToolbarItem>
+    <ai:ToolbarItem name="Delete From Trash" caption="{messages.deleteFromTrashButton}" align="right">
+      <actions:DeleteForeverProjectAction />
     </ai:ToolbarItem>
   </ai:Toolbar>
 </ui:UiBinder>

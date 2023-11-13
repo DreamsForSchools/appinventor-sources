@@ -7,10 +7,12 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:ai="urn:import:com.google.appinventor.client.widgets"
              xmlns:ya="urn:import:com.google.appinventor.client.editor.youngandroid.actions"
+             xmlns:actions="urn:import:com.google.appinventor.client.actions"
              ui:generatedFormat="com.google.gwt.i18n.server.PropertyCatalogFactory"
              ui:generatedKeys="com.google.gwt.i18n.server.keygen.MethodNameKeyGenerator"
              ui:generateLocales="default">
   <ui:with field="messages" type="com.google.appinventor.client.OdeMessages" />
+  <ui:with field="hasWriteAccess" type="java.lang.Boolean" />
 
   <ai:Toolbar>
     <g:Label ui:field="projectNameLabel" styleName="ya-ProjectName" />
@@ -29,6 +31,10 @@
     <ai:ToolbarItem name="RemoveForm" caption="{messages.removeFormButton}" ui:field="removeFormItem"
                     align="center">
       <ya:RemoveFormAction />
+    </ai:ToolbarItem>
+    <ai:ToolbarItem name="ShareProject" caption="{messages.shareProjectMenuItem}" ui:field="shareProjectItem"
+                    align="center" visible="{hasWriteAccess}">
+      <actions:ShareAction />
     </ai:ToolbarItem>
 
     <!-- Right toolbar items -->

@@ -143,6 +143,8 @@ public class DesignToolbar extends Toolbar {
   @UiField ToolbarItem removeFormItem;
   @UiField ToolbarItem switchToDesign;
   @UiField ToolbarItem switchToBlocks;
+  @UiField ToolbarItem shareProjectItem;
+  @UiField (provided = true) final Boolean hasWriteAccess;
 
   private static HorizontalPanel joinedUserLabel = new HorizontalPanel();
   private static Map<String, Label> joinedUserMap = Maps.newHashMap();
@@ -153,6 +155,8 @@ public class DesignToolbar extends Toolbar {
   public DesignToolbar() {
     super();
     exportMethodToJavascript();
+
+    hasWriteAccess = !Ode.getInstance().isReadOnly();
 
     populateToolbar(UI_BINDER.createAndBindUi(this));
     if (Ode.getInstance().isReadOnly() || !AppInventorFeatures.allowMultiScreenApplications()) {
