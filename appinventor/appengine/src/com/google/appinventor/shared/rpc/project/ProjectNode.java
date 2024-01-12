@@ -14,6 +14,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Project nodes are used for the structural representation of a project. This
@@ -29,6 +31,7 @@ import java.util.List;
  *
  */
 public abstract class ProjectNode implements Serializable, IsSerializable {
+  private static final Logger LOG = Logger.getLogger(ProjectNode.class.getName());
 
   // For serialization
   private static final long serialVersionUID = -6903337206811923033L;
@@ -175,7 +178,7 @@ public abstract class ProjectNode implements Serializable, IsSerializable {
    *
    * @return iterable
    */
-  public Iterable<ProjectNode> getChildren() {
+  public List<ProjectNode> getChildren() {
     List<ProjectNode> result = children;
     if (result == null) {
       result = Collections.emptyList();
@@ -263,5 +266,14 @@ public abstract class ProjectNode implements Serializable, IsSerializable {
    */
   public void setName(String newName) {
     name = newName;
+  }
+  
+  /**
+   * Checks if project has extension or not.
+   *
+   * @return boolean;
+   */
+  public boolean hasExtensions() {
+    return false;
   }
 }

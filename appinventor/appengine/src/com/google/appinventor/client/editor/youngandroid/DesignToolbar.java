@@ -10,7 +10,6 @@ import com.google.appinventor.client.ErrorReporter;
 import com.google.appinventor.client.Ode;
 import com.google.appinventor.client.editor.FileEditor;
 import com.google.appinventor.client.editor.ProjectEditor;
-import com.google.appinventor.client.editor.youngandroid.actions.SendToGalleryAction;
 import com.google.appinventor.client.editor.youngandroid.actions.SwitchScreenAction;
 import com.google.appinventor.client.widgets.*;
 import com.google.appinventor.common.version.AppInventorFeatures;
@@ -38,9 +37,6 @@ import static com.google.appinventor.client.Ode.MESSAGES;
  */
 public class DesignToolbar extends Toolbar {
   private static final Logger LOG = Logger.getLogger(DesignToolbar.class.getName());
-
-  private volatile boolean lockPublishButton = false; // Used to prevent double-clicking the
-                                                     // SendToGallery button
 
   /*
    * A Screen groups together the form editor and blocks editor for an
@@ -109,6 +105,7 @@ public class DesignToolbar extends Toolbar {
   private static final String WIDGET_NAME_SWITCH_TO_BLOCKS_EDITOR = "SwitchToBlocksEditor";
   private static final String WIDGET_NAME_SWITCH_TO_FORM_EDITOR = "SwitchToFormEditor";
   private static final String WIDGET_NAME_SENDTOGALLERY = "SendToGallery";
+  private static final String WIDGET_NAME_PROJECT_PROPERTIES_DIALOG = "ProjectPropertiesDialog";
 
   // Enum for type of view showing in the design tab
   public enum View {
@@ -136,13 +133,13 @@ public class DesignToolbar extends Toolbar {
   public static LinkedList<String> pushedScreens = Lists.newLinkedList();
 
   interface DesignToolbarUiBinder extends UiBinder<Toolbar, DesignToolbar> {}
-  private static final DesignToolbarUiBinder UI_BINDER = GWT.create(DesignToolbarUiBinder.class);
 
-  @UiField DropDownButton pickFormItem;
-  @UiField ToolbarItem addFormItem;
-  @UiField ToolbarItem removeFormItem;
-  @UiField ToolbarItem switchToDesign;
-  @UiField ToolbarItem switchToBlocks;
+  @UiField protected DropDownButton pickFormItem;
+  @UiField protected ToolbarItem addFormItem;
+  @UiField protected ToolbarItem removeFormItem;
+  @UiField protected ToolbarItem switchToDesign;
+  @UiField protected ToolbarItem switchToBlocks;
+  @UiField protected ToolbarItem sendToGalleryItem;
 
   private static HorizontalPanel joinedUserLabel = new HorizontalPanel();
   private static Map<String, Label> joinedUserMap = Maps.newHashMap();
@@ -152,33 +149,24 @@ public class DesignToolbar extends Toolbar {
    */
   public DesignToolbar() {
     super();
-    exportMethodToJavascript();
+    bindUI();
 
-    populateToolbar(UI_BINDER.createAndBindUi(this));
     if (Ode.getInstance().isReadOnly() || !AppInventorFeatures.allowMultiScreenApplications()) {
       setVisibleItem(addFormItem, false);
       setVisibleItem(removeFormItem, false);
     }
-
-    joinedUserLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-    joinedUserLabel.setStylePrimaryName("joined-user-panel");
-    rightButtons.insert(joinedUserLabel, 0);
-
     // Is the Gallery Enabled (new gallery)?
-    if (Ode.getSystemConfig().getGalleryEnabled() && !Ode.getInstance().getGalleryReadOnly()) {
-      add(new ToolbarItem(WIDGET_NAME_SENDTOGALLERY,
-          MESSAGES.publishToGalleryButton(), new SendToGalleryAction(() -> {
-            if (!lockPublishButton) {
-              lockPublishButton = true;
-              return true;
-            }
-            return false;
-          }, () -> lockPublishButton = false)));
-    }
+    setVisibleItem(sendToGalleryItem, Ode.getSystemConfig().getGalleryEnabled()
+        && !Ode.getInstance().getGalleryReadOnly());
 
     // Gray out the Designer button and enable the blocks button
     toggleEditor(false);
     Ode.getInstance().getTopToolbar().updateFileMenuButtons(0);
+  }
+
+  public void bindUI() {
+    DesignToolbarUiBinder UI_BINDER = GWT.create(DesignToolbarUiBinder.class);
+    populateToolbar(UI_BINDER.createAndBindUi(this));
   }
 
   private void doSwitchScreen(final long projectId, final String screenName, final View view) {

@@ -40,15 +40,18 @@ public final class ProjectManager {
   public ProjectManager() {
     projectsMap = new HashMap<Long, Project>();
     projectManagerEventListeners = new ArrayList<ProjectManagerEventListener>();
+  }
+
+  public void loadProjects() {
     Ode.getInstance().getProjectService().getProjectInfos(
-      new OdeAsyncCallback<List<UserProject>>(
-        MESSAGES.projectInformationRetrievalError()) {
-        @Override
-        public void onSuccess(List<UserProject> projectInfos) {
-          for (UserProject projectInfo : projectInfos) {
-            addProject(projectInfo);
-          }
-          fireProjectsLoaded();
+        new OdeAsyncCallback<List<UserProject>>(
+            MESSAGES.projectInformationRetrievalError()) {
+          @Override
+          public void onSuccess(List<UserProject> projectInfos) {
+            for (UserProject projectInfo : projectInfos) {
+              addProject(projectInfo);
+            }
+            fireProjectsLoaded();
         }
       });
   }
@@ -80,12 +83,12 @@ public final class ProjectManager {
     return projects;
   }
 
-  /**
-   * Returns the project that belongs to a project node.
-   *
-   * @param node the project node for which we want to retrieve the project
-   * @return the project of the node
-   */
+    /**
+     * Returns the project that belongs to a project node.
+     *
+     * @param node the project node for which we want to retrieve the project
+     * @return the project of the node
+     */
   public Project getProject(ProjectNode node) {
     return projectsMap.get(node.getProjectId());
   }

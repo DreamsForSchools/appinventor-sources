@@ -41,20 +41,11 @@ body, html {
   margin: 0;
   min-width: 1024px;
   position: absolute;
-  min-height: 100vh;
-}
-
-/* Needed for Safari to position comments correctly */
-body.blocklyMinimalBody {
-  min-width: auto;
-  min-height: auto;
-  position: inherit;
 }
 
 body {
   font-family: Roboto, Helvetica, Arial, sans-serif;
   /* TODO(opensource): Change to commented version below once we're ready */
-  background: lightgrey url(../images/squairy_light.png);
 }
 
 .dyslexic * {
@@ -65,7 +56,6 @@ body {
 .floatingBox {
   width: 300px;
   height: 250px;
-  background-color: white;
   position: absolute;
   top:0;
   bottom: 0;
@@ -73,9 +63,7 @@ body {
   right: 0;
   margin: auto;
   padding: 16px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.065);
   text-align: center;
-  border: 1px #262626;
 }
 
 .ode-Root {
@@ -102,24 +90,28 @@ div.StatusPanel {
 }
 
 /*
+ * Module switcher root panel
+ */
+.ode-ModuleControllerRoot {
+  height: 100vh;
+  width: 100vw;
+}
+
+/*
  * Context menus
  */
-
-.ode-ContextMenu {
-  background-color: white;
-}
 
 .ode-ContextMenuItem-Red,
 .ode-ContextMenuItem,
 .ode-CurrentColor {
-  color: #555;
   cursor: pointer;
   padding-top: 3px;
   padding-left: 9px;
   padding-bottom: 3px;
   font-size: small;
 }
-
+/*  not sure where background come from 
+if specific to layout then add to modern.css here */
 .ode-ContextMenuItem {
   min-width: 50px;
   padding: 4px 12px;
@@ -131,17 +123,7 @@ div.StatusPanel {
   transition:color .1s ease-out, background .1s ease-in;
 }
 
-.ode-ContextMenuItem-needsChromebook,
-.onChromebook .ode-ContextMenuItem-needsAiStarter {
-  display: none;
-}
-
-.onChromebook .ode-ContextMenuItem-needsChromebook {
-  display: table-cell;
-}
-
 .ode-ContextMenuItem-Red {
-  color: #ff0000;
   min-width: 50px;
   padding: 4px 12px;
   -o-transition:color .1s ease-out, background .1s ease-in;
@@ -150,7 +132,7 @@ div.StatusPanel {
   -webkit-transition:color .1s ease-out, background .1s ease-in;
   /* ...and now override with proper CSS property */
   transition:color .1s ease-out, background .1s ease-in;
-}
+} 
 
 .ode-ContextMenuItemSeparator {
   *width: 100%;
@@ -158,46 +140,30 @@ div.StatusPanel {
   margin: 9px 1px;
   *margin: -5px 0 5px;
   overflow: hidden;
-  background-color: #e5e5e5;
-  border-bottom: 1px solid #ffffff;
 }
 
 .ode-CurrentColor {
   padding-left: 0;
 }
 
-.ode-ContextMenuItem-selected {
-  color: #ffffff;
-  background: #99CC00;
-}
-
-.ode-ContextMenuItem-Red-selected {
-  color: #ff0000;
-  background: #99CC00;
-}
-
-.ode-ContextMenuItem-disabled {
-  color: #999;
-}
-
 .ode-Box-content {
   font-size: 13px;
-  background-color: #f7f9f2;
   /* TODO(opensource): Delete the background-image line below once we're ready */
   background-image: url(../images/watermark.png);
-  color: #555;
-  border-left: 1px solid #d2d2d2;
-  border-bottom: 1px solid #d2d2d2;
-  border-right: 1px solid #d2d2d2;
   margin: 4px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.065);
 }
 
 .ode-Box-header {
-  background: rgba(102, 153, 0, 0.3);
   height: 31px;
   border: 1px solid;
-  border-color: #d2d2d2 #d2d2d2 #b0b2a7 #d2d2d2;
+}
+
+.ode-Box-toolkit {
+  width: 96%;
+  margin: 5px;
+  font-size: 13px;
+  font-weight: bold;
+  padding-left: 9px;
 }
 
 .ode-Box-header-caption,
@@ -208,25 +174,13 @@ div.StatusPanel {
   padding-left: 9px;
 }
 
-.ode-Box-header-caption {
-  color: #555;
-}
-
-.ode-Box-header-caption-highlighted {
-  color: red; /* too strong, but use red for now */
-}
-
-.ode-Box-body {
-}
-
 .ode-Box-body-padding {
   padding: 6px;
 }
 
 .ode-BoxResizeControl {
-  background-color: darkgray !important;
   /* Override glass panel to 90% opacity (= 10% transparency) */
-  filter: alpha(opacity = 90) !important; /* IE */
+  filter: alpha(opacity = 90) !important;
   opacity: 0.9 !important; /* non-IE */
   padding: 10px;
 }
@@ -236,7 +190,6 @@ div.StatusPanel {
  */
 
 .ode-MessagesOutput {
-  background-color: white;
   font-size: small;
 }
 
@@ -245,9 +198,7 @@ div.StatusPanel {
  */
 
 .ode-Motd {
-  background-color: #f7f9f2;
   font-size: small;
-  color: #555;
 }
 
 /*
@@ -262,7 +213,6 @@ div.StatusPanel {
 .ode-ProjectNameLabel {
   font-weight: bold;
   font-size: small;
-  color: #555;
   cursor: pointer;
   vertical-align: top;
   padding-right: 10px;
@@ -272,12 +222,15 @@ div.StatusPanel {
   width: 40%;
 }
 
+/* Custom DFS */
 .ode-ProjectFieldLabel {
   /* font-size: small; */
   color: #555;
+  font-size: small;
   vertical-align: top;
   padding-right: 10px;
   text-align: left;
+  width: 200px;
 }
 
 .ode-ProjectTable {
@@ -300,12 +253,17 @@ div.StatusPanel {
   vertical-align: center;
 }
 
-.ode-ProjectRow-Highlighted {
-  background-color: #fff6c3;
+.ode-ProjectRowUnHighlighted {
+  display: flex;
+  align-items: center;
+  grid-gap: 10px;
+  border-bottom: 0;
+  width: 100%;
+  vertical-align: center;
 }
 
 .ode-ProjectRowHidden {
-  display:none;
+  display:none !important;
 }
 
 .ode-ProjectElementHidden {
@@ -317,8 +275,7 @@ div.StatusPanel {
 }
 
 .ode-ProjectFolderList {
-  padding-left: 28px;
-  background: white;
+  margin-left: 28px;
 }
 
 .ode-ProjectHeaderRow {
@@ -328,7 +285,6 @@ div.StatusPanel {
   grid-gap: 10px;
 
   border: 1px;
-  border-bottom: 1px solid #bbccff;
   position: relative;
   flex-direction: row;
   width: 100%;
@@ -336,8 +292,7 @@ div.StatusPanel {
 
 .ode-ProjectHeaderLabel {
   text-indent: initial;
-  color: #112abb;
-  font-size: 11px;
+  font-size: 11px !important;
   cursor: pointer;
   text-align: left;
   padding-right: 10px;
@@ -356,17 +311,12 @@ div.StatusPanel {
   /* width: 200px; */
 }
 
-.ode-CheckpointProjectTable {
-  border: 1px solid darkgray;
-}
-
 /*
  * ComponentList
  */
 .ode-ComponentNameLabel {
   font-weight: bold;
   font-size: small;
-  color: #555;
 }
 
 .ode-ComponentTable {
@@ -378,30 +328,20 @@ div.StatusPanel {
 .ode-ComponentTable td {
   border-collapse: collapse;
   font-size: small;
-  color: #555;
   text-align: left;
   margin: 0;
 }
 
 .ode-ComponentRowHighlighted {
-  border-bottom: 1px solid #ddd;
-  background-color: #fff6c3;
   border-collapse: collapse;
 }
-
-.ode-ComponentRowUnHighlighted {
-  border-bottom: 1px solid #ddd;
-  background-color: white
-}
-
+  
 .ode-ComponentHeaderRow {
   background: url(../images/toolbarBG.png) repeat;
   border: 1px;
-  border-bottom: 1px solid #bbccff;
 }
 
 .ode-ComponentHeaderLabel {
-  color: #112abb;
   font-size: 11px;
   cursor: pointer;
 }
@@ -418,41 +358,33 @@ div.StatusPanel {
   margin-bottom: 4px;
   padding-right: 4px;
   padding-left: 4px;
+  align-items: center;
   background-color: #f2f2f2;
-  background-image: -moz-linear-gradient(top, #f2f2f2, #f3f3f3);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f2f2f2), to(#f3f3f3));
-  background-image: -webkit-linear-gradient(top, #f2f2f2, #f3f3f3);
-  background-image: -o-linear-gradient(top, #f2f2f2, #f3f3f3);
-  background-image: linear-gradient(to bottom, #f2f2f2, #f3f3f3);
   background-repeat: repeat-x;
-  border: 1px solid #d4d4d4;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='background-color', endColorstr='top-panel-end-color', GradientType=0);
   *zoom: 1;
-  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
-  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+  /* -webkit-box-shadow: 0 1px 4px shadow-color;
+  -moz-box-shadow: 0 1px 4px shadow-color;  */
   position: relative;
   box-sizing: border-box;
 }
 
 .ode-Logo {
   margin: 0 0 4px 4px;
-/*  -webkit-filter: drop-shadow(0px 0px 1px #222);
-  filter:         drop-shadow(0px 0px 1px #222); */
+/*  -webkit-filter: drop-shadow(0px 0px 1px panel-shadow);
+  filter:         drop-shadow(0px 0px 1px panel-shadow); */
 }
 
 /*
 .ode-Logo:hover {
-  -webkit-filter: drop-shadow(0px 0px 3px #222);
-  filter:         drop-shadow(0px 0px 3px #222);
+  -webkit-filter: drop-shadow(0px 0px 3px panel-shadow);
+  filter:         drop-shadow(0px 0px 3px panel-shadow);
 }
 */
 
 .ode-LogoText {
   font-size: 16px;
-  color: grey;
   font-weight: 500;
-  text-shadow: 0 0 0 #404040;
   margin-bottom: 15px;
 }
 
@@ -463,17 +395,8 @@ div.StatusPanel {
 
 .ode-TopPanelAccount {
   font-size: 15px;
-  color: grey;
   padding-right: 8px;
   margin: 1em 0;
-}
-
-.ode-TopPanelAccount a {
-  color: #669900;
-}
-
-.ode-TopPanelAccount .linkdivider {
-  color: #dedede;
 }
 
 .ode-TopPanelLinks {
@@ -484,30 +407,13 @@ div.StatusPanel {
 .ode-TopPanelLinks .gwt-Anchor,
 .ode-TopPanelLinks .gwt-TitleLabel {
   cursor: pointer;
-  color: rgb(100, 100, 100);
   font-weight: 300;
   font-size: 12px;
   margin-right: 16px;
   text-decoration: none;
 }
 
-.ode-TopPanelLinks .gwt-Label:hover,
-.ode-TopPanelLinks .gwt-Anchor:hover,
-.ode-TopPanelLinks .gwt-TitleLabel:hover {
-  text-shadow: 0 0 1px #BABABA;
-}
-
-.ode-TopPanelWarningLabel {
-  color: #FF0000;
-  position: absolute;
-  width: 100%;
-  left: 0;
-  text-align: center;
-  pointer-events: none;
-}
-
 .ode-TopPanelLabel {
-  color: #888;
   font-size: 15px;
 }
 
@@ -517,12 +423,7 @@ div.StatusPanel {
 }
 
 .ode-TopPanelIconButton:hover {
-  -webkit-filter: drop-shadow(0px 0px 3px #222);
-  filter:         drop-shadow(0px 0px 3px #222);
-}
-
-.ode-TopPanelIconButton:active {
-
+  /* -webkit-filter: drop-shadow(0px 0px 3px panel-shadow); */
 }
 
 .ode-TopPanelButton,
@@ -535,28 +436,12 @@ div.StatusPanel {
   margin: -12px 0;
   padding: 0 12px;
   height: 46px;
-  border: transparent;
-  background: transparent;
-  color: grey;
   -o-transition:color .2s ease-out, background .2s ease-in;
   -ms-transition:color .2s ease-out, background .2s ease-in;
   -moz-transition:color .2s ease-out, background .2s ease-in;
   -webkit-transition:color .2s ease-out, background .2s ease-in;
-  /* ...and now override with proper CSS property */
+  /* ...and now override with proper CSS property*/
   transition:color .2s ease-out, background .2s ease-in;
-}
-
-.ode-TopPanelButton:hover,
-.ActionDropDown-Default:hover,
-.ActionDropDown-Options:hover {
-  background: #E6E6E6;
-  color: #5B5B5B;
-}
-
-.ode-TopPanelButton:active,
-.ActionDropDown-Default:active,
-.ActionDropDown-Options:active {
-
 }
 
 .ActionDropDown-Default {
@@ -599,10 +484,11 @@ div.StatusPanel {
   height: 100%;
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }
 
 .ode-ProjectEditor {
-  min-width: fit-content;
+  width: 100%;
   height: 100%;
   top: 0;
   position: absolute;
@@ -634,7 +520,6 @@ div.StatusPanel {
 
 .ode-NavArrow {
   border: transparent;
-  background: #C2C2C2;
   -o-transition:color .2s ease-out, background .2s ease-in;
   -ms-transition:color .2s ease-out, background .2s ease-in;
   -moz-transition:color .2s ease-out, background .2s ease-in;
@@ -642,31 +527,22 @@ div.StatusPanel {
   /* ...and now override with proper CSS property */
   transition:color .2s ease-out, background .2s ease-in;}
 
-.ode-NavArrow:hover {
-  background-color: darkgray;
-}
-
-
-
 /*
  * StatusPanel
  */
 
+ /* Custom DFS */
 .ode-StatusPanel {
   /* font-size: 12px; */
   color: #888;
+  font-size: 12px;
   padding: 4px 12px;
   background: url(../images/toolbarBG.png) repeat;
   border: 1px;
-  border-bottom: 1px solid #bbccff;
   width: 100%;
   box-sizing: border-box;
   text-align: center;
   padding: 0.5em 0;
-}
-
-.ode-StatusPanel a {
-  color: #888;
 }
 
 /*
@@ -676,7 +552,6 @@ div.StatusPanel {
 .ya-NonVisibleComponentsHeader {
   font-size: 13px;
   font-weight: bold;
-  color: #555;
   padding: 5px;
 }
 
@@ -687,7 +562,6 @@ div.StatusPanel {
 
 .ode-SimpleUiDesignerNonVisibleComponents .gwt-Label {
   font-size: 12px;
-  color: #555;
 }
 
 .ode-Icon, .ode-Icon-selected {
@@ -695,6 +569,7 @@ div.StatusPanel {
   padding: 2px 4px 2px 4px;
 }
 
+/* Custom */
 .ode-Icon-selected {
   padding: 0 2px 0 2px;
   border: 2px solid #4156A6;
@@ -708,17 +583,18 @@ div.StatusPanel {
   width: 0;
 }
 
+/* Custom DFS */
 .gwt-TabBar .gwt-TabBarItem {
   margin: 0 5px 0 0;
   padding: 3px 6px 3px 6px;
   cursor: pointer;
-  color: black;
   font-size: 13px;
   text-align: center;
   background-color: #eef2e0;
   border: 2px solid #d9dded;
 }
 
+/* Custom DFS */
 .gwt-TabBar .gwt-TabBarItem-selected {
   cursor: default;
   background-color: #4156A6;
@@ -729,9 +605,6 @@ div.StatusPanel {
   font-size: small;
 }
 
-.gwt-VerticalSplitPanel, .gwt-HorizontalSplitPanel {
-  background: white;
-}
 
 .gwt-TextBox {
   padding: 0;
@@ -742,11 +615,16 @@ div.StatusPanel {
   margin: 0 2px;
 }
 
+.gwt-Tree .gwt-TreeItem span img {
+  height: 20px;
+  width: 20px;
+}
+
 .gwt-Tree .gwt-TreeItem {
   font-size: 12px;
-  color: #555;
   cursor: default;
   display: block !important;
+  height: 30px;
 }
 
 .gwt-Tree .gwt-TreeItem-selected {
@@ -758,6 +636,7 @@ div.StatusPanel {
   cursor: pointer;
 }
 
+/* Custom DFS */
 .gwt-Tree .gwt-TreeItem span:hover,
 .gwt-Tree .gwt-TreeItem-selected span {
   background-color: #d9dded;
@@ -765,21 +644,18 @@ div.StatusPanel {
 
 /* Young Android Toolbar */
 
+/* Custom DFS */
 .ya-Toolbar {
   background-color: #4156A6;
   margin-bottom: 4px;
   padding: 2px;
-}
+} 
 
+/* Custom DFS */
 .ya-Toolbar .ya-ProjectName {
-  color: white;
   font-weight: bold;
   font-size: 18px;
   padding-top: 2px;
-  padding-left: 8px;
-  padding-bottom: 8px;
-  text-shadow: 0px 0px 1px #404040;
-  width: 19em !important;
 }
 
 .ode-TextButton,
@@ -791,40 +667,23 @@ div.StatusPanel {
   *margin-left: .3em;
   font-size: 14px;
   line-height: 20px;
-  color: #333333;
   text-align: center;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
   vertical-align: middle;
   cursor: pointer;
-  background-color: #f5f5f5;
-  *background-color: #e6e6e6;
-  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
   background-repeat: repeat-x;
-  border: 1px solid #cccccc;
   *border: 0;
-  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   border-bottom-color: #b3b3b3;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   *zoom: 1;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  /* -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px shadow-color;
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px shadow-color; */
 }
 
 .ode-TextButton-up-disabled,
 .gwt-Button-up-disabled {
-  color: #333333;
-  background-color: #e6e6e6;
-  *background-color: #d9d9d9;
   cursor: default;
   background-image: none;
   opacity: 0.65;
@@ -836,44 +695,27 @@ div.StatusPanel {
 
 .ode-TextButton:hover,
 .gwt-Button:hover {
-  color: #333333;
-  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  background-color: #e6e6e6;
-  *background-color: #d9d9d9;
   text-decoration: none;
   background-position: 0 -15px;
   -webkit-transition: background-position 0.1s linear;
   -moz-transition: background-position 0.1s linear;
   -o-transition: background-position 0.1s linear;
-  transition: background-position 0.1s linear;
 }
 
 .ode-TextButton:active,
 .gwt-Button:active {
   background-image: none;
   outline: 0;
-  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  /* -webkit-box-shadow: inset 0 2px 4px button-shadow-color, 0 1px 2px shadow-color;
+  -moz-box-shadow: inset 0 2px 4px button-shadow-color, 0 1px 2px shadow-color; */
 }
 
 .destructive-action {
-  background: red;
-  color: white;
   text-shadow: none;
 }
 
 .destructive-action:hover {
-  background: #FF6666;
-  color: white;
   text-shadow: none;
-}
-
-.destructive-action[disabled],
-.destructive-action[disabled]:hover {
-  background: #faa;
-  color: #888;
 }
 
 .ya-Toolbar .ode-TextButton {
@@ -885,44 +727,28 @@ div.StatusPanel {
 }
 
 .ode-BlocksDesignerButton {
-  color: #ffffff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #faa732;
-  *background-color: #f89406;
-  background-image: -moz-linear-gradient(top, #fbb450, #f89406);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
-  background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
-  background-image: -o-linear-gradient(top, #fbb450, #f89406);
-  background-image: linear-gradient(to bottom, #fbb450, #f89406);
+  /* background-image: -moz-linear-gradient(top, #fbb450, blocks-designer-color);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(blocks-designer-color));
+  background-image: -webkit-linear-gradient(top, #fbb450, blocks-designer-color);
+  background-image: -o-linear-gradient(top, #fbb450, blocks-designer-color); */
   background-repeat: repeat-x;
-  border-color: #f89406 #f89406 #ad6704;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 
 .ode-BlocksDesignerButton:hover,
 .ode-BlocksDesignerButon:disabled {
-  color: #ffffff;
-  background-color: #f89406;
-  *background-color: #df8505;
   background-position: 0 -15px;
   -webkit-transition: background-position 0.1s linear;
   -moz-transition: background-position 0.1s linear;
   -o-transition: background-position 0.1s linear;
-  transition: background-position 0.1s linear;
 }
 
 /* Palette */
 
 .gwt-StackPanelItem div {
-  border-top: 1px solid #d2d2d2;
-  border-bottom: 1px solid #d2d2d2;
-  background-color: #eef2e0;
   font-size: 13px;
   cursor: pointer;
   height: 14px;
-  color: #555;
   padding: 8px 16px;
 }
 
@@ -948,7 +774,6 @@ div.StatusPanel {
 
 
 .ode-SimplePaletteItem {
-  background-color: white; /* needed on Firefox */
   height: 15px;
   cursor: pointer;
   padding: 5px;
@@ -961,77 +786,55 @@ div.StatusPanel {
 
 .ode-SimplePaletteItem-caption {
   font-size: 12px;
-  color: #555;
 }
 
 .ode-SimplePaletteItem-button {
   padding: 2px;
 }
 
-.ode-SimplePaletteItem-Selected {
-  background-color: #d2e0a6;
-}
-
-.gwt-SimplePanel {
-  border: 1px solid #67A7E3;
-  background-color: white;
-}
-
 .ode-ExplorerContent {
   height: 100%;
   padding: 0 1ex;
-  border-left: 1px solid #D6E9F8;
-  border-right: 1px solid #D6E9F8;
   font-size: small;
 }
 
-.ode-CollapsiblePanelExpanded {
-  background-color: #D6E9F8;
-}
-
 .ode-CollapsiblePanelCollapsedLeft {
-  background-color: #D6E9F8;
   margin-right: 2px;
 }
 
 .ode-CollapsiblePanelCollapsedBottom {
-  background-color: #D6E9F8;
   margin-top: 2px;
 }
 
 .ode-CollapsiblePanelTitle {
-  background-color: #D6E9F8;
-  color: black;
   font-size: small;
   margin-bottom: 2px;
 }
 
 .ode-HeaderPanel {
   width: 100%;
-  border: 1px solid #D6E9F8;
-  background-color: white;
 }
 
 .ode-HeaderPanelTitleBar {
-  background-color: #D6E9F8;
-  color: black;
   font-size: small;
 }
 
 .ode-PropertiesPanel {
-  background-color: #f7f9f2;
+  padding-left: 9px;
+  padding-right: 9px;
+  padding-bottom: 9px;
 }
 
+
+/* Custom DFS */
 .ode-PropertiesPanel td {
   /* color: #555;
   font-size: 12px; */
+  font-size: 12px;
 }
 
 .ode-PropertiesComponentName {
-  background-color: #eef2e0;
-  color: #555;
   font-size: 13px;
-  border-bottom: 1px solid #d2d2d2;
   padding: 9px 9px 8px 10px;
 }
 
@@ -1051,13 +854,8 @@ div.StatusPanel {
 
 .ode-ChoicePropertyEditor {
   padding: 3px;
-  border: thin solid #CCCCCC;
   border-radius: 3px;
   cursor: pointer;
-  background-color: #FFFFFF;
-
-  box-shadow: #D3D3D3;
-  color: #575757;
   width: auto;
   text-align: center;
   display: inline-block;
@@ -1071,33 +869,20 @@ div.StatusPanel {
   transition:color .2s ease-out, background .2s ease-in;
 }
 
-.ode-ChoicePropertyEditor:hover {
-  background: #E6E6E6;
-  color: #5B5B5B;
-}
-
 .ode-ChoicePropertyEditor:focus {
-  border-color: #D3D3D3;
   outline: 0;
   outline: thin dotted \9;
   /* IE6-9 */
 
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #D3D3D3;
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #D3D3D3;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.07), 0 0 8px #D3D3D3;
-}
-
-select.ode-PropertyEditor[disabled] {
-  background-color: #aaaaaa;
+  /* -webkit-box-shadow: inset 0 1px 1px shadow-color, 0 0 8px border-color;
+  -moz-box-shadow: inset 0 1px 1px shadow-color, 0 0 8px border-color; */
 }
 
 .ode-MultipleChoicePropertyEditor {
   min-width: 150px;
-  background-color: white;
   font-size: small;
-  color: black;
-  border: 1px solid gray;
   padding: 2px;
+  z-index: 1000;
 }
 
 .ode-ColorChoicePropertyEditor {
@@ -1111,9 +896,9 @@ select.ode-PropertyEditor[disabled] {
   outline: thin dotted \9;
   /* IE6-9 */
 
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
+  -webkit-box-shadow: inset 0 1px 1px transparent;
+  -moz-box-shadow: inset 0 1px 1px transparent;
+  box-shadow: inset 0 1px 1px transparent;
 }
 
 .ode-SimpleFormDesigner {
@@ -1124,6 +909,7 @@ select.ode-PropertyEditor[disabled] {
   font-size: 12px;
 }
 
+/* Custom DFS */
 .ode-SimpleMockForm {
   height: auto !important;
   background-color: #d9dded;
@@ -1186,18 +972,18 @@ select.ode-PropertyEditor[disabled] {
 }
 /* ==== end: skins for Android */
 
+/* Custom DFS */
 .ode-SimpleMockForm-selected {
   border: 2px solid #4156A6;
 }
 
 .ode-SimpleMockFormTitleBar {
-  background-color: dimgray;
-  color: white;
   font-size: 90%;
   position: relative;
   border-bottom: 1px solid lightgray;
 }
 
+/* Custom DFS */
 .ode-SimpleMockFormTitleBar-ActionBar {
   background-color: #4156A6;
   color: white;
@@ -1226,17 +1012,11 @@ select.ode-PropertyEditor[disabled] {
   background-color: transparent;
   font-size: 20px;
   font-weight: bold;
-  color: white;
   display: none;
 }
 
 .ode-SimpleMockFormTitleBar-ActionBar .ode-SimpleMockFormMenuButton {
   display: inline-block;
-}
-
-.ode-SimpleMockFormNavigationBarPortrait,
-.ode-SimpleMockFormNavigationBarLandscape {
-  background-color: #000000;
 }
 
 .ode-SimpleMockFormNavigationBarPortrait {
@@ -1255,6 +1035,7 @@ select.ode-PropertyEditor[disabled] {
   background-position: right center;
 }
 
+/* Custom DFS */
 .ode-SimpleMockContainer {
   background-color: transparent;
   border: 2px solid black;
@@ -1270,6 +1051,7 @@ select.ode-PropertyEditor[disabled] {
   border: 2px solid transparent;
 }
 
+/* Custom DFS */
 .ode-SimpleMockComponent-disabled {
   color: gray;
 }
@@ -1283,6 +1065,7 @@ select.ode-PropertyEditor[disabled] {
   stroke-opacity: 1;
 }
 
+/* Custom DFS */
 path.ode-SimpleMockMapFeature-selected {
   stroke: #4156A6;
   stroke-opacity: 1;
@@ -1292,6 +1075,7 @@ path.ode-SimpleMockMapFeature-selected {
   padding: 2px;
 }
 
+/* Custom DFS */
 .ode-SimpleMockMapFeature-selected img {
   padding: 0;
   border: 2px solid #4156A6;
@@ -1337,10 +1121,10 @@ path.ode-SimpleMockMapFeature-selected {
 
 .ode-SimpleMockButton {
   padding: 4px 8px;
-  background-color: #d6d7d7;
-  border-radius: 0px;
-  border-bottom: 2px #b9b9b9 solid;
+  border-radius: 0px;    
+  background-color: #ddd;
   color: rgba(0, 0, 0, 0.87);
+  border-bottom: 2px #b9b9b9 solid;    
 }
 
 /* class for the ListView Mock component */
@@ -1351,7 +1135,6 @@ path.ode-SimpleMockMapFeature-selected {
 }
 
 .listViewItemStyle {
-  border-bottom: 1px solid gray;
   min-height: 40px;
   display: table-cell;
   vertical-align: middle;
@@ -1375,16 +1158,17 @@ path.ode-SimpleMockMapFeature-selected {
 
 /* Component Help */
 
+/* Custom DFS */
 .ode-ComponentHelpPopup {
   background-color: white;
   border-left: 4px solid #4156A6;
   border-right: 4px solid #4156A6;
   border-bottom: 4px solid #4156A6;
   width: 20%;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.065);
   z-index: 1000;
 }
 
+/* Custom DFS */
 .ode-ComponentHelpPopup-TitleBar {
   background-color: #4156A6;
   color: white;
@@ -1395,15 +1179,15 @@ path.ode-SimpleMockMapFeature-selected {
 
 .ode-ComponentHelpPopup-Body {
   padding: 10px;
-  color: #555;
   font-size: 12px;
 }
 
 .ode-ComponentHelpPopup-Link {
   padding: 0 10px 10px 10px;
-  font-size: 12px;
-
+  font-size: 12px;  
 }
+
+/* Custom DFS */
 .ode-ComponentHelpPopup-Link a {
   color: #4156A6;
 }
@@ -1411,10 +1195,6 @@ path.ode-SimpleMockMapFeature-selected {
 .ode-ComponentHelpPopup > .popupContent > table {
   width: 100%;
   word-break: break-word;
-}
-
-.compiler-ErrorMarker {
-  color: red;
 }
 
 .compiler-WarningMarker {
@@ -1425,21 +1205,10 @@ path.ode-SimpleMockMapFeature-selected {
   text-align: center;
 }
 
-.hsplitter, .vsplitter {
-  background-color: #D6E9F8;
-}
-
 .ode-RpcStatusMessage .popupMiddleCenterInner {
   font-weight: bold;
   font-size: small;
   padding: 2px 2px 0 2px;
-}
-
-.ode-RpcStatusMessage .popupMiddleLeft,
-.ode-RpcStatusMessage .popupMiddleCenter,
-.ode-RpcStatusMessage .popupMiddleRight,
-.ode-RpcStatusMessage .popupBottomCenter {
-  background-color: #FFF1A8;
 }
 
 .ode-RpcStatusMessage .popupBottomLeft {
@@ -1455,7 +1224,6 @@ path.ode-SimpleMockMapFeature-selected {
 }
 
 .ode-ErrorMessage {
-  color: #FF4444;
   font-weight: bold;
   font-size: 13px;
   margin: 8px 16px;
@@ -1497,13 +1265,12 @@ path.ode-SimpleMockMapFeature-selected {
 
 /* Start of NoProjectsDialogBox. */
 .ode-noDialogDiv {
-  box-shadow: 0 0 10px gray;
   min-width: 700px;
   width: 60%;
-  background-color: white;
   padding-bottom: 25px;
 }
 
+/* Custom DFS */
 .ode-noDialogDivHeader {
   background-color: #4156A6;
   height: 10%;
@@ -1524,14 +1291,12 @@ path.ode-SimpleMockMapFeature-selected {
 }
 
 .ode-headerTitle {
-  color: #ffffff;
   text-transform: uppercase;
   font-size: 16px;
   text-align: center;
 }
 
 .ode-tutorialsTitle {
-  color: black;
   text-transform: uppercase;
   text-align: center;
   font-size: 14px;
@@ -1539,6 +1304,7 @@ path.ode-SimpleMockMapFeature-selected {
   margin-bottom: 20px;
 }
 
+/* Custom DFS */
 .ode-tutorialButton {
   background-color: white;
   border: 1px #4156a6 solid;
@@ -1607,7 +1373,6 @@ path.ode-SimpleMockMapFeature-selected {
   width: 25%;
   min-width: 182px;
   min-height: 300px;
-  box-shadow: 0 0 2px #808080;
   border-radius: 15px;
   padding: 15px;
   margin: 10px 0;
@@ -1654,20 +1419,86 @@ path.ode-SimpleMockMapFeature-selected {
 
 /* End of NoProjectsDialogBox. */
 
+/* Start Of ProjectPropertiesDialogBox. */
+.ode-propertyDialogContainer  {
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.ode-projectPropertyCategoryTitlePanel {
+  margin-top: 18px;
+  width: 180px;
+  border-radius: 0px;
+  border: 0px;
+  border-right: 2px solid black;
+  padding-right: 20px;
+  outline: none;
+  overflow: auto;
+}
+
+.ode-propertyDialogPropertiesScrollPanel {
+  height: 400px;
+  width: 600px;
+  padding-bottom: 40px;
+  padding-right: 30px;
+}
+
+.ode-propertyDialogPropertyContainer {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+}
+
+.ode-propertyDialogPropertyTitle {
+  font-size: 16px;
+  font-weight: bold;
+  color: #413f3f;
+  margin-top: 18px;
+}
+
+.ode-propertyDialogPropertyDescription {
+  font-size: 14px;
+  font-weight: 400;
+  color: #797575;
+  margin-top: 18px;
+}
+
+.ode-propertyDialogPropertyEditor {
+  min-height: 30px;
+  height: 10%;
+  width: 100%;
+  margin-top: 18px;
+}
+
+.ode-projectPropertyCategoryTitlePanel option { 
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.ode-projectPropertyCategoryTitlePanel:focus  { 
+  outline: none;
+}
+
+.ode-propertyDialogVerticalPanel {
+  display: flex;
+  flex-flow: column;
+}
+
+/* End of Project ProjectPropertiesDialogBox. */
+
+/* Custom DFS */
 .ode-DialogBox {
   background-color: white;
   border-left: 4px solid #4156A6;
   border-right: 4px solid #4156A6;
   border-bottom: 4px solid #4156A6;
   z-index: 1000;
+  min-width: 340px;
   min-height: 40px;
 }
-
-.ode-DialogBox, .ode-DialogBox .dialogContent {
-  min-width: 340px;
-}
-
-.DialogBox-message {}
 
 .ode-DialogBox .gwt-CheckBox {
   font-size: 12px;
@@ -1677,10 +1508,12 @@ path.ode-SimpleMockMapFeature-selected {
   padding-left: 4px;
 }
 
+/* Custom DFS */
 .ode-DialogBox .gwt-Label {
   padding-left: 10px;
   /* font-size: 12px; */
   color: #555;
+  font-size: 12px;
 }
 
 .ode-TreeLabel {
@@ -1688,7 +1521,6 @@ path.ode-SimpleMockMapFeature-selected {
 }
 
 .ode-DialogBox .gwt-Tree {
-  border: thin solid #CCCCCC;
   border-radius: 3px;
   font-size: 12px;
   margin-left: 10px;
@@ -1699,6 +1531,7 @@ path.ode-SimpleMockMapFeature-selected {
   padding-left: 4px;
 }
 
+/* Custom DFS */
 .ode-DialogBox .dialogTop {
   background-color: #4156A6;
 }
@@ -1708,20 +1541,16 @@ path.ode-SimpleMockMapFeature-selected {
   color: white;
   font-weight: bold;
   font-size: 13px;
-  padding: 5px 10px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.065);
-
+  padding: 5px 10px;  
 }
 
 .ode-DialogBox .dialogContent {
   padding: 5px 10px;
-  color: #555;
 }
 
 .ode-DialogBox .dialogContent td {
   padding: 2px 10px;
   font-size: 12px;
-  color: #555;
 }
 
 .ode-DialogBox .gwt-Button {
@@ -1748,17 +1577,12 @@ a.ode-ExtensionAnchor {
   display: inline-block;
   padding-bottom: 8px;
   font-style: italic;
-  color: grey;
   -o-transition:color .2s ease-out;
   -ms-transition:color .2s ease-out;
   -moz-transition:color .2s ease-out;
   -webkit-transition:color .2s ease-out;
   /* ...and now override with proper CSS property */
   transition:color .2s ease-out;
-}
-
-a.ode-ExtensionAnchor:hover {
-  color: #5B5B5B;
 }
 
 /* Settings dialog boxes */
@@ -1780,6 +1604,7 @@ a.ode-ExtensionAnchor:hover {
   text-align: right;
 }
 
+/* Custom DFS */
 .ode-Android-caption {
   background-color: #4156A6;
   color: white;
@@ -1794,27 +1619,23 @@ a.ode-ExtensionAnchor:hover {
   height: 12px;
   font-size: x-small;
   text-align: center;
-  background-color: #D6E9F8;
-  color: black;
   padding: 4px;
 }
 
 .gwt-ProgressBar-shell {
-  border: 2px solid #faf9f7;
-  border-right: 2px solid #848280;
-  border-bottom: 2px solid #848280;
-  background-color: #AAAAAA;
   height: 30pt;
   width: 100%;
 }
+
+/* Custom DFS */
 .gwt-ProgressBar-shell .gwt-ProgressBar-bar {
   background-color: #4156A6;
 }
+
 .gwt-ProgressBar-shell .gwt-ProgressBar-text {
   position: absolute;
   top:0; left:0;
   padding-top: 10px;
-  color: #fff;
   text-align: center;
   width: 100%;
   font-size:large;
@@ -1833,16 +1654,13 @@ a.ode-ExtensionAnchor:hover {
   padding: 5px 0;
   margin: 2px 0 0;
   list-style: none;
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.2);
   *border-right-width: 2px;
   *border-bottom-width: 2px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  /* -webkit-box-shadow: 0 5px 10px button-shadow-color;
+  -moz-box-shadow: 0 5px 10px button-shadow-color; */
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
@@ -1879,16 +1697,10 @@ input[type="color"],
   margin-bottom: 4px;
   font-size: 12px;
   line-height: 20px;
-  color: #555555;
   vertical-align: middle;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-}
-
-input,
-textarea,
-.uneditable-input {
 }
 
 textarea {
@@ -1911,15 +1723,11 @@ input[type="search"],
 input[type="tel"],
 input[type="color"],
 .uneditable-input {
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
-  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
-  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
-  transition: border linear 0.2s, box-shadow linear 0.2s;
+  /* -webkit-box-shadow: inset 0 1px 1px shadow-color;
+  -moz-box-shadow: inset 0 1px 1px shadow-color; */
+  -webkit-transition: border linear 0.2s, shadow-color linear 0.2s;
+  -moz-transition: border linear 0.2s, shadow-color linear 0.2s;
+  -o-transition: border linear 0.2s, shadow-color linear 0.2s;
   font-size: 10px
 }
 
@@ -1944,9 +1752,9 @@ input[type="color"]:focus,
   outline: thin dotted \9;
   /* IE6-9 */
 
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  /* -webkit-box-shadow: inset 0 1px 1px shadow-color, 0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 1px shadow-color, 0 0 8px rgba(82, 168, 236, 0.6); */
+  box-shadow: inset 0 1px 1px shadow-color, 0 0 8px rgba(82, 168, 236, 0.6);
 }
 
 input[type="radio"],
@@ -1978,11 +1786,6 @@ input[type="file"] {
   line-height: 30px;
 }
 
-select {
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
-}
-
 select[multiple],
 select[size] {
   height: auto;
@@ -1992,7 +1795,6 @@ select:focus,
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted #333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 
@@ -2000,13 +1802,11 @@ input[type="checkbox"]:focus {
 
 .uneditable-input,
 .uneditable-textarea {
-  color: #999999;
   cursor: not-allowed;
   background-color: #fcfcfc;
-  border-color: #cccccc;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.025);
-  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.025);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.025);
+  /* border-color: border-color; */
+  /* -webkit-box-shadow: inset 0 1px 2px shadow-color;
+  -moz-box-shadow: inset 0 1px 2px shadow-color; */
 }
 
 .uneditable-input {
@@ -2017,21 +1817,6 @@ input[type="checkbox"]:focus {
 .uneditable-textarea {
   width: auto;
   height: auto;
-}
-
-input:-moz-placeholder,
-textarea:-moz-placeholder {
-  color: #999999;
-}
-
-input:-ms-input-placeholder,
-textarea:-ms-input-placeholder {
-  color: #999999;
-}
-
-input::-webkit-input-placeholder,
-textarea::-webkit-input-placeholder {
-  color: #999999;
 }
 
 .radio,
@@ -2064,6 +1849,7 @@ textarea::-webkit-input-placeholder {
   margin-left: 10px;
 }
 
+/* Custom DFS */
 .ode-PropertiesPanel td img {
   margin-top: 8px;
 }
@@ -2123,6 +1909,8 @@ textarea::-webkit-input-placeholder {
 /* Gallery Toolbar*/
 .ya-GalleryToolbar {
   background-color: #4156A6;
+/* Gallery Toolbar*/
+.ya-GalleryToolbar {
   margin-bottom: 4px;
   clear: both;
 }
@@ -2152,13 +1940,11 @@ textarea::-webkit-input-placeholder {
   float: left;
   position: relative;
   margin: 0 15px 15px 0;
-  background: #fff;
   vertical-align: top;
   text-decoration: none;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  -moz-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  -ms-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  /* -moz-box-shadow: 0 2px 4px container-shadow;
+  -ms-box-shadow: 0 2px 4px container-shadow;
+  -webkit-box-shadow: 0 2px 4px container-shadow; */
 }
 
 .gwt-TabPanelBottom .gallery-page-single { /* profile page under "My stuff" */
@@ -2167,7 +1953,7 @@ textarea::-webkit-input-placeholder {
 .ode-UserProfileWrapper .app-title {
   margin-bottom: 15px;
 }
-/*
+
 .ode-UserProfileWrapper .gallery-card {
   height: 160px;
 }
@@ -2189,7 +1975,7 @@ textarea::-webkit-input-placeholder {
   opacity: 0.1;
   margin-bottom: 30px;
 }
-*/
+
 .ode-UserProfileWrapper .profile-textlabel,
 .ode-UserProfileWrapper .profile-textdisplay {
   font-size: 14px;
@@ -2198,11 +1984,9 @@ textarea::-webkit-input-placeholder {
 }
 .ode-UserProfileWrapper .profile-textdisplay {
   width: 50%;
-  color: #555;
 }
 .ode-UserProfileWrapper .profile-textlabel {
   width: 150px;
-  color: #999;
 }
 .ode-UserProfileWrapper .profile-textbox {
   display: inline-block;
@@ -2227,7 +2011,6 @@ textarea::-webkit-input-placeholder {
 }
 .profile-textlabel-emaildescription {
   width: 385px;
-  color: #999;
   margin-bottom: 6px;
 }
 
@@ -2257,12 +2040,11 @@ textarea::-webkit-input-placeholder {
 .gallery-app-details .gwt-TabBar .gwt-TabBarItem-selected {
   padding: 5px 5px 5px 0;
 }
+/* left here */
 .gallery .gwt-TabBar .gwt-TabBarItem {
-  color: #999;
   font-weight: 100;
 }
 .gallery .gwt-TabBar .gwt-TabBarItem-selected {
-  color: #333;
   font-weight: 300;
 }
 .gallery .gwt-TabPanelBottom { /* GWT wrapper for the selected tab content */
@@ -2296,21 +2078,10 @@ textarea::-webkit-input-placeholder {
 .gallery-report-next .gwt-Label{
   width:100px;
 }
-.gallery-nav-prev .active,
-.gallery-nav-next .active,
-.gallery-report-next .active {
-  color: #777;
-}
-.gallery-nav-prev .disabled,
-.gallery-nav-next .disabled,
-.gallery-report-next .disabled {
-  color: #ddd;
-}
 .gallery-nav-prev .active:hover,
 .gallery-nav-next .active:hover,
 .gallery-report-next .active:hover {
   cursor: pointer;
-  background-color: #FFF;
 }
 .gallery-nav-prev .disabled:hover,
 .gallery-nav-next .disabled:hover,
@@ -2322,14 +2093,8 @@ textarea::-webkit-input-placeholder {
   padding: 30px 0 0;
   float: right;
 }
-.gallery-nav-return .gwt-Label {
-  color: #b3c833;
-}
 .gallery-nav-return:hover {
   cursor: pointer;
-}
-.gallery-app-collection {
-
 }
 .gallery-card {
   width: 160px;
@@ -2340,11 +2105,9 @@ textarea::-webkit-input-placeholder {
   position: relative;
   text-decoration: none;
   vertical-align: top;
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  -moz-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  -ms-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  /* -moz-box-shadow: 0 2px 4px container-shadow;
+  -ms-box-shadow: 0 2px 4px container-shadow;
+  -webkit-box-shadow: 0 2px 4px container-shadow; */
 }
 .gallery-app-collection .gallery-card:hover,
 .gallery-app-showcase .gallery-card:hover {
@@ -2379,7 +2142,8 @@ textarea::-webkit-input-placeholder {
   padding: 15px 15px 15px 0;
 }
 .gallery-card-content .gallery-title {
-  color: #333;
+  /* ? */
+  color: panel-shadow; 
   display: block;
   font-size: 14px;
   font-weight: 900;
@@ -2402,18 +2166,17 @@ textarea::-webkit-input-placeholder {
   bottom: 0;
   right: 0;
   position: absolute;
-  background-image: -webkit-gradient(linear,left top,right top,color-stop(0%,rgba(255,255,255,0)),color-stop(100%,rgba(255,255,255,1)));
-  background-image: -webkit-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1));
-  background-image: -moz-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1));
-  background-image: -ms-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1));
-  background-image: -o-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1));
-  background: linear-gradient(to right,rgba(255,255,255,0),rgba(255,255,255,1));
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1,StartColorStr='#00ffffff',EndColorStr='#ffffff');
+  /* background-image: -webkit-gradient(linear,left top,right top,color-stop(0%,transparent),color-stop(100%,background-color));
+  background-image: -webkit-linear-gradient(left,transparent,background-color);
+  background-image: -moz-linear-gradient(left,transparent,background-color);
+  background-image: -ms-linear-gradient(left,transparent,background-color);
+  background-image: -o-linear-gradient(left,transparent,background-color); */
+  background: linear-gradient(to right,transparent,background-color);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1,StartColorStr='#00ffffff',EndColorStr='background-color');
 }
 .gallery-card-content .gallery-subtitle {
   font-size: 12px;
   line-height: 15px;
-  color: #999;
   display: block;
   font-weight: 900;
   margin-bottom: 0;
@@ -2432,7 +2195,6 @@ textarea::-webkit-input-placeholder {
   text-decoration: none;
   display: inline;
   padding: 10px 10px 0 0;
-  color: #999;
 }
 .gallery-card-content .gwt-Image,
 .app-stats .gwt-Image { /* Mini meta images */
@@ -2457,11 +2219,9 @@ textarea::-webkit-input-placeholder {
 }
 .gallery-search-textarea {
   display: block;
-  color: #333;
   line-height: 36px;
   width: 200px;
   text-shadow: none;
-  background-color: #fff;
   background-position: 0 0;
   background-image: none;
   -webkit-box-shadow: none;
@@ -2482,15 +2242,12 @@ textarea::-webkit-input-placeholder {
   float: left;
 }
 .gallery-editbox {
-  border: 1px dashed #ccc!important;
-  background-color: #fff!important;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
 }
 .gallery-editprompt {
   text-align: center;
-  color: #333;
   font-weight: normal;
   font-size: 16px;
   padding: 40px 20px;
@@ -2574,12 +2331,10 @@ textarea::-webkit-input-placeholder {
 .gallery-app-details .app-action-button,
 .gallery-app-details .app-comments-submit,
 .ode-UserProfileWrapper .profile-submit {
-  color: #fff;
   line-height: 36px;
   text-shadow: none;
   border-radius: 0;
   text-transform: uppercase;
-  background-color: #b3c833;
   background-position: 0 0;
   background-image: none;
   -webkit-box-shadow: none;
@@ -2603,7 +2358,7 @@ textarea::-webkit-input-placeholder {
 }
 .app-title-container .app-desc-textarea,
 .app-meta .app-desc-textarea {
-/*  height: 20px; */
+ /* height: 20px; */
 }
 .gallery-app-details .app-comments-textarea,
 .app-desc-textarea {
@@ -2624,22 +2379,16 @@ textarea::-webkit-input-placeholder {
 }
 .app-otherinfo-textdisplay {
   width: 50%;
-  color: #555;
   vertical-align:top;
 }
 .app-otherinfo-textlink {
-  color: #b3c833;
-  border-bottom: 1px dotted #b3c833;
   font-weight: 300; font-size: 14px;
 }
 .app-otherinfo-textlink:hover {
-  background-color: #b3c833;
-  color: white;
   cursor: pointer;
 }
 .app-otherinfo-textlabel {
   width: 110px;
-  color: #999;
 }
 .app-otherinfo-textbox {
   width: 100%;
@@ -2681,19 +2430,11 @@ textarea::-webkit-input-placeholder {
   margin: 0;
   display: inline;
 }
-.gallery-app-details .app-username {
-  color: #b3c833;
-  border-bottom: 1px dotted #b3c833;
-}
 .gallery-app-details .app-username:hover {
-  background-color: #b3c833;
-  color: white;
   cursor: pointer;
 }
 .gallery-app-details .app-attributor-username {
   margin-right: 5px;
-  color: #b3c833;
-  border-bottom: 1px dotted #b3c833;
   display: inline;
 }
 .gallery-app-details .app-attributor-label {
@@ -2706,7 +2447,6 @@ textarea::-webkit-input-placeholder {
   text-decoration: none;
   display: inline;
   padding: 10px 0 0 15px;
-  color: #999;
 }
 .app-stats .gwt-Image { /* Mini meta images */
   display: inline;
@@ -2727,7 +2467,6 @@ textarea::-webkit-input-placeholder {
   line-height: 175%;
   font-weight: 300;
   margin: 0 15px 0 0;
-  color: #999;
   width: 50%;
   display: inline-block;
   vertical-align: top;
@@ -2736,7 +2475,6 @@ textarea::-webkit-input-placeholder {
   line-height: 175%;
   font-weight: 300;
   margin: 0 15px 0 0;
-  color: #999;
   width: auto;
   display: inline-block;
   vertical-align: top;
@@ -2753,17 +2491,14 @@ textarea::-webkit-input-placeholder {
 .gallery-app-details .app-tags .gwt-Label {
   display: inline-block;
   background-color: #EEE;
-  color: #999;
+  color: label-color;
   padding: 2px 10px;
   margin: 5px 8px 5px 0;
 }
 .gallery-app-details .app-tags .gwt-Label:hover {
-  background-color: #999;
-  color: #FFF;
   -webkit-transition: background-color 1s ease;
   -moz-transition: background-color 1s ease;
   -o-transition: background-color 1s ease;
-  transition: background-color 1s ease;
 }
 .app-stats .note-header {
   display: block;
@@ -2814,7 +2549,6 @@ textarea::-webkit-input-placeholder {
 .comment-meta .comment-date {
   display: inline-block;
   margin-left: 5px;
-  color: #999;
 }
 .comment-item .comment-text {
   font-size: 14px;
@@ -2830,7 +2564,6 @@ textarea::-webkit-input-placeholder {
 }
 .gallery-page-single .gwt-TabBar .gwt-TabBarItem-selected,
 .gallery-app-single .gwt-TabBar .gwt-TabBarItem-selected {
-  color: #b3c833;
   font-weight: 300;
 }
 .gallery-nav-return .gwt-Label,
@@ -2847,14 +2580,10 @@ textarea::-webkit-input-placeholder {
   font-size: 12px;
 }
 .primary-link-small {
-  color: #b3c833;
-  border-bottom: 1px dotted #b3c833;
   font-weight: 300; font-size: 11.5px; line-height: 1.75;
 }
 .primary-link,
 .moderator-link {
-  color: #b3c833;
-  border-bottom: 1px dotted #b3c833;
   font-weight: 300; font-size: 14px; line-height: 1.75;
 }
 .moderator-link {
@@ -2865,8 +2594,6 @@ textarea::-webkit-input-placeholder {
 .primary-link:hover,
 .primary-link-small:hover,
 .moderator-link:hover {
-  background-color: #b3c833;
-  color: white;
   cursor: pointer;
   width: auto;
 }
@@ -2892,12 +2619,6 @@ textarea::-webkit-input-placeholder {
 .all-reports {
   float: right;
 }
-.ode-ModerationTable {
-
-}
-.ode-ModerationTable .primary-link {
-  color: black;
-}
 .inline-label{
   display:inline;
   margin-right:5px;
@@ -2910,7 +2631,6 @@ textarea::-webkit-input-placeholder {
 }
 .seemore-link {
   color: #333399;
-  border-bottom: 1px dotted #b3c833;
   font-weight: 300; font-size: 14px; line-height: 1.75;
   display:inline;
   margin-right:5px;
@@ -2925,7 +2645,6 @@ textarea::-webkit-input-placeholder {
 
 /* General gallery helper styles */
 .message-popup {
-  background-color: #fff;
   border: 1px solid lightgrey;
   padding: 20px;
 }
@@ -2956,7 +2675,6 @@ textarea::-webkit-input-placeholder {
 .ac-renderer {
   font: normal 13px Arial, sans-serif;
   position: absolute;
-  background: #fff;
   border: 1px solid #666;
   -moz-box-shadow: 2px 2px 2px rgba(102, 102, 102, .4);
   -webkit-box-shadow: 2px 2px 2px rgba(102, 102, 102, .4);
@@ -3043,7 +2761,6 @@ div.dropdiv p {
 
 .ya-Toolbar .center {
   text-align: center;
-  min-width: fit-content;
 }
 
 .ya-Toolbar>div>div {
@@ -3072,7 +2789,6 @@ div.dropdiv p {
 
 .download-barcode:before {
     content: "";
-    background-color: #888;
     position: absolute;
     width: 1px;
     height: 160px;
@@ -3085,6 +2801,7 @@ div.dropdiv p {
   background: rgba(200, 200, 200, 0.1);
 }
 
+/* Custom DFS */
 .collaboration-user-box{
   width: 25px;
   height: 25px;
@@ -3098,5 +2815,13 @@ div.dropdiv p {
 }
 
 .joined-user-panel {
-  display: inline-flex;
+/* for now */
+}
+.ode-ProjectListButton{
+
+}
+
+.components-tree-filter {
+  margin-top: 1px;
+  margin-left: 1px;
 }

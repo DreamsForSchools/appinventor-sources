@@ -16,8 +16,10 @@ import com.google.appinventor.client.editor.EditorManager;
 import com.google.appinventor.client.editor.FileEditor;
 import com.google.appinventor.client.editor.ProjectEditor;
 import com.google.appinventor.client.editor.simple.palette.DropTargetProvider;
+import com.google.appinventor.client.editor.simple.palette.SimpleComponentDescriptor;
 import com.google.appinventor.client.editor.youngandroid.BlocklyPanel;
 import com.google.appinventor.client.editor.youngandroid.DesignToolbar;
+import com.google.appinventor.client.editor.youngandroid.HiddenComponentsCheckbox;
 import com.google.appinventor.client.editor.youngandroid.TutorialPanel;
 import com.google.appinventor.client.editor.youngandroid.YaFormEditor;
 import com.google.appinventor.client.editor.youngandroid.YaProjectEditor;
@@ -34,6 +36,8 @@ import com.google.appinventor.client.explorer.project.ProjectManagerEventAdapter
 import com.google.appinventor.client.explorer.youngandroid.ProjectToolbar;
 import com.google.appinventor.client.settings.Settings;
 import com.google.appinventor.client.settings.user.UserSettings;
+import com.google.appinventor.client.style.GSoC.ImagesGSoC;
+import com.google.appinventor.client.style.GSoC.UIFactoryGSoC;
 import com.google.appinventor.client.tracking.Tracking;
 import com.google.appinventor.client.utils.HTML5DragDrop;
 import com.google.appinventor.client.utils.PZAwarePositionCallback;
@@ -69,13 +73,16 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.JsArrayString;
+import com.google.gwt.core.client.RunAsyncCallback;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.http.client.Response;
+import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -108,6 +115,8 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.Resources;
+
 /**
  * Main entry point for Ode. Defines the startup UI elements in
  * {@link #onModuleLoad()}.
@@ -119,13 +128,12 @@ public class Ode implements EntryPoint {
 
   private static final Logger LOG = Logger.getLogger(Ode.class.getName());
 
-  interface OdeUiBinder extends UiBinder<FlowPanel, Ode> {}
-
   // Global instance of the Ode object
   private static Ode instance;
 
   // Application level image bundle
-  private static final Images IMAGES = GWT.create(Images.class);
+  private static Images IMAGES = GWT.create(Images.class);
+  public static Boolean UserPreferenceStyle = false;
 
   // ProjectEditor registry
   private static final ProjectEditorRegistry EDITORS = new ProjectEditorRegistry();
@@ -203,25 +211,29 @@ public class Ode implements EntryPoint {
    *  |+-------------------------------------------+|
    *  +---------------------------------------------+
    */
-  @UiField(provided = true) DeckPanel deckPanel;
-  @UiField(provided = true) FlowPanel overDeckPanel;
-  @UiField TutorialPanel tutorialPanel;
+  @UiField(provided = true) protected DeckPanel deckPanel;
+  @UiField(provided = true) protected FlowPanel overDeckPanel;
+  @UiField protected TutorialPanel tutorialPanel;
   private int projectsTabIndex;
   private int designTabIndex;
   private int debuggingTabIndex;
   private int userAdminTabIndex;
-  @UiField TopPanel topPanel;
-  @UiField StatusPanel statusPanel;
-  @UiField FlowPanel workColumns;
-  @UiField FlowPanel structureAndAssets;
-  @UiField ProjectToolbar projectToolbar;
-  @UiField (provided = true) ProjectListBox projectListbox;
-  @UiField DesignToolbar designToolbar;
-  @UiField (provided = true) PaletteBox paletteBox = PaletteBox.getPaletteBox();
-  @UiField (provided = true) ViewerBox viewerBox = ViewerBox.getViewerBox();
-  @UiField (provided = true) AssetListBox assetListBox = AssetListBox.getAssetListBox();
-  @UiField (provided = true) SourceStructureBox sourceStructureBox = SourceStructureBox.getSourceStructureBox();
-  @UiField (provided = true) PropertiesBox propertiesBox = PropertiesBox.getPropertiesBox();
+  @UiField protected TopPanel topPanel;
+  @UiField protected StatusPanel statusPanel;
+  @UiField protected FlowPanel workColumns;
+  @UiField protected FlowPanel structureAndAssets;
+  @UiField protected ProjectToolbar projectToolbar;
+  @UiField (provided = true) protected ProjectListBox projectListbox;
+  @UiField protected DesignToolbar designToolbar;
+  @UiField protected PaletteBox paletteBox = PaletteBox.getPaletteBox();
+  @UiField (provided = true) protected ViewerBox viewerBox = ViewerBox.getViewerBox();
+  @UiField (provided = true) protected AssetListBox assetListBox = AssetListBox.getAssetListBox();
+  @UiField (provided = true) protected SourceStructureBox sourceStructureBox =
+      SourceStructureBox.getSourceStructureBox();
+  @UiField (provided = true) protected PropertiesBox propertiesBox = PropertiesBox.getPropertiesBox();
+
+  // mode
+  @UiField(provided=true) static Resources.Style style;
 
   // Is the tutorial toolbar currently displayed?
   private boolean tutorialVisible = false;
@@ -253,6 +265,7 @@ public class Ode implements EntryPoint {
   // Licensing related variables
   private String licenseCode;
   private String systemId;
+  private static UIStyleFactory uiFactory = null;
 
   /**
    * Flag set if we may need to show the splash screen based on
@@ -305,7 +318,7 @@ public class Ode implements EntryPoint {
     return instance.getCurrentYoungAndroidProjectId();
   }
 
-  public static ProjectEditor getCurretProjectEditor() {
+  public static ProjectEditor getCurrentProjectEditor() {
     return instance.editorManager.getOpenProjectEditor(getCurrentProjectID());
   }
 
@@ -385,6 +398,11 @@ public class Ode implements EntryPoint {
     return overDeckPanel;
   }
 
+  public static UIStyleFactory getUiFactory() {
+    return uiFactory;
+  }
+
+
   /**
    * Switch to the Projects tab
    */
@@ -448,12 +466,14 @@ public class Ode implements EntryPoint {
     paletteBox.setVisible(false);
     sourceStructureBox.setVisible(false);
     propertiesBox.setVisible(false);
+    HiddenComponentsCheckbox.setVisibility(false);
   }
 
   public void showComponentDesigner() {
     paletteBox.setVisible(true);
     sourceStructureBox.setVisible(true);
     propertiesBox.setVisible(true);
+    HiddenComponentsCheckbox.setVisibility(true);
   }
 
   /**
@@ -609,7 +629,7 @@ public class Ode implements EntryPoint {
         History.newItem(projectIdString, false);
       }
       assetManager.loadAssets(project.getProjectId());
-      Ode.getInstance().getCollaborationManager().joinProject(projectIdString);
+      assetListBox.getAssetList().refreshAssetList(project.getProjectId());
     }
     getTopToolbar().updateFileMenuButtons(1);
   }
@@ -803,11 +823,18 @@ public class Ode implements EntryPoint {
                         }
                       }
                     };
-                Ode.getInstance().getProjectService().retrieveTemplateData(TemplateUploadWizard.TEMPLATES_ROOT_DIRECTORY, templateCallback);
+                projectService.retrieveTemplateData(TemplateUploadWizard.TEMPLATES_ROOT_DIRECTORY,
+                    templateCallback);
               }
             });
             editorManager = new EditorManager();
-            projectListbox = ProjectListBox.getProjectListBox();
+
+            final Runnable after = new Runnable() {
+              @Override
+              public void run() {
+                projectManager.loadProjects();
+              }
+            };
 
             // Connect to collaboration server
             if(AppInventorFeatures.enableGroupProject()){
@@ -816,8 +843,39 @@ public class Ode implements EntryPoint {
             }
 
             // Initialize UI
-            initializeUi();
-            topPanel.showUserEmail(user.getUserEmail());
+            UserPreferenceStyle = Ode.getUserNewLayout();
+            if (UserPreferenceStyle) {
+              GWT.runAsync(new RunAsyncCallback() {
+                @Override
+                public void onFailure(Throwable reason) {
+                  Window.alert("Failed to load modern UI");
+                }
+
+                @Override
+                public void onSuccess() {
+                  IMAGES = GWT.create(ImagesGSoC.class);
+                  SimpleComponentDescriptor.resetImageBundle();
+                  uiFactory = new UIFactoryGSoC();
+                  CLog("Using modern UI");
+                  initializeUi(after);
+                }
+              });
+            } else {
+              GWT.runAsync(new RunAsyncCallback() {
+                @Override
+                public void onFailure(Throwable reason) {
+                  Window.alert("Failed to load classic UI");
+                }
+
+                @Override
+                public void onSuccess() {
+                  SimpleComponentDescriptor.resetImageBundle();
+                  uiFactory = new UIStyleFactory();
+                  CLog("Using classic UI");
+                  initializeUi(after);
+                }
+              });
+            }
 
           }
         });
@@ -905,7 +963,8 @@ public class Ode implements EntryPoint {
   /*
    * Initializes all UI elements.
    */
-  private void initializeUi() {
+  private void initializeUi(Runnable after) {
+    LOG.info("Entering initializeUi");
     rpcStatusPopup = new RpcStatusPopup();
 
     // Register services with RPC status popup
@@ -920,6 +979,8 @@ public class Ode implements EntryPoint {
     if (config.getServerExpired()) {
       RootPanel.get().add(new ExpiredServiceOverlay());
     }
+    LOG.info("Declare DeckPanel");
+
     // Create tab panel for subsequent tabs
     deckPanel = new DeckPanel() {
       @Override
@@ -933,8 +994,30 @@ public class Ode implements EntryPoint {
     };
     deckPanel.sinkEvents(Event.ONCONTEXTMENU);
 
-    OdeUiBinder uiBinder = GWT.create(OdeUiBinder.class);
-    FlowPanel mainPanel = uiBinder.createAndBindUi(this);
+    // TODO: Tidy up user preference variable
+    projectListbox = ProjectListBox.getProjectListBox();
+    // OdeUiBinder uiBinder = GWT.create(OdeUiBinder.class);
+    String layout;
+    if (Ode.getUserNewLayout()){
+      layout = "modern";
+      if (Ode.getUserDarkThemeEnabled()){
+        style = Resources.INSTANCE.stylemodernDark();
+      } else{
+        style = Resources.INSTANCE.stylemodernLight();
+      }
+    }
+    else{
+      layout = "classic";
+      if (Ode.getUserDarkThemeEnabled()){
+        style = Resources.INSTANCE.styleclassicDark();
+      } else{
+        style = Resources.INSTANCE.styleclassicLight();
+      }
+    }
+
+    // style = Ode.getUserDarkThemeEnabled() ? Resources.INSTANCE.styleDark() : Resources.INSTANCE.styleLight();
+    style.ensureInjected();
+    FlowPanel mainPanel = uiFactory.createOde(this, layout);
 
     deckPanel.showWidget(0);
     if ((mayNeedSplash || shouldShowWelcomeDialog()) && !didShowSplash) {
@@ -989,6 +1072,8 @@ public class Ode implements EntryPoint {
 
     setupMotd();
     HTML5DragDrop.init();
+    topPanel.showUserEmail(user.getUserEmail());
+    after.run();
   }
 
   private void setupMotd() {
@@ -1308,6 +1393,80 @@ public class Ode implements EntryPoint {
   }
 
   /**
+   * Returns the dark theme setting.
+   *
+   * @return true if the user has opted to use a dark theme, false otherwise
+   */
+  public static boolean getUserDarkThemeEnabled() {
+    String value = userSettings.getSettings(SettingsConstants.USER_GENERAL_SETTINGS).
+            getPropertyValue(SettingsConstants.DARK_THEME_ENABLED);
+    if (value == null){
+      return false;
+    }
+    return Boolean.parseBoolean(value);
+    // return false;
+  }
+
+  /**
+   * Set user dark theme setting.
+   *
+   * @param enabled new value for the user's UI preference
+   */
+  public static void setUserDarkThemeEnabled(boolean enabled) {
+    userSettings.getSettings(SettingsConstants.USER_GENERAL_SETTINGS).
+            changePropertyValue(SettingsConstants.DARK_THEME_ENABLED,
+                    "" + enabled);
+    // userSettings.saveSettings(new Command() {
+    //     @Override
+    //     public void execute() {
+    //       // Reload for the UI preferences to take effect. We
+    //       // do this here because we need to make sure that
+    //       // the user settings were saved before we terminate
+    //       // this browsing session. This is particularly important
+    //       // for Firefox
+    //       Window.Location.reload();
+    //     }
+    //   });
+  }
+
+  /**
+   * Returns user new layout usage setting.
+   *
+   * @return true if the user has opted to use the new UI, false otherwise
+   */
+  public static boolean getUserNewLayout() {
+    String value = userSettings.getSettings(SettingsConstants.USER_GENERAL_SETTINGS).
+            getPropertyValue(SettingsConstants.USER_NEW_LAYOUT);
+    return Boolean.parseBoolean(value);
+    // return true;
+  }
+
+  /**
+   * Set user new layout usage setting.
+   *
+   * @param newLayout new value for the user's UI preference
+   */
+  public static void setUserNewLayout(boolean newLayout) {
+    userSettings.getSettings(SettingsConstants.USER_GENERAL_SETTINGS).
+            changePropertyValue(SettingsConstants.USER_NEW_LAYOUT,
+                    "" + newLayout);
+  }
+
+  public static void saveUserDesignSettings(){
+    userSettings.saveSettings(new Command() {
+      @Override
+      public void execute() {
+        // Reload for the UI preferences to take effect. We
+        // do this here because we need to make sure that
+        // the user settings were saved before we terminate
+        // this browsing session. This is particularly important
+        // for Firefox
+        Window.Location.reload();
+      }
+    });
+  }
+
+  /**
    * Checks whether the user has autoloading enabled in their settings.
    *
    * @return true if autoloading is enabled, otherwise false.
@@ -1317,12 +1476,6 @@ public class Ode implements EntryPoint {
         .getPropertyValue(SettingsConstants.USER_AUTOLOAD_PROJECT);
     return Boolean.parseBoolean(value);
   }
-
-  /**
-   * Sets whether to use autoloading for the current user.
-   *
-   * @param enable true if autoloading should be enabled or false if it should be disabled.
-   */
 
   /**
    * Helper method to create push buttons.
@@ -2307,21 +2460,8 @@ public class Ode implements EntryPoint {
   }
 
   public void setTutorialURL(String newURL) {
-    if (newURL.isEmpty()) {
-      designToolbar.setTutorialToggleVisible(false);
-      setTutorialVisible(false);
-      return;
-    }
-
-    boolean isUrlAllowed = false;
-    for (String candidate : config.getTutorialsUrlAllowed()) {
-      if (newURL.startsWith(candidate)) {
-        isUrlAllowed = true;
-        break;
-      }
-    }
-
-    if (!isUrlAllowed) {
+    if (newURL.isEmpty() || (!newURL.startsWith("http://appinventor.mit.edu/")
+        && !newURL.startsWith("http://appinv.us/"))) {
       designToolbar.setTutorialToggleVisible(false);
       setTutorialVisible(false);
     } else {
@@ -2450,74 +2590,49 @@ public class Ode implements EntryPoint {
     console.log(message);
   }-*/;
 
+  public static native boolean isMobile() /*-{
+    var check = false;
+    (function (a) {
+        if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
+    })($wnd.navigator.userAgent || $wnd.navigator.vendor || $wnd.opera);
+    return check;
+  }-*/;
+
   private static native void doCloseProxy() /*-{
     if (top.proxy) {
       top.proxy.close();
     }
   }-*/;
 
-  public static void addSharedProject(String projectId){
-    final String userId = Ode.getInstance().getUser().getUserId();
-    Ode.getInstance().getProjectService().makeUserProject(userId, Long.parseLong(projectId),
-            new OdeAsyncCallback<UserProject>() {
-              @Override
-              public void onSuccess(UserProject userProject) {
-                Ode.getInstance().getProjectManager().addProject(userProject);
-              }
-            });
-  }
+  public interface Resources extends ClientBundle {
 
-  public static String getCurrentChannel() {
-    if (Ode.getInstance().getDesignToolbar().getCurrentProject() == null) {
-      return "";
+    public static final Resources INSTANCE =  GWT.create(Resources.class);
+    
+    @Source({
+      "com/google/appinventor/client/light.css",
+      "com/google/appinventor/client/variableColors.css"
+    })
+    Style styleclassicLight();
+
+    @Source({
+      "com/google/appinventor/client/dark.css",
+      "com/google/appinventor/client/variableColors.css"
+    })
+    Style styleclassicDark();
+
+    @Source({
+      "com/google/appinventor/client/style/GSoC/lightModern.css",
+      "com/google/appinventor/client/style/GSoC/modern.css"
+    })
+    Style stylemodernLight();
+
+    @Source({
+      "com/google/appinventor/client/style/GSoC/darkModern.css",
+      "com/google/appinventor/client/style/GSoC/modern.css"
+    })
+    Style stylemodernDark();
+
+    public interface Style extends CssResource {
     }
-    return Ode.getInstance().getDesignToolbar().getCurrentProject().projectId + "_" + Ode.getInstance().getDesignToolbar().getCurrentProject().currentScreen;
   }
-
-  public static void enableBroadcast() {
-    Ode.getInstance().getCollaborationManager().enableBroadcast();
-  }
-
-  public static void disableBroadcast() {
-    Ode.getInstance().getCollaborationManager().disableBroadcast();
-  }
-
-  public static String getCurrentUserId() {
-    return Ode.getInstance().getUser().getUserId();
-  }
-
-  public static String getCurrentUserEmail() {
-    return Ode.getInstance().getUser().getUserEmail();
-  }
-
-  public static JsArrayString getChannelsByProject(String projectId){
-    YaProjectEditor projectEditor = (YaProjectEditor)(Ode.getInstance().getEditorManager()
-            .getOpenProjectEditor(Long.parseLong(projectId)));
-    JsArrayString result = JsArrayString.createArray().cast();
-    for (String formName : projectEditor.getFormNames()) {
-      result.push(projectId + "_" + formName);
-    }
-    return result;
-  }
-
-  public static native void exportMethodToJavascript()/*-{
-    $wnd.Ode_addSharedProject =
-        $entry(@com.google.appinventor.client.Ode::addSharedProject(Ljava/lang/String;));
-    $wnd.Ode_getCurrentChannel =
-        $entry(@com.google.appinventor.client.Ode::getCurrentChannel());
-    $wnd.Ode_enableBroadcast =
-        $entry(@com.google.appinventor.client.Ode::enableBroadcast());
-    $wnd.Ode_disableBroadcast =
-        $entry(@com.google.appinventor.client.Ode::disableBroadcast());
-    $wnd.Ode_getCurrentUserId =
-        $entry(@com.google.appinventor.client.Ode::getCurrentUserId());
-    $wnd.Ode_getCurrentUserEmail =
-      $entry(@com.google.appinventor.client.Ode::getCurrentUserEmail());
-    $wnd.Ode_getChannelsByProject =
-      $entry(@com.google.appinventor.client.Ode::getChannelsByProject(Ljava/lang/String;));
-    $wnd.AIFeature_enableComponentLocking =
-        $entry(@com.google.appinventor.common.version.AppInventorFeatures::enableComponentLocking());
-
-  }-*/;
-
 }

@@ -47,6 +47,9 @@
       <ai:DropDownItem name="Checkpoint" caption="{messages.checkpointMenuItem}" visible="{hasWriteAccess}">
         <actions:CheckpointAction />
       </ai:DropDownItem>
+      <ai:DropDownItem name="ProjectProperties" caption="{messages.projectPropertiesMenuItem}" visible="{hasWriteAccess}">
+        <yaactions:ProjectPropertiesAction />
+      </ai:DropDownItem>
       <hr />
       <ai:DropDownItem name="ExportProject" caption="{messages.exportProjectMenuItem}">
         <actions:ExportProjectAction />
@@ -124,6 +127,9 @@
     <ai:DropDownButton name="Settings" caption="{messages.settingsTabName}"
                        styleName="ode-TopPanelButton" ui:field="settingsDropDown"
                        visible="{hasWriteAccess}">
+      <ai:DropDownItem name="UISettings" caption="{messages.uiSettings}">
+        <actions:UISettingsAction />
+      </ai:DropDownItem>
       <ai:DropDownItem name="AutoloadLastProject" caption="{messages.disableAutoload}">
         <actions:DisableAutoloadAction />
       </ai:DropDownItem>
