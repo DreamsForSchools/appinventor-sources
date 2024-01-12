@@ -268,7 +268,7 @@ public class SourceStructureExplorer extends Composite {
     updateTree(items, itemToSelect);
     if (AppInventorFeatures.enableComponentLocking()) {
       Ode.getInstance().getCollaborationManager().updateSourceTree(
-              Ode.getCurrentChannel(), Ode.getCurrentUserEmail());
+              Ode.getCurrentChannel(), Ode.getCurrentScreen(), Ode.getCurrentUserEmail());
     }
   }
 

@@ -179,7 +179,7 @@ public abstract class MockComponent extends Composite implements PropertyChangeL
 //        getForm().fireComponentRenamed(MockComponent.this, oldName);
 
         getForm().fireComponentEvent(ChangeProperty.create(
-                Ode.getCurrentChannel(), getUuid(), PROPERTY_NAME_NAME, newName
+                Ode.getCurrentChannel(), Ode.getCurrentScreen(), getUuid(), PROPERTY_NAME_NAME, newName
         ));
       } else {
         newNameTextBox.setFocus(true);
@@ -1171,7 +1171,7 @@ public abstract class MockComponent extends Composite implements PropertyChangeL
     // Pass true to indicate that the component is being permanently deleted.
 //    getContainer().removeComponent(this, true);
     // tell the component its been removed, so it can remove children's blocks
-    if (getForm().fireComponentEvent(DeleteComponent.create(Ode.getCurrentChannel(), this.getUuid()))) {
+    if (getForm().fireComponentEvent(DeleteComponent.create(Ode.getCurrentChannel(), Ode.getCurrentScreen(), this.getUuid()))) {
       onRemoved();
       properties.removePropertyChangeListener(this);
       properties.clear();

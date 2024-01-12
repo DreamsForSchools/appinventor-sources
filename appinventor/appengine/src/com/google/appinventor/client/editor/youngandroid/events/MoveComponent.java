@@ -20,12 +20,12 @@ public class MoveComponent extends JavaScriptObject {
     return clazz.jsType.prototype.type;
   }-*/;
 
-  public static native MoveComponent create(String editorId, String uuid, String parentId, int index)/*-{
+  public static native MoveComponent create(String projectId, String screenName, String uuid, String parentId, int index)/*-{
     var component = {
       id: uuid,
       parentId: parentId,
       index: index};
-    return new AI.Events.MoveComponent(editorId, component);
+    return new AI.Events.MoveComponent(projectId, screenName, component);
   }-*/;
 
   public final native boolean recordUndo()/*-{

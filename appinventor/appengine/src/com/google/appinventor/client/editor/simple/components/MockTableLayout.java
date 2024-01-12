@@ -433,12 +433,12 @@ final class MockTableLayout extends MockLayout {
 //      source.changeProperty(MockVisibleComponent.PROPERTY_NAME_ROW, "" + destCell.row);
 //      container.addComponent(source);
       if(container.getForm().fireComponentEvent(ChangeProperty.create(
-              Ode.getCurrentChannel(), source.getUuid(), MockVisibleComponent.PROPERTY_NAME_COLUMN, "" + destCell.col))){
+              Ode.getCurrentChannel(), Ode.getCurrentScreen(), source.getUuid(), MockVisibleComponent.PROPERTY_NAME_COLUMN, "" + destCell.col))){
         container.getForm().fireComponentEvent(ChangeProperty.create(
-                Ode.getCurrentChannel(), source.getUuid(), MockVisibleComponent.PROPERTY_NAME_ROW, "" + destCell.row
+                Ode.getCurrentChannel(), Ode.getCurrentScreen(), source.getUuid(), MockVisibleComponent.PROPERTY_NAME_ROW, "" + destCell.row
         ));
         container.getForm().fireComponentEvent(MoveComponent.create(
-                Ode.getCurrentChannel(), source.getUuid(), container.getUuid(), -1
+                Ode.getCurrentChannel(), Ode.getCurrentScreen(), source.getUuid(), container.getUuid(), -1
         ));
         return true;
       }

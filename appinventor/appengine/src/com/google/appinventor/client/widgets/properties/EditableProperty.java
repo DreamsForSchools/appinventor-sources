@@ -214,7 +214,7 @@ public final class EditableProperty extends Property {
     if(!value.equals(getValue())){
       if(properties.getComponent()!=null){
         return properties.getComponent().getForm().fireComponentEvent(ChangeProperty.create(
-                Ode.getCurrentChannel(), properties.getComponent().getUuid(), getName(), value
+                Ode.getCurrentChannel(), Ode.getCurrentScreen(), properties.getComponent().getUuid(), getName(), value
         ));
       }
     }
@@ -225,7 +225,7 @@ public final class EditableProperty extends Property {
     if(!value.equals(getValue()) || force){
       if(properties.getComponent()!=null){
         return properties.getComponent().getForm().fireComponentEvent(ChangeProperty.create(
-                Ode.getCurrentChannel(), properties.getComponent().getUuid(), getName(), value
+                Ode.getCurrentChannel(), Ode.getCurrentScreen(), properties.getComponent().getUuid(), getName(), value
         ));
       }
     }

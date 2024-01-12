@@ -148,13 +148,13 @@ final class MockCanvasLayout extends MockLayout {
 //    }
 //    container.addComponent(source);
     if(container.getForm().fireComponentEvent(MoveComponent.create(
-            Ode.getCurrentChannel(), source.getUuid(), container.getUuid(), -1))){
+            Ode.getCurrentChannel(), Ode.getCurrentScreen(), source.getUuid(), container.getUuid(), -1))){
       // Set position of component
       container.getForm().fireComponentEvent(ChangeProperty.create(
-              Ode.getCurrentChannel(), source.getUuid(),PROPERTY_NAME_X, toIntegerString(x - offsetX)
+              Ode.getCurrentChannel(), Ode.getCurrentScreen(), source.getUuid(),PROPERTY_NAME_X, toIntegerString(x - offsetX)
       ));
       container.getForm().fireComponentEvent(ChangeProperty.create(
-              Ode.getCurrentChannel(), source.getUuid(),PROPERTY_NAME_Y, toIntegerString(y - offsetY)
+              Ode.getCurrentChannel(), Ode.getCurrentScreen(), source.getUuid(),PROPERTY_NAME_Y, toIntegerString(y - offsetY)
       ));
       ((MockCanvas) container).reorderComponents(sprite);
       return true;

@@ -16,11 +16,11 @@ public class UnlockComponent extends JavaScriptObject {
     return clazz.jsType.prototype.type;
   }-*/;
 
-  public static native UnlockComponent create(String editorId, String uuid, String userEmail)/*-{
+  public static native UnlockComponent create(String projectId, String screenName, String uuid, String userEmail)/*-{
     var component = {
       id: uuid,
       userEmail: userEmail};
-    return new AI.Events.UnlockComponent(editorId, component);
+    return new AI.Events.UnlockComponent(projectId, screenName, component);
   }-*/;
 
   public final native boolean recordUndo()/*-{

@@ -17,12 +17,12 @@ public class ChangeProperty extends JavaScriptObject {
     return clazz.jsType.prototype.type;
   }-*/;
 
-    public static native ChangeProperty create(String editorId, String uuid, String propertyName, String value)/*-{
+    public static native ChangeProperty create(String projectId, String screenName, String uuid, String propertyName, String value)/*-{
     var component = {
       id: uuid,
       property: propertyName,
       value: value};
-    return new AI.Events.ComponentProperty(editorId, component);
+    return new AI.Events.ComponentProperty(projectId, screenName, component);
   }-*/;
 
     public final native boolean recordUndo()/*-{

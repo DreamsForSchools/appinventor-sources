@@ -16,12 +16,12 @@ public class SelectComponent extends JavaScriptObject {
     return clazz.jsType.prototype.type;
   }-*/;
 
-  public static native SelectComponent create(String editorId, String uuid, String userEmail, boolean selected)/*-{
+  public static native SelectComponent create(String projectId, String screenName, String uuid, String userEmail, boolean selected)/*-{
     var component = {
       id: uuid,
       userEmail: userEmail,
       selected: selected};
-    return new AI.Events.SelectComponent(editorId, component);
+    return new AI.Events.SelectComponent(projectId, screenName, component);
   }-*/;
 
   public final native boolean recordUndo()/*-{

@@ -16,11 +16,11 @@ public class LockComponent extends JavaScriptObject {
     return clazz.jsType.prototype.type;
   }-*/;
 
-  public static native LockComponent create(String editorId, String uuid, String userEmail)/*-{
+  public static native LockComponent create(String projectId, String screenName, String uuid, String userEmail)/*-{
     var component = {
       id: uuid,
       userEmail: userEmail};
-    return new AI.Events.LockComponent(editorId, component);
+    return new AI.Events.LockComponent(projectId, screenName, component);
   }-*/;
 
   public final native boolean recordUndo()/*-{

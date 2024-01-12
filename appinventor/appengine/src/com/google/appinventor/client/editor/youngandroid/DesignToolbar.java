@@ -236,12 +236,14 @@ public class DesignToolbar extends Toolbar {
     // Need to set up collaboration components for each screen before loading blockly editor.
     // Otherwise, Blockly.ai_inject will try to access window.parent.lockedBlocksByChannel[channelId] which has not been
     // initialized by componentSocketEvent(channelId) yet
-    String currentChannel = Ode.getInstance().getCurrentChannel();
-    LOG.info("DOSWITCHSCREENHERE: " + currentChannel + "...." + Ode.getInstance().getCollaborationManager().getScreenChannel());
-    if(!currentChannel.equals(Ode.getInstance().getCollaborationManager().getScreenChannel())){
-      Ode.getInstance().getCollaborationManager().setScreenChannel(currentChannel);
-      Ode.getInstance().getCollaborationManager().componentSocketEvent(currentChannel);
-    }
+
+    // No longer need to subscribe to screen specific channels. Just subscribe to project level channel
+//    String currentChannel = Ode.getInstance().getCurrentChannel();
+//    LOG.info("DOSWITCHSCREENHERE: " + currentChannel + "...." + Ode.getInstance().getCollaborationManager().getScreenChannel());
+//    if(!currentChannel.equals(Ode.getInstance().getCollaborationManager().getScreenChannel())){
+//      Ode.getInstance().getCollaborationManager().setScreenChannel(currentChannel);
+//      Ode.getInstance().getCollaborationManager().componentSocketEvent(currentChannel);
+//    }
 
     LOG.info("Setting currentScreen to " + newScreenName);
     if (currentView == View.FORM) {
@@ -389,6 +391,15 @@ public class DesignToolbar extends Toolbar {
       removeDropDownButtonItem(WIDGET_NAME_SCREENS_DROPDOWN, name);
     }
     project.removeScreen(name);
+  }
+
+  // Get the DesignEditor i.e. the project representations.
+  // In one use case, we'll get the project's screens and thus the screen names.
+  public DesignProject getDesignEditor(long projectId) {
+    if (projectMap.containsKey(projectId)) {
+      return projectMap.get(projectId);
+    }
+    return null;
   }
 
   public void toggleEditor(boolean blocks) {

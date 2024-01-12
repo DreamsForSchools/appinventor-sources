@@ -14,6 +14,7 @@ goog.require("Blockly.Workspace");
 Blockly.Collaboration = function(workspace){
     this.workspace = workspace;
     var channel = window.parent.Ode_getCurrentChannel();
+    var screen = window.parent.Ode_getCurrentScreen();
 
     this.workspace.addChangeListener(function(event){
         if(event.type==AI.Events.SCREEN_SWITCH){
@@ -31,6 +32,7 @@ Blockly.Collaboration = function(workspace){
         }
         var msg = {
             "channel": channel,
+            "screen": screen,
             "user": window.parent.userEmail,
             "source": "Block",
             "event" : event.toJson()

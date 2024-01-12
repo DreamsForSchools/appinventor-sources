@@ -15,10 +15,10 @@ public class DeleteComponent extends JavaScriptObject {
     return clazz.jsType.prototype.type;
   }-*/;
 
-  public static native DeleteComponent create(String editorId, String uuid)/*-{
+  public static native DeleteComponent create(String projectId, String screenName, String uuid)/*-{
     var component = {
       id: uuid};
-    return new AI.Events.DeleteComponent(editorId, component);
+    return new AI.Events.DeleteComponent(projectId, screenName, component);
   }-*/;
 
   public final native boolean recordUndo()/*-{

@@ -788,6 +788,8 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
   private void onFormStructureChange() {
     Ode.getInstance().getEditorManager().scheduleAutoSave(this);
 
+    YaFormEditor currentEditor = (YaFormEditor) Ode.getInstance().getCurrentFileEditor();
+
     // Update source structure panel
     sourceStructureExplorer.updateTree(form.buildComponentsTree(),
         form.getLastSelectedComponent().getSourceStructureExplorerItem());
@@ -1284,21 +1286,45 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
    * @param formName The form name as a projectId '_' screenName, e.g. '1234_Screen1'
    * @return
    */
-  public static IDesigner getDesignerForForm(String formName) {
+  public static IDesigner getDesignerForForm(String formName, String screenName) {
     YaFormEditor editor = null;
-    String[] parts = formName.split("_");
-    long projectId = Long.parseLong(parts[0]);
-    ProjectEditor projectEditor = Ode.getInstance().getEditorManager().getOpenProjectEditor(projectId);
-    for (FileEditor e : projectEditor.getOpenFileEditors()) {
-      if (e instanceof YaFormEditor && e.isActiveEditor()) {
-        editor = (YaFormEditor) e;
-        break;
-      }
+    long projectId = Long.parseLong(formName);
+
+    // get the current YaFormEditor aka phone screen editor based on the screen name.
+    DesignToolbar designToolbar = Ode.getInstance().getDesignToolbar();
+    DesignToolbar.Screen screen = designToolbar.getDesignEditor(projectId).screens.get(screenName);
+
+    if (screen != null) {
+      editor = (YaFormEditor) designToolbar.getDesignEditor(projectId).screens.get(screenName).formEditor;
     }
+
+//
+//    for (FileEditor e : projectEditor.getOpenFileEditors()) {
+//      if (e instanceof YaFormEditor && e.isActiveEditor()) {
+//        editor = (YaFormEditor) e;
+//        break;
+//      }
+//    }
+
+//    for (FileEditor e : projectEditor.getOpenFileEditors()) {
+//      if (e instanceof YaFormEditor && e.isActiveEditor()) {
+//        editor = (YaFormEditor) e;
+//        break;
+//      }
+//    }
 //    LOG.info("getdesignerforform editor: " + editor);
     if (editor != null) {
       return DesignerAdapter.make(formName, editor);
     } else {
+//      ProjectEditor projectEditor = Ode.getInstance().getEditorManager().getOpenProjectEditor(projectId);
+//
+//      for (FileEditor e : projectEditor.getOpenFileEditors()) {
+//        if (e instanceof YaFormEditor && e.isActiveEditor()) {
+//          editor = (YaFormEditor) e;
+//          break;
+//        }
+//      }
+      // if blah blha
       return null;
     }
   }
@@ -1309,6 +1335,6 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
 
   private static native void exportJavascript()/*-{
     top.getDesignerForForm =
-      $entry(@com.google.appinventor.client.editor.youngandroid.YaFormEditor::getDesignerForForm(Ljava/lang/String;));
+      $entry(@com.google.appinventor.client.editor.youngandroid.YaFormEditor::getDesignerForForm(Ljava/lang/String;Ljava/lang/String;));
   }-*/;
 }

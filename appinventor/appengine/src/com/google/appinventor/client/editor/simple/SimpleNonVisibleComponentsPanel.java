@@ -127,7 +127,7 @@ public final class SimpleNonVisibleComponentsPanel extends Composite implements 
 
     // Add component to the form
     if(form.fireComponentEvent(CreateComponent.create(
-            Ode.getCurrentChannel(), component.getUuid(), component.getType()))){
+            Ode.getCurrentChannel(), Ode.getCurrentScreen(), component.getUuid(), component.getType()))){
       MockComponent sourceComponent = form.getComponentByUuid(component.getUuid());
       sourceComponent.select((NativeEvent) null);
     }

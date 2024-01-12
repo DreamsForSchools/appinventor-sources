@@ -16,11 +16,11 @@ public class CreateComponent extends JavaScriptObject {
     return clazz.jsType.prototype.type;
   }-*/;
 
-  public static native CreateComponent create(String editorId, String uuid, String componentType)/*-{
+  public static native CreateComponent create(String projectId, String screenName, String uuid, String componentType)/*-{
     var component = {
       id: uuid,
       type: componentType};
-    return new AI.Events.CreateComponent(editorId, component);
+    return new AI.Events.CreateComponent(projectId, screenName, component);
   }-*/;
 
   public final native boolean recordUndo()/*-{

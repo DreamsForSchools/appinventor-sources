@@ -676,7 +676,7 @@ public abstract class MockHVLayoutBase extends MockLayout {
         }
       }
 
-      if(container.getForm().fireComponentEvent(MoveComponent.create(Ode.getInstance().getCurrentChannel(),
+      if(container.getForm().fireComponentEvent(MoveComponent.create(Ode.getCurrentChannel(), Ode.getCurrentScreen(),
               source.getUuid(), dstContainer.getUuid(), dstPos))){
         return true;
       }

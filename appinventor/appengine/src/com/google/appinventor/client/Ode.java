@@ -2472,8 +2472,19 @@ public class Ode implements EntryPoint {
     if (Ode.getInstance().getDesignToolbar().getCurrentProject() == null) {
       return "";
     }
-    return Ode.getInstance().getDesignToolbar().getCurrentProject().projectId + "_" + Ode.getInstance().getDesignToolbar().getCurrentProject().currentScreen;
+    // Refactoring the code to use projectId as the overall event channel, instead of using individual screen names.
+    return Ode.getInstance().getDesignToolbar().getCurrentProject().projectId + "";
+//    return Ode.getInstance().getDesignToolbar().getCurrentProject().projectId + "_" + Ode.getInstance().getDesignToolbar().getCurrentProject().currentScreen;
   }
+
+  public static String getCurrentScreen() {
+    if (Ode.getInstance().getDesignToolbar().getCurrentProject() == null) {
+      return "";
+    }
+    // Refactoring the code to use projectId as the overall event channel, instead of using individual screen names.
+    return Ode.getInstance().getDesignToolbar().getCurrentProject().currentScreen;
+  }
+
 
   public static void enableBroadcast() {
     Ode.getInstance().getCollaborationManager().enableBroadcast();
@@ -2506,6 +2517,8 @@ public class Ode implements EntryPoint {
         $entry(@com.google.appinventor.client.Ode::addSharedProject(Ljava/lang/String;));
     $wnd.Ode_getCurrentChannel =
         $entry(@com.google.appinventor.client.Ode::getCurrentChannel());
+    $wnd.Ode_getCurrentScreen =
+        $entry(@com.google.appinventor.client.Ode::getCurrentScreen());
     $wnd.Ode_enableBroadcast =
         $entry(@com.google.appinventor.client.Ode::enableBroadcast());
     $wnd.Ode_disableBroadcast =
