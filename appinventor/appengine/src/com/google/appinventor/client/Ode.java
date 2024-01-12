@@ -407,6 +407,7 @@ public class Ode implements EntryPoint {
           projectToolbar.enableStartButton();
           projectToolbar.setProjectTabButtonsVisible(true);
           projectToolbar.setTrashTabButtonsVisible(false);
+          Ode.getInstance().getCollaborationManager().leaveProject();
         }
       };
     if (designToolbar.getCurrentView() != DesignToolbar.View.BLOCKS) {
