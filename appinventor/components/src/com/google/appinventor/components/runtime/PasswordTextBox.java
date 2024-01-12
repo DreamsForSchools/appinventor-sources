@@ -36,13 +36,14 @@ import android.widget.EditText;
  * {@code Button} after entering text.
  */
 @DesignerComponent(version = YaVersion.PASSWORDTEXTBOX_COMPONENT_VERSION,
-    description = "<p>A box for entering passwords.  This is the same as " +
+    description = "A box for entering passwords.  This is the same as " +
     "the ordinary <code>TextBox</code> component except this does not " +
-    "display the characters typed by the user.</p><p>The value of the text " +
+    "display the characters typed by the user.</br></br>" +
+    "The value of the text " +
     "in the box can be found or set through the <code>Text</code> property. " +
     "If blank, the <code>Hint</code> property, which appears as faint text " +
-    "in the box, can provide the user with guidance as to what to type.</p> " +
-    "<p>Text boxes are usually used with the <code>Button</code> " +
+    "in the box, can provide the user with guidance as to what to type.</br></br> " +
+    "Text boxes are usually used with the <code>Button</code> " +
     "component, with the user clicking on the button when text entry is " +
     "complete.</p>",
     category = ComponentCategory.USERINTERFACE,

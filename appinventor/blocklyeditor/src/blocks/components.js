@@ -4,7 +4,7 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 /**
  * @license
- * @fileoverview Component blocks for Blockly, modified for MIT App Inventor.
+ * @fileoverview Component blocks for Blockly, modified for DFS - AppMaker.
  * @author mckinney@mit.edu (Andrew F. McKinney)
  * @author sharon@google.com (Sharon Perl)
  * @author ewpatton@mit.edu (Evan W. Patton)

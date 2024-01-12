@@ -307,7 +307,7 @@ public class WebRTCNativeMgr {
         Log.d(LOG_TAG, "Poller: rendezvousServer2 = " + rendezvousServer2);
       }
       HttpClient client = new DefaultHttpClient();
-      HttpGet request = new HttpGet("http://" + rendezvousServer2 + "/rendezvous2/" + rCode + "-s");
+      HttpGet request = new HttpGet("https://" + rendezvousServer2 + "/rendezvous2/" + rCode + "-s");
       HttpResponse response = client.execute(request);
       StringBuilder sb = new StringBuilder();
 
@@ -446,7 +446,7 @@ public class WebRTCNativeMgr {
               data.put("apiversion", SdkLevel.getLevel());
             }
             HttpClient client = new DefaultHttpClient();
-            HttpPost post = new HttpPost("http://" + rendezvousServer2 + "/rendezvous2/");
+            HttpPost post = new HttpPost("https://" + rendezvousServer2 + "/rendezvous2/");
             try {
               if (DEBUG) {
                 Log.d(LOG_TAG, "About to send = " + data.toString());

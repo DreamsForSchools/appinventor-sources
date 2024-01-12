@@ -25,6 +25,7 @@ import android.hardware.Sensor;
         "Most Android devices do not have this sensor.",
     category = ComponentCategory.SENSORS,
     nonVisible = true,
+    showOnPalette = false,
     iconName = "images/hygrometer.png")
 @SimpleObject
 public class Hygrometer extends SingleValueSensor {

@@ -217,12 +217,15 @@ if specific to layout then add to modern.css here */
   vertical-align: top;
   padding-right: 10px;
   text-align: left;
-  flex-grow: 1;
+  /* flex-grow: 1; */
   min-width: 100px;
+  width: 40%;
 }
 
+/* Custom DFS */
 .ode-ProjectFieldLabel {
-  font-size: small;
+  /* font-size: small; */
+  color: #555;
   vertical-align: top;
   padding-right: 10px;
   text-align: left;
@@ -293,17 +296,18 @@ if specific to layout then add to modern.css here */
   text-align: left;
   padding-right: 10px;
   display: inline-flex;
-
   align-items: center;
 }
 
 .ode-ProjectListName {
   min-width: 100px;
-  flex-grow: 1;
+  width: 40%;
+  /* flex-grow: 1; */
 }
 
 .ode-ProjectListDate {
-  width: 200px;
+  width: 15%;
+  /* width: 200px; */
 }
 
 /*
@@ -348,8 +352,8 @@ if specific to layout then add to modern.css here */
 
 .ode-TopPanel {
   display: flex;
-  min-height: 48px;
-  height: 48px;
+  /* min-height: 48px;
+  height: 48px; */
   margin-bottom: 4px;
   padding-right: 4px;
   padding-left: 4px;
@@ -385,11 +389,13 @@ if specific to layout then add to modern.css here */
 
 .ode-TopToolbar {
   flex-grow: 1;
+  margin: 1em 0;
 }
 
 .ode-TopPanelAccount {
   font-size: 15px;
   padding-right: 8px;
+  margin: 1em 0;
 }
 
 .ode-TopPanelLinks {
@@ -524,14 +530,17 @@ if specific to layout then add to modern.css here */
  * StatusPanel
  */
 
+ /* Custom DFS */
 .ode-StatusPanel {
-  font-size: 12px;
+  /* font-size: 12px; */
+  color: #888;
   padding: 4px 12px;
   background: url(../images/toolbarBG.png) repeat;
   border: 1px;
   width: 100%;
   box-sizing: border-box;
   text-align: center;
+  padding: 0.5em 0;
 }
 
 /*
@@ -558,8 +567,10 @@ if specific to layout then add to modern.css here */
   padding: 2px 4px 2px 4px;
 }
 
+/* Custom DFS */
 .ode-Icon-selected {
   padding: 0 2px 0 2px;
+  border: 2px solid #4156A6;
 }
 
 .gwt-TabBar {
@@ -570,16 +581,22 @@ if specific to layout then add to modern.css here */
   width: 0;
 }
 
+/* Custom DFS */
 .gwt-TabBar .gwt-TabBarItem {
   margin: 0 5px 0 0;
   padding: 3px 6px 3px 6px;
   cursor: pointer;
   font-size: 13px;
   text-align: center;
+  background-color: #eef2e0;
+  border: 2px solid #d9dded;
 }
 
+/* Custom DFS */
 .gwt-TabBar .gwt-TabBarItem-selected {
   cursor: default;
+  background-color: #4156A6;
+  border: 2px solid #4156A6;
 }
 
 .gwt-RadioButton {
@@ -618,17 +635,31 @@ if specific to layout then add to modern.css here */
 }
 
 /* Young Android Toolbar */
+/* Custom DFS */
 
  .ya-Toolbar {
+.gwt-Tree .gwt-TreeItem span:hover,
+.gwt-Tree .gwt-TreeItem-selected span {
+  background-color: #d9dded;
+}
+
+/* Young Android Toolbar */
+
+.ya-Toolbar {
+  background-color: #4156A6;
   margin-bottom: 4px;
   padding: 2px;
 } 
 
+/* Custom DFS */
 .ya-Toolbar .ya-ProjectName {
   font-weight: bold;
   font-size: 18px;
   padding-top: 2px;
   padding-left: 8px;
+  padding-bottom: 8px;
+  text-shadow: 0px 0px 1px #404040;
+  width: 19em !important;
 }
 
 .ode-TextButton,
@@ -798,8 +829,10 @@ if specific to layout then add to modern.css here */
   padding-bottom: 9px;
 }
 
+/* Custom DFS */
 .ode-PropertiesPanel td {
-  font-size: 12px;
+  /* color: #555;
+  font-size: 12px; */
 }
 
 .ode-PropertiesComponentName {
@@ -878,8 +911,11 @@ if specific to layout then add to modern.css here */
   font-size: 12px;
 }
 
+/* Custom DFS */
 .ode-SimpleMockForm {
   height: auto !important;
+  background-color: #d9dded;
+  border: 2px solid black;
   -webkit-display: flex;
   display: flex;
 }
@@ -938,13 +974,21 @@ if specific to layout then add to modern.css here */
 }
 /* ==== end: skins for Android */
 
+/* Custom DFS */
+.ode-SimpleMockForm-selected {
+  border: 2px solid #4156A6;
+}
+
 .ode-SimpleMockFormTitleBar {
   font-size: 90%;
   position: relative;
   border-bottom: 1px solid lightgray;
 }
 
+/* Custom DFS */
 .ode-SimpleMockFormTitleBar-ActionBar {
+  background-color: #4156A6;
+  color: white;
   font-size: 20px;
   position: relative;
 }
@@ -993,8 +1037,14 @@ if specific to layout then add to modern.css here */
   background-position: right center;
 }
 
+/* Custom DFS */
 .ode-SimpleMockContainer {
   background-color: transparent;
+  border: 2px solid black;
+}
+
+.ode-SimpleMockContainer-selected {
+  border: 2px solid #4156A6;
 }
 
 .ode-SimpleMockComponent {
@@ -1003,11 +1053,23 @@ if specific to layout then add to modern.css here */
   border: 2px solid transparent;
 }
 
+/* Custom DFS */
+.ode-SimpleMockComponent-disabled {
+  color: gray;
+}
+
+.ode-SimpleMockComponent-selected {
+  border: 2px solid #4156A6;
+}
+
 .ode-SimpleMockMapFeature-selected svg * {
+  stroke: #4156A6;
   stroke-opacity: 1;
 }
 
+/* Custom DFS */
 path.ode-SimpleMockMapFeature-selected {
+  stroke: #4156A6;
   stroke-opacity: 1;
 }
 
@@ -1015,8 +1077,18 @@ path.ode-SimpleMockMapFeature-selected {
   padding: 2px;
 }
 
+/* Custom DFS */
 .ode-SimpleMockMapFeature-selected img {
   padding: 0;
+  border: 2px solid #4156A6;
+}
+
+.ode-SimpleMockContainer .leaflet-container .leaflet-toolbar-icon {
+  color: #888;
+}
+
+.ode-SimpleMockContainer .leaflet-container .leaflet-toolbar-icon:hover {
+  color: #0078A8;
 }
 
 .ode-SimpleMockContainer .leaflet-container .leaflet-toolbar-icon.locked .fa-unlock,
@@ -1088,12 +1160,20 @@ path.ode-SimpleMockMapFeature-selected {
 
 /* Component Help */
 
+/* Custom DFS */
 .ode-ComponentHelpPopup {
+  background-color: white;
+  border-left: 4px solid #4156A6;
+  border-right: 4px solid #4156A6;
+  border-bottom: 4px solid #4156A6;
   width: 20%;
   z-index: 1000;
 }
 
+/* Custom DFS */
 .ode-ComponentHelpPopup-TitleBar {
+  background-color: #4156A6;
+  color: white;
   font-weight: bold;
   font-size: 13px;
   padding: 5px 10px;
@@ -1109,6 +1189,10 @@ path.ode-SimpleMockMapFeature-selected {
   font-size: 12px;  
 }
 
+/* Custom DFS */
+.ode-ComponentHelpPopup-Link a {
+  color: #4156A6;
+}
 
 .ode-ComponentHelpPopup > .popupContent > table {
   width: 100%;
@@ -1188,7 +1272,9 @@ path.ode-SimpleMockMapFeature-selected {
   padding-bottom: 25px;
 }
 
+/* Custom DFS */
 .ode-noDialogDivHeader {
+  background-color: #4156A6;
   height: 10%;
   padding: 10px;
   border-bottom: 1px #e9e9e9 solid;
@@ -1218,6 +1304,61 @@ path.ode-SimpleMockMapFeature-selected {
   font-size: 14px;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+/* Custom DFS */
+.ode-tutorialButton {
+  background-color: white;
+  border: 1px #4156a6 solid;
+  padding: 5px 8px;
+  border-radius: 5px;
+  color: #4156a6;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.ode-tutorialButton:hover {
+  background-color: #4156A6;
+  color: white;
+  cursor: pointer;
+}
+
+.ode-closeDialogBox {
+  background-color: white;
+  border: 1px #837d7d solid;
+  width: 25%;
+  padding: 5px 8px;
+  border-radius: 5px;
+  color: #837d7d;
+  text-transform: uppercase;
+  font-size: 12px;
+  text-align: center;
+  margin: 0 10px;
+}
+
+.ode-closeDialogBox:hover {
+  background-color: rgba(131, 125, 125, 0.1);
+  cursor: pointer;
+}
+
+.ode-noDialogNewProject {
+  text-transform: uppercase;
+  font-size: 12px;
+  text-decoration: none;
+  text-align: center;
+  padding: 5px 8px;
+  width: 25%;
+  background-color: white;
+  border: 1px #4156a6 solid;
+  border-radius: 5px;
+  color: #4156a6;
+  margin: 0 10px;
+}
+
+.ode-noDialogNewProject:hover {
+  background-color: #4156A6;
+  color: white;
+  cursor: pointer;
 }
 
 .ode-noDialogExampleDivs {
@@ -1350,7 +1491,12 @@ path.ode-SimpleMockMapFeature-selected {
 
 /* End of Project ProjectPropertiesDialogBox. */
 
+/* Custom DFS */
 .ode-DialogBox {
+  background-color: white;
+  border-left: 4px solid #4156A6;
+  border-right: 4px solid #4156A6;
+  border-bottom: 4px solid #4156A6;
   z-index: 1000;
   min-width: 340px;
   min-height: 40px;
@@ -1364,9 +1510,11 @@ path.ode-SimpleMockMapFeature-selected {
   padding-left: 4px;
 }
 
+/* Custom DFS */
 .ode-DialogBox .gwt-Label {
   padding-left: 10px;
-  font-size: 12px;
+  /* font-size: 12px; */
+  color: #555;
 }
 
 .ode-TreeLabel {
@@ -1384,7 +1532,14 @@ path.ode-SimpleMockMapFeature-selected {
   padding-left: 4px;
 }
 
+/* Custom DFS */
+.ode-DialogBox .dialogTop {
+  background-color: #4156A6;
+}
+
 .ode-DialogBox .Caption {
+  background-color: #4156A6;
+  color: white;
   font-weight: bold;
   font-size: 13px;
   padding: 5px 10px;  
@@ -1450,7 +1605,10 @@ a.ode-ExtensionAnchor {
   text-align: right;
 }
 
+/* Custom DFS */
 .ode-Android-caption {
+  background-color: #4156A6;
+  color: white;
   font-size: medium;
 }
 
@@ -1470,6 +1628,10 @@ a.ode-ExtensionAnchor {
   width: 100%;
 }
 
+/* Custom DFS */
+.gwt-ProgressBar-shell .gwt-ProgressBar-bar {
+  background-color: #4156A6;
+}
 .gwt-ProgressBar-shell .gwt-ProgressBar-text {
   position: absolute;
   top:0; left:0;
@@ -1687,8 +1849,66 @@ input[type="checkbox"]:focus {
   margin-left: 10px;
 }
 
+/* Custom DFS */
+.ode-PropertiesPanel td img {
+  margin-top: 8px;
+}
+
+.ode-PropertyHeader img {
+  margin-top: 8px;
+}
+
+.ode-PropertiesPanel .gwt-StackPanelContent {
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 10px;
+}
+
+.ode-PropertiesPanel .gwt-StackPanelItem div {
+  font-size: 12px;
+  padding: 2px 8px;
+  background-color: #D2E08B;
+  color: #555;
+  height: 16px;
+}
+
+.ode-PropertiesPanel .gwt-DisclosurePanel .content {
+  border: 0;
+  margin: 0;
+}
+
+.ode-PropertiesPanel .gwt-DisclosurePanel > tbody > tr > td {
+  height: 16px;
+  font-size: 12px;
+}
+
+.ode-PropertiesPanel .gwt-DisclosurePanel > tbody > tr > td > a {
+  background-color: #003169;
+  color: white !important;
+}
+
+/* disclosure panel icon */
+.ode-PropertiesPanel .gwt-DisclosurePanel tbody tr td a tbody tr td:first-child {
+  padding: 0.5em !important;
+}
+
+.ode-PropertiesPanel .gwt-DisclosurePanel-closed > tbody > tr+tr > td {
+  margin: 0;
+  padding: 0;
+  height: 0;
+}
+
+.gwt-DisclosurePanel > tbody > tr > td > a > table {
+  border-spacing: 0;
+}
+
+.gwt-DisclosurePanel > tbody > tr > td img {
+  margin-top: 3px;
+}
+
 /* Gallery Toolbar*/
 .ya-GalleryToolbar {
+  background-color: #4156A6;
   margin-bottom: 4px;
   clear: both;
 }
@@ -2578,13 +2798,19 @@ div.dropdiv p {
 .listItem:nth-child(2n + 0) {
   background: rgba(200, 200, 200, 0.1);
 }
-/* for now */
-.ode-ProjectListButton{
 
+.collaboration-user-box{
+  width: 25px;
+  height: 25px;
+  margin-left: 4px;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  display: table-cell;
+  vertical-align: middle;
 }
 
-.components-tree-filter {
-  margin-top: 1px;
-  margin-left: 1px;
-  font-size: 11px;
+.joined-user-panel {
+  display: inline-flex;
 }

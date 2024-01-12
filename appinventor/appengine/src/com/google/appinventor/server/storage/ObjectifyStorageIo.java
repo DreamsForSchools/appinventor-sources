@@ -21,6 +21,7 @@ import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.apphosting.api.ApiProxy;
+import com.google.appinventor.common.version.AppInventorFeatures;
 import com.google.appinventor.server.CrashReport;
 import com.google.appinventor.server.FileExporter;
 import com.google.appinventor.server.GalleryExtensionException;
@@ -507,6 +508,7 @@ public class ObjectifyStorageIo implements  StorageIo {
           long date = System.currentTimeMillis();
           ProjectData pd = new ProjectData();
           pd.id = null;  // let Objectify auto-generate the project id
+          pd.owner = userId;
           pd.dateCreated = date;
           pd.dateModified = date;
           pd.dateBuilt = 0;
@@ -569,6 +571,7 @@ public class ObjectifyStorageIo implements  StorageIo {
           upd.settings = projectSettings;
           upd.state = UserProjectData.StateEnum.OPEN;
           upd.userKey = userKey(userId);
+          setUserProjectCondition(upd);
           datastore.put(upd);
         }
       }, true);
@@ -815,7 +818,8 @@ public class ObjectifyStorageIo implements  StorageIo {
     } else {
       return new UserProject(projectId, projectData.t.name,
           projectData.t.type, projectData.t.dateCreated,
-          projectData.t.dateModified, projectData.t.dateBuilt, projectData.t.projectMovedToTrashFlag);
+          projectData.t.dateModified, projectData.t.dateBuilt, projectData.t.projectMovedToTrashFlag,
+          projectData.t.shared);
     }
   }
 
@@ -847,7 +851,8 @@ public class ObjectifyStorageIo implements  StorageIo {
       for (ProjectData projectData : projectDatas.t.values()) {
         uProjects.add(new UserProject(projectData.id, projectData.name,
             projectData.type, projectData.dateCreated,
-            projectData.dateModified, projectData.dateBuilt, projectData.projectMovedToTrashFlag));
+            projectData.dateModified, projectData.dateBuilt, projectData.projectMovedToTrashFlag,
+            projectData.shared));
       }
       return uProjects;
     }
@@ -1440,10 +1445,12 @@ public class ObjectifyStorageIo implements  StorageIo {
     try {
       runJobWithRetries(new JobRetryHelper() {
         FileData fd;
+        ProjectData pd;
 
         @Override
         public void run(Objectify datastore) throws ObjectifyException {
           Key<FileData> key = projectFileKey(projectKey(projectId), fileName);
+          pd = datastore.find(projectKey(projectId));
           fd = (FileData) memcache.get(key.getString());
           if (fd == null) {
             fd = datastore.find(projectFileKey(projectKey(projectId), fileName));
@@ -1463,7 +1470,8 @@ public class ObjectifyStorageIo implements  StorageIo {
           Preconditions.checkState(fd != null);
 
           if (fd.userId != null && !fd.userId.equals("")) {
-            if (!fd.userId.equals(userId)) {
+            // TODO(dxy): Check Write permission on each user.
+            if (!fd.userId.equals(userId) && !pd.userPermission.containsKey(userId)) {
               throw CrashReport.createAndLogError(LOG, null,
                 collectUserProjectErrorInfo(userId, projectId),
                 new UnauthorizedAccessException(userId, projectId, null));
@@ -1592,9 +1600,10 @@ public class ObjectifyStorageIo implements  StorageIo {
           Key<FileData> fileKey = projectFileKey(projectKey(projectId), fileName);
           memcache.delete(fileKey.getString());
           FileData fileData = datastore.find(fileKey);
+          ProjectData projectData = datastore.find(projectKey(projectId));
           if (fileData != null) {
             if (fileData.userId != null && !fileData.userId.equals("")) {
-              if (!fileData.userId.equals(userId)) {
+              if (!fileData.userId.equals(userId) && !projectData.userPermission.containsKey(userId)) {
                 throw CrashReport.createAndLogError(LOG, null,
                   collectUserProjectErrorInfo(userId, projectId),
                   new UnauthorizedAccessException(userId, projectId, null));
@@ -1669,11 +1678,13 @@ public class ObjectifyStorageIo implements  StorageIo {
     validateGCS();
     final Result<byte[]> result = new Result<byte[]>();
     final Result<FileData> fd = new Result<FileData>();
+    final Result<ProjectData> pd = new Result<>();
     try {
       runJobWithRetries(new JobRetryHelper() {
         @Override
         public void run(Objectify datastore) {
           Key<FileData> fileKey = projectFileKey(projectKey(projectId), fileName);
+          pd.t = datastore.find(projectKey(projectId));
           fd.t = (FileData) memcache.get(fileKey.getString());
           if (fd.t == null) {
             fd.t = datastore.find(fileKey);
@@ -1686,9 +1697,11 @@ public class ObjectifyStorageIo implements  StorageIo {
     }
     // read the blob/GCS File outside of the job
     FileData fileData = fd.t;
+    ProjectData projectData = pd.t;
     if (fileData != null) {
       if (fileData.userId != null && !fileData.userId.equals("")) {
-        if (!fileData.userId.equals(userId)) {
+        // TODO(dxy): Check Read permission for each user
+        if (!fileData.userId.equals(userId) && !projectData.userPermission.containsKey(userId)) {
           throw CrashReport.createAndLogError(LOG, null,
             collectUserProjectErrorInfo(userId, projectId),
             new UnauthorizedAccessException(userId, projectId, null));
@@ -1833,7 +1846,7 @@ public class ObjectifyStorageIo implements  StorageIo {
 
     ByteArrayOutputStream zipFile = new ByteArrayOutputStream();
     final ZipOutputStream out = new ZipOutputStream(zipFile);
-    out.setComment("Built with MIT App Inventor");
+    out.setComment("Built with DFS - AppMaker");
 
     try {
       JobRetryHelper job = new JobRetryHelper() {
@@ -2074,7 +2087,7 @@ public class ObjectifyStorageIo implements  StorageIo {
     // get the first one. we don't expect this to happen
     UserData userData = datastore.query(UserData.class).filter("email", inputemail).get();
     if (userData == null) {     // Mixed case didn't work, try lower case
-      userData = datastore.query(UserData.class).filter("email", email).get();
+      userData = datastore.query(UserData.class).filter("emaillower", email).get();
       if (userData == null) {
         throw new NoSuchElementException("Couldn't find a user with email " + inputemail);
       }
@@ -2567,7 +2580,7 @@ public class ObjectifyStorageIo implements  StorageIo {
               SplashData firstSd = new SplashData(); // We do this so cacheing works
               firstSd.id = SPLASHDATA_ID;
               firstSd.version = 0;                   // on future calls
-              firstSd.content = "<b>Welcome to MIT App Inventor</b>";
+              firstSd.content = "<b>Welcome to DFS - AppMaker</b>";
               firstSd.width = 350;
               firstSd.height = 100;
               datastore.put(firstSd);
@@ -2835,4 +2848,91 @@ public class ObjectifyStorageIo implements  StorageIo {
     }
   }
 
+  @Override
+  public StoredData.Permission getPermission(final String userId, final long projectId) {
+    final Result<StoredData.Permission> result = new Result<>();
+    try{
+      runJobWithRetries(new JobRetryHelper() {
+        @Override
+        public void run(Objectify datastore) throws ObjectifyException, IOException {
+          ProjectData pd = datastore.find(projectKey(projectId));
+          if (pd.userPermission.containsKey(userId)) {
+            result.t = pd.userPermission.get(userId);
+          }else {
+            result.t = StoredData.Permission.NONE;
+          }
+        }
+      }, false);
+    } catch (ObjectifyException e){
+      throw CrashReport.createAndLogError(LOG, null, null, e);
+    }
+    return result.t;
+  }
+
+  @Override
+  public void addPermission(final String userId, final long projectId,
+                            final StoredData.Permission perm) {
+    try{
+      // if perm is not owner, we need to create new UserProjectData for the user
+      if(perm!= StoredData.Permission.OWNER){
+        runJobWithRetries(new JobRetryHelper() {
+          @Override
+          public void run(Objectify datastore) throws ObjectifyException, IOException {
+            ProjectData pd = datastore.find(projectKey(projectId));
+            if(!pd.userPermission.containsKey(userId)){
+              UserProjectData upd = new UserProjectData();
+              upd.projectId = projectId;
+              upd.userKey = userKey(userId);
+              upd.settings = pd.settings;
+              upd.state = UserProjectData.StateEnum.CLOSED;
+              setUserProjectCondition(upd);
+              datastore.put(upd);
+            }
+          }
+        }, true);
+      }
+
+      // Change project permission
+      runJobWithRetries(new JobRetryHelper() {
+        @Override
+        public void run(Objectify datastore) throws ObjectifyException, IOException {
+          ProjectData pd = datastore.find(projectKey(projectId));
+          pd.userPermission.put(userId, perm);
+          pd.shared = true;
+          datastore.put(pd);
+        }
+      }, true);
+    }catch (ObjectifyException e){
+      throw CrashReport.createAndLogError(LOG, null, null, e);
+    }
+  }
+
+  @Override
+  public String getProjectOwner(final long projectId) {
+    final Result<String> result = new Result<>();
+    try{
+      runJobWithRetries(new JobRetryHelper() {
+        @Override
+        public void run(Objectify datastore) throws ObjectifyException, IOException {
+          ProjectData pd = datastore.find(projectKey(projectId));
+          result.t = pd.owner;
+        }
+      }, false);
+    } catch (ObjectifyException e){
+      throw CrashReport.createAndLogError(LOG, null, null, e);
+    }
+    return result.t;
+  }
+
+  private void setUserProjectCondition(UserProjectData upd) {
+    if (AppInventorFeatures.enableGroupProject()) {
+      if (AppInventorFeatures.enableComponentLocking()) {
+        upd.condition = "componentLocking";
+      } else {
+        upd.condition = "realtime";
+      }
+    } else {
+      upd.condition = null;
+    }
+  }
 }

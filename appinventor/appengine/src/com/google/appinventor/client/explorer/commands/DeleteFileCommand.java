@@ -8,6 +8,7 @@ package com.google.appinventor.client.explorer.commands;
 
 import static com.google.appinventor.client.Ode.MESSAGES;
 
+import com.google.appinventor.client.CollaborationManager;
 import com.google.appinventor.client.Ode;
 import com.google.appinventor.client.OdeAsyncCallback;
 import com.google.appinventor.client.explorer.project.Project;
@@ -68,6 +69,9 @@ public class DeleteFileCommand extends ChainableCommand {
             public void onSuccess(Long date) {
               getProject(node).deleteNode(node);
               ode.updateModificationDate(node.getProjectId(), date);
+              Ode.getInstance().getCollaborationManager().broadcastFileEvent(
+                      CollaborationManager.FILE_DELETE,
+                      Long.toString(node.getProjectId()), node.getFileId());
               executeNextCommand(node);
             }
 

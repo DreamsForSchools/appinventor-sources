@@ -6,6 +6,7 @@
 
 package com.google.appinventor.client.widgets.properties;
 
+import com.google.appinventor.client.editor.simple.components.MockComponent;
 import com.google.appinventor.client.properties.Properties;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class EditableProperties extends Properties<EditableProperty> {
 
   // Fire change events after adding a new property
   private final boolean changeEventOnAdd;
+
+  private MockComponent component;
 
   /**
    * Creates a new properties collection.
@@ -120,5 +123,13 @@ public class EditableProperties extends Properties<EditableProperty> {
       property.orphan();
     }
     deleteAllProperties();
+  }
+
+  public void setComponent(MockComponent component) {
+    this.component = component;
+  }
+
+  public MockComponent getComponent() {
+    return component;
   }
 }

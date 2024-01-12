@@ -3,7 +3,7 @@
 
 /**
  * @license
- * @fileoverview Visual blocks editor for MIT App Inventor
+ * @fileoverview Visual blocks editor for DFS - AppMaker
  * Instrumentation extensions to Blockly XML parsing
  *
  * @author ewpatton@mit.edu (Evan W. Patton)

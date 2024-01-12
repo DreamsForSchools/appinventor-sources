@@ -171,8 +171,7 @@ public final class YoungAndroidComponentSelectorPropertyEditor
     }
     boolean multiple = isMultipleValues();
     setMultipleValues(false);
-    property.setValue(choices.getValueAtIndex(selected), multiple);
-    return true;
+    return property.raisePropertyChangeEvent(choices.getValueAtIndex(selected), multiple);
   }
 
   // FormChangeListener
@@ -225,5 +224,9 @@ public final class YoungAndroidComponentSelectorPropertyEditor
   }
 
   public void onComponentSelectionChange(MockComponent component, boolean selected) {
+  }
+
+  @Override
+  public void onComponentMoved(MockComponent component, String newParentId, int index) {
   }
 }

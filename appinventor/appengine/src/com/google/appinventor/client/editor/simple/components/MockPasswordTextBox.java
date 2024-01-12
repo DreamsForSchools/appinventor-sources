@@ -235,4 +235,8 @@ public final class MockPasswordTextBox extends MockWrapper implements FormChange
   public void onComponentSelectionChange(MockComponent component, boolean selected) {
 
   }
+
+  @Override
+  public void onComponentMoved(MockComponent component, String newParentId, int index) {
+  }
 }

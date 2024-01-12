@@ -44,11 +44,6 @@ import com.google.gwt.event.dom.client.KeyDownHandler;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.*;
 
 import static com.google.appinventor.client.Ode.MESSAGES;
@@ -159,7 +154,7 @@ public class YoungAndroidPalettePanel extends Composite implements SimplePalette
 
     paletteHelpers = new HashMap<ComponentCategory, PaletteHelper>();
     // If a category has a palette helper, add it to the paletteHelpers map here.
-    paletteHelpers.put(ComponentCategory.LEGOMINDSTORMS, new LegoPaletteHelper());
+    // paletteHelpers.put(ComponentCategory.LEGOMINDSTORMS, new LegoPaletteHelper());
 
     categoryPanels = new HashMap<ComponentCategory, VerticalPanel>();
     simplePaletteItems = new HashMap<String, SimplePaletteItem>();
@@ -302,6 +297,28 @@ public class YoungAndroidPalettePanel extends Composite implements SimplePalette
     if (category == ComponentCategory.UNINITIALIZED) {
       return false;
     }
+    if (category == ComponentCategory.SOCIAL) {
+      return false;
+    }
+    if (category == ComponentCategory.CONNECTIVITY) {
+      return false;
+    }
+    if (category == ComponentCategory.LEGOMINDSTORMS) {
+      return false;
+    }
+    if (category == ComponentCategory.MAPS) {
+      return false;
+    }
+    if (category == ComponentCategory.CHARTS) {
+      return false;
+    }
+    if (category == ComponentCategory.EXPERIMENTAL) {
+      return false;
+    }
+    if (category == ComponentCategory.DATASCIENCE) {
+      return false;
+    }
+
     // We should only show FUTURE components if the future feature flag is enabled...
     if (category == ComponentCategory.FUTURE &&
         !AppInventorFeatures.enableFutureFeatures()) {
@@ -311,6 +328,7 @@ public class YoungAndroidPalettePanel extends Composite implements SimplePalette
         !AppInventorFeatures.showInternalComponentsCategory()) {
       return false;
     }
+    
     return true;
   }
 
@@ -400,6 +418,10 @@ public class YoungAndroidPalettePanel extends Composite implements SimplePalette
       translationMap.remove(componentTypeName);
       requestRebuildList();
     }
+  }
+
+  public SimplePaletteItem getPaletteItemByType(String componentTypeName){
+    return simplePaletteItems.get(componentTypeName);
   }
 
   /*

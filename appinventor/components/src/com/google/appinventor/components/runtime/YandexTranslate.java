@@ -69,6 +69,7 @@ import org.json.JSONObject;
         "translation is complete, the \"GotTranslation\" event is triggered.",
     category = ComponentCategory.INTERNAL,
     nonVisible = true,
+    showOnPalette = false,
     iconName = "images/yandex.png")
 @UsesPermissions(permissionNames = "android.permission.INTERNET")
 @SimpleObject

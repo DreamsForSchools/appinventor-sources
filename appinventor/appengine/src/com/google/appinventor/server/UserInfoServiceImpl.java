@@ -6,6 +6,7 @@
 
 package com.google.appinventor.server;
 
+import com.google.appinventor.common.version.AppInventorFeatures;
 import com.google.appinventor.server.flags.Flag;
 import com.google.appinventor.server.storage.StorageIo;
 import com.google.appinventor.server.storage.StorageIoInstanceHolder;
@@ -82,6 +83,10 @@ public class UserInfoServiceImpl extends OdeRemoteServiceServlet implements User
     config.setGalleryReadOnly(Flag.createFlag("gallery.readonly", false).get());
     config.setGalleryLocation(Flag.createFlag("gallery.location", "").get());
     config.setDeleteAccountAllowed(deleteAccountAllowed);
+
+    if (AppInventorFeatures.enableGroupProject()) {
+      config.setBlocklyShareUrl(Flag.createFlag("blockly.share.url", "").get());
+    }
 
     if (!Flag.createFlag("build2.server.host", "").get().isEmpty()) {
       config.setSecondBuildserver(true);

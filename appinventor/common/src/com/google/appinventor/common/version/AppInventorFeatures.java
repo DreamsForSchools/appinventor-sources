@@ -144,4 +144,21 @@ public final class AppInventorFeatures {
     return true;
   }
 
+  /**
+   * If set to true, the project is sharable and real-time collaboration is enabled.
+   *
+   * @return true to enable group collaboration.
+   */
+  public static boolean enableGroupProject(){
+    return true;
+  }
+
+  /**
+   * If set to true, is in component-level collaboration mode. It can only be true when
+   * group collaboration is enabled.
+   * @return true to enable component-level locking
+   */
+  public static boolean enableComponentLocking(){
+    return enableGroupProject();
+  }
 }

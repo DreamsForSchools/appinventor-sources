@@ -13,6 +13,7 @@ import com.google.appinventor.client.actions.SetFontDyslexicAction;
 import com.google.appinventor.client.boxes.ProjectListBox;
 import com.google.appinventor.client.editor.youngandroid.YaBlocksEditor;
 import com.google.appinventor.client.widgets.DropDownButton;
+import com.google.appinventor.client.wizards.ShareProjectWizard;
 import com.google.appinventor.common.version.AppInventorFeatures;
 import com.google.appinventor.shared.storage.StorageUtil;
 import com.google.appinventor.client.editor.youngandroid.DesignToolbar.DesignProject;
@@ -66,6 +67,7 @@ public class TopToolbar extends Composite {
   private static final String WIDGET_NAME_IMPORTTEMPLATE = "ImportTemplate";
   private static final String WIDGET_NAME_EXPORTPROJECT = "ExportProject";
   private static final String WIDGET_NAME_PROJECTPROPERTIES = "ProjectProperties";
+  private static final String WIDGET_NAME_SHARE = "ShareProject";
 
   private static final String WIDGET_NAME_ADMIN = "Admin";
   private static final String WIDGET_NAME_USER_ADMIN = "UserAdmin";
@@ -125,7 +127,7 @@ public class TopToolbar extends Composite {
     // To support the creation of packages for older devices, we leave the buildserver
     // (as of 8/1/2018) generating minSdk 7 packages (no target SDK) which will run on
     // much older devices. The second buildserver will package applications with a target
-    // SDK of 26 for those MIT App Inventor users who wish to put their applications in
+    // SDK of 26 for those DFS - AppMaker users who wish to put their applications in
     // the Play Store after 8/1/2018.
     // template.
     if (!Ode.getInstance().hasSecondBuildserver()) {
@@ -318,6 +320,7 @@ public class TopToolbar extends Composite {
       fileDropDown.setItemEnabled(MESSAGES.projectPropertiesMenuItem(), false);
       buildDropDown.setItemEnabled(MESSAGES.showExportAndroidApk(), false);
       buildDropDown.setItemEnabled(MESSAGES.showExportAndroidAab(), false);
+      fileDropDown.setItemEnabled(MESSAGES.shareProjectMenuItem(), false);
       if (Ode.getInstance().hasSecondBuildserver()) {
         buildDropDown.setItemEnabled(MESSAGES.showExportAndroidApk2(), false);
         buildDropDown.setItemEnabled(MESSAGES.showExportAndroidAab2(), false);
@@ -337,6 +340,7 @@ public class TopToolbar extends Composite {
       fileDropDown.setItemEnabled(MESSAGES.projectPropertiesMenuItem(), true);
       buildDropDown.setItemEnabled(MESSAGES.showExportAndroidApk(), true);
       buildDropDown.setItemEnabled(MESSAGES.showExportAndroidAab(), true);
+      fileDropDown.setItemEnabled(MESSAGES.shareProjectMenuItem(), true);
       if (Ode.getInstance().hasSecondBuildserver()) {
         buildDropDown.setItemEnabled(MESSAGES.showExportAndroidApk2(), true);
         buildDropDown.setItemEnabled(MESSAGES.showExportAndroidAab2(), true);

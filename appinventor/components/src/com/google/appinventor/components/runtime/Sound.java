@@ -55,18 +55,19 @@ import java.util.Map;
  * @author hal@mit.edu (Hal Abelson) added wait for load to complete
  */
 @DesignerComponent(version = YaVersion.SOUND_COMPONENT_VERSION,
-    description = "<p>A multimedia component that plays sound " +
+    description = "A multimedia component that plays sound " +
     "files and optionally vibrates for the number of milliseconds " +
     "(thousandths of a second) specified in the Blocks Editor.  The name of " +
     "the sound file to play can be specified either in the Designer or in " +
-    "the Blocks Editor.</p> <p>For supported sound file formats, see " +
+    "the Blocks Editor.</br></br>" + 
+    "For supported sound file formats, see " +
     "<a href=\"http://developer.android.com/guide/appendix/media-formats.html\"" +
-    " target=\"_blank\">Android Supported Media Formats</a>.</p>" +
-    "<p>This <code>Sound</code> component is best for short sound files, such as sound " +
+    " target=\"_blank\">Android Supported Media Formats</a>.</br></br>" +
+    "This <code>Sound</code> component is best for short sound files, such as sound " +
     "effects, while the <code>Player</code> component is more efficient for " +
-    "longer sounds, such as songs.</p>" +
-    "<p>You might get an error if you attempt to play a sound " +
-    "immeditely after setting the source.</p>",
+    "longer sounds, such as songs.</br></br>" +
+    "You might get an error if you attempt to play a sound " +
+    "immeditely after setting the source.",
     category = ComponentCategory.MEDIA,
     nonVisible = true,
     iconName = "images/soundEffect.png")

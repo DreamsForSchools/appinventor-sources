@@ -54,7 +54,7 @@ import java.util.Set;
  * These measurements assume that the device itself is not moving.
  */
 @DesignerComponent(version = YaVersion.ORIENTATIONSENSOR_COMPONENT_VERSION,
-    description = "<p>Non-visible component providing information about the " +
+    description = "Non-visible component providing information about the " +
     "device's physical orientation in three dimensions: <ul> " +
     "<li> <strong>Roll</strong>: 0 degrees when the device is level, increases to " +
     "     90 degrees as the device is tilted up on its left side, and " +
@@ -70,7 +70,7 @@ import java.util.Set;
     "     pointing north, 90 degrees when it is pointing east, 180 degrees " +
     "     when it is pointing south, 270 degrees when it is pointing west, " +
     "     etc.</li></ul>" +
-    "     These measurements assume that the device itself is not moving.</p>",
+    "     These measurements assume that the device itself is not moving.",
     category = ComponentCategory.SENSORS,
     nonVisible = true,
     iconName = "images/orientationsensor.png")

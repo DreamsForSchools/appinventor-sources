@@ -1,5 +1,5 @@
 ---
-title: MIT App Inventor Variable Blocks
+title: DFS - AppMaker Variable Blocks
 layout: documentation
 ---
 

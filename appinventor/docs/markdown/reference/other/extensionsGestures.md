@@ -1,5 +1,5 @@
 ---
-title: Extending MIT App Inventor with Multi-touch and Gesture Detection
+title: Extending DFS - AppMaker with Multi-touch and Gesture Detection
 layout: documentation
 ---
 

@@ -7,6 +7,7 @@
 package com.google.appinventor.server.project;
 
 import com.google.appinventor.server.storage.StorageIo;
+import com.google.appinventor.server.storage.StoredData;
 import com.google.appinventor.shared.rpc.BlocksTruncatedException;
 import com.google.appinventor.shared.rpc.RpcResult;
 import com.google.appinventor.shared.rpc.project.ChecksumedLoadFile;
@@ -395,5 +396,25 @@ public abstract class CommonProjectService {
         }
       }
     }
+  }
+
+  /**
+   * Share project with others by email.
+   * @param userId the userId of the owner of the project
+   * @param projectId the project id
+   * @param otherEmail the email address of other user
+   */
+  public long shareProject(String userId, long projectId, String otherEmail, StoredData.Permission perm){
+    String otherID = storageIo.findUserByEmail(otherEmail);
+    // add owner permission first
+    // TODO(xinyue): Only owner can share project
+    if (userId.equals(storageIo.getProjectOwner(projectId))) {
+      StoredData.Permission owner = storageIo.getPermission(userId, projectId);
+      if(owner!= StoredData.Permission.OWNER){
+        storageIo.addPermission(userId, projectId, StoredData.Permission.OWNER);
+      }
+    }
+    storageIo.addPermission(otherID, projectId, perm);
+    return projectId;
   }
 }
