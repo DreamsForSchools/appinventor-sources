@@ -1,5 +1,5 @@
 <!--
-Thanks for contributing a pull request to MIT App Inventor. Please answer the following questions to help us review your changes.
+Thanks for contributing a pull request to DFS - AppMaker. Please answer the following questions to help us review your changes.
 -->
 
 General items:

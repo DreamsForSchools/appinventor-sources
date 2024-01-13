@@ -50,6 +50,7 @@ import java.io.File;
   "the source property of a VideoPlayer component.",
   category = ComponentCategory.MEDIA,
   nonVisible = true,
+  showOnPalette = false,
   iconName = "images/camcorder.png")
 @SimpleObject
 @UsesPermissions({CAMERA})

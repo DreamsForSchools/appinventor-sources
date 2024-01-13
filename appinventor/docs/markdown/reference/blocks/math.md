@@ -1,5 +1,5 @@
 ---
-title: MIT App Inventor Math Blocks
+title: DFS - AppMaker Math Blocks
 layout: documentation
 ---
 

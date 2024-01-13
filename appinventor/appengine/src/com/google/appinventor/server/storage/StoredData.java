@@ -7,14 +7,13 @@
 package com.google.appinventor.server.storage;
 
 import com.googlecode.objectify.Key;
-import com.googlecode.objectify.annotation.Cached;
-import com.googlecode.objectify.annotation.Parent;
-import com.googlecode.objectify.annotation.Indexed;
-import com.googlecode.objectify.annotation.Unindexed;
+import com.googlecode.objectify.annotation.*;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Id;
 
@@ -33,6 +32,12 @@ import javax.persistence.Id;
  *
  */
 public class StoredData {
+  public enum Permission {
+    OWNER,
+    READ,
+    WRITE,
+    NONE
+  }
   // The UserData class is an entity root, and the parent of UserFileData
   // and UserProjectData
   @Unindexed
@@ -73,6 +78,9 @@ public class StoredData {
     // Auto-generated unique project id
     @Id Long id;
 
+    // User ID of the project creator
+    String owner;
+
     // Verbose project name
     String name;
 
@@ -102,6 +110,11 @@ public class StoredData {
 
     //adding a boolean variable to mark deleted project
     boolean projectMovedToTrashFlag;
+
+    @Serialized
+    Map<String, Permission> userPermission = new HashMap<>(); // This stores the permission information, user id to perm
+
+    boolean shared;
   }
 
   // Project properties specific to the user
@@ -126,6 +139,8 @@ public class StoredData {
     // User specific project settings
     // TODO(user): is this ever used?
     String settings;
+
+    String condition;
   }
 
   // Non-project-specific files (tied to user)

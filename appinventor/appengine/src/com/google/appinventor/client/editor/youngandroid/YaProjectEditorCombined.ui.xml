@@ -13,9 +13,9 @@
   <g:FlowPanel styleName="ode-ProjectEditor">
     <DesignToolbar ui:field="designToolbar" />
     <g:FlowPanel ui:field="workColumns" styleName="ode-WorkColumns">
-      <box:PaletteBox width="240px" />
+      <box:PaletteBox width="20em" />
       <box:ViewerBox />
-      <box:PropertiesBox width="222px" />
+      <box:PropertiesBox width="20em" />
       <g:FlowPanel ui:field="structureAndAssets">
         <box:SourceStructureBox />
         <box:BlockSelectorBox />

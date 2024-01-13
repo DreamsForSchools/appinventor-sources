@@ -32,9 +32,9 @@
              else="com.google.appinventor.YaClient-dev">
     <equals arg1="${release}" arg2="true" />
   </condition>
-
+  <!-- changed java compiler local workers to 4 instead of 8, 8 crashes github runners -->
   <condition property="client.flags"
-             value="-optimize 9 -localWorkers 8"
+             value="-optimize 9 -localWorkers 4"
              else="-style pretty">
     <equals arg1="${release}" arg2="true" />
   </condition>
@@ -691,7 +691,7 @@
     <pathelement location="${local.build.dir}/AiRebindLib.jar" />
     <pathelement location="${local.build.dir}/AiSharedLib.jar" />
     <pathelement location="${build.dir}/common/CommonTestUtils.jar" />
-    <pathelement location="${build.dir}/components/CommonConstants.jar"/>
+    <pathelement location="${build.dir}/acomponents/CommonConstants.jar"/>
     <pathelement location="${build.dir}/components/CommonConstants-gwt.jar"/>
     <pathelement location="${build.dir}/common/CommonUtils.jar" />
     <pathelement location="${build.dir}/common/CommonUtils-gwt.jar" />

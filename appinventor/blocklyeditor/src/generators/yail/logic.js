@@ -3,7 +3,7 @@
 
 /**
  * @license
- * @fileoverview Logic blocks yail generators for Blockly, modified for MIT App Inventor.
+ * @fileoverview Logic blocks yail generators for Blockly, modified for DFS - AppMaker.
  * @author mckinney@mit.edu (Andrew F. McKinney)
  */
 

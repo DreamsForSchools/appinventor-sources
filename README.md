@@ -1,16 +1,17 @@
-# Welcome to MIT App Inventor
+# Welcome to DFS - AppMaker
 
 ## Introduction
+DFS AppMaker is a fork of MIT's App Inventor. Learn more about [MIT App Inventor](http://appinventor.mit.edu). 
 
-Learn more about [MIT App Inventor](http://appinventor.mit.edu).
+Large parts of this README is also borrowed from AppInventor. Additionally, remnants of the identifier `appinventor` still remain in the codebase. We could refactor all instances of `appinventor` into `appmaker`, however, one benefit is that it makes merging changes from AppInventor into AppMaker simpler.
 
 This code is designed to be run in Google's App Engine. MIT runs a
 public instance that all are welcome to use to build App Inventor
 Applications. You do not need to compile or use this code if you wish
-to build MIT App Inventor applications.
+to build DFS AppMaker applications.
 
 We provide this code for reference and for experienced people who wish
-to operate their own App Inventor instance and/or contribute to the project.
+to operate their own AppMaker instance and/or contribute to the project.
 
 This code is tested and known to work with Java 8.
 
@@ -26,6 +27,7 @@ Check out our open source [site](http://appinventor.mit.edu/appinventor-sources/
 
 ## Setup Instructions (Vagrant)
 
+## Setup Instructions (Vagrant)
 The easiest way to get a development environment up and running is to use the provided Vagrantfile. Install [Vagrant](https://vagrantup.com) and open a terminal in the root directory of this repository. Run the following commands
 
 ```bash
@@ -210,7 +212,9 @@ There are two servers in App Inventor, the main server that deals with project i
 
     $ your-google-cloud-SDK-folder/bin/java_dev_appserver.sh --port=8888 --address=0.0.0.0 appengine/build/war/
 
-Make sure you change *your-google-cloud-SDK-folder* to wherever in your hard drive you have placed the Google Cloud SDK.
+Make sure you change *your-google-cloud-SDK-folder* to wherever in your hard drive you have placed the Google Cloud SDK. For Ubuntu, it may be `/usr/lib/google-cloud-sdk/bin/java_dev_appserver.sh --port=8888 --address=0.0.0.0 appengine/build/war/`.
+
+If the port is already used and you can't find it, run `sudo netstat -nlp | grep :8888` to find the process using the port and then kill with `kill -9 process_id`.
 
 ### Running the build server
 
@@ -220,6 +224,14 @@ The build server can be run from the terminal by typing:
     $ ant RunLocalBuildServer
 
 Note that you will only need to run the build server if you are going to build an app as an apk. You can do all the layout and programming without having the build server running, but you will need it to download the apk.
+
+The build server has also been containerized using Docker to make it easier to deploy to GCP Cloud Compute. 
+To build the docker image and test it locally, run `docker build -t build-server --no-cache -f DockerfileBuildServer .` and `docker run -dp 127.0.0.1:9990:9990 build-server`.
+
+Other relevant useful commands are `docker ps` to display running containers and `docker kill [container_id]`.
+
+To troubleshoot on the deployed build server (e.g. failed builds), SSH into the compute engine instance using GCP web console, find the running container id, and then access the containers shell using `docker exec -it [container_id] bash`.
+Use the same process to troubleshoot the build server locally or simply use Docker Desktop to access the container files as needed.
 
 ### Accessing your local server
 
@@ -234,6 +246,16 @@ Before entering or scanning the QR code in the Companion, check the box labeled 
 The automated tests depend on [Phantomjs](http://phantomjs.org/). Make sure you install it and add it to your path. After that, you can run all tests by typing the following in a terminal window:
 
     $ ant tests
+
+### Testing Github Actions locally
+If there are changes to how AppMaker is built, the CI/CD pipeline may not work exactly. In order to reduce broken pushes that use up Github actions build minutes, we can test the Github Actions CI/CD locally using [act](https://github.com/nektos/act).
+
+Once installed, run `act`, which will spin up a Docker container automatically and run the workflows in `.github/workflows/pipeline_name.yml`.
+
+Secrets can be passed like so `act -s GCP_CREDENTIALS`, where in the given example, act will prompt you to paste the JSON credentials (the JSON is reduced to a single line).
+
+### Accessing and restoring firestore backups
+Please see the following [link](gcloud projects list) to get the gcloud commands to restore a Firestore database. The commands to create a backup has already been executed and can be verified using the commands in the link.
 
 ### Building Release Code
 
@@ -268,3 +290,22 @@ Logs can be found at http://localhost:9876/log/ode and SourceMaps at http://loca
 ## Need Help?
 
 Join [our community](https://community.appinventor.mit.edu/).
+
+## Signing Release
+`keytool -genkey -v -keystore dfs-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000`
+`keytool -importkeystore -srckeystore dfs-release-key.keystore -destkeystore dfs-release-key.keystore -deststoretype pkcs12`
+
+Remove debug signing
+`zip -d appinventor/build/buildserver/"DFS AppMaker.apk" META-INF/\*`
+
+`jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore dfs-release-key.keystore.old appinventor/build/buildserver/"DFS AppMaker.apk" alias_name`
+
+https://stackoverflow.com/questions/22681907/you-uploaded-an-apk-that-is-not-zip-aligned-error
+
+`~/Library/Android/sdk/build-tools/29.0.2/zipalign -f -v 4 appinventor/build/buildserver/"DFS AppMaker.apk" appinventor/build/buildserver/DFSAppMaker-signed.apk`
+
+/Users/dos/Desktop/appinventor-sources/appinventor/appengine/src/com/google/appinventor/client/TopPanel.java
+
+# Switch Java version
+/usr/libexec/java_home -V
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`

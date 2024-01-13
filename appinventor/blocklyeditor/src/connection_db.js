@@ -3,8 +3,8 @@
 
 /**
  * @license
- * @fileoverview Visual blocks editor for MIT App Inventor
- * Performance optimization of the ConnectionDB object for MIT App Inventor.
+ * @fileoverview Visual blocks editor for DFS - AppMaker
+ * Performance optimization of the ConnectionDB object for DFS - AppMaker.
  * This file provides a check for addConnection/removeConnection so that if we are in the process
  * of a bulk operation (e.g., ai_inject) we don't have Blockly adding/removing connections as
  * each block is processed. The workspace will then make a single pass to reorder the connections

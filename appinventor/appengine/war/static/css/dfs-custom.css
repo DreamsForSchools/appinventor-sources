@@ -1,0 +1,509 @@
+.ode-TextButton {
+  background: none;
+  background-color: #4156A6 !important;
+  color: white;
+  padding: 1em 2em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1em !important;
+  cursor: pointer;
+  border-radius: 0.25em;
+  text-shadow: none;
+  background-image: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: none;
+}
+
+.ode-TextButton:hover {
+  color: white;
+  background-color: #172c79 !important;
+}
+
+label.gwt-CheckBox {
+  display: block;
+}
+.ode-ContextMenuItem-selected {
+  background-color: #4156A6;
+}
+tr.ode-ProjectRowUnHighlighted:hover {
+  background-color: #D9DDED;
+}
+body {
+  font-family: Rubik, Roboto, Helvetica, Arial, sans-serif;
+  background: none !important;
+  background-color: #F2F2F2 !important;
+}
+.gwt-HTML {
+  padding: 1.25em 0;
+}
+.ode-StatusPanel {
+  color: white;
+  background: none !important;
+  background-color: #202E47 !important;
+  border: 1px;
+  padding: 0.5em 0;
+}
+.ode-StatusPanel a {
+  color: white;
+  text-decoration: none;
+}
+.ode-StatusPanel a:hover {
+  font-weight: 800;
+}
+img.ode-Logo {
+  width: 10em;
+  margin-top: 0.5em;
+  margin-left: 2em;
+  padding: 0.75em 0;
+}
+
+.ode-TopPanelButton, .ActionDropDown-Default, .ActionDropDown-Options {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: -12px 0px;
+  padding: 0px 12px;
+  height: 40px;
+  border: transparent;
+  background: transparent;
+  color: grey;
+  -o-transition: color .2s ease-out, background .2s ease-in;
+  -ms-transition: color .2s ease-out, background .2s ease-in;
+  -moz-transition: color .2s ease-out, background .2s ease-in;
+  -webkit-transition: color .2s ease-out, background .2s ease-in;
+  transition: color .2s ease-out, background .2s ease-in;
+}
+.ya-Toolbar {
+  background-color: transparent !important;
+  margin-bottom: 0.5em;
+  justify-content: left !important;
+}
+.ya-Toolbar div:last-child {
+  margin-left: auto;
+}
+.ode-ContextMenuItem, .ode-CurrentColor {
+  font-size: 1rem !important;
+}
+body, table td, select {
+  font-size: 1rem !important;
+}
+.ode-Box-header-caption, .ode-Box-header-caption-highlighted {
+  font-size: 1rem;
+  font-weight: bold;
+  padding-top: none;
+  padding: 0.75em;
+  line-height: 1.5;
+  color: white;
+}
+.ode-Box-header-caption {
+  width: 18em;
+}
+.ode-Box-header {
+  background-color: #4156A6;
+  border: none !important;
+}
+.ode-Box-body-padding {
+  margin-top: 1em;
+}
+.ode-ProjectHeaderRow {
+  background: none !important;
+  background-color: #A0AAD2 !important;
+  border: none;
+  font-size: 1rem !important;
+}
+.ode-Box-content {
+  font-size: 1rem !important;
+  background-color: transparent !important;
+  background-image: none ,!important;
+  /* padding: 1em 0; */
+  border: 0 !important;
+  box-shadow: 0px 0px 0px 0px !important;
+}
+.ode-ProjectHeaderLabel {
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  padding: 0.5em 0;
+}
+.ode-ProjectNameLabel {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #555;
+  cursor: pointer;
+  line-height: 1.5;
+  padding: 0.5em 0;
+}
+
+.ya-Toolbar .ya-ProjectName {
+  color: white;
+  font-weight: bold;
+  font-size: 1em;
+  width: 19em;
+  background-color: #4156A6;
+  padding: 1em 0;
+  margin-top: 0.3em;
+  margin-left: 0.25em;
+  padding-left: 0.5em;
+  text-shadow: none;
+}
+
+.ode-Box-body {
+  padding: 0;
+  background-color: white;
+}
+.ode-ContextMenuItem {
+  min-width: 10em;
+  padding: 0.5em 1em;
+  -o-transition: color .1s ease-out, background .1s ease-in;
+  -ms-transition: color .1s ease-out, background .1s ease-in;
+  -moz-transition: color .1s ease-out, background .1s ease-in;
+  -webkit-transition: color .1s ease-out, background .1s ease-in;
+  transition: color .1s ease-out, background .1s ease-in;
+}
+.ode-ProjectRowHighlighted {
+  background-color: #D9DDED;
+  border-collapse: collapse;
+}
+td {
+}
+.ode-ProjectTable td:nth-child(1) {
+  text-align: center;
+}
+/* Base for label styling */
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+  position: absolute;
+  left: -9999px;
+}
+[type="checkbox"]:not(:checked) + label, [type="checkbox"]:checked + label {
+  position: relative;
+  padding: 0 0.5em;
+  cursor: pointer;
+}
+/* checkbox aspect */
+[type="checkbox"]:not(:checked) + label:before, [type="checkbox"]:checked + label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1em;
+  height: 1em;
+  border: 2px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+ /* box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+  */
+}
+/* checked mark aspect */
+[type="checkbox"]:not(:checked) + label:after, [type="checkbox"]:checked + label:after {
+  content: '\2714';
+  position: absolute;
+  top: .25em;
+  left: .2em;
+  font-size: 1em;
+  line-height: 0.8;
+  color: white;
+  /* color: #4156A6; */
+}
+/* checked mark aspect changes */
+[type="checkbox"]:not(:checked) + label:after {
+  opacity: 0;
+  transform: scale(0);
+}
+[type="checkbox"]:checked + label:after {
+  opacity: 1;
+  transform: scale(1);
+}
+/* disabled checkbox */
+[type="checkbox"]:disabled:not(:checked) + label:before, [type="checkbox"]:disabled:checked + label:before {
+  box-shadow: none;
+  border-color: #bbb;
+  background-color: #ddd;
+}
+[type="checkbox"]:disabled:checked + label:after {
+  color: #999;
+}
+[type="checkbox"]:disabled + label {
+  color: #aaa;
+}
+/* accessibility */
+[type="checkbox"]:checked + label:before {
+  border: 2px solid #4156A6 !important;
+  background-color: #4156A6;
+}
+/* hover style just for information */
+label:hover:before {
+  border: 2px solid #4156A6 !important;
+}
+
+.ode-ContextMenuItem {
+  padding: 0.5em 1em;
+}
+
+.gwt-Button {
+  background: none;
+  background-color: #4156A6;
+  color: white;
+  padding: 1em 2em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1em !important;
+  cursor: pointer;
+  border-radius: 0.25em;
+  text-shadow: none;
+  background-image: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: none;
+}
+
+.gwt-Button:hover {
+  color: white;
+  background-color: #172c79;
+}
+
+.ode-DialogBox .gwt-Button {
+  width: 100%;
+  margin: 0 0.5em;
+}
+
+.ode-DialogBox .Caption {
+  background-color: #4156A6;
+  color: white;
+  font-weight: bold;
+  font-size: 1em;
+  padding: 0.5em 0.25em;
+  box-shadow: none;
+}
+
+.ode-DialogBox {
+  border: 4px solid #4156A6;
+}
+
+.gwt-Tree .gwt-TreeItem {
+  font-size: 1em;
+}
+
+.gwt-TreeItem .gwt-HTML {
+  padding: 0.25em 0;
+}
+
+.gwt-Tree {
+  padding: 1em 0 0 1em;
+}
+
+.gwt-Tree .gwt-TreeItem span:hover, .gwt-Tree .gwt-TreeItem-selected span {
+  background-color: #D9DDED; 
+}
+
+.ode-Box-content .ode-Box-body.ode-Box-body-padding {
+  margin-top: 0;
+}
+
+.gwt-StackPanelItem div {
+  background: none;
+  background-color: #D9DDED;
+  font-size: 1em;
+  padding: 0.75em 0.5em;
+}
+
+.ode-SimplePaletteItem-caption {
+  font-size: 1em;
+}
+
+input.gwt-TextBox {
+  padding: 1em 0.5em;
+  margin: 0.25em 0;
+  font-size: 1em;
+}
+
+input.ode-PropertyEditor {
+  font-size: 1em;
+  margin: 0.25em 0;
+  min-height: 2em;
+}
+
+.ode-PropertiesComponentName {
+  font-size: 1em;
+  background-color: #D9DDED;
+}
+
+.ode-DialogBox .ode-LabeledTextBox {
+  padding: 0.5em 0.5em;
+  margin: 0.25em 0;
+  font-size: 1em;
+  font-family: Rubik, Roboto, Helvetica, Arial, sans-serif;
+}
+
+.ode-ComponentHelpPopup {
+  border: 4px solid #4156A6;
+}
+
+.ode-ComponentHelpPopup-TitleBar {
+  background-color: #4156A6;
+  color: white;
+  font-weight: bold;
+  font-size: 1em;
+  padding: 0.5em 0.25em;
+  box-shadow: none;
+}
+
+.ode-ComponentHelpPopup-Body {
+  font-size: 1em;
+}
+
+.ode-ComponentHelpPopup-Link {
+  font-size: 1em;
+}
+
+.ode-ComponentHelpPopup-Link a {
+  color: #4156A6;
+}
+
+code {
+  font-size: 1.25em;
+  background-color: #D9DDED;
+}
+
+.ode-PropertiesPanel {
+  background-color: #d9dded21;
+}
+
+.ode-ChoicePropertyEditor {
+  width: 95%;
+  padding: 0.5em 0.5em;
+}
+
+.ode-PropertyEditor {
+  width: 95%;
+  padding: 0.5em 0.5em;
+  font-size: 1em;
+}
+
+table.ode-SimplePaletteItem:hover {
+  background-color: rgb(217, 221, 237) !important;
+}
+
+.ode-PanelButtons {
+  width: 17.5em;
+  margin-bottom: 1em;
+}
+
+.ode-PanelButtons .ode-TextButton.ode-TextButton-up {
+  /* width: 100%; */
+  max-width: 10em;
+  margin-top: 1em;
+}
+
+.ode-PanelButtons .ode-TextButton.ode-TextButton-up-hovering {
+  /* width: 100%; */
+  max-width: 10em;
+  margin-top: 1em;
+  background-color: #172c79 !important;
+}
+
+.gwt-CheckBox label {
+  padding-left: 1em !important;
+}
+
+.ode-SimpleFormDesigner {
+  margin-top: 0.5em;
+}
+
+.ode-SimpleMockFormPhonePortrait.ode-SimpleMockFormPhonePortrait-selected {
+  margin: 1.5em 0;
+}
+
+table.ode-SimpleFormDesigner td {
+  text-align: center;
+}
+
+.ode-SimpleUiDesignerNonVisibleComponents {
+  margin-bottom: 3em;
+}
+
+.ode-MultipleChoicePropertyEditor {
+  min-width: 20em;
+}
+
+.ode-MultipleChoicePropertyEditor .popupContent table {
+  width: 100%;
+}
+
+select.gwt-ListBox {
+  border: 0;
+  max-height: 15em;
+}
+
+.gwt-ListBox option {
+  padding: 0.5em 0.25em;
+}
+
+/* upload button */
+body > div.ode-MultipleChoicePropertyEditor > div > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > button {
+  margin: 0.5em 0;
+}
+
+body > div.ode-MultipleChoicePropertyEditor > div > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > button {
+  width: 98%;
+}
+
+.ode-SimplePaletteItem-icon {
+  height: 20px;
+  width: 20px;
+  vertical-align: text-top;
+}
+
+.GG-QS0WCFJ:hover {
+  background-color: #4156a6 !important;
+}
+
+.GG-QS0WCEJ:hover {
+  background-color: #4156a6 !important;
+}
+
+.ode-SimpleMockButton {
+  padding: 4px 8px;
+  text-shadow: none;
+  background-color: #d6d7d7;
+  color: rgba(0, 0, 0, 0.87);
+} 
+
+img.gwt-Image {
+  height: 20px;
+  width: 20px;
+  vertical-align: text-top;
+}
+
+.dialogContent img.gwt-Image {
+  height: 5em;
+  width: 5em;
+  margin-top: 1em;
+}
+
+span.gwt-CheckBox {
+  display: -webkit-inline-box;
+}
+
+.ode-PropertiesPanel .gwt-DisclosurePanel > tbody > tr > td > a {
+  background-color: #003169;
+  color: white !important;
+}
+
+/* disclosure panel icon */
+.ode-PropertiesPanel .gwt-DisclosurePanel tbody tr td a tbody tr td:first-child {
+  padding: 0.5em !important;
+}
+
+.gwt-CheckBox {
+  display: block;
+  margin: 0px 2em;
+}
+
+.ode-TopPanel .gwt-HTML img {
+  width: 10em;
+  margin: 0 1em;
+}

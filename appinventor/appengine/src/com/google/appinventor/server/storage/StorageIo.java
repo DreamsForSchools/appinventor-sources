@@ -690,6 +690,11 @@ public interface StorageIo {
    */
   boolean deleteAccount(String userId);
 
+  // project user permission
+  StoredData.Permission getPermission(String userId, long projectId);
+  void addPermission(String userId, long projectId, StoredData.Permission perm);
+
+  String getProjectOwner(long projectId);
 }
 
 

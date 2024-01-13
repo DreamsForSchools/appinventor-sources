@@ -1,7 +1,7 @@
 {
   "name": "rendezvous2",
   "version": "2.0.0",
-  "description": "MIT App Inventor Rendezvous Server",
+  "description": "DFS - AppMaker Rendezvous Server",
   "main": "rendezvous.js",
   "dependencies": {
     "memcache": "^0.3.0",

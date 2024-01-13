@@ -26,6 +26,7 @@ import android.hardware.Sensor;
     "Most Android devices do not have this sensor.",
     category = ComponentCategory.SENSORS,
     nonVisible = true,
+    showOnPalette = false,
     iconName = "images/thermometer.png")
 @SimpleObject
 public class Thermometer extends SingleValueSensor {

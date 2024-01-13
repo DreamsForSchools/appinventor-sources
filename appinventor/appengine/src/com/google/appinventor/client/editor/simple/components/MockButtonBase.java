@@ -391,4 +391,8 @@ abstract class MockButtonBase extends MockVisibleComponent implements FormChange
   public void onComponentSelectionChange(MockComponent component, boolean selected) {
 
   }
+
+  @Override
+  public void onComponentMoved(MockComponent component, String newParentId, int index) {
+  }
 }

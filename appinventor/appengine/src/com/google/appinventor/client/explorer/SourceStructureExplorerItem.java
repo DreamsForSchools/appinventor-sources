@@ -43,4 +43,9 @@ public interface SourceStructureExplorerItem {
    * Invoked when the source structure explorer's Delete button is clicked.
    */
   void delete();
+
+  /**
+   * Returns the object id it associates with.
+   */
+  String getObjectId();
 }

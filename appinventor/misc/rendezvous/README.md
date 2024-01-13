@@ -1,8 +1,8 @@
 
 
-# MIT App Inventor Rendezvous Server
+# DFS - AppMaker Rendezvous Server
 
-This directory contains the code needed to run the MIT App Inventor
+This directory contains the code needed to run the DFS - AppMaker
 Rendezvous Server version 2.
 
 Version 2 supports both our “legacy” httpd connection to the MIT AI2

@@ -3,7 +3,7 @@
 
 /**
  * @license
- * @fileoverview Visual blocks editor for MIT App Inventor
+ * @fileoverview Visual blocks editor for DFS - AppMaker
  * Instrumentation extensions to Blockly SVG
  *
  * @author ewpatton@mit.edu (Evan W. Patton)
@@ -95,6 +95,15 @@ Blockly.BlockSvg.prototype.onMouseDown_ = (function(func) {
           console.warn('openFieldFlydown_ was set but flydown_ was undefined!');
         }
       }
+
+      // handle block locking for collaboration
+      var lockedBlocks = top.lockedBlocksByChannel && top.lockedBlocksByChannel[workspace.formName];
+      if (lockedBlocks && this.id in lockedBlocks && lockedBlocks[this.id] !== top.userEmail) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+
       var retval = func.call(this, e);
       var xy = goog.style.getPageOffset(this.svgGroup_);
       this.startX = xy.x;

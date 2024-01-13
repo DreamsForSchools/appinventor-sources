@@ -25,6 +25,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=10">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="static/images/favicon.ico" />
+
     <!--meta name="gwt:property" content="locale=en_US"-->
     <!-- Title is set at runtime. -->
     <title> </title>
@@ -43,9 +45,11 @@
     <link type="text/css" rel="stylesheet" href="static/css/iOS.css">
     <link type="text/css" rel="stylesheet" href="static/css/DarkTheme.css">
     <link type="text/css" rel="stylesheet" href="static/css/fonts.css">
+    <link type="text/css" rel="stylesheet" href="static/css/dfs-custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Rubik&amp;display=swap" rel="stylesheet">
     <noscript>
       <div class="floatingBox">
-        <h2> App Inventor needs JavaScript enabled to run.</h2>
+        <h2> DFS App Maker needs JavaScript enabled to run.</h2>
       </div>
     </noscript>
   </head>
@@ -54,7 +58,7 @@
   <body class="gwt-bodyRob">
     <div class="floatingBox" style="display:none" id="unsupported">
       <h2> Your browser might not be compatible. </h2>
-      To use App Inventor, you must use a compatible browser.<br>
+      To use DFS App Maker for Android, you must use a compatible browser.<br>
       Currently the supported browsers are:
       <ul>
         <li> Google Chrome 55+ </li>
@@ -62,6 +66,7 @@
         <li> Firefox 52+ </li>
       </ul>
     </div>
+    <script type="text/javascript" src="static/js/socket.io.js"></script>
     <script type="text/javascript" src="static/closure-library/closure/goog/base.js"></script>
     <script type="text/javascript" src="ode/ode.nocache.js"></script>
     <script src="static/leaflet/leaflet.js"></script>

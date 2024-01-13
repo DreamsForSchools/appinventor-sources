@@ -11,10 +11,7 @@ import com.google.appinventor.client.Ode;
 import com.google.appinventor.client.editor.FileEditor;
 import com.google.appinventor.client.editor.ProjectEditor;
 import com.google.appinventor.client.editor.youngandroid.actions.SwitchScreenAction;
-import com.google.appinventor.client.widgets.DropDownButton;
-import com.google.appinventor.client.widgets.DropDownItem;
-import com.google.appinventor.client.widgets.Toolbar;
-import com.google.appinventor.client.widgets.ToolbarItem;
+import com.google.appinventor.client.widgets.*;
 import com.google.appinventor.common.version.AppInventorFeatures;
 import com.google.appinventor.shared.rpc.project.youngandroid.YoungAndroidSourceNode;
 import com.google.common.collect.Lists;
@@ -23,6 +20,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 
 import java.util.LinkedList;
@@ -65,7 +64,7 @@ public class DesignToolbar extends Toolbar {
     public final String name;
     public final Map<String, Screen> screens; // screen name -> Screen
     public String currentScreen; // name of currently displayed screen
-    private final long projectId;
+    public final long projectId;
 
     public DesignProject(String name, long projectId) {
       this.name = name;
@@ -142,17 +141,26 @@ public class DesignToolbar extends Toolbar {
   @UiField protected ToolbarItem switchToBlocks;
   @UiField protected ToolbarItem sendToGalleryItem;
 
+  private static HorizontalPanel joinedUserLabel = new HorizontalPanel();
+  private static Map<String, Label> joinedUserMap = Maps.newHashMap();
+
   /**
    * Initializes and assembles all commands into buttons in the toolbar.
    */
   public DesignToolbar() {
     super();
     bindUI();
+    exportMethodToJavascript();
 
     if (Ode.getInstance().isReadOnly() || !AppInventorFeatures.allowMultiScreenApplications()) {
       setVisibleItem(addFormItem, false);
       setVisibleItem(removeFormItem, false);
     }
+
+    joinedUserLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+    joinedUserLabel.setStylePrimaryName("joined-user-panel");
+    rightButtons.insert(joinedUserLabel, 0);
+
     // Is the Gallery Enabled (new gallery)?
     setVisibleItem(sendToGalleryItem, Ode.getSystemConfig().getGalleryEnabled()
         && !Ode.getInstance().getGalleryReadOnly());
@@ -224,6 +232,12 @@ public class DesignToolbar extends Toolbar {
     Ode.getInstance().getTopToolbar().updateFileMenuButtons(1);
     // Inform the Blockly Panel which project/screen (aka form) we are working on
     BlocklyPanel.setCurrentForm(projectId + "_" + newScreenName);
+    // Setup collaboration channel
+    String currentChannel = Ode.getInstance().getCurrentChannel();
+    if(!currentChannel.equals(Ode.getInstance().getCollaborationManager().getScreenChannel())){
+      Ode.getInstance().getCollaborationManager().setScreenChannel(currentChannel);
+      Ode.getInstance().getCollaborationManager().componentSocketEvent(currentChannel);
+    }
     screen.blocksEditor.makeActiveWorkspace();
   }
 
@@ -381,4 +395,39 @@ public class DesignToolbar extends Toolbar {
     setButtonVisible(WIDGET_NAME_TUTORIAL_TOGGLE, value);
   }
 
+  // TODO(dxy): Change to session id to allow different sessions from the same user.
+  public static void addJoinedUser(String username, String color){
+    Label user = new Label();
+    user.setStyleName("collaboration-user-box");
+    user.getElement().getStyle().setBackgroundColor(color);
+    user.setTitle(username);
+    user.getElement().setInnerHTML(Character.toString(Character.toUpperCase(username.charAt(0))));
+    if (!joinedUserMap.containsKey(username)) {
+      joinedUserLabel.add(user);
+      joinedUserMap.put(username, user);
+    }
+  }
+
+  public static void removeJoinedUser(String username){
+    if (joinedUserMap.containsKey(username)) {
+      joinedUserLabel.remove(joinedUserMap.get(username));
+      joinedUserMap.remove(username);
+    }
+  }
+
+  public static void removeAllJoinedUser() {
+    for (String username : joinedUserMap.keySet()) {
+      joinedUserLabel.remove(joinedUserMap.get(username));
+    }
+    joinedUserMap.clear();
+  }
+
+  private static native void exportMethodToJavascript()/*-{
+    $wnd.DesignToolbar_addJoinedUser =
+      $entry(@com.google.appinventor.client.editor.youngandroid.DesignToolbar::addJoinedUser(Ljava/lang/String;Ljava/lang/String;));
+    $wnd.DesignToolbar_removeJoinedUser =
+      $entry(@com.google.appinventor.client.editor.youngandroid.DesignToolbar::removeJoinedUser(Ljava/lang/String;));
+    $wnd.DesignToolbar_removeAllJoinedUser =
+      $entry(@com.google.appinventor.client.editor.youngandroid.DesignToolbar::removeAllJoinedUser());
+  }-*/;
 }

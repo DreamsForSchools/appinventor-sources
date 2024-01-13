@@ -47,7 +47,7 @@ import com.google.appinventor.components.common.YaVersion;
  *
  */
 @DesignerComponent(version = YaVersion.HORIZONTALARRANGEMENT_COMPONENT_VERSION,
-    description = "<p>A formatting element in which to place components " +
+    description = "A formatting element in which to place components " +
     "that should be displayed from left to right.  If you wish to have " +
     "components displayed one over another, use " +
     "<code>VerticalArrangement</code> instead.</p>",

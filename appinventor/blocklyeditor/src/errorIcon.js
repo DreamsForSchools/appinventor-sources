@@ -20,7 +20,7 @@
 
 /**
  * @license
- * @fileoverview Object representing a warning for MIT App Inventor.
+ * @fileoverview Object representing a warning for DFS - AppMaker.
  * @author mckinney@mit.edu (Andrew F. McKinney)
  * @author fraser@google.com (Neil Fraser)
  * @author ewpatton@mit.edu (Evan W. Patton)

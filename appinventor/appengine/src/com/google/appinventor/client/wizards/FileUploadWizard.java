@@ -8,6 +8,7 @@ package com.google.appinventor.client.wizards;
 
 import static com.google.appinventor.client.Ode.MESSAGES;
 
+import com.google.appinventor.client.CollaborationManager;
 import com.google.appinventor.client.ErrorReporter;
 import com.google.appinventor.client.Ode;
 import com.google.appinventor.client.OdeAsyncCallback;
@@ -241,9 +242,11 @@ public class FileUploadWizard {
       long modificationDate, final FileUploadedCallback fileUploadedCallback) {
     Ode.getInstance().updateModificationDate(folderNode.getProjectId(), modificationDate);
     finishUpload(folderNode, filename, fileUploadedCallback);
+    Ode.getInstance().getCollaborationManager()
+            .broadcastFileEvent(CollaborationManager.FILE_UPLOAD, Long.toString(folderNode.getProjectId()), filename);
   }
 
-  private void finishUpload(FolderNode folderNode, String filename,
+  public static void finishUpload(FolderNode folderNode, String filename,
       FileUploadedCallback fileUploadedCallback) {
     String uploadedFileId = folderNode.getFileId() + "/" + filename;
     FileNode uploadedFileNode;

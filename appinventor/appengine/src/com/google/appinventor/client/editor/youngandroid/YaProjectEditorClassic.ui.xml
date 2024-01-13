@@ -20,14 +20,14 @@
       </ai:ToolbarItem>
     </DesignToolbar>
     <g:FlowPanel ui:field="workColumns" styleName="ode-WorkColumns">
-      <box:PaletteBox width="240px" />
+      <box:PaletteBox width="20em" />
       <box:ViewerBox />
       <g:FlowPanel ui:field="structureAndAssets">
         <box:SourceStructureBox />
         <box:BlockSelectorBox />
         <box:AssetListBox />
       </g:FlowPanel>
-      <box:PropertiesBox width="222px" />
+      <box:PropertiesBox width="20em" />
     </g:FlowPanel>
   </g:FlowPanel>
 </ui:UiBinder>

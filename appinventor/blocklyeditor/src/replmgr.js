@@ -80,10 +80,10 @@ Blockly.ReplStateObj.prototype = {
     'count' : 0,                        // Count of number of reads from rendezvous server
     'didversioncheck' : false,
     'isUSB' : false,            // True if using a USB connection
-    'rendezvous2' : 'https://rendezvous.appinventor.mit.edu/rendezvous2/',
-    'iceservers' : { 'iceServers' : [ { 'urls' : ['turn:turn.appinventor.mit.edu:3478'],
-                                        'username' : 'oh',
-                                        'credential' : 'boy' }]}
+    'rendezvous2' : 'https://rendezvous.appjam.org/rendezvous2/',
+    'iceservers' : { 'iceServers' : [ { 'urls' : ['turn:34.94.57.90:3478'],
+                                        'username' : 'appjam',
+                                        'credential' : 'dreams4schoolspw' }]}
 };
 
 var PROTECT_ENUM_ANDROID = "(define-syntax protect-enum " +

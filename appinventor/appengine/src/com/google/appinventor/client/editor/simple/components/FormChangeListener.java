@@ -61,4 +61,6 @@ public interface FormChangeListener {
    * @param selected  true if the component is selected, false if it is unselected
    */
   void onComponentSelectionChange(MockComponent component, boolean selected);
+
+  void onComponentMoved(MockComponent component, String newParentId, int index);
 }
