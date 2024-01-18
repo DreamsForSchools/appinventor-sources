@@ -406,6 +406,7 @@ Blockly.BlocklyEditor['create'] = function(container, formName, readOnly, rtl) {
 
   var workspace = new Blockly.WorkspaceSvg(options, blockDragSurface, workspaceDragSurface);
   Blockly.allWorkspaces[formName] = workspace;
+  workspace.userLastSelection = {};
   workspace.formName = formName;
   workspace.rendered = false;
   workspace.screenList_ = [];
@@ -449,7 +450,10 @@ Blockly.ai_inject = function(container, workspace) {
   workspace.fireChangeListener(new AI.Events.ScreenSwitch(workspace.projectId, workspace.formName));
   var gridEnabled = top.BlocklyPanel_getGridEnabled && top.BlocklyPanel_getGridEnabled();
   var gridSnap = top.BlocklyPanel_getSnapEnabled && top.BlocklyPanel_getSnapEnabled();
-  var channelId = window.parent.Ode_getCurrentChannel();
+  var blocklyWorkspaceName = window.parent.Ode_getCurrentBlocklyWorkspaceName();
+  if(!(blocklyWorkspaceName in window.parent.lockedBlocksByChannel)) {
+     window.parent.lockedBlocksByChannel[channel] = {};
+  }
   if (workspace.injected) {
     workspace.setGridSettings(gridEnabled, gridSnap);
     // Update the workspace size in case the window was resized while we were hidden
@@ -458,9 +462,9 @@ Blockly.ai_inject = function(container, workspace) {
         workspace.getWarningHandler().checkErrors(block);
         block.render();
         if(window.parent.AIFeature_enableComponentLocking()) {
-          if(block.id in window.parent.lockedBlocksByChannel[channelId]){
-            new AI.Events.LockBlock(channelId, block.id,
-                window.parent.lockedBlocksByChannel[channelId][block.id]).run();
+          if(block.id in window.parent.lockedBlocksByChannel[blocklyWorkspaceName]){
+            new AI.Events.LockBlock(blocklyWorkspaceName, block.id,
+                window.parent.lockedBlocksByChannel[blocklyWorkspaceName][block.id]).run();
           }
         }
       });
@@ -577,9 +581,9 @@ Blockly.ai_inject = function(container, workspace) {
       setTimeout(commentRenderer(block.comment), 1);
     }
     if(window.parent.AIFeature_enableComponentLocking()) {
-      if(block.id in window.parent.lockedBlocksByChannel[channelId]){
-        new AI.Events.LockBlock(channelId, block.id,
-            window.parent.lockedBlocksByChannel[channelId][block.id]).run();
+      if(block.id in window.parent.lockedBlocksByChannel[blocklyWorkspaceName]){
+        new AI.Events.LockBlock(blocklyWorkspaceName, block.id,
+            window.parent.lockedBlocksByChannel[blocklyWorkspaceName][block.id]).run();
       }
     }
   }

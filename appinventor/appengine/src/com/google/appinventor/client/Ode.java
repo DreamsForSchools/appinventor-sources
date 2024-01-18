@@ -2485,6 +2485,13 @@ public class Ode implements EntryPoint {
     return Ode.getInstance().getDesignToolbar().getCurrentProject().currentScreen;
   }
 
+  public static String getCurrentBlocklyWorkspaceName() {
+    if (Ode.getInstance().getDesignToolbar().getCurrentProject() == null) {
+      return "";
+    }
+    return Ode.getInstance().getDesignToolbar().getCurrentProject().projectId + "_" + Ode.getInstance().getDesignToolbar().getCurrentProject().currentScreen;
+  }
+
 
   public static void enableBroadcast() {
     Ode.getInstance().getCollaborationManager().enableBroadcast();
@@ -2515,6 +2522,8 @@ public class Ode implements EntryPoint {
   public static native void exportMethodToJavascript()/*-{
     $wnd.Ode_addSharedProject =
         $entry(@com.google.appinventor.client.Ode::addSharedProject(Ljava/lang/String;));
+    $wnd.Ode_getCurrentBlocklyWorkspaceName =
+        $entry(@com.google.appinventor.client.Ode::getCurrentBlocklyWorkspaceName());
     $wnd.Ode_getCurrentChannel =
         $entry(@com.google.appinventor.client.Ode::getCurrentChannel());
     $wnd.Ode_getCurrentScreen =

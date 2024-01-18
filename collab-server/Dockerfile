@@ -13,8 +13,9 @@ COPY . .
 EXPOSE 3000
 
 # Redis
-RUN         apt-get update && apt-get install -y redis-server
-EXPOSE      6379
+RUN         apt-get update 
+# && apt-get install -y redis-server
+# EXPOSE      6379
 
 RUN chmod +x ./start.sh
 

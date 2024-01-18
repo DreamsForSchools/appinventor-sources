@@ -96,7 +96,11 @@ Blockly.BlockSvg.prototype.onMouseDown_ = (function(func) {
         }
       }
 
-      // handle block locking for collaboration
+
+      if(!(workspace.formName in top.lockedBlocksByChannel)) {
+        top.lockedBlocksByChannel[workspace.formName] = {};
+      }
+
       var lockedBlocks = top.lockedBlocksByChannel && top.lockedBlocksByChannel[workspace.formName];
       if (lockedBlocks && this.id in lockedBlocks && lockedBlocks[this.id] !== top.userEmail) {
         e.preventDefault();

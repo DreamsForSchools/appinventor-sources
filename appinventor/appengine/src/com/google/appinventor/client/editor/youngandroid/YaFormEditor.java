@@ -794,6 +794,8 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
     sourceStructureExplorer.updateTree(form.buildComponentsTree(),
         form.getLastSelectedComponent().getSourceStructureExplorerItem());
     updatePhone();          // Push changes to the phone if it is connected
+
+    loadDesigner();
   }
 
   private void populateComponentsMap(MockComponent component, Map<String, MockComponent> map) {
@@ -1205,7 +1207,13 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
       this.getForm().addComponent(component);
       this.getNonVisibleComponentsPanel().addComponent(component);
     }
-    getForm().fireComponentAdded(component);
+
+    FileEditor currentEditor = Ode.getInstance().getCurrentFileEditor();
+
+    // if the screen name of the moved component doesnt match the existing one, dont fire
+    if (currentEditor == this) {
+      getForm().fireComponentAdded(component);
+    }
   }
 
 
@@ -1217,7 +1225,13 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
     MockComponent component = componentsDb.get(uuid);
     componentsDb.remove(uuid);
     component.getContainer().removeComponent(component, true);
-    getForm().fireComponentRemoved(component, true);
+
+    FileEditor currentEditor = Ode.getInstance().getCurrentFileEditor();
+
+    // if the screen name of the moved component doesnt match the existing one, dont fire
+    if (currentEditor == this) {
+      getForm().fireComponentRemoved(component, true);
+    }
   }
 
   @Override
@@ -1278,7 +1292,13 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
     }else{
       parent.addVisibleComponent(component, index);
     }
-    getForm().fireComponentMoved(component, parentUuid, index);
+
+    FileEditor currentEditor = Ode.getInstance().getCurrentFileEditor();
+
+    // if the screen name of the moved component doesnt match the existing one, dont fire
+    if (currentEditor == this) {
+      getForm().fireComponentMoved(component, parentUuid, index);
+    }
   }
 
   /**

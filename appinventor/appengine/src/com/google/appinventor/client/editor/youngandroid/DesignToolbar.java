@@ -238,11 +238,13 @@ public class DesignToolbar extends Toolbar {
     // initialized by componentSocketEvent(channelId) yet
 
     // No longer need to subscribe to screen specific channels. Just subscribe to project level channel
-//    String currentChannel = Ode.getInstance().getCurrentChannel();
-//    LOG.info("DOSWITCHSCREENHERE: " + currentChannel + "...." + Ode.getInstance().getCollaborationManager().getScreenChannel());
+//    // need to emit screen change to collaboration manager so that the blockly can set lockedBlocksByBlocklyWorkspace essentially
+    String currentChannel = Ode.getInstance().getCurrentBlocklyWorkspaceName();
+////    LOG.info("DOSWITCHSCREENHERE: " + currentChannel + "...." + Ode.getInstance().getCollaborationManager().getScreenChannel());
+
 //    if(!currentChannel.equals(Ode.getInstance().getCollaborationManager().getScreenChannel())){
-//      Ode.getInstance().getCollaborationManager().setScreenChannel(currentChannel);
-//      Ode.getInstance().getCollaborationManager().componentSocketEvent(currentChannel);
+////      Ode.getInstance().getCollaborationManager().setScreenChannel(currentChannel);
+      Ode.getInstance().getCollaborationManager().componentSocketEvent(currentChannel);
 //    }
 
     LOG.info("Setting currentScreen to " + newScreenName);

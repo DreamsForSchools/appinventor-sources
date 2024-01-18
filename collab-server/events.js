@@ -1,6 +1,4 @@
-var redis = require('redis')
-
-var debug = true;
+var debug = false;
 var log = true;
 
 var debugging = function(msg) {
@@ -15,63 +13,35 @@ var logging = function(obj) {
     }
 };
 
-var pub = redis.createClient();
 // Each project id in this map contains a set of all the users who joined.
 var projectJoinedUser = new Map();
 
 // These socket.on() events are mostly just subscriptions. The socket event names should be clearer but I'm not going to refactor it now.
 var events = function(io){
     io.on('connection', function(socket){
-        var sub = redis.createClient();
         var subscribedChannel = new Set();
         var userEmail = "";
         var projectID = "";
         var screenChannels   = new Set();
 
-        // Subscribe to own redis user channel
-        socket.on('userChannel', function(passedEmail){
-            if(!subscribedChannel.has(passedEmail)){
-                subscribedChannel.add(passedEmail);
-                userEmail = passedEmail;
-                sub.subscribe(passedEmail);
-                debugging(userEmail + " subscribe to user channel "+passedEmail);
-            }
+        // Subscribe to user channel
+        // TODO: See if this can be removed.
+        socket.on('userConnect', function(msg){
+            userEmail = msg;
+            debugging(userEmail + " saved to server");
         });
 
-        // Subscribe to project channel and pass the project id.
-        // Further emissions will be sent to/from the redis project channel.
         // The project channel will also handle all screen changes now.
+        // TODO: See if this can be removed.
         socket.on('projectChannel', function(passedProjectId){
-            if(!subscribedChannel.has(passedProjectId)){
-                subscribedChannel.add(passedProjectId);
-                projectID = passedProjectId;
-                sub.subscribe(passedProjectId);
-                debugging(userEmail + " subscribe to project channel "+passedProjectId);
-            }
-        });
-
-        // Subscribe to a screen channel, each socket should only have one screen channel on fly
-        // TODO(xinyue): Modify this to support multiple screens, user should subscribe all screen channels
-        // in the project when user joins the project, and ubsubscribe
-        // all screen channels when leave the project.
-        socket.on("screenChannel", function(newScreenChannel){
-            if(!screenChannels.has(newScreenChannel)){
-                screenChannels.add(newScreenChannel);
-            } 
-            
-            // if(screenChannel!==""){
-            //     sub.unsubscribe(screenChannel);
-            //     debugging(userEmail + " unsubscribe to screen channel "+ screenChannel);
-            // }
-            // screenChannel = newScreenChannel;
-            sub.subscribe(newScreenChannel);
-            debugging(userEmail + " subscribe to screen channel "+ newScreenChannel);
+            projectID = passedProjectId;
+            debugging(userEmail + " subscribe to project channel "+passedProjectId);
         });
 
         // Publish changes to user channel when a project is shared
         socket.on('shareProject', function(msg){
             // The msg["channel"] stands for the userEmail we want to share it with.
-            pub.publish(msg["channel"], JSON.stringify(msg));
+            socket.broadcast.emit(msg["channel"], JSON.stringify(msg));
 
             var lmsg = {
                 timestamp : Date.now(),
@@ -103,15 +73,13 @@ var events = function(io){
             }
             
             joinedUsers.add(msg["user"]);
-            // Send the the names of all the joined users to the user who just joined the project. 
-            // To the user, it is like they all just joined ath the same time they did. 
-            // This is unclear coding since they use the same type as below. Oh well.
             joinedUsers.forEach(function(e){
                 var pubMsg = {
                     "channel": msg["project"],
                     "source" : "join",
                     "user" : e
                 };
+                // Emit to the user who just joined all the users who have joined.
                 socket.emit(msg["project"], JSON.stringify(pubMsg));
             });
 
@@ -123,7 +91,7 @@ var events = function(io){
 
             if(msg["project"]){
                 // Send that the user just joined to all the other already existing users in the project.
-                pub.publish(msg["project"], JSON.stringify(pubSelf));
+                socket.broadcast.emit(msg["project"], JSON.stringify(pubSelf));
                 var lmsg = {
                     timestamp : Date.now(),
                     user : userEmail,
@@ -150,7 +118,7 @@ var events = function(io){
             }
 
             if(msg["project"]){
-                pub.publish(msg["project"], JSON.stringify(pubMsg));
+                socket.broadcast.emit(msg["project"], JSON.stringify(pubMsg));
                 var lmsg = {
                     timestamp : Date.now(),
                     user : userEmail,
@@ -161,23 +129,13 @@ var events = function(io){
             }
         });
 
-        // This isn't used at the moment. "Leader" collaboration model where only one person makes the changes.
-        socket.on('leader', function(msg){
-            debugging(userEmail+" on leader "+msg);
-            var pubMsg = {
-                "project" : msg["project"],
-                "type" : "leader",
-                "user" : msg["user"],
-                "leader" : msg["leader"],
-                "leaderEmail" : msg["leaderEmail"]
-            };
-            pub.publish(msg["project"], JSON.stringify(pubMsg));
-        });
 
         // Publish changes to screen channel when blocks changed
         socket.on('block', function(msg){
+            socket.broadcast.emit(msg["channel"], JSON.stringify(msg));
+
+            // Logging
             debugging(userEmail+" on block "+ msg);
-            pub.publish(msg["channel"], JSON.stringify(msg));
             var proj = msg["channel"].split("_")[0];
             var evt = msg["event"];
             switch (evt["type"]) {
@@ -224,10 +182,10 @@ var events = function(io){
 
         // Designer events, i.e. the YaFormEditor i.e. the phone screen page.
         socket.on('component', function(msg){
-            debugging(userEmail+" on component "+ msg);
-            pub.publish(msg["channel"], JSON.stringify(msg));
+            socket.broadcast.emit(msg["channel"], JSON.stringify(msg));
 
-            // The below is just for logging.
+            // Logging
+            debugging(userEmail+" on component "+ msg);
             var evt = msg["event"];
             switch (evt["type"]) {
                 case "component.create":
@@ -275,29 +233,22 @@ var events = function(io){
         // It's either a user channel, project channel, or formerly a "screen" channel.
         // publish latest status
         socket.on("status", function(msg){
-            pub.publish(msg["channel"], JSON.stringify(msg));
+            socket.broadcast.emit(msg["channel"], JSON.stringify(msg));
         });
 
         // get status from others
         socket.on("getStatus", function(msg){
-            pub.publish(msg["channel"], JSON.stringify(msg));
+            socket.broadcast.emit(msg["channel"], JSON.stringify(msg));
         });
 
         // file upload
         socket.on("file", function(msg){
-            pub.publish(msg["channel"], JSON.stringify(msg));
+            socket.broadcast.emit(msg["channel"], JSON.stringify(msg));
         });
 
-        // receive subscribe message
-        sub.on('message', function(ch, msg){
-            debugging(userEmail + " receive message on "+ch+" msg: "+msg);
-            // Socket.emit only sends it to that one user.
-            // Yes, it should use io.emit/broadcast and what not.
-            // Redis is not used in the intended way here. Redis should be used to synchronize socket servers. Oh well.
-            socket.emit(ch, msg);
-        });
 
         //disconnection
+        // socket is deleted on disconnect, so all the event handlers are automatically cleaned up.
         socket.on("disconnect", function(){
             debugging(userEmail+" connection is off");
             var pubMsg = {
@@ -311,7 +262,7 @@ var events = function(io){
             }
 
             if(projectID!=""){
-                pub.publish(projectID, JSON.stringify(pubMsg));
+                socket.broadcast.emit(projectID, JSON.stringify(pubMsg));
                 var lmsg = {
                     timestamp : Date.now(),
                     user : userEmail,
@@ -320,10 +271,7 @@ var events = function(io){
                     eventType: "user.leave"
                 }
                 logging(lmsg);
-                projectID = "";
             }
-            // Manually disconnect the client connection.
-            sub.quit()
         });
     });
 }
