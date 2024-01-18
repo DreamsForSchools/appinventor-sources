@@ -452,7 +452,7 @@ AI.Events.MoveComponent.prototype.toJson = function() {
 AI.Events.MoveComponent.prototype.run = function() {
   console.log(this);
   var editor = top.getDesignerForForm(this.projectId, this.screenName);
-  editor.moveComponent(this.componentId, this.parentId, this.index);
+  editor.moveComponent(this.componentId, this.parentId, this.index, this.screenName);
 };
 
 /**
@@ -714,6 +714,7 @@ AI.Events.SelectBlock.prototype.type = AI.Events.BLOCK_SELECT;
 
 AI.Events.SelectBlock.prototype.run = function() {
   var workspace = Blockly.allWorkspaces[this.workspaceId];
+  console.log("how about user last selection!", workspace.userLastSelection)
   if(this.userEmail in workspace.userLastSelection){
     var prevSelected = workspace.userLastSelection[this.userEmail];
     if(prevSelected.svgGroup_){

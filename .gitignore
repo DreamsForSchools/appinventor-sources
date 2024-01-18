@@ -21,3 +21,4 @@ out/
 *-cache/
 .bundle/
 vendor/
+node_modules/

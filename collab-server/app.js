@@ -4,10 +4,20 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressSession = require('express-session');
+var cors = require('cors');
 
 var routes = require('./routes/index');
 
 var app = express();
+
+// var corsOptions = {
+//   origin: ['https://staging.appjam.org', 'https://appjam.org'],
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// };
+
+// app.use(cors(corsOptions));
+
+app.use(cors());
 
 // define global variables
 global.userCount = 1;
@@ -33,7 +43,7 @@ app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  var err = new Error('Not Found. Collab server 1/17/24: 19:10pm');
   err.status = 404;
   next(err);
 });

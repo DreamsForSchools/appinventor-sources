@@ -150,8 +150,12 @@ public class CollaborationManager implements FormChangeListener {
     $wnd.socket.emit("file", msg);
   }-*/;
 
-    // Called whenever the screen switches.
+    // Called whenever the screen switches. Weird name. Maybe call it screenChange()
     public native void componentSocketEvent(String channel)/*-{
+
+        if(!(channel in $wnd.lockedBlocksByChannel)) {
+            $wnd.lockedBlocksByChannel[channel] = {};
+        }
 //    console.log("component socket event "+channel);
 //    $wnd.socket.emit("screenChannel", channel);
 //    $wnd.subscribedChannel.add(channel);
@@ -280,7 +284,7 @@ public class CollaborationManager implements FormChangeListener {
     // track locked component and block by client self
     $wnd.userLockedComponent = {};
     $wnd.userLockedBlock = {};
-    $wnd.socket.emit("userChannel", userEmail);
+    $wnd.socket.emit("userConnect", userEmail);
 
     // When sharing a project, an event is emitted to the user's email channel. The user's client will then add the
     // project to the project view.
@@ -313,15 +317,22 @@ public class CollaborationManager implements FormChangeListener {
 
 
     // Contains all the Blockly Workspaces
-    $wnd.workspaces = {}
+    $wnd.workspaces = Blockly.allWorkspaces;
 
-    // Create a userLastSelection object for all the blocklyPanels in BLockly.allWorkspaces
-    Object.keys(Blockly.allWorkspaces).forEach(function(key, index) {
-        $wnd.workspaces[key] = Blockly.allWorkspaces[key];
-        var workspace = $wnd.workspaces[key];
-        // Below needed for blockly setup
-        workspace.userLastSelection = {};
-    })
+    console.log(Object.keys($wnd.workspaces));
+
+//    console.log(Blockly.allWorkspaces, Object.getOwnPropertyNames(Blockly.allWorkspaces));
+//    // Create a userLastSelection object for all the blocklyPanels in BLockly.allWorkspaces
+//    Object.getOwnPropertyNames(Blockly.allWorkspaces).forEach(function(key, index) {
+//        console.log("KEYS");
+//        console.log(key, Blockly.allWorkspaces[key])
+//        $wnd.workspaces[key] = Blockly.allWorkspaces[key];
+//        var workspace = $wnd.workspaces[key];
+//        // Below needed for blockly setup
+//        workspace.userLastSelection = {};
+//    })
+//
+//    console.log("JOINNNING WORKSPACE", Blockly.allWorkspaces);
 
     if($wnd.AIFeature_enableComponentLocking()){
       // get status of this channel from other users
@@ -336,9 +347,6 @@ public class CollaborationManager implements FormChangeListener {
       // Create a new lockComponents/Blocks set for each channel if it does not exist.
       if(!(projectId in $wnd.lockedComponentsByChannel)) {
         $wnd.lockedComponentsByChannel[projectId] = {};
-      }
-      if(!(projectId in $wnd.lockedBlocksByChannel)) {
-        $wnd.lockedBlocksByChannel[projectId] = {};
       }
     }
 
@@ -358,6 +366,8 @@ public class CollaborationManager implements FormChangeListener {
       var color = "";
       var userFrom = msgJSON["user"];
       var colorMap = $wnd.userColorMap.get(msgJSON["channel"]);
+      var blockly_workspace_name = msgJSON["channel"] + "_" + msgJSON["screen"];
+
       if(userFrom!==$wnd.userEmail){
         console.log(msgJSON);
         switch(msgJSON["source"]){
@@ -387,9 +397,9 @@ public class CollaborationManager implements FormChangeListener {
                   Blockly.Collaboration.removeLockedComponent(projectId, userFrom);
                 }
               }
-              for(var projectId in $wnd.lockedBlocksByChannel) {
-                if(projectId == msgJSON["project"]) {
-                  Blockly.Collaboration.removeLockedBlock(projectId, userFrom);
+              for(var channel in $wnd.lockedBlocksByChannel) {
+                if(channel == blockly_workspace_name) {
+                  Blockly.Collaboration.removeLockedBlock(channel, userFrom);
                 }
               }
             }
@@ -407,7 +417,7 @@ public class CollaborationManager implements FormChangeListener {
             break;
           case "Block":
             // Get Blockly workspace specific to a screen
-            var workspace = $wnd.workspaces[msgJSON["channel"] + "_" + msgJSON["screen"]];
+            var workspace = $wnd.workspaces[blockly_workspace_name];
             var newEvent = Blockly.Events.fromJson(msgJSON["event"], workspace);
             Blockly.Events.disable();
             switch (newEvent.type) {
@@ -427,13 +437,13 @@ public class CollaborationManager implements FormChangeListener {
                 break;
               case Blockly.Events.MOVE:
                 if($wnd.AIFeature_enableComponentLocking()){
-                  new AI.Events.UnlockBlock(projectId, newEvent.blockId, userFrom).run();
+                  new AI.Events.UnlockBlock(blockly_workspace_name, newEvent.blockId, userFrom).run();
                 }
                 newEvent.run(true);
-                new AI.Events.SelectBlock(projectId, newEvent.blockId, userFrom).run();
+                new AI.Events.SelectBlock(blockly_workspace_name, newEvent.blockId, userFrom).run();
                 break;
               case Blockly.Events.UI:
-                new AI.Events.SelectBlock(projectId, newEvent.newValue, userFrom).run();
+                new AI.Events.SelectBlock(blockly_workspace_name, newEvent.newValue, userFrom).run();
                 break;
               default:
                 newEvent.run(true);
@@ -446,7 +456,7 @@ public class CollaborationManager implements FormChangeListener {
               new AI.Events.LockComponent(projectId, {id: msgJSON["lockedComponentId"], userEmail: userFrom}).run();
             }
             if(msgJSON["lockedBlockId"]){
-              new AI.Events.SelectBlock(projectId, msgJSON["lockedBlockId"], userFrom).run();
+              new AI.Events.SelectBlock(blockly_workspace_name, msgJSON["lockedBlockId"], userFrom).run();
             }
             break;
          // If someone asked for the status.
