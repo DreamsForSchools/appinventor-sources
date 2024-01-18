@@ -363,8 +363,8 @@ public class CollaborationManager implements FormChangeListener {
         return;
       }
 
-      var color = "";
-      var userFrom = msgJSON["user"];
+      var userEmail = msgJSON["user"];
+      var userColor = msgJSON["userColor"];
       var colorMap = $wnd.userColorMap.get(msgJSON["channel"]);
       var blockly_workspace_name = msgJSON["channel"] + "_" + msgJSON["screen"];
 
@@ -372,29 +372,29 @@ public class CollaborationManager implements FormChangeListener {
         console.log(msgJSON);
         switch(msgJSON["source"]){
           case "join":
-            if(!colorMap.has(userFrom)){
-              color = $wnd.colors.pop();
-              colorMap.set(userFrom, color);
+            if(!colorMap.has(userEmail)){
+              // color = $wnd.colors.pop();
+              colorMap.set(userEmail, userColor);
             }
-            $wnd.DesignToolbar_addJoinedUser(userFrom, colorMap.get(userFrom));
+            $wnd.DesignToolbar_addJoinedUser(userEmail, colorMap.get(userEmail));
             if($wnd.AIFeature_enableComponentLocking()){
               if(Blockly.mainWorkspace && Blockly.mainWorkspace.getParentSvg()
-                  && !Blockly.mainWorkspace.getParentSvg().getElementById("blocklyLockedPattern-"+userFrom)){
-                Blockly.Collaboration.createPattern(userFrom, $wnd.userColorMap.get(msgJSON["project"]).get(userFrom));
+                  && !Blockly.mainWorkspace.getParentSvg().getElementById("blocklyLockedPattern-"+userEmail)){
+                Blockly.Collaboration.createPattern(userEmail, $wnd.userColorMap.get(msgJSON["project"]).get(userEmail));
               }
             }
             break;
           case "leave":
-            if(colorMap.has(userFrom)){
-              c = colorMap.get(userFrom);
-              $wnd.colors.push(c);
-              colorMap.rmv(userFrom);
+            if(colorMap.has(userEmail)){
+              c = colorMap.get(userEmail);
+              // $wnd.colors.push(c);
+              colorMap.rmv(userEmail);
             }
-            $wnd.DesignToolbar_removeJoinedUser(userFrom);
+            $wnd.DesignToolbar_removeJoinedUser(userEmail);
             if($wnd.AIFeature_enableComponentLocking()){
               for(var projectId in $wnd.lockedComponentsByChannel) {
                 if(projectId == msgJSON["project"]) {
-                  Blockly.Collaboration.removeLockedComponent(projectId, userFrom);
+                  Blockly.Collaboration.removeLockedComponent(projectId, userEmail);
                 }
               }
               for(var channel in $wnd.lockedBlocksByChannel) {
