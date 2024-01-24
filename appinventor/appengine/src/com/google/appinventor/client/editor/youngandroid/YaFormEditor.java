@@ -788,14 +788,16 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
   private void onFormStructureChange() {
     Ode.getInstance().getEditorManager().scheduleAutoSave(this);
 
-    YaFormEditor currentEditor = (YaFormEditor) Ode.getInstance().getCurrentFileEditor();
+    // This isn't even used not sure why I added this
+//    YaFormEditor currentEditor = (YaFormEditor) Ode.getInstance().getCurrentFileEditor();
 
     // Update source structure panel
     sourceStructureExplorer.updateTree(form.buildComponentsTree(),
         form.getLastSelectedComponent().getSourceStructureExplorerItem());
     updatePhone();          // Push changes to the phone if it is connected
 
-    loadDesigner();
+    // Don't load designer, sometimes we're on the blockly page. Not sure why I added this below.
+//    loadDesigner();
   }
 
   private void populateComponentsMap(MockComponent component, Map<String, MockComponent> map) {
