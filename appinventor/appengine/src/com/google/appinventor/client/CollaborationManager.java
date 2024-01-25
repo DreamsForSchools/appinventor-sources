@@ -332,7 +332,7 @@ public class CollaborationManager implements FormChangeListener {
 //        workspace.userLastSelection = {};
 //    })
 //
-//    console.log("JOINNNING WORKSPACE", Blockly.allWorkspaces);
+//    console.log("JOINING WORKSPACE", Blockly.allWorkspaces);
 
     if($wnd.AIFeature_enableComponentLocking()){
       // get status of this channel from other users
