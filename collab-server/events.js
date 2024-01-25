@@ -15,6 +15,8 @@ var logging = function(obj) {
 
 // Each project id in this map contains a set of all the users who joined.
 var projectJoinedUser = new Map();
+var projectAvailColors = new Map();
+const colors = ['#999999','#f781bf','#a65628','#ffff33','#ff7f00','#984ea3','#4daf4a','#377eb8','#e41a1c'];
 
 // These socket.on() events are mostly just subscriptions. The socket event names should be clearer but I'm not going to refactor it now.
 var events = function(io){
@@ -62,7 +64,9 @@ var events = function(io){
             // The current project id the user has open.
             projectID = msg["project"];
 
-            var joinedUsers;
+            const uemail = msg["user"]
+            let joinedUsers = {};
+            let availColors = []
 
             // Create a set of joined users for the project if one does not already exist. If it does, just get the set of joined users.
             if (projectJoinedUser.has(msg["project"])){
@@ -71,23 +75,49 @@ var events = function(io){
                 joinedUsers = new Set();
                 projectJoinedUser.set(msg["project"], joinedUsers);
             }
-            
-            joinedUsers.add(msg["user"]);
-            joinedUsers.forEach(function(e){
+
+            console.log(projectAvailColors)
+
+            // Create a set of available colors for users for the project if one does not already exist. If it does, just get the set of available colors.
+            if (projectAvailColors.has(msg["project"])){
+                availColors = projectAvailColors.get(msg["project"]);
+            } else {
+                availColors = colors;
+                projectAvailColors.set(msg["project"], colors);
+            }
+
+            console.log("availColors", availColors)
+
+            // Assign next color to new user
+            // joinedUsers.add(msg["user"]);
+            // let userColor = colors[colors.length % (colors.length - Object.keys(joinedUsers).length)];
+            let userColor = availColors.pop();
+            joinedUsers[uemail] = userColor;
+
+            projectAvailColors.set(msg["project"], availColors);
+
+            console.log(joinedUsers)
+
+            for (const [user, color] of Object.entries(joinedUsers)) {
                 var pubMsg = {
                     "channel": msg["project"],
                     "source" : "join",
-                    "user" : e
+                    "user" : user,
+                    "userColor": color
                 };
                 // Emit to the user who just joined all the users who have joined.
                 socket.emit(msg["project"], JSON.stringify(pubMsg));
-            });
+                console.log("pubMsg", pubMsg)
+            };
 
             var pubSelf = {
                 "channel": msg["project"],
                 "source" : "join",
-                "user" : userEmail
+                "user" : uemail,
+                "userColor": userColor
             };
+
+            console.log("pubSelf", pubSelf)
 
             if(msg["project"]){
                 // Send that the user just joined to all the other already existing users in the project.
@@ -115,6 +145,11 @@ var events = function(io){
             // Delete the user from the project user list they were in.
             if(projectJoinedUser.has(msg["project"])){
                 projectJoinedUser.get(msg["project"]).delete(msg["user"]);
+            }
+
+            // Add the color back into the project's available color
+            if (projectAvailColors.has(msg["project"])) {
+                projectAvailColors.get(msg["project"]).push(msg["userColor"]);
             }
 
             if(msg["project"]){

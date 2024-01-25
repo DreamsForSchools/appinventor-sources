@@ -332,7 +332,7 @@ public class CollaborationManager implements FormChangeListener {
 //        workspace.userLastSelection = {};
 //    })
 //
-//    console.log("JOINNNING WORKSPACE", Blockly.allWorkspaces);
+//    console.log("JOINING WORKSPACE", Blockly.allWorkspaces);
 
     if($wnd.AIFeature_enableComponentLocking()){
       // get status of this channel from other users
@@ -363,38 +363,40 @@ public class CollaborationManager implements FormChangeListener {
         return;
       }
 
-      var userEmail = msgJSON["user"];
+      var color = "";
+      var userFrom = msgJSON["user"];
       var userColor = msgJSON["userColor"];
       var colorMap = $wnd.userColorMap.get(msgJSON["channel"]);
       var blockly_workspace_name = msgJSON["channel"] + "_" + msgJSON["screen"];
 
-      if(userFrom!==$wnd.userEmail){
-        console.log(msgJSON);
+      if(userFrom==$wnd.userEmail) {
+        $wnd.userColor = userColor;
+      } else {
         switch(msgJSON["source"]){
           case "join":
-            if(!colorMap.has(userEmail)){
+            if(!colorMap.has(userFrom) && msgJSON.userColor){
               // color = $wnd.colors.pop();
-              colorMap.set(userEmail, userColor);
+              colorMap.set(userFrom, userColor);
             }
-            $wnd.DesignToolbar_addJoinedUser(userEmail, colorMap.get(userEmail));
+            $wnd.DesignToolbar_addJoinedUser(userFrom, colorMap.get(userFrom));
             if($wnd.AIFeature_enableComponentLocking()){
               if(Blockly.mainWorkspace && Blockly.mainWorkspace.getParentSvg()
-                  && !Blockly.mainWorkspace.getParentSvg().getElementById("blocklyLockedPattern-"+userEmail)){
-                Blockly.Collaboration.createPattern(userEmail, $wnd.userColorMap.get(msgJSON["project"]).get(userEmail));
+                  && !Blockly.mainWorkspace.getParentSvg().getElementById("blocklyLockedPattern-"+userFrom)){
+                Blockly.Collaboration.createPattern(userFrom, $wnd.userColorMap.get(msgJSON["project"]).get(userFrom));
               }
             }
             break;
           case "leave":
-            if(colorMap.has(userEmail)){
-              c = colorMap.get(userEmail);
+            if(colorMap.has(userFrom)){
+              c = colorMap.get(userFrom);
               // $wnd.colors.push(c);
-              colorMap.rmv(userEmail);
+              colorMap.rmv(userFrom);
             }
-            $wnd.DesignToolbar_removeJoinedUser(userEmail);
+            $wnd.DesignToolbar_removeJoinedUser(userFrom);
             if($wnd.AIFeature_enableComponentLocking()){
               for(var projectId in $wnd.lockedComponentsByChannel) {
                 if(projectId == msgJSON["project"]) {
-                  Blockly.Collaboration.removeLockedComponent(projectId, userEmail);
+                  Blockly.Collaboration.removeLockedComponent(projectId, userFrom);
                 }
               }
               for(var channel in $wnd.lockedBlocksByChannel) {
@@ -488,7 +490,8 @@ public class CollaborationManager implements FormChangeListener {
     public native void leaveProject()/*-{
     var msg = {
       "project": $wnd.project,
-      "user": $wnd.userEmail
+      "user": $wnd.userEmail,
+      "userColor": $wnd.userColor
     };
     $wnd.project = "";
 
