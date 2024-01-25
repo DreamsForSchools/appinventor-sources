@@ -76,8 +76,6 @@ var events = function(io){
                 projectJoinedUser.set(msg["project"], joinedUsers);
             }
 
-            console.log(projectAvailColors)
-
             // Create a set of available colors for users for the project if one does not already exist. If it does, just get the set of available colors.
             if (projectAvailColors.has(msg["project"])){
                 availColors = projectAvailColors.get(msg["project"]);
@@ -86,8 +84,6 @@ var events = function(io){
                 projectAvailColors.set(msg["project"], colors);
             }
 
-            console.log("availColors", availColors)
-
             // Assign next color to new user
             // joinedUsers.add(msg["user"]);
             // let userColor = colors[colors.length % (colors.length - Object.keys(joinedUsers).length)];
@@ -95,8 +91,6 @@ var events = function(io){
             joinedUsers[uemail] = userColor;
 
             projectAvailColors.set(msg["project"], availColors);
-
-            console.log(joinedUsers)
 
             for (const [user, color] of Object.entries(joinedUsers)) {
                 var pubMsg = {
@@ -107,7 +101,6 @@ var events = function(io){
                 };
                 // Emit to the user who just joined all the users who have joined.
                 socket.emit(msg["project"], JSON.stringify(pubMsg));
-                console.log("pubMsg", pubMsg)
             };
 
             var pubSelf = {
@@ -116,8 +109,6 @@ var events = function(io){
                 "user" : uemail,
                 "userColor": userColor
             };
-
-            console.log("pubSelf", pubSelf)
 
             if(msg["project"]){
                 // Send that the user just joined to all the other already existing users in the project.
@@ -297,6 +288,14 @@ var events = function(io){
             }
 
             if(projectID!=""){
+                const projectColors = projectJoinedUser.get(projectID);
+                console.log(projectColors)
+                console.log(projectColors[userEmail])
+                // Add the color back into the project's available color
+                if (projectAvailColors.has(projectID)) {
+                    projectAvailColors.get(projectID).push(projectColors[userEmail]);
+                }
+
                 socket.broadcast.emit(projectID, JSON.stringify(pubMsg));
                 var lmsg = {
                     timestamp : Date.now(),
