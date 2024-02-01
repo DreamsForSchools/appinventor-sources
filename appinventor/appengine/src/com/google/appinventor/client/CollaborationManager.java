@@ -5,6 +5,7 @@ import com.google.appinventor.client.editor.ProjectEditor;
 import com.google.appinventor.client.editor.simple.components.FormChangeListener;
 import com.google.appinventor.client.editor.simple.components.MockComponent;
 import com.google.appinventor.client.editor.youngandroid.DesignToolbar;
+import com.google.appinventor.client.editor.youngandroid.YaFormEditor;
 import com.google.appinventor.client.editor.youngandroid.events.*;
 import com.google.appinventor.client.explorer.project.Project;
 import com.google.appinventor.client.wizards.FileUploadWizard;
@@ -14,11 +15,15 @@ import com.google.appinventor.shared.rpc.project.youngandroid.*;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.Scheduler;
 
+import java.util.logging.Logger;
+
 
 /**
  * This class manages group collaboration.
  */
 public class CollaborationManager implements FormChangeListener {
+    private static final Logger LOG = Logger.getLogger(CollaborationManager.class.getName());
+
     public static final String FILE_UPLOAD = "file_upload";
     public static final String FILE_DELETE = "file_delete";
     public static final String SCREEN_ADD = "screen_add";
@@ -154,7 +159,7 @@ public class CollaborationManager implements FormChangeListener {
     $wnd.socket.emit("file", msg);
   }-*/;
 
-    public native void broadcastScreenAdd(String type, Long projectId, String formFileId, String blocksFileId, Long modDate, String formName) /*-{
+    public native void broadcastScreenAdd(String type, String projectId, String formFileId, String blocksFileId, String modDate, String formName) /*-{
     var msg = {
       "channel" : $wnd.Ode_getCurrentChannel(),
       "user": $wnd.userEmail,
@@ -169,7 +174,7 @@ public class CollaborationManager implements FormChangeListener {
     $wnd.socket.emit("screen", msg);
   }-*/;
 
-    public native void broadcastScreenRemove(String type, Long projectId, String nodeFileId, String formFileId, String blocksFileId, String yailFileId, Long modDate, String formName) /*-{
+    public native void broadcastScreenRemove(String type, String projectId, String nodeFileId, String formFileId, String blocksFileId, String yailFileId, String modDate, String formName) /*-{
     var msg = {
       "channel" : $wnd.Ode_getCurrentChannel(),
       "user": $wnd.userEmail,
@@ -550,8 +555,6 @@ public class CollaborationManager implements FormChangeListener {
         long modDate = Long.parseLong(modDateString);
         final Ode ode = Ode.getInstance();
         final YoungAndroidProjectNode projectRootNode = (YoungAndroidProjectNode) ode.getCurrentYoungAndroidProjectRootNode();
-        final Project project = ode.getProjectManager().getProject(projectRootNode);
-        final YoungAndroidPackageNode packageNode = projectRootNode.getPackageNode();
         final ProjectNode node = ode.getCurrentYoungAndroidProjectRootNode().findNode(nodeFileId);
 
         if(type.equals(SCREEN_REMOVE)){
@@ -560,6 +563,8 @@ public class CollaborationManager implements FormChangeListener {
             fileIds[0] = formFileId;
             fileIds[1] = blocksFileId;
             ode.getEditorManager().closeFileEditors(projectId, fileIds);
+
+            Project project = ode.getProjectManager().getProject(node);
 
             // Remove all related nodes (form, blocks, yail) from the project.
             for (ProjectNode sourceNode : node.getProjectRoot().getAllSourceNodes()) {

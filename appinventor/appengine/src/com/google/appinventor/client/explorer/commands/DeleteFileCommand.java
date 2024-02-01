@@ -215,8 +215,9 @@ public class DeleteFileCommand extends ChainableCommand {
             @Override
             public void onSuccess(Long date) {
               // Emit the changes here.
+              // Long types MUST be passed in as a string or else the code won't work.
               Ode.getInstance().getCollaborationManager()
-                      .broadcastScreenRemove(CollaborationManager.SCREEN_REMOVE, projectId, node.getFileId(), formFileId, blocksFileId, yailFileId, date, formName);
+                      .broadcastScreenRemove(CollaborationManager.SCREEN_REMOVE, Long.toString(projectId), node.getFileId(), formFileId, blocksFileId, yailFileId, Long.toString(date), formName);
 
               // Remove all related nodes (form, blocks, yail) from the project.
               Project project = getProject(node);

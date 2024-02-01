@@ -219,8 +219,9 @@ public final class AddFormCommand extends ChainableCommand {
         @Override
         public void onSuccess(Long modDate) {
           // Emit the changes here.
+          // Long types MUST be passed in as a string or else the code won't work.
           Ode.getInstance().getCollaborationManager()
-                  .broadcastScreenAdd(CollaborationManager.SCREEN_ADD, projectRootNode.getProjectId(), formFileId, blocksFileId, modDate, formName);
+                  .broadcastScreenAdd(CollaborationManager.SCREEN_ADD, Long.toString(projectRootNode.getProjectId()), formFileId, blocksFileId, Long.toString(modDate), formName);
 
 
           // ALl the code below gets executed in the receiving clients in Collaboration manager.
