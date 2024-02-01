@@ -1192,8 +1192,9 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
     });
   }
 
+  // The add/remove/rename component runs whether you're in designer or blockly view.
   @Override
-  public void addComponent(String uuid, String type) {
+  public void addComponent(String uuid, String type, String affectedScreenName) {
     if (componentsDb.containsKey(uuid)) {
       throw new IllegalStateException("Component with UUID \"" + uuid + "\" already exists.");
     }
@@ -1210,17 +1211,17 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
       this.getNonVisibleComponentsPanel().addComponent(component);
     }
 
-    FileEditor currentEditor = Ode.getInstance().getCurrentFileEditor();
+    String currentScreen = Ode.getInstance().getCurrentScreen();
 
     // if the screen name of the moved component doesnt match the existing one, dont fire
-    if (currentEditor == this) {
+    if (currentScreen.equals(affectedScreenName)) {
       getForm().fireComponentAdded(component);
     }
   }
 
 
   @Override
-  public void removeComponent(String uuid) {
+  public void removeComponent(String uuid, String affectedScreenName) {
     if (!componentsDb.containsKey(uuid)) {
       return;
     }
@@ -1228,23 +1229,28 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
     componentsDb.remove(uuid);
     component.getContainer().removeComponent(component, true);
 
-    FileEditor currentEditor = Ode.getInstance().getCurrentFileEditor();
+    String currentScreen = Ode.getInstance().getCurrentScreen();
 
     // if the screen name of the moved component doesnt match the existing one, dont fire
-    if (currentEditor == this) {
+    if (currentScreen.equals(affectedScreenName)) {
       getForm().fireComponentRemoved(component, true);
     }
   }
 
   @Override
-  public void renameComponent(String uuid, String name) {
+  public void renameComponent(String uuid, String name, String affectedScreenName) {
     MockComponent component = componentsDb.get(uuid);
+    String currentScreen = Ode.getInstance().getCurrentScreen();
+
     if (component == null) {
       throw new IllegalStateException("No component exists with UUID \"" + uuid + "\"");
     } else {
       String oldName = component.getPropertyValue(MockComponent.PROPERTY_NAME_NAME);
       component.changeProperty(MockComponent.PROPERTY_NAME_NAME, name);
-      getForm().fireComponentRenamed(component, oldName);
+      // if the screen name of the moved component doesnt match the existing one, dont fire
+      if (currentScreen.equals(affectedScreenName)) {
+        getForm().fireComponentRenamed(component, oldName);
+      }
       // evan included this in Xinyue's componentlocking branch 2/23/17, not needed
       onFormStructureChange();
       // the new "Update Properties Panel"

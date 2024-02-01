@@ -10,25 +10,25 @@ public final class DesignerAdapter extends JavaScriptObject implements IDesigner
   }
 
   private static native void setupPrototype()/*-{
-    AI.Adapter.Designer.prototype.addComponent = function(uuid, type) {
+    AI.Adapter.Designer.prototype.addComponent = function(uuid, type, affectedScreenName) {
       var editor = this.editor;
       var args = Array.prototype.slice.call(arguments);
-      $entry(function() { editor.@com.google.appinventor.client.editor.youngandroid.YaFormEditor::addComponent(Ljava/lang/String;Ljava/lang/String;).apply(editor, args) })();
+      $entry(function() { editor.@com.google.appinventor.client.editor.youngandroid.YaFormEditor::addComponent(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;).apply(editor, args) })();
     };
     AI.Adapter.Designer.prototype.getComponentByUuid = function(uuid) {
       var editor = this.editor;
       var args = Array.prototype.slice.call(arguments);
       return $entry(function() { return editor.@com.google.appinventor.client.editor.youngandroid.YaFormEditor::getComponentByUuid(Ljava/lang/String;).apply(editor, args) })();
     };
-    AI.Adapter.Designer.prototype.removeComponent = function(uuid) {
+    AI.Adapter.Designer.prototype.removeComponent = function(uuid, affectedScreenName) {
       var editor = this.editor;
       var args = Array.prototype.slice.call(arguments);
-      $entry(function() { editor.@com.google.appinventor.client.editor.youngandroid.YaFormEditor::removeComponent(Ljava/lang/String;).apply(editor, args) })();
+      $entry(function() { editor.@com.google.appinventor.client.editor.youngandroid.YaFormEditor::removeComponent(Ljava/lang/String;Ljava/lang/String;).apply(editor, args) })();
     };
-    AI.Adapter.Designer.prototype.renameComponent = function(uuid, name) {
+    AI.Adapter.Designer.prototype.renameComponent = function(uuid, name, affectedScreenName) {
       var editor = this.editor;
       var args = Array.prototype.slice.call(arguments);
-      $entry(function() { editor.@com.google.appinventor.client.editor.youngandroid.YaFormEditor::renameComponent(Ljava/lang/String;Ljava/lang/String;).apply(editor, args) })();
+      $entry(function() { editor.@com.google.appinventor.client.editor.youngandroid.YaFormEditor::renameComponent(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;).apply(editor, args) })();
     };
     AI.Adapter.Designer.prototype.setProperty = function(uuid, name, value) {
       var editor = this.editor;
@@ -50,8 +50,8 @@ public final class DesignerAdapter extends JavaScriptObject implements IDesigner
   }-*/;
 
   @Override
-  public final native void addComponent(String uuid, String type)/*-{
-    this.addComponent(uuid, type);
+  public final native void addComponent(String uuid, String type, String affectedScreenName)/*-{
+    this.addComponent(uuid, type, affectedScreenName);
   }-*/;
   
   @Override
@@ -60,13 +60,13 @@ public final class DesignerAdapter extends JavaScriptObject implements IDesigner
   }-*/;
   
   @Override
-  public final native void removeComponent(String uuid)/*-{
-    this.removeComponent(uuid);
+  public final native void removeComponent(String uuid, String affectedScreenName)/*-{
+    this.removeComponent(uuid, affectedScreenName);
   }-*/;
   
   @Override
-  public final native void renameComponent(String uuid, String name)/*-{
-    this.renameComponent(uuid, name);
+  public final native void renameComponent(String uuid, String name, String affectedScreenName)/*-{
+    this.renameComponent(uuid, name, affectedScreenName);
   }-*/;
   
   @Override

@@ -1,6 +1,8 @@
 // -*- mode: javascript; c-basic-offset: 2; -*-
 // Copyright © 2016 Massachusetts Institute of Technology. All rights reserved.
 
+// Not sure if I have to edit this file since I edited the add/rename/removeComponent to include an additional parameter.
+
 /**
  * @license
  * @fileoverview Declares adapter objects for interfacing with GWT objects from JavaScript.

@@ -589,7 +589,7 @@ public final class YaBlocksEditor extends FileEditor
   @Override
   public void onComponentAdded(MockComponent component) {
     addComponent(component.getType(), component.getName(), component.getUuid());
-    if (loadComplete) {
+    if (loadComplete) { // Not sure why the source tree in the blockly editor lags by one. Low priority bug.
       // Update source structure panel
       updateSourceStructureExplorer();
     }

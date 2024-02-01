@@ -380,7 +380,7 @@ AI.Events.CreateComponent.prototype.toJson = function() {
 AI.Events.CreateComponent.prototype.run = function() {
   console.log(this);
   var editor = top.getDesignerForForm(this.projectId, this.screenName);
-  editor.addComponent(this.componentId, this.componentType);
+  editor.addComponent(this.componentId, this.componentType, this.screenName);
 };
 
 /**
@@ -413,7 +413,7 @@ AI.Events.DeleteComponent.prototype.toJson = function() {
 AI.Events.DeleteComponent.prototype.run = function() {
   console.log(this);
   var editor = top.getDesignerForForm(this.projectId, this.screenName);
-  editor.removeComponent(this.componentId);
+  editor.removeComponent(this.componentId, this.screenName);
 };
 
 /**
@@ -494,7 +494,7 @@ AI.Events.ComponentProperty.prototype.run = function() {
   console.log(this);
   var editor = top.getDesignerForForm(this.projectId, this.screenName);
   if(this.property=="Name"){
-    editor.renameComponent(this.componentId, this.value);
+    editor.renameComponent(this.componentId, this.value, this.screenName);
   } else {
     editor.setProperty(this.componentId, this.property, this.value);
   }
