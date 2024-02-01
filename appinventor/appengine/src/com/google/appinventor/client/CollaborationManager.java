@@ -1,16 +1,18 @@
 package com.google.appinventor.client;
 
+import com.google.appinventor.client.editor.FileEditor;
+import com.google.appinventor.client.editor.ProjectEditor;
 import com.google.appinventor.client.editor.simple.components.FormChangeListener;
 import com.google.appinventor.client.editor.simple.components.MockComponent;
+import com.google.appinventor.client.editor.youngandroid.DesignToolbar;
 import com.google.appinventor.client.editor.youngandroid.events.*;
 import com.google.appinventor.client.explorer.project.Project;
 import com.google.appinventor.client.wizards.FileUploadWizard;
 import com.google.appinventor.common.version.AppInventorFeatures;
 import com.google.appinventor.shared.rpc.project.ProjectNode;
-import com.google.appinventor.shared.rpc.project.ProjectRootNode;
-import com.google.appinventor.shared.rpc.project.youngandroid.YoungAndroidAssetsFolder;
-import com.google.appinventor.shared.rpc.project.youngandroid.YoungAndroidProjectNode;
+import com.google.appinventor.shared.rpc.project.youngandroid.*;
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.Scheduler;
 
 
 /**
@@ -19,6 +21,8 @@ import com.google.gwt.core.client.JavaScriptObject;
 public class CollaborationManager implements FormChangeListener {
     public static final String FILE_UPLOAD = "file_upload";
     public static final String FILE_DELETE = "file_delete";
+    public static final String SCREEN_ADD = "screen_add";
+    public static final String SCREEN_REMOVE = "screen_remove";
 
     private boolean broadcast;
     // TODO(xinyue): Modify this to support multi screen
@@ -150,122 +154,45 @@ public class CollaborationManager implements FormChangeListener {
     $wnd.socket.emit("file", msg);
   }-*/;
 
+    public native void broadcastScreenAdd(String type, Long projectId, String formFileId, String blocksFileId, Long modDate, String formName) /*-{
+    var msg = {
+      "channel" : $wnd.Ode_getCurrentChannel(),
+      "user": $wnd.userEmail,
+      "source": "ScreenAdd",
+      "projectId": projectId,
+      "formFileId": formFileId,
+      "blocksFileId": blocksFileId,
+      "modDate": modDate,
+      "formName": formName,
+      "type": type,
+    };
+    $wnd.socket.emit("screen", msg);
+  }-*/;
+
+    public native void broadcastScreenRemove(String type, Long projectId, String nodeFileId, String formFileId, String blocksFileId, String yailFileId, Long modDate, String formName) /*-{
+    var msg = {
+      "channel" : $wnd.Ode_getCurrentChannel(),
+      "user": $wnd.userEmail,
+      "source": "ScreenRemove",
+      "projectId": projectId,
+      "nodeFileId": nodeFileId,
+      "formFileId": formFileId,
+      "blocksFileId": blocksFileId,
+      "yailFileId": yailFileId,
+      "modDate": modDate,
+      "formName": formName,
+      "type": type,
+    };
+    $wnd.socket.emit("screen", msg);
+  }-*/;
+
+    // TODO: Delete this, unneeded.
     // Called whenever the screen switches. Weird name. Maybe call it screenChange()
     public native void componentSocketEvent(String channel)/*-{
 
-        if(!(channel in $wnd.lockedBlocksByChannel)) {
-            $wnd.lockedBlocksByChannel[channel] = {};
-        }
-//    console.log("component socket event "+channel);
-//    $wnd.socket.emit("screenChannel", channel);
-//    $wnd.subscribedChannel.add(channel);
-//    var workspace = Blockly.allWorkspaces[channel];
-
-    // userLastSelection is the latest block selected by other user, mapped by user email
-    // lockedComponent is the components locked by other users. Key is the component id, value is userEmail and timestamp
-    // lockedBlock is the block locked by other users. Key is the block id, value is userEmail and timestamp
-
-    // Upon switching screens again, it has to get the status with all the lockedComponents in the screen.
-
-//    workspace.userLastSelection = {};
-//    if($wnd.AIFeature_enableComponentLocking()){
-//      // get status of this channel from other users
-//      var getStatusMsg = {
-//        "channel" : channel,
-//        "user" : $wnd.userEmail,
-//        "source" : "GetStatus"
-//      };
-//      $wnd.socket.emit("getStatus", getStatusMsg);
-//
-//      // Create a new lockComponents/Blocks set for each project aka channel if it does not exist.
-//      if(!(channel in $wnd.lockedComponentsByChannel)) {
-//        $wnd.lockedComponentsByChannel[channel] = {};
-//      }
-//      if(!(channel in $wnd.lockedBlocksByChannel)) {
-//        $wnd.lockedBlocksByChannel[channel] = {};
-//      }
-//
-//    }
-//    // If the user is already listening to the socket events on this channel, return.
-//    if($wnd.socketEvents[channel]){
-//      return;
-//    }
-
-//    $wnd.socket.on(channel, function(msg){
-//      var msgJSON = JSON.parse(msg);
-//      var userFrom = msgJSON["user"];
-//      if($wnd.userEmail != userFrom){
-//        console.log(msgJSON);
-//        switch(msgJSON["source"]) {
-//          case "Designer":
-//            var componentEvent = AI.Events.ComponentEvent.fromJson(msgJSON["event"]);
-//            $wnd.Ode_disableBroadcast();
-//            componentEvent.run();
-//            $wnd.Ode_enableBroadcast();
-//            break;
-//          case "Block":
-//            var newEvent = Blockly.Events.fromJson(msgJSON["event"], workspace);
-//            Blockly.Events.disable();
-//            switch (newEvent.type) {
-//              case Blockly.Events.CREATE:
-//                newEvent.run(true);
-//                var block = workspace.getBlockById(newEvent.blockId);
-//                if (workspace.rendered) {
-//                  if(workspace.getParentSvg().parentNode.offsetParent){
-//                    block.initSvg();
-//                    block.render();
-//                  } else {
-//                    workspace.blocksNeedingRendering.push(block);
-//                  }
-//                } else {
-//                  workspace.blocksNeedingRendering.push(block);
-//                }
-//                break;
-//              case Blockly.Events.MOVE:
-//                if($wnd.AIFeature_enableComponentLocking()){
-//                  new AI.Events.UnlockBlock(channel, newEvent.blockId, userFrom).run();
-//                }
-//                newEvent.run(true);
-//                new AI.Events.SelectBlock(channel, newEvent.blockId, userFrom).run();
-//                break;
-//              case Blockly.Events.UI:
-//                new AI.Events.SelectBlock(channel, newEvent.newValue, userFrom).run();
-//                break;
-//              default:
-//                newEvent.run(true);
-//            }
-//            Blockly.Events.enable();
-//            break;
-//          case "Status":
-//            if(msgJSON["lockedComponentId"]){
-//              new AI.Events.LockComponent(channel, {id: msgJSON["lockedComponentId"], userEmail: userFrom}).run();
-//            }
-//            if(msgJSON["lockedBlockId"]){
-//              new AI.Events.SelectBlock(channel, msgJSON["lockedBlockId"], userFrom).run();
-//            }
-//            break;
-//          case "GetStatus":
-//            var msg = {
-//              "channel" : channel,
-//              "user" : $wnd.userEmail,
-//              "source" : "Status"
-//            };
-//            if(channel in $wnd.userLockedComponent){
-//              msg["lockedComponentId"] = $wnd.userLockedComponent[channel];
-//            }
-//            if(channel in $wnd.userLockedBlock){
-//              msg["lockedBlockId"] = $wnd.userLockedBlock[channel];
-//            }
-//            $wnd.socket.emit("status", msg);
-//            break;
-//          case "Media":
-//            console.log(msgJSON);
-//            $wnd.CollaborationManager_updateAsset(msgJSON["type"], msgJSON["projectId"], msgJSON["fileName"]);
-//            break;
+//        if(!(channel in $wnd.lockedBlocksByChannel)) {
+//            $wnd.lockedBlocksByChannel[channel] = {};
 //        }
-//      }
-//      $wnd.socketEvents[channel] = true;
-//    });
   }-*/;
 
     public native void connectCollaborationServer(String server, String userEmail) /*-{
@@ -320,19 +247,6 @@ public class CollaborationManager implements FormChangeListener {
     $wnd.workspaces = Blockly.allWorkspaces;
 
     console.log(Object.keys($wnd.workspaces));
-
-//    console.log(Blockly.allWorkspaces, Object.getOwnPropertyNames(Blockly.allWorkspaces));
-//    // Create a userLastSelection object for all the blocklyPanels in BLockly.allWorkspaces
-//    Object.getOwnPropertyNames(Blockly.allWorkspaces).forEach(function(key, index) {
-//        console.log("KEYS");
-//        console.log(key, Blockly.allWorkspaces[key])
-//        $wnd.workspaces[key] = Blockly.allWorkspaces[key];
-//        var workspace = $wnd.workspaces[key];
-//        // Below needed for blockly setup
-//        workspace.userLastSelection = {};
-//    })
-//
-//    console.log("JOINING WORKSPACE", Blockly.allWorkspaces);
 
     if($wnd.AIFeature_enableComponentLocking()){
       // get status of this channel from other users
@@ -406,9 +320,6 @@ public class CollaborationManager implements FormChangeListener {
               }
             }
             break;
-          case "leader":
-            $wnd.DesignToolbar_switchLeader(msgJSON["project"], msgJSON["leader"], msgJSON["leaderEmail"]);
-            break;
 
           //// PREVIOUSLY SCREEN CHANNEL SPECIFIC
           case "Designer":
@@ -417,6 +328,7 @@ public class CollaborationManager implements FormChangeListener {
             componentEvent.run();
             $wnd.Ode_enableBroadcast();
             break;
+
           case "Block":
             // Get Blockly workspace specific to a screen
             var workspace = $wnd.workspaces[blockly_workspace_name];
@@ -452,6 +364,7 @@ public class CollaborationManager implements FormChangeListener {
             }
             Blockly.Events.enable();
             break;
+
           // Status from users.
           case "Status":
             if(msgJSON["lockedComponentId"]){
@@ -461,6 +374,7 @@ public class CollaborationManager implements FormChangeListener {
               new AI.Events.SelectBlock(blockly_workspace_name, msgJSON["lockedBlockId"], userFrom).run();
             }
             break;
+
          // If someone asked for the status.
           case "GetStatus":
             var msg = {
@@ -477,9 +391,36 @@ public class CollaborationManager implements FormChangeListener {
             // Emits the status back to the sender.
             $wnd.socket.emit("status", msg);
             break;
+
           case "Media":
             console.log(msgJSON);
             $wnd.CollaborationManager_updateAsset(msgJSON["type"], msgJSON["projectId"], msgJSON["fileName"]);
+            break;
+
+          case "ScreenAdd":
+            console.log(msgJSON);
+            $wnd.CollaborationManager_updateScreenAdd(
+                msgJSON["type"],
+                msgJSON["projectId"],
+                msgJSON["formFileId"],
+                msgJSON["blocksFileId"],
+                msgJSON["modDate"],
+                msgJSON["formName"]
+            );
+            break;
+
+          case "ScreenRemove":
+            console.log(msgJSON);
+            $wnd.CollaborationManager_updateScreenRemove(
+                msgJSON["type"],
+                msgJSON["projectId"],
+                msgJSON["nodeFileId"],
+                msgJSON["formFileId"],
+                msgJSON["blocksFileId"],
+                msgJSON["yailFileId"],
+                msgJSON["modDate"],
+                msgJSON["formName"]
+            );
             break;
         }
       }
@@ -564,6 +505,77 @@ public class CollaborationManager implements FormChangeListener {
         Ode.getInstance().getCollaborationManager().setScreenChannel(channel);
     }
 
+    public static void updateScreenAdd(String type, String projectIdString, String formFileId, String blocksFileId, String modDateString, String formName){
+        long projectId = Long.parseLong(projectIdString);
+        long modDate = Long.parseLong(modDateString);
+        final Ode ode = Ode.getInstance();
+        final YoungAndroidProjectNode projectRootNode = (YoungAndroidProjectNode) ode.getCurrentYoungAndroidProjectRootNode();
+        final Project project = ode.getProjectManager().getProject(projectRootNode);
+        final YoungAndroidPackageNode packageNode = projectRootNode.getPackageNode();
+
+        if(type.equals(SCREEN_ADD)){
+            ode.updateModificationDate(projectId, modDate);
+
+            // Add the new form and blocks nodes to the project
+            project.addNode(packageNode, new YoungAndroidFormNode(formFileId));
+            project.addNode(packageNode, new YoungAndroidBlocksNode(blocksFileId));
+
+            // Add the screen to the DesignToolbar.
+            // We need to do this once the form editor and blocks editor have been
+            // added to the project editor (after the files are completely loaded).
+            Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+                @Override
+                public void execute() {
+                    ProjectEditor projectEditor =
+                            ode.getEditorManager().getOpenProjectEditor(project.getProjectId());
+                    FileEditor formEditor = projectEditor.getFileEditor(formFileId);
+                    FileEditor blocksEditor = projectEditor.getFileEditor(blocksFileId);
+                    if (formEditor != null && blocksEditor != null && !ode.screensLocked()) {
+                        DesignToolbar designToolbar = Ode.getInstance().getDesignToolbar();
+                        long projectId = formEditor.getProjectId();
+                        designToolbar.addScreen(projectId, formName, formEditor,
+                                blocksEditor);
+                    } else {
+                        // The form editor and/or blocks editor is still not there. Try again later.
+                        Scheduler.get().scheduleDeferred(this);
+                    }
+                }
+            });
+
+        }
+    }
+
+    public static void updateScreenRemove(String type, String projectIdString, String nodeFileId, String formFileId, String blocksFileId, String yailFileId, String modDateString, String formName){
+        long projectId = Long.parseLong(projectIdString);
+        long modDate = Long.parseLong(modDateString);
+        final Ode ode = Ode.getInstance();
+        final YoungAndroidProjectNode projectRootNode = (YoungAndroidProjectNode) ode.getCurrentYoungAndroidProjectRootNode();
+        final Project project = ode.getProjectManager().getProject(projectRootNode);
+        final YoungAndroidPackageNode packageNode = projectRootNode.getPackageNode();
+        final ProjectNode node = ode.getCurrentYoungAndroidProjectRootNode().findNode(nodeFileId);
+
+        if(type.equals(SCREEN_REMOVE)){
+            // We need to close both the form editor and the blocks editor
+            String[] fileIds = new String[2];
+            fileIds[0] = formFileId;
+            fileIds[1] = blocksFileId;
+            ode.getEditorManager().closeFileEditors(projectId, fileIds);
+
+            // Remove all related nodes (form, blocks, yail) from the project.
+            for (ProjectNode sourceNode : node.getProjectRoot().getAllSourceNodes()) {
+                if (sourceNode.getFileId().equals(formFileId)
+                        || sourceNode.getFileId().equals(blocksFileId)
+                        || sourceNode.getFileId().equals(yailFileId)) {
+                    project.deleteNode(sourceNode);
+                }
+            }
+            ode.getDesignToolbar().removeScreen(project.getProjectId(), formName);
+            ode.updateModificationDate(projectId, modDate);
+        }
+    }
+
+
+
     public static void updateAsset(String type, String projectIdString, String fileName) {
         long projectId = Long.parseLong(projectIdString);
         Project project = Ode.getInstance().getProjectManager().getProject(projectId);
@@ -589,5 +601,11 @@ public class CollaborationManager implements FormChangeListener {
         $entry(@com.google.appinventor.client.CollaborationManager::setCurrentScreenChannel(Ljava/lang/String;));
     $wnd.CollaborationManager_updateAsset =
         $entry(@com.google.appinventor.client.CollaborationManager::updateAsset(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;));
+    $wnd.CollaborationManager_updateScreenAdd =
+        $entry(@com.google.appinventor.client.CollaborationManager::updateScreenAdd(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;));
+    $wnd.CollaborationManager_updateScreenRemove =
+        $entry(@com.google.appinventor.client.CollaborationManager::updateScreenRemove(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;));
   }-*/;
+
+    //(String type, Long projectId, String nodeFileId, String formFileId, String blocksFileId, String yailFileId, Long modDate)
 }

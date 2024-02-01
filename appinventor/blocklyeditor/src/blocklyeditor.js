@@ -452,7 +452,7 @@ Blockly.ai_inject = function(container, workspace) {
   var gridSnap = top.BlocklyPanel_getSnapEnabled && top.BlocklyPanel_getSnapEnabled();
   var blocklyWorkspaceName = window.parent.Ode_getCurrentBlocklyWorkspaceName();
   if(!(blocklyWorkspaceName in window.parent.lockedBlocksByChannel)) {
-     window.parent.lockedBlocksByChannel[channel] = {};
+     window.parent.lockedBlocksByChannel[blocklyWorkspaceName] = {};
   }
   if (workspace.injected) {
     workspace.setGridSettings(gridEnabled, gridSnap);

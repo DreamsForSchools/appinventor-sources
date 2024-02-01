@@ -244,7 +244,8 @@ public class DesignToolbar extends Toolbar {
 
 //    if(!currentChannel.equals(Ode.getInstance().getCollaborationManager().getScreenChannel())){
 ////      Ode.getInstance().getCollaborationManager().setScreenChannel(currentChannel);
-      Ode.getInstance().getCollaborationManager().componentSocketEvent(currentChannel);
+    // TODO: Delete these, unneeded.
+//      Ode.getInstance().getCollaborationManager().componentSocketEvent(currentChannel);
 //    }
 
     LOG.info("Setting currentScreen to " + newScreenName);

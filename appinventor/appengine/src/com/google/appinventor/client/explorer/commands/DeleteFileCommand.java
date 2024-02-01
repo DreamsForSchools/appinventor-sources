@@ -214,6 +214,10 @@ public class DeleteFileCommand extends ChainableCommand {
               MESSAGES.deleteFileError()) {
             @Override
             public void onSuccess(Long date) {
+              // Emit the changes here.
+              Ode.getInstance().getCollaborationManager()
+                      .broadcastScreenRemove(CollaborationManager.SCREEN_REMOVE, projectId, node.getFileId(), formFileId, blocksFileId, yailFileId, date, formName);
+
               // Remove all related nodes (form, blocks, yail) from the project.
               Project project = getProject(node);
               for (ProjectNode sourceNode : node.getProjectRoot().getAllSourceNodes()) {

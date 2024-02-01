@@ -8,6 +8,7 @@ package com.google.appinventor.client.explorer.commands;
 
 import static com.google.appinventor.client.Ode.MESSAGES;
 
+import com.google.appinventor.client.CollaborationManager;
 import com.google.appinventor.client.editor.youngandroid.DesignToolbar;
 import com.google.appinventor.client.Ode;
 import com.google.appinventor.client.OdeAsyncCallback;
@@ -204,7 +205,7 @@ public final class AddFormCommand extends ChainableCommand {
      *
      * @param formName the new form name
      */
-    protected void addFormAction(final YoungAndroidProjectNode projectRootNode, 
+    protected void addFormAction(final YoungAndroidProjectNode projectRootNode, // HERE
         final String formName) {
       final Ode ode = Ode.getInstance();
       final YoungAndroidPackageNode packageNode = projectRootNode.getPackageNode();
@@ -217,6 +218,12 @@ public final class AddFormCommand extends ChainableCommand {
           MESSAGES.addFormError()) {
         @Override
         public void onSuccess(Long modDate) {
+          // Emit the changes here.
+          Ode.getInstance().getCollaborationManager()
+                  .broadcastScreenAdd(CollaborationManager.SCREEN_ADD, projectRootNode.getProjectId(), formFileId, blocksFileId, modDate, formName);
+
+
+          // ALl the code below gets executed in the receiving clients in Collaboration manager.
           final Ode ode = Ode.getInstance();
           ode.updateModificationDate(projectRootNode.getProjectId(), modDate);
 

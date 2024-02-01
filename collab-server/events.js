@@ -272,6 +272,16 @@ var events = function(io){
             socket.broadcast.emit(msg["channel"], JSON.stringify(msg));
         });
 
+        // Screen add
+        socket.on("screenAdd", function(msg){
+            socket.broadcast.emit(msg["channel"], JSON.stringify(msg));
+        });
+
+        // Screen remove
+        socket.on("screen", function(msg){
+            socket.broadcast.emit(msg["channel"], JSON.stringify(msg));
+        });
+
 
         //disconnection
         // socket is deleted on disconnect, so all the event handlers are automatically cleaned up.

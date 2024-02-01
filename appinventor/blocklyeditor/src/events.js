@@ -646,8 +646,11 @@ AI.Events.LockBlock = function(workspaceId, blockId, userEmail) {
 AI.Events.LockBlock.prototype.type = AI.Events.BLOCK_LOCK;
 
 AI.Events.LockBlock.prototype.run = function() {
-  var workspace = Blockly.allWorkspaces[this.workspaceId];
+  var workspace = $wnd.workspaces[this.workspaceId];
   var rootBlock = workspace.getBlockById(this.blockId);
+  if(!(this.workspaceId in window.parent.lockedBlocksByChannel)) {
+    window.parent.lockedBlocksByChannel[this.workspaceId] = {};
+  }
   var lockedBlock = window.parent.lockedBlocksByChannel[this.workspaceId];
   while(rootBlock.parentBlock_){
     rootBlock = rootBlock.parentBlock_;
@@ -682,6 +685,11 @@ AI.Events.UnlockBlock.prototype.type = AI.Events.BLOCK_UNLOCK;
 AI.Events.UnlockBlock.prototype.run = function() {
   var workspace = Blockly.allWorkspaces[this.workspaceId];
   var rootBlock = workspace.getBlockById(this.blockId);
+  // TODO: Ideally, this lockedBlocksByChannel[workspaceId] gets created all at once in the beginning.
+  //      So grab all the workspace ids in the beginning and add it there if it doens't exist. Also add it on lock. This is fine for now though.
+  if(!(this.workspaceId in window.parent.lockedBlocksByChannel)) {
+    window.parent.lockedBlocksByChannel[this.workspaceId] = {};
+  }
   var lockedBlock = window.parent.lockedBlocksByChannel[this.workspaceId];
   while(rootBlock.parentBlock_){
     rootBlock = rootBlock.parentBlock_;
