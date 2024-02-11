@@ -288,8 +288,8 @@ var events = function(io){
         socket.on("disconnect", function(){
             debugging(userEmail+" connection is off");
             var pubMsg = {
-                "project": projectID,
-                "type" : "leave",
+                "channel": projectID,
+                "source" : "leave",
                 "user" : userEmail
             };
 

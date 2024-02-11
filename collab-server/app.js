@@ -43,7 +43,7 @@ app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found. Collab server 1/17/24: 19:10pm');
+  var err = new Error('Not Found. Collab server 2024/02/11: 7:59am');
   err.status = 404;
   next(err);
 });
