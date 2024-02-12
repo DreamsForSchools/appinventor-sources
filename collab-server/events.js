@@ -17,6 +17,7 @@ var logging = function(obj) {
 var projectJoinedUser = new Map();
 var projectAvailColors = new Map();
 const colors = ['#999999','#f781bf','#a65628','#ffff33','#ff7f00','#984ea3','#4daf4a','#377eb8','#e41a1c'];
+const defaultColor = '#e41a1c';
 
 // These socket.on() events are mostly just subscriptions. The socket event names should be clearer but I'm not going to refactor it now.
 var events = function(io){
@@ -72,7 +73,7 @@ var events = function(io){
             if (projectJoinedUser.has(msg["project"])){
                 joinedUsers = projectJoinedUser.get(msg["project"]);
             } else {
-                joinedUsers = new Set();
+                joinedUsers = new Map(); // Use a map, not a set.
                 projectJoinedUser.set(msg["project"], joinedUsers);
             }
 
@@ -80,7 +81,7 @@ var events = function(io){
             if (projectAvailColors.has(msg["project"])){
                 availColors = projectAvailColors.get(msg["project"]);
             } else {
-                availColors = colors;
+                availColors = colors.slice(); // Use slice to copy by value.
                 projectAvailColors.set(msg["project"], colors);
             }
 
@@ -88,6 +89,10 @@ var events = function(io){
             // joinedUsers.add(msg["user"]);
             // let userColor = colors[colors.length % (colors.length - Object.keys(joinedUsers).length)];
             let userColor = availColors.pop();
+
+            // default color if no more colors
+            if (userColor == undefined) userColor = defaultColor;
+
             joinedUsers[uemail] = userColor;
 
             projectAvailColors.set(msg["project"], availColors);
@@ -292,19 +297,20 @@ var events = function(io){
                 "source" : "leave",
                 "user" : userEmail
             };
-
-            if(projectJoinedUser.has(projectID)){
-                projectJoinedUser.get(projectID).delete(userEmail);
-            }
-
+            
             if(projectID!=""){
                 const projectColors = projectJoinedUser.get(projectID);
-                console.log(projectColors)
-                console.log(projectColors[userEmail])
-                // Add the color back into the project's available color
-                if (projectAvailColors.has(projectID)) {
-                    projectAvailColors.get(projectID).push(projectColors[userEmail]);
+                const leavingUsersColor = projectColors[userEmail];
+
+                // Add the color back into the project's available color and the color is valid
+                if (projectAvailColors.has(projectID) && leavingUsersColor) {
+                    projectAvailColors.get(projectID).push(leavingUsersColor);
                 }
+
+                if(projectJoinedUser.has(projectID)){
+                    delete projectJoinedUser.get(projectID)[userEmail];
+                }
+    
 
                 socket.broadcast.emit(projectID, JSON.stringify(pubMsg));
                 var lmsg = {
