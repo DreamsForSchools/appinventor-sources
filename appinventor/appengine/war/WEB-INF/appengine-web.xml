@@ -161,7 +161,7 @@
     <property name="feedback.url" value="mailto:support@dreamsforschools.org" />
     <property name="release.notes.url" value="http://appinventor.mit.edu/ai2/ReleaseNotes.html" />
     <property name="tos.url" value="https://docs.google.com/document/d/1F0SiDEAi9aBsrkqSzSQr4gUD2eJHCB_w-hrQXWjEf48/preview" />
-    <property name="logo.url" value="http://appinventor.mit.edu" />
+    <property name="logo.url" value="https://www.dreamsforschools.org/" />
     <property name="guide.url" value="http://appinventor.mit.edu/explore/library" />
     <property name="reference.components.url" value="/reference/components/" />
     <property name="blockly.share.url" value="collab.staging.appjam.org" />
