@@ -21,3 +21,6 @@ out/
 .bundle/
 vendor/
 node_modules/
+.idea/
+sign/
+dump.rbd

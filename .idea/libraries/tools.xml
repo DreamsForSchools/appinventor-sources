@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="tools">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/appinventor/buildserver/build/classes/BuildServer/tools/dx.jar!/" />
+      <root url="jar://$PROJECT_DIR$/appinventor/buildserver/build/classes/BuildServer/tools/bundletool.jar!/" />
+      <root url="jar://$PROJECT_DIR$/appinventor/buildserver/build/classes/BuildServer/tools/apksigner.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

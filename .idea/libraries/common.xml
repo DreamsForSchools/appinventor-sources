@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="common">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/appinventor/build/common/CommonUtils-gwt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/appinventor/build/common/CommonVersion-gwt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/appinventor/build/common/CommonUtils.jar!/" />
+      <root url="jar://$PROJECT_DIR$/appinventor/build/common/CommonVersion.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

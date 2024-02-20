@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/appinventor/aimerger/aimerger.iml" filepath="$PROJECT_DIR$/appinventor/aimerger/aimerger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/aimerger_for_appinv_classic/aimerger_for_appinv_classic.iml" filepath="$PROJECT_DIR$/appinventor/aimerger_for_appinv_classic/aimerger_for_appinv_classic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/appengine/appengine.iml" filepath="$PROJECT_DIR$/appinventor/appengine/appengine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/appinventor-sources.iml" filepath="$PROJECT_DIR$/.idea/appinventor-sources.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/blocklyeditor/blocklyeditor.iml" filepath="$PROJECT_DIR$/appinventor/blocklyeditor/blocklyeditor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/build/build.iml" filepath="$PROJECT_DIR$/appinventor/build/build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/common/build/build1.iml" filepath="$PROJECT_DIR$/appinventor/common/build/build1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/components/build/build2.iml" filepath="$PROJECT_DIR$/appinventor/components/build/build2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/buildserver/buildserver.iml" filepath="$PROJECT_DIR$/appinventor/buildserver/buildserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/common/common.iml" filepath="$PROJECT_DIR$/appinventor/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/components/components.iml" filepath="$PROJECT_DIR$/appinventor/components/components.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.7.0/gems/concurrent-ruby-1.1.5/concurrent-ruby-1.1.5.iml" filepath="$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.7.0/gems/concurrent-ruby-1.1.5/concurrent-ruby-1.1.5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.6.0/gems/concurrent-ruby-1.1.5/concurrent-ruby-1.1.51.iml" filepath="$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.6.0/gems/concurrent-ruby-1.1.5/concurrent-ruby-1.1.51.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.3.0/gems/concurrent-ruby-1.1.5/concurrent-ruby-1.1.52.iml" filepath="$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.3.0/gems/concurrent-ruby-1.1.5/concurrent-ruby-1.1.52.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.6.0/gems/eventmachine-1.2.7/eventmachine-1.2.7.iml" filepath="$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.6.0/gems/eventmachine-1.2.7/eventmachine-1.2.7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.7.0/gems/eventmachine-1.2.7/eventmachine-1.2.71.iml" filepath="$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.7.0/gems/eventmachine-1.2.7/eventmachine-1.2.71.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.3.0/gems/eventmachine-1.2.7/eventmachine-1.2.72.iml" filepath="$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.3.0/gems/eventmachine-1.2.7/eventmachine-1.2.72.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.6.0/gems/http_parser.rb-0.6.0/http_parser.rb-0.6.0.iml" filepath="$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.6.0/gems/http_parser.rb-0.6.0/http_parser.rb-0.6.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.3.0/gems/http_parser.rb-0.6.0/http_parser.rb-0.6.01.iml" filepath="$PROJECT_DIR$/appinventor/docs/markdown/vendor/bundle/ruby/2.3.0/gems/http_parser.rb-0.6.0/http_parser.rb-0.6.01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appinventor/misc/misc.iml" filepath="$PROJECT_DIR$/appinventor/misc/misc.iml" />
+    </modules>
+  </component>
+</project>
