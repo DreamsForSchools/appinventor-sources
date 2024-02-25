@@ -36,25 +36,20 @@ AI.Blockly.FieldProcedureName.prototype.value_ = '';
  * @override
  */
 AI.Blockly.FieldProcedureName.prototype.setValue = function(newValue) {
-  if (newValue === null) {
-    return;
-  }
+  var oldValue = this.getValue();
+  AI.Blockly.FieldProcedureName.superClass_.setValue.call(this, newValue);
   if (this.sourceBlock_ && this.sourceBlock_.isInFlyout) {
     // Do not take action for blocks in flyouts
     return;
   }
-  if (this.sourceBlock_) {  // can only set the property of an existing block
-    var oldValue = this.getValue();
-    AI.Blockly.FieldProcedureName.superClass_.setValue.call(this, newValue);
-    newValue = this.getText();  // asymmetry here due to how Blockly.Field.setValue is implemented.
-    if (typeof newValue === 'string' && this.sourceBlock_) {
-      var procDb = this.sourceBlock_.workspace.getProcedureDatabase();
-      if (procDb) {
-        if (procDb.getProcedure(this.sourceBlock_.id)) {
-          procDb.renameProcedure(this.sourceBlock_.id, oldValue, newValue);
-        } else {
-          procDb.addProcedure(newValue, this.sourceBlock_);
-        }
+  newValue = this.getValue();
+  if (typeof newValue === 'string' && this.sourceBlock_) {
+    var procDb = this.sourceBlock_.workspace.getProcedureDatabase();
+    if (procDb) {
+      if (procDb.getProcedure(this.sourceBlock_.id)) {
+        procDb.renameProcedure(this.sourceBlock_.id, oldValue, newValue);
+      } else {
+        procDb.addProcedure(newValue, this.sourceBlock_);
       }
     }
     this.value_ = newValue;

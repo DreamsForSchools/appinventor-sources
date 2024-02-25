@@ -29,7 +29,7 @@
       <ya:AddFormAction />
     </ai:ToolbarItem>
     <ai:ToolbarItem name="RemoveForm" caption="{messages.removeFormButton}" ui:field="removeFormItem"
-                    align="center">
+       align="center">
       <ya:RemoveFormAction />
     </ai:ToolbarItem>
     <ai:ToolbarItem name="ShareProject" caption="{messages.shareProjectMenuItem}" ui:field="shareProjectItem"
@@ -38,6 +38,14 @@
     </ai:ToolbarItem>
 
     <!-- Right toolbar items -->
+    <ai:ToolbarItem name="ProjectPropertiesDialog" caption="{messages.projectPropertiesText}" ui:field="projectPropertiesDialog"
+                    align="center">
+      <ya:ProjectPropertiesAction />
+    </ai:ToolbarItem>
+    <ai:ToolbarItem name="Gallery" caption="{messages.publishToGalleryButton}"
+       ui:field="sendToGalleryItem" align="center">
+      <actions:SendToGalleryAction />
+    </ai:ToolbarItem>
     <ai:ToolbarItem name="switchToDesign" caption="{messages.switchToFormEditorButton}"
                     ui:field="switchToDesign" align="right">
       <ya:SwitchToFormEditorAction />

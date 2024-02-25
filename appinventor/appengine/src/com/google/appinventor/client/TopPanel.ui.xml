@@ -16,7 +16,7 @@
     <g:HTML>
       <img srcset="" src="/static/images/appmaker.png" ui:field="logo" />
     </g:HTML>
-    <ode:TopToolbar ui:field="topToolbar" />
+    <ode:TopToolbar ui:field="topToolbar"/>
     <g:FlowPanel ui:field="rightPanel">
       <g:FlowPanel styleName="ode-TopPanelAccount">
         <g:FlowPanel styleName="ode-TopPanelLinks" ui:field="links">

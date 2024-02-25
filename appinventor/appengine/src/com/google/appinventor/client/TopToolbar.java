@@ -67,6 +67,7 @@ public class TopToolbar extends Composite {
   private static final String WIDGET_NAME_IMPORTTEMPLATE = "ImportTemplate";
   private static final String WIDGET_NAME_EXPORTPROJECT = "ExportProject";
   private static final String WIDGET_NAME_SHARE = "ShareProject";
+  private static final String WIDGET_NAME_PROJECTPROPERTIES = "ProjectProperties";
 
   private static final String WIDGET_NAME_ADMIN = "Admin";
   private static final String WIDGET_NAME_USER_ADMIN = "UserAdmin";
@@ -305,6 +306,7 @@ public class TopToolbar extends Composite {
       fileDropDown.setItemEnabled(MESSAGES.saveMenuItem(), false);
       fileDropDown.setItemEnabled(MESSAGES.saveAsMenuItem(), false);
       fileDropDown.setItemEnabled(MESSAGES.checkpointMenuItem(), false);
+      fileDropDown.setItemEnabled(MESSAGES.projectPropertiesMenuItem(), false);
       buildDropDown.setItemEnabled(MESSAGES.showExportAndroidApk(), false);
       buildDropDown.setItemEnabled(MESSAGES.showExportAndroidAab(), false);
       fileDropDown.setItemEnabled(MESSAGES.shareProjectMenuItem(), false);
@@ -314,12 +316,14 @@ public class TopToolbar extends Composite {
       }
     } else { // We have to be in the Designer/Blocks view
       fileDropDown.setItemEnabled(MESSAGES.deleteProjectButton(), true);
+      fileDropDown.setItemEnabled(MESSAGES.projectPropertiesMenuItem(), true);
       fileDropDown.setItemEnabled(MESSAGES.trashProjectMenuItem(), true);
       fileDropDown.setItemEnabled(MESSAGES.exportAllProjectsMenuItem(), projectCount > 0);
       fileDropDown.setItemEnabledById(WIDGET_NAME_EXPORTPROJECT, true);
       fileDropDown.setItemEnabled(MESSAGES.saveMenuItem(), true);
       fileDropDown.setItemEnabled(MESSAGES.saveAsMenuItem(), true);
       fileDropDown.setItemEnabled(MESSAGES.checkpointMenuItem(), true);
+      fileDropDown.setItemEnabled(MESSAGES.projectPropertiesMenuItem(), true);
       buildDropDown.setItemEnabled(MESSAGES.showExportAndroidApk(), true);
       buildDropDown.setItemEnabled(MESSAGES.showExportAndroidAab(), true);
       fileDropDown.setItemEnabled(MESSAGES.shareProjectMenuItem(), true);
