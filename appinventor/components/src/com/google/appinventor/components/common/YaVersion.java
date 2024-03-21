@@ -1637,7 +1637,7 @@ public class YaVersion {
   public static final String COMPANION_UPDATE_URL = "";
   public static final String COMPANION_UPDATE_URL1 = "";
   public static final String COMPANION_UPDATE_EMULATOR_URL = "";
-  public static final String [] ACCEPTABLE_COMPANIONS = { "2.69", "2.69u" };
+  public static final String [] ACCEPTABLE_COMPANIONS = { "2.69", "2.69u", "2.68", "2.68u" };
 
   // Splash Screen Values
   public static final int SPLASH_SURVEY = 1;
